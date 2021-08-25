@@ -112,6 +112,20 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	
 	_tinyCompiler_scriptedIllustrator_declareFunctions_core
 	
+	
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_scribble
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell
+	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_editable
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_terminal
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_html
+	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki
+	
+	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_python_docx
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_presentation
 }
 
 

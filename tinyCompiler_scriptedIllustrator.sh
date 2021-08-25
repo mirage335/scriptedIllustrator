@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='1284730965'
+export ub_setScriptChecksum_contents='2429234208'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11377,6 +11377,20 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	
 	_tinyCompiler_scriptedIllustrator_declareFunctions_core
 	
+	
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_scribble
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell
+	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_editable
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_terminal
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_html
+	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki
+	
+	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_python_docx
+	
+	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_presentation
 }
 
 
@@ -11994,48 +12008,10 @@ _extractAttachment() {
 
 
 
-# ATTENTION: WIP !
-_scribble_html() {
-	export current_scriptedIllustrator_markup='html'
-	
-	local currentScriptBasename
-	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
-	
-	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
-	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
-	
-	local currentOutputFile
-	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup"
-	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
-	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
-	
-	echo -n > "$currentOutputFile".tmp
-	! [[ -e "$currentOutputFile".tmp ]] && exit 1
-	
-	# Solely to prevent saved 'html' markup file from being perceived by 'magic sequences' as itself a shell script for file association purposes.
-	echo -n '# <html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
-	echo >> "$currentOutputFile".tmp
-	
-	_HEADER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
-	
-	
-	"$scriptAbsoluteLocation" DOCUMENT | _break_markup_html >> "$currentOutputFile".tmp
-	
-	
-	_FOOTER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
-	
-	echo -n '# </html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
-	echo >> "$currentOutputFile".tmp
-	
-	chmod u+x "$currentOutputFile".tmp
-	
-	mv "$currentOutputFile".tmp "$currentOutputFile"
-}
-
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_core() {
-	declare -f _scribble_html
+	true
 }
 
 
@@ -12109,38 +12085,122 @@ _test_default() {
 
 # Equivalent to '_main', with the usual '_collect' (aka. '_gather'), '_enter', '_launch', etc.
 _default() {
-	
-	
 	_scribble_html "$@"
 	
 	
-	
-	
-	
-	
-	
-	
-	
 	return;
-	
-	# TODO: Should output something close to what 'DOCUMENT' would look like originally - just the function calls - before lots of 'hidden' comment strings and such.
-	# ATTENTION: Might be the same as (ie. synonymous with) 'terminal' .
-	export current_scriptedIllustrator_markup='editable'
-	
-	# TODO: Extra '#' and similar shell characters deleted. Most likely used to convert to PDF (deleting or not keeping any temporary intermediate HTML file to prevent misuse).
-	export current_scriptedIllustrator_markup='presentation'
-	
-	
-	
-	export current_scriptedIllustrator_markup='mediawiki'
-	
-	
-	export current_scriptedIllustrator_markup='terminal'
-	
-	export current_scriptedIllustrator_markup='python_docx'
 }
 
 
+
+
+# ATTENTION: WIP !
+_scribble_html() {
+	export current_scriptedIllustrator_markup='html'
+	
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	
+	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	
+	local currentOutputFile
+	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup"
+	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
+	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
+	
+	echo -n > "$currentOutputFile".tmp
+	! [[ -e "$currentOutputFile".tmp ]] && exit 1
+	
+	# Solely to prevent saved 'html' markup file from being perceived by 'magic sequences' as itself a shell script for file association purposes.
+	echo -n '# <html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
+	echo >> "$currentOutputFile".tmp
+	
+	_HEADER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
+	
+	
+	"$scriptAbsoluteLocation" DOCUMENT | _break_markup_html >> "$currentOutputFile".tmp
+	
+	
+	_FOOTER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
+	
+	echo -n '# </html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
+	echo >> "$currentOutputFile".tmp
+	
+	chmod u+x "$currentOutputFile".tmp
+	
+	mv "$currentOutputFile".tmp "$currentOutputFile"
+}
+
+
+
+_tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
+	declare -f _scribble_html
+}
+
+
+
+# TODO: Move from 'wip_functions.sh' .
+# TODO: Shell code as markup. When used by other markup, this is to prevent shell interpretation of markup. When creating a new file, only 'scribble' the shell code - resulting in a 'simplified', 'editable' shell script.
+# To 'scribble' just the shell code, just use the grep 'filter'.
+
+
+
+
+
+
+
+_tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell() {
+	true
+}
+
+
+
+# TODO: Cause all markup to print to terminal as ANSI escape codes. Interleaving of shell code may not be possible in this case.
+export current_scriptedIllustrator_markup='terminal'
+unset current_scriptedIllustrator_markup
+
+
+
+
+
+
+
+_tinyCompiler_scriptedIllustrator_declareFunctions_markup_terminal() {
+	true
+}
+
+
+# TODO: Move from 'wip_functions.sh' .
+export current_scriptedIllustrator_markup='html'
+unset current_scriptedIllustrator_markup
+
+
+
+_tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
+	true
+}
+
+
+# TODO: Expect strong resemblence to 'html' .
+# https://www.mediawiki.org/wiki/Help:Formatting
+export current_scriptedIllustrator_markup='mediawiki'
+unset current_scriptedIllustrator_markup
+
+
+_tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
+	true
+}
+
+
+# TODO: Presentation markup. Extra '#' and similar shell characters deleted. Most likely will 'scribble' temporary HTML (ideally with user-defined page breaks being present), then 'scribble' that HTML to PDF.
+export current_scriptedIllustrator_markup='presentation'
+unset current_scriptedIllustrator_markup
+
+
+_tinyCompiler_scriptedIllustrator_declareFunctions_markup_presentation() {
+	true
+}
 
 #currentReversePort=""
 #currentMatchingReversePorts=""
@@ -14518,6 +14578,14 @@ _compile_bash_program_prog() {
 	includeScriptList+=( "scriptedIllustrator"/functions/78_installation_functions.sh )
 	includeScriptList+=( "scriptedIllustrator"/functions/79_program_functions.sh )
 	
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/_scribble.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/01_shell.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/02_editable.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/05_terminal.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/20_html.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/30_mediawiki.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/40_python_docx.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/80_presentation.sh )
 }
 
 _compile_bash_config_prog() {	

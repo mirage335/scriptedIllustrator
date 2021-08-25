@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='229790373'
+export ub_setScriptChecksum_contents='3511289935'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -6696,6 +6696,14 @@ _compile_bash_program_prog() {
 	includeScriptList+=( "scriptedIllustrator"/functions/78_installation_functions.sh )
 	includeScriptList+=( "scriptedIllustrator"/functions/79_program_functions.sh )
 	
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/_scribble.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/01_shell.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/02_editable.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/05_terminal.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/20_html.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/30_mediawiki.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/40_python_docx.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/80_presentation.sh )
 }
 
 _compile_bash_config_prog() {	
