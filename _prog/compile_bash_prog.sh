@@ -1,5 +1,19 @@
 _compile_bash_deps_prog() {
-	true
+	if [[ "$1" == "tinyCompiler_scriptedIllustrator" ]]
+	then
+		#_deps_git
+		#_deps_virt_translation
+		#_deps_stopwatch
+		#_deps_queue
+		
+		
+		_deps_calculators
+		
+		_deps_build_bash
+		_deps_build_bash_ubiquitous
+		
+		return 0
+	fi
 }
 
 #Default is to include all, or run a specified configuration. For this reason, it will be more typical to override this entire function, rather than append any additional code.
@@ -108,6 +122,16 @@ _compile_bash_installation_prog() {
 _compile_bash_program_prog() {	
 	export includeScriptList
 	true
+	
+	
+	includeScriptList+=( "scriptedIllustrator"/functions/20_wip_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/25_experimental_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/40_splice_functions.sh )
+	
+	includeScriptList+=( "scriptedIllustrator"/functions/70_core_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/78_installation_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/79_program_functions.sh )
+	
 }
 
 _compile_bash_config_prog() {	

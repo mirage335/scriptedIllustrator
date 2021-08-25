@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='4121707963'
+export ub_setScriptChecksum_contents='229790373'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -1749,7 +1749,7 @@ _getScriptAbsoluteLocation() {
 	
 	local currentScriptLocation
 	currentScriptLocation="$0"
-	uname -a | grep -i cygwin > /dev/null 2>&1 && currentScriptLocation=$(_cygwin_translation_rootFileParameter)
+	uname -a | grep -i cygwin > /dev/null 2>&1 && type _cygwin_translation_rootFileParameter > /dev/null 2>&1 && currentScriptLocation=$(_cygwin_translation_rootFileParameter)
 	
 	
 	local absoluteLocation
@@ -5583,19 +5583,26 @@ _generate_compile_bash() {
 _generate_compile_bash_prog() {
 	"$scriptAbsoluteLocation" _true
 	
-	return
+	#return
 	
 	rm "$scriptAbsoluteFolder"/ubiquitous_bash.sh
 	
 	#"$scriptAbsoluteLocation" _compile_bash cautossh cautossh
 	#"$scriptAbsoluteLocation" _compile_bash lean lean.sh
 	
-	"$scriptAbsoluteLocation" _compile_bash core ubiquitous_bash.sh
+	#"$scriptAbsoluteLocation" _compile_bash core ubiquitous_bash.sh
 	
 	#"$scriptAbsoluteLocation" _compile_bash "" ""
 	#"$scriptAbsoluteLocation" _compile_bash ubiquitous_bash ubiquitous_bash.sh
 	
 	#"$scriptAbsoluteLocation" _package
+	
+	
+	#"$scriptAbsoluteLocation" _compile_bash scriptedIllustrator ubiquitous_bash.sh
+	
+	"$scriptAbsoluteLocation" _compile_bash tinyCompiler_scriptedIllustrator tinyCompiler_scriptedIllustrator.sh
+	
+	"$scriptAbsoluteFolder"/tinyCompiler_scriptedIllustrator.sh _tinyCompiler_scriptedIllustrator
 }
 
 #Default is to include all, or run a specified configuration. For this reason, it will be more typical to override this entire function, rather than append any additional code.
@@ -6556,7 +6563,21 @@ _compile_bash() {
 }
 
 _compile_bash_deps_prog() {
-	true
+	if [[ "$1" == "tinyCompiler_scriptedIllustrator" ]]
+	then
+		#_deps_git
+		#_deps_virt_translation
+		#_deps_stopwatch
+		#_deps_queue
+		
+		
+		_deps_calculators
+		
+		_deps_build_bash
+		_deps_build_bash_ubiquitous
+		
+		return 0
+	fi
 }
 
 #Default is to include all, or run a specified configuration. For this reason, it will be more typical to override this entire function, rather than append any additional code.
@@ -6665,6 +6686,16 @@ _compile_bash_installation_prog() {
 _compile_bash_program_prog() {	
 	export includeScriptList
 	true
+	
+	
+	includeScriptList+=( "scriptedIllustrator"/functions/20_wip_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/25_experimental_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/40_splice_functions.sh )
+	
+	includeScriptList+=( "scriptedIllustrator"/functions/70_core_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/78_installation_functions.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions/79_program_functions.sh )
+	
 }
 
 _compile_bash_config_prog() {	

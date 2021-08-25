@@ -613,7 +613,7 @@ export anchorName=$(basename "$anchorScriptAbsoluteLocation")
 # Ignore '--' suffix specific software name convention.
 export anchorName=${anchorName%"--"*}
 
-export anchorSourceDir="ubiquitous_bash"
+export anchorSourceDir="scriptedIllustrator"
 export anchorSource="ubiquitous_bash.sh"
 export anchorSourcePath="$anchorSourceDir"/"$anchorSource"
 
