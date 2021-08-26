@@ -2,7 +2,7 @@
 #####Markup.
 
 _filter__scriptedIllustrator_markup() {
-	grep -v 'scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	grep -v "$markup_flag_NOT_shell"
 }
 _hideFrom_markup_html() {
 	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'

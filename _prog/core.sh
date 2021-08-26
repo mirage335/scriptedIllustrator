@@ -18,6 +18,21 @@ _tiny_criticalDep() {
 	return 0
 }
 
+_tiny_set_strings() {
+	_tryExec _set_strings_markup_scribble
+	
+	_set_strings_markup_shell
+	_tryExec _set_strings_markup_editable
+	_tryExec _set_strings_markup_terminal
+	
+	_set_strings_markup_html
+	_tryExec _set_strings_markup_mediawiki
+	
+	_tryExec _set_strings_markup_python_docx
+	
+	_tryExec _set_strings_markup_presentation
+}
+
 
 
 
@@ -31,6 +46,12 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _getAbsolute_criticalDep
 	
 	declare -f _tiny_criticalDep
+	
+	declare -f _tryExec
+	declare -f _tryExecFull
+	
+	# Roughly equivalent to 'specglobalvars'.
+	declare -f _tiny_set_strings
 	
 	declare -f _getScriptAbsoluteLocation
 	declare -f _getScriptAbsoluteFolder
@@ -171,6 +192,9 @@ _tinyCompiler_scriptedIllustrator() {
 	unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes
 	
 	
+	echo '' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo '# Special Global Variables' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo '_tiny_set_strings' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
 	
 	# CAUTION: Do NOT add trap unless necessary or within a function call. Unnecessary and may be problematic for a script which imports 'ubiquitous bash' and does not nominally use '_start'/'_stop'/"$safeTmp"/etc .

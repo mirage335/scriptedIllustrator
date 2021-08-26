@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2429234208'
+export ub_setScriptChecksum_contents='3434762391'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11283,6 +11283,21 @@ _tiny_criticalDep() {
 	return 0
 }
 
+_tiny_set_strings() {
+	_tryExec _set_strings_markup_scribble
+	
+	_set_strings_markup_shell
+	_tryExec _set_strings_markup_editable
+	_tryExec _set_strings_markup_terminal
+	
+	_set_strings_markup_html
+	_tryExec _set_strings_markup_mediawiki
+	
+	_tryExec _set_strings_markup_python_docx
+	
+	_tryExec _set_strings_markup_presentation
+}
+
 
 
 
@@ -11296,6 +11311,12 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _getAbsolute_criticalDep
 	
 	declare -f _tiny_criticalDep
+	
+	declare -f _tryExec
+	declare -f _tryExecFull
+	
+	# Roughly equivalent to 'specglobalvars'.
+	declare -f _tiny_set_strings
 	
 	declare -f _getScriptAbsoluteLocation
 	declare -f _getScriptAbsoluteFolder
@@ -11436,6 +11457,9 @@ _tinyCompiler_scriptedIllustrator() {
 	unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes
 	
 	
+	echo '' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo '# Special Global Variables' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo '_tiny_set_strings' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
 	
 	# CAUTION: Do NOT add trap unless necessary or within a function call. Unnecessary and may be problematic for a script which imports 'ubiquitous bash' and does not nominally use '_start'/'_stop'/"$safeTmp"/etc .
@@ -11525,7 +11549,7 @@ _main() {
 #####Markup.
 
 _filter__scriptedIllustrator_markup() {
-	grep -v 'scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	grep -v "$markup_flag_NOT_shell"
 }
 _hideFrom_markup_html() {
 	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
@@ -12145,13 +12169,21 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 # To 'scribble' just the shell code, just use the grep 'filter'.
 
 
+_set_strings_markup_shell() {
+	export markup_flag_NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+}
+
+
+
+
+
 
 
 
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell() {
-	true
+	declare -f _set_strings_markup_shell
 }
 
 
@@ -12176,9 +12208,16 @@ export current_scriptedIllustrator_markup='html'
 unset current_scriptedIllustrator_markup
 
 
+_set_strings_markup_html() {
+	true
+}
+
+
+
+
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
-	true
+	declare -f _set_strings_markup_html
 }
 
 
