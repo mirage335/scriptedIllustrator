@@ -2,40 +2,6 @@
 #####Markup.
 
 
-_hideFrom_markup_html() {
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$currentString"
-		echo
-	done
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
-
-_break_markup_html() {
-	# Some attributes may control text wrapping if under MediaWiki or similar.
-	# https://www.mediawiki.org/wiki/Help:Formatting
-	
-	echo -n '# <pre style="white-space: pre;"> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-	
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$currentString"
-		echo
-		#echo 'IyA8YnIgXD4K' | base64 -d
-		#echo 'IyA8YnIgXD4gPCEtLSBzY3JpcHRlZElsbHVzdHJhdG9yX21hcmt1cF91azR1UGhCNjYza1ZjeWdUMHEgLS0+Cg==' | base64 -d
-	done
-	
-	echo -n '# </pre> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
 
 
 
@@ -253,8 +219,6 @@ _r() {
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_wip() {
-	declare -f _hideFrom_markup_html
-	declare -f _break_markup_html
 	declare -f _e_procedure
 	declare -f _e
 	declare -f _e__procedure

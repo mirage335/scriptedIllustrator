@@ -19,42 +19,115 @@ _set_markup_html() {
 
 
 _set_strings_markup_html() {
-	export markup_comment_html_begin='<!--'
-	export markup_comment_html_end='-->'
-	export markup_comment_html_line=''
+	export comment_html_begin='<!--'
+	export comment_html_end='-->'
+	export comment_html_line=''
 	
 	# Roughly equivalent.
 	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	export markup_interpret__html_NOT_shell__begin="$markup_comment_shell_line $markup_comment_html_begin $markup_flag__NOT_shell
-$markup_comment_shell_begin $markup_comment_shell_line $markup_flag__NOT_shell
-$markup_comment_shell_line $markup_flag__NOT_shell $markup_comment_html_end"
+	export interpret__html_NOT_shell__begin="$comment_shell_line $comment_html_begin $flag__NOT_shell
+$comment_shell_begin $comment_shell_line $flag__NOT_shell
+$comment_shell_line $flag__NOT_shell $comment_html_end"
 	
 	# Roughly equivalent.
 	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# 'fi # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	export markup_interpret__html_NOT_shell__end="$markup_comment_shell_line $markup_comment_html_begin $markup_flag__NOT_shell
-$markup_comment_shell_end $markup_comment_shell_line $markup_flag__NOT_shell
-$markup_comment_shell_line $markup_flag__NOT_shell $markup_comment_html_end"
+	export interpret__html_NOT_shell__end="$comment_shell_line $comment_html_begin $flag__NOT_shell
+$comment_shell_end $comment_shell_line $flag__NOT_shell
+$comment_shell_line $flag__NOT_shell $comment_html_end"
+	
+	
+	
+	export markup_html_pre_begin='<pre style="white-space: pre;">'
+	export markup_html_pre_end='</pre>'
+	
+	#"$comment_shell_line $comment_html_begin $flag__NOT_shell $comment_html_end $markup_html_pre_begin"
+	#"$comment_shell_line $markup_html_pre_end $comment_html_begin $flag__NOT_shell $comment_html_end"
 }
 
-
-
-
-
-
-
 _noShell_block_html() {
-	echo -n "$markup_interpret__html_NOT_shell__begin"
+	echo -n "$interpret__html_NOT_shell__begin"
 	echo
 	
 	cat
 	
-	echo -n "$markup_interpret__html_NOT_shell__end"
+	echo -n "$interpret__html_NOT_shell__end"
 	echo
 }
+
+_hideFrom_markup_html() {
+	echo -n "$comment_shell_line $comment_html_begin $flag__NOT_shell"
+	echo
+	
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$currentString"
+		echo
+	done
+	
+	echo -n "$comment_shell_line $flag__NOT_shell $comment_html_end"
+	echo
+}
+
+# WARNING: Obsolete. Any use of this should be replaced. No production use.
+_break_markup_html() {
+	# Some attributes may control text wrapping if under MediaWiki or similar.
+	# https://www.mediawiki.org/wiki/Help:Formatting
+	
+	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q --> <pre style="white-space: pre;">'
+	echo -n "$comment_shell_line $comment_html_begin $flag__NOT_shell $comment_html_end $markup_html_pre_begin"
+	echo
+	
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$currentString"
+		echo
+	done
+	
+	# '# </pre> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
+	echo -n "$comment_shell_line $markup_html_pre_end $comment_html_begin $flag__NOT_shell $comment_html_end"
+	echo
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -65,4 +138,6 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _set_strings_markup_html
 	
 	declare -f _noShell_block_html
+	declare -f _hideFrom_markup_html
+	declare -f _break_markup_html
 }

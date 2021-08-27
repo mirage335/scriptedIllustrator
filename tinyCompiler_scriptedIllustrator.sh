@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='1949448571'
+export ub_setScriptChecksum_contents='3808147851'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11297,6 +11297,9 @@ _tiny_set_strings() {
 	
 	_tryExec _set_strings_markup_presentation
 }
+_set_strings() {
+	_tiny_set_strings "$@"
+}
 
 
 
@@ -11558,40 +11561,6 @@ _main() {
 #####Markup.
 
 
-_hideFrom_markup_html() {
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$currentString"
-		echo
-	done
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
-
-_break_markup_html() {
-	# Some attributes may control text wrapping if under MediaWiki or similar.
-	# https://www.mediawiki.org/wiki/Help:Formatting
-	
-	echo -n '# <pre style="white-space: pre;"> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-	
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$currentString"
-		echo
-		#echo 'IyA8YnIgXD4K' | base64 -d
-		#echo 'IyA8YnIgXD4gPCEtLSBzY3JpcHRlZElsbHVzdHJhdG9yX21hcmt1cF91azR1UGhCNjYza1ZjeWdUMHEgLS0+Cg==' | base64 -d
-	done
-	
-	echo -n '# </pre> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
 
 
 
@@ -11809,8 +11778,6 @@ _r() {
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_wip() {
-	declare -f _hideFrom_markup_html
-	declare -f _break_markup_html
 	declare -f _e_procedure
 	declare -f _e
 	declare -f _e__procedure
@@ -12131,15 +12098,15 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 
 
 _set_strings_markup_shell() {
-	export markup_comment_shell_begin='if false; then true;'
-	export markup_comment_shell_end='fi'
-	export markup_comment_shell_line='#'
+	export comment_shell_begin='if false; then true;'
+	export comment_shell_end='fi'
+	export comment_shell_line='#'
 	
-	export markup_flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 }
 
 _filter__scriptedIllustrator_markup() {
-	grep -v "$markup_flag__NOT_shell"
+	grep -v "$flag__NOT_shell"
 }
 
 
@@ -12152,7 +12119,7 @@ _shellCommentLines() {
 	local currentString
 	while read -r currentString
 	do
-		[ "$currentString" ] && printf '%b' "$markup_comment_shell_line $currentString"
+		[ "$currentString" ] && printf '%b' "$comment_shell_line $currentString"
 		echo
 	done
 	
@@ -12207,44 +12174,80 @@ _set_markup_html() {
 
 
 _set_strings_markup_html() {
-	export markup_comment_html_begin='<!--'
-	export markup_comment_html_end='-->'
-	export markup_comment_html_line=''
+	export comment_html_begin='<!--'
+	export comment_html_end='-->'
+	export comment_html_line=''
 	
 	# Roughly equivalent.
 	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	export markup_interpret__html_NOT_shell__begin="$markup_comment_shell_line $markup_comment_html_begin $markup_flag__NOT_shell
-$markup_comment_shell_begin $markup_comment_shell_line $markup_flag__NOT_shell
-$markup_comment_shell_line $markup_flag__NOT_shell $markup_comment_html_end"
+	export interpret__html_NOT_shell__begin="$comment_shell_line $comment_html_begin $flag__NOT_shell
+$comment_shell_begin $comment_shell_line $flag__NOT_shell
+$comment_shell_line $flag__NOT_shell $comment_html_end"
 	
 	# Roughly equivalent.
 	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# 'fi # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	export markup_interpret__html_NOT_shell__end="$markup_comment_shell_line $markup_comment_html_begin $markup_flag__NOT_shell
-$markup_comment_shell_end $markup_comment_shell_line $markup_flag__NOT_shell
-$markup_comment_shell_line $markup_flag__NOT_shell $markup_comment_html_end"
+	export interpret__html_NOT_shell__end="$comment_shell_line $comment_html_begin $flag__NOT_shell
+$comment_shell_end $comment_shell_line $flag__NOT_shell
+$comment_shell_line $flag__NOT_shell $comment_html_end"
+	
+	
+	
+	export markup_html_pre_begin='<pre style="white-space: pre;">'
+	export markup_html_pre_end='</pre>'
+	
+	#"$comment_shell_line $comment_html_begin $flag__NOT_shell $comment_html_end $markup_html_pre_begin"
+	#"$comment_shell_line $markup_html_pre_end $comment_html_begin $flag__NOT_shell $comment_html_end"
 }
 
-
-
-
-
-
-
 _noShell_block_html() {
-	echo -n "$markup_interpret__html_NOT_shell__begin"
+	echo -n "$interpret__html_NOT_shell__begin"
 	echo
 	
 	cat
 	
-	echo -n "$markup_interpret__html_NOT_shell__end"
+	echo -n "$interpret__html_NOT_shell__end"
 	echo
 }
 
+_hideFrom_markup_html() {
+	echo -n "$comment_shell_line $comment_html_begin $flag__NOT_shell"
+	echo
+	
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$currentString"
+		echo
+	done
+	
+	echo -n "$comment_shell_line $flag__NOT_shell $comment_html_end"
+	echo
+}
 
+# WARNING: Obsolete. Any use of this should be replaced. No production use.
+_break_markup_html() {
+	# Some attributes may control text wrapping if under MediaWiki or similar.
+	# https://www.mediawiki.org/wiki/Help:Formatting
+	
+	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q --> <pre style="white-space: pre;">'
+	echo -n "$comment_shell_line $comment_html_begin $flag__NOT_shell $comment_html_end $markup_html_pre_begin"
+	echo
+	
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$currentString"
+		echo
+	done
+	
+	# '# </pre> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
+	echo -n "$comment_shell_line $markup_html_pre_end $comment_html_begin $flag__NOT_shell $comment_html_end"
+	echo
+}
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
@@ -12253,6 +12256,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _set_strings_markup_html
 	
 	declare -f _noShell_block_html
+	declare -f _hideFrom_markup_html
+	declare -f _break_markup_html
 }
 
 

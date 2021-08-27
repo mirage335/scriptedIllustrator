@@ -32,6 +32,9 @@ _tiny_set_strings() {
 	
 	_tryExec _set_strings_markup_presentation
 }
+_set_strings() {
+	_tiny_set_strings "$@"
+}
 
 
 

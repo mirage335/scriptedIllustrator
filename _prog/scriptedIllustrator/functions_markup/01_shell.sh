@@ -5,15 +5,15 @@
 
 
 _set_strings_markup_shell() {
-	export markup_comment_shell_begin='if false; then true;'
-	export markup_comment_shell_end='fi'
-	export markup_comment_shell_line='#'
+	export comment_shell_begin='if false; then true;'
+	export comment_shell_end='fi'
+	export comment_shell_line='#'
 	
-	export markup_flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 }
 
 _filter__scriptedIllustrator_markup() {
-	grep -v "$markup_flag__NOT_shell"
+	grep -v "$flag__NOT_shell"
 }
 
 
@@ -26,7 +26,7 @@ _shellCommentLines() {
 	local currentString
 	while read -r currentString
 	do
-		[ "$currentString" ] && printf '%b' "$markup_comment_shell_line $currentString"
+		[ "$currentString" ] && printf '%b' "$comment_shell_line $currentString"
 		echo
 	done
 	
