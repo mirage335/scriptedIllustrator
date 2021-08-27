@@ -53,6 +53,7 @@ _test_built_default() {
 	chmod u+x "$safeTmp"/converted_repeat.sh
 	! diff --color "$safeTmp"/converted.sh "$safeTmp"/converted_repeat.sh && _messagePlain_bad 'fail: unexpected differences'
 	
+	
 	rm "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh "$safeTmp"/converted.sh "$safeTmp"/converted.html "$safeTmp"/converted.html.sh "$safeTmp"/converted_repeat.sh
 	
 	_messagePlain_good 'done: _test_built_default'

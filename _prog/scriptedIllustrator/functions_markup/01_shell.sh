@@ -5,11 +5,18 @@
 
 
 _set_strings_markup_shell() {
-	export comment_shell_begin='if false; then true;'
-	export comment_shell_end='fi'
+	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	
 	export comment_shell_line='#'
 	
-	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	# WARNING: Markup files requiring workaround will be more difficult to read/edit directly (ie. adding '<!-- # --> ' or similar to every line to prevent interpretation of '>' as a redirect character even within an 'if false' 'block comment'.
+	export comment_shell_begin='if false; then true; '"$comment_shell_line"
+	export comment_shell_end='fi'
+	[[ "$current_scriptedIllustrator_markup" == 'html' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
+	
+	# DANGER: CAUTION: Creates a temporary 'here document'. Compatibility problems (ie. MSW/Cygwin) are possible.
+	#export comment_shell_begin=": <<'ey5QoR_""'"" $comment_shell_line"
+	#export comment_shell_end="ey5QoR_"
 }
 
 _filter__scriptedIllustrator_markup() {
@@ -32,7 +39,14 @@ _shellCommentLines() {
 	
 }
 
-
+_workaround_shellPrependMarkupLines() {
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$workaround_shellPrependMarkupLines""$currentString"
+		echo
+	done
+}
 
 
 
@@ -42,5 +56,6 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell() {
 	declare -f _filter__scriptedIllustrator_markup
 	
 	declare -f _shellCommentLines
+	declare -f _workaround_shellPrependMarkupLines
 }
 

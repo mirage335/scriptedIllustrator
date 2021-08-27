@@ -5,22 +5,7 @@
 
 
 
-_e_procedure() {
-	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
-	#_safeEcho_newline _e "$@"
-	_safeEcho '_e '
-	while (( "$#" )); do
-		_safeEcho ' '"'""$1""'"
-		shift
-	done
-	_safeEcho_newline
-}
-# Echo command with commented (shell prepending '#' ) output.
-_e() {
-	_e_procedure "$@"
-	"$@" | _shellCommentLines | _noShell_block
-	#eval "$@" | _noShell_block
-}
+
 _e__procedure() {
 	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
 	#_safeEcho_newline _e "$@"

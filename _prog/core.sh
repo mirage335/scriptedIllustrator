@@ -12,6 +12,8 @@ _tiny_criticalDep() {
 	
 	! type -p xz > /dev/null 2>&1 && exit 1
 	
+	! type -p fold > /dev/null 2>&1 && exit 1
+	
 	#! type -p cksum > /dev/null 2>&1 && exit 1
 	#! type -p env > /dev/null 2>&1 && exit 1
 	
@@ -31,6 +33,9 @@ _tiny_set_strings() {
 	_tryExec _set_strings_markup_python_docx
 	
 	_tryExec _set_strings_markup_presentation
+	
+	# CAUTION: Developer convenience, not relied upon. Causes 'export -f' functions under '_set_markup_' functions to take precedence over upstream.
+	[[ "$current_scriptedIllustrator_markup" != "" ]] && _set_markup_"$current_scriptedIllustrator_markup"
 }
 _set_strings() {
 	_tiny_set_strings "$@"
@@ -55,6 +60,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	
 	# Roughly equivalent to 'specglobalvars'.
 	declare -f _tiny_set_strings
+	declare -f _set_strings
 	
 	declare -f _getScriptAbsoluteLocation
 	declare -f _getScriptAbsoluteFolder
@@ -62,6 +68,20 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _uid
 	declare -f _safeEcho
 	declare -f _safeEcho_newline
+	declare -f _safeEcho_quoteAddSingle
+	declare -f _safeEcho_quoteAddDouble
+	
+	declare -f _color_demo
+	declare -f _color_end
+	declare -f _color_begin_request
+	declare -f _color_begin_nominal
+	declare -f _color_begin_probe
+	declare -f _color_begin_good
+	declare -f _color_begin_warn
+	declare -f _color_begin_bad
+	declare -f _color_begin_Normal
+	declare -f _color_begin_Error
+	declare -f _color_begin_DELAYipc
 	
 	declare -f _messageNormal
 	declare -f _messageError
@@ -73,6 +93,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _messagePlain_probe
 	declare -f _messagePlain_probe_cmd
 	declare -f _messagePlain_probe_var
+	declare -f _messagePlain_probe_quoteAddDouble
+	declare -f _messagePlain_probe_quoteAdd
+	declare -f _messagePlain_probe_quoteAddSingle
 	
 	declare -f _qalculate_terse
 	declare -f _qalculate
@@ -169,7 +192,7 @@ _tinyCompiler_scriptedIllustrator() {
 	
 	
 	local current_internal_CompressedFunctions
-	current_internal_CompressedFunctions=$(_tinyCompiler_scriptedIllustrator_declareFunctions | xz -z -e9 -C crc64 --threads=1 | base64 -w 156)
+	current_internal_CompressedFunctions=$(_tinyCompiler_scriptedIllustrator_declareFunctions | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
 	local current_internal_CompressedFunctions_cksum
 	current_internal_CompressedFunctions_cksum=$(echo "$current_internal_CompressedFunctions" | env CMD_ENV=xpg4 cksum | cut -f1 -d\  | tr -dc '0-9')
 	local current_internal_CompressedFunctions_bytes

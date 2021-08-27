@@ -32,78 +32,9 @@ _document_main() {
 #b
 # NOTICE: DOCUMENT
 #__HEADER_uk4uPhB663kVcygT0q_HEADER__
-_ '#1
-#2
-#3'
-
-
-
-
-_ '
-# Severely degraded and highly compressed connection between just two players.
-_e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesPerSecond=15 ; currentIncrementFrameBytesPerBone=2 ; currentInstantFramesPerSecond=2 ; currentInstantFrameBytesPerBone=12 ; currentByte=8 ; solve "("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"
-# # solve(9600 = (("currentPlayers" * 4 * 30 * 2 * 8) + ("currentPlayers" * 4 * 3 * 33 * 8)), "currentPlayers") =
-# # 5.5555556'
-
-_e_ currentBitsPerSecond=9600
-_e_ currentBonesPerPlayer=4
-_i currentIncrementFramesPerSecond=15
-_i currentIncrementFrameBytesPerBone=2
-_i currentInstantFramesPerSecond=2
-_i currentInstantFrameBytesPerBone=12
-
-
-_e_ solve '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
-
-
-
-
-
-
-
-
-
-
-
-
-
-_e_ ubiquitous_bash.sh _echo 'a b'
 _e ubiquitous_bash.sh _echo 'a
 b'
-_t 'preformatted
-text'
-
-
-_r 'raw markup'
-
-
-_t '
-
-
-preformatted
-text
-"$ubiquitiousBashID"
-
-
-'
-
-_v ubiquitiousBashID
-
-_ '
-'
-_ 'hidden comment'
-
-
-
-
-
-
-
-
-
-_ '#8
-#9
-#0'
+_e _color_demo
 #__FOOTER_uk4uPhB663kVcygT0q_FOOTER__
 # NOTICE: DOCUMENT
 #y

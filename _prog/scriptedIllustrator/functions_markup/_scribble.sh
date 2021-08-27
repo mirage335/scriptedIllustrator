@@ -1,7 +1,9 @@
 
+
 # ATTENTION: WIP !
 _scribble_html() {
 	_set_markup_html
+	_set_strings
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
@@ -17,23 +19,28 @@ _scribble_html() {
 	echo -n > "$currentOutputFile".tmp
 	! [[ -e "$currentOutputFile".tmp ]] && exit 1
 	
-	# Solely to prevent saved 'html' markup file from being perceived by 'magic sequences' as itself a shell script for file association purposes.
-	echo -n '# <html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
+	
+	
+	echo -n "$document_html_root_begin" >> "$currentOutputFile".tmp
 	echo >> "$currentOutputFile".tmp
 	
-	_HEADER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
 	
 	
-	"$scriptAbsoluteLocation" DOCUMENT | _break_markup_html >> "$currentOutputFile".tmp
 	
 	
-	_FOOTER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
+	_HEADER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
 	
-	echo -n '# </html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
+	"$scriptAbsoluteLocation" DOCUMENT >> "$currentOutputFile".tmp
+	
+	_FOOTER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	
+	
+	
+	echo -n "$document_html_root_end" >> "$currentOutputFile".tmp
 	echo >> "$currentOutputFile".tmp
+	
 	
 	chmod u+x "$currentOutputFile".tmp
-	
 	mv "$currentOutputFile".tmp "$currentOutputFile"
 }
 

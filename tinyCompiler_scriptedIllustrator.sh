@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3808147851'
+export ub_setScriptChecksum_contents='1413726718'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -2717,6 +2717,28 @@ _safeEcho_newline() {
 	printf '\n'
 }
 
+_safeEcho_quoteAddSingle() {
+	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
+	while (( "$#" )); do
+		_safeEcho ' '"'""$1""'"
+		shift
+	done
+}
+
+_safeEcho_quoteAddDouble() {
+	#https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments
+	
+	local currentCommandStringPunctuated
+	local currentCommandStringParameter
+	for currentCommandStringParameter in "$@"; do
+		currentCommandStringParameter="${currentCommandStringParameter//\\/\\\\}"
+		currentCommandStringPunctuated="$currentCommandStringPunctuated \"${currentCommandStringParameter//\"/\\\"}\""
+	done
+	
+	_safeEcho "$currentCommandStringPunctuated"
+}
+
+
 #Universal debugging filesystem.
 #End user function.
 _user_log() {
@@ -2899,11 +2921,90 @@ _messageColors() {
 }
 
 
+_color_demo() {
+	_messagePlain_request "$ubiquitiousBashID"
+	_messagePlain_nominal "$ubiquitiousBashID"
+	_messagePlain_probe "$ubiquitiousBashID"
+	_messagePlain_probe_expr "$ubiquitiousBashID"
+	_messagePlain_probe_var ubiquitiousBashID
+	_messagePlain_good "$ubiquitiousBashID"
+	_messagePlain_warn "$ubiquitiousBashID"
+	_messagePlain_bad "$ubiquitiousBashID"
+	_messagePlain_probe_cmd echo "$ubiquitiousBashID"
+	_messagePlain_probe_quoteAddDouble echo "$ubiquitiousBashID"
+	_messagePlain_probe_quoteAddSingle echo "$ubiquitiousBashID"
+	_messageNormal "$ubiquitiousBashID"
+	_messageError "$ubiquitiousBashID"
+	_messageDELAYipc "$ubiquitiousBashID"
+	_messageProcess "$ubiquitiousBashID"
+}
+_color_end() {
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '</span>'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n ' \E[0m'
+}
+
+_color_begin_request() {
+	#b218b2
+	#848484
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#b218b2;background-color:#848484;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;35m '
+}
+_color_begin_nominal() {
+	#18b2b2
+	#848484
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#18b2b2;background-color:#848484;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;36m '
+}
+_color_begin_probe() {
+	#1818b2
+	#848484
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#1818b2;background-color:#848484;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;34m '
+}
+_color_begin_good() {
+	#17ae17
+	#848484
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#17ae17;background-color:#848484;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;32m '
+}
+_color_begin_warn() {
+	#ffff54
+	#848484
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#848484;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33m '
+}
+_color_begin_bad() {
+	#b21818
+	#848484
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#b21818;background-color:#848484;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;31m '
+}
+_color_begin_Normal() {
+	#54ff54
+	#18b2b2
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#54ff54;background-color:#18b2b2;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;32;46m '
+}
+_color_begin_Error() {
+	#ffff54
+	#b21818
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#b21818;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33;41m '
+}
+_color_begin_DELAYipc() {
+	#ffff54
+	#b2b2b2
+	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#b2b2b2;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33;47m '
+}
+
+
+
 #Purple. User must do something manually to proceed. NOT to be used for dependency installation requests - use probe, bad, and fail statements for that.
 _messagePlain_request() {
-	echo -e -n '\E[0;35m '
+	_color_begin_request
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -2911,9 +3012,9 @@ _messagePlain_request() {
 #Cyan. Harmless status messages.
 #"generic/ubiquitousheader.sh"
 _messagePlain_nominal() {
-	echo -e -n '\E[0;36m '
+	_color_begin_nominal
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -2921,9 +3022,9 @@ _messagePlain_nominal() {
 #Blue. Diagnostic instrumentation.
 #"generic/ubiquitousheader.sh"
 _messagePlain_probe() {
-	echo -e -n '\E[0;34m '
+	_color_begin_probe
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -2931,9 +3032,9 @@ _messagePlain_probe() {
 #Blue. Diagnostic instrumentation.
 #"generic/ubiquitousheader.sh"
 _messagePlain_probe_expr() {
-	echo -e -n '\E[0;34m '
+	_color_begin_probe
 	echo -e -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -2941,13 +3042,13 @@ _messagePlain_probe_expr() {
 #Blue. Diagnostic instrumentation.
 #"generic/ubiquitousheader.sh"
 _messagePlain_probe_var() {
-	echo -e -n '\E[0;34m '
+	_color_begin_probe
 	
 	echo -n "$1"'= '
 	
 	eval echo -e -n \$"$1"
 	
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -2958,9 +3059,9 @@ _messageVar() {
 #Green. Working as expected.
 #"generic/ubiquitousheader.sh"
 _messagePlain_good() {
-	echo -e -n '\E[0;32m '
+	_color_begin_good
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -2968,18 +3069,18 @@ _messagePlain_good() {
 #Yellow. May or may not be a problem.
 #"generic/ubiquitousheader.sh"
 _messagePlain_warn() {
-	echo -e -n '\E[1;33m '
+	_color_begin_warn
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
 
 #Red. Will result in missing functionality, reduced performance, etc, but not necessarily program failure overall.
 _messagePlain_bad() {
-	echo -e -n '\E[0;31m '
+	_color_begin_bad
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -2988,11 +3089,11 @@ _messagePlain_bad() {
 #Prints "$@" and runs "$@".
 # WARNING: Use with care.
 _messagePlain_probe_cmd() {
-	echo -e -n '\E[0;34m '
+	_color_begin_probe
 	
 	_safeEcho "$@"
 	
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	
 	"$@"
@@ -3005,23 +3106,28 @@ _messageCMD() {
 
 #Blue. Diagnostic instrumentation.
 #Prints "$@" with quotes around every parameter.
+_messagePlain_probe_quoteAddDouble() {
+	_color_begin_probe
+	
+	_safeEcho_quoteAddDouble "$@"
+	
+	_color_end
+	echo
+	
+	return
+}
 _messagePlain_probe_quoteAdd() {
+	_messagePlain_probe_quoteAddDouble "$@"
+}
+
+#Blue. Diagnostic instrumentation.
+#Prints "$@" with single quotes around every parameter.
+_messagePlain_probe_quoteAddSingle() {
+	_color_begin_probe
 	
-	#https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments
+	_safeEcho_quoteAddSingle "$@"
 	
-	local currentCommandStringPunctuated
-	local currentCommandStringParameter
-	for currentCommandStringParameter in "$@"; do 
-		currentCommandStringParameter="${currentCommandStringParameter//\\/\\\\}"
-		currentCommandStringPunctuated="$currentCommandStringPunctuated \"${currentCommandStringParameter//\"/\\\"}\""
-	done
-	#_messagePlain_probe "$currentCommandStringPunctuated"
-	
-	echo -e -n '\E[0;34m '
-	
-	_safeEcho "$currentCommandStringPunctuated"
-	
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	
 	return
@@ -3044,18 +3150,18 @@ _messageCMD_quoteAdd() {
 
 #Demarcate major steps.
 _messageNormal() {
-	echo -e -n '\E[1;32;46m '
+	_color_begin_Normal
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
 
 #Demarcate major failures.
 _messageError() {
-	echo -e -n '\E[1;33;41m '
+	_color_begin_Error
 	echo -n "$@"
-	echo -e -n ' \E[0m'
+	_color_end
 	echo
 	return 0
 }
@@ -3104,7 +3210,10 @@ _messageWARN() {
 
 # Demarcate *any* delay performed to allow 'InterProcess-Communication' connections (perhaps including at least some network or serial port servers).
 _messageDELAYipc() {
-	echo -e '\E[1;33;47m ''delay: InterProcess-Communication'' \E[0m'
+	_color_begin_DELAYipc
+	echo -e -n 'delay: InterProcess-Communication'
+	_color_end
+	echo
 }
 
 
@@ -3123,11 +3232,11 @@ _messageProcess() {
 	
 	[[ "$processStringLength" -gt "38" ]] && _messageNormal "$processString" && return 0
 	
-	echo -e -n '\E[1;32;46m '
+	_color_begin_Normal
 	
 	echo -n "$processString"
 	
-	echo -e -n '\E[0m'
+	_color_end
 	
 	while [[ "$currentIteration" -lt "$padLength" ]]
 	do
@@ -10693,6 +10802,8 @@ _test() {
 	
 	_getDep wc
 	
+	_getDep fold
+	
 	
 	! _compat_realpath && ! _wantGetDep realpath && echo 'realpath missing'
 	_getDep readlink
@@ -11277,6 +11388,8 @@ _tiny_criticalDep() {
 	
 	! type -p xz > /dev/null 2>&1 && exit 1
 	
+	! type -p fold > /dev/null 2>&1 && exit 1
+	
 	#! type -p cksum > /dev/null 2>&1 && exit 1
 	#! type -p env > /dev/null 2>&1 && exit 1
 	
@@ -11296,6 +11409,9 @@ _tiny_set_strings() {
 	_tryExec _set_strings_markup_python_docx
 	
 	_tryExec _set_strings_markup_presentation
+	
+	# CAUTION: Developer convenience, not relied upon. Causes 'export -f' functions under '_set_markup_' functions to take precedence over upstream.
+	[[ "$current_scriptedIllustrator_markup" != "" ]] && _set_markup_"$current_scriptedIllustrator_markup"
 }
 _set_strings() {
 	_tiny_set_strings "$@"
@@ -11320,6 +11436,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	
 	# Roughly equivalent to 'specglobalvars'.
 	declare -f _tiny_set_strings
+	declare -f _set_strings
 	
 	declare -f _getScriptAbsoluteLocation
 	declare -f _getScriptAbsoluteFolder
@@ -11327,6 +11444,20 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _uid
 	declare -f _safeEcho
 	declare -f _safeEcho_newline
+	declare -f _safeEcho_quoteAddSingle
+	declare -f _safeEcho_quoteAddDouble
+	
+	declare -f _color_demo
+	declare -f _color_end
+	declare -f _color_begin_request
+	declare -f _color_begin_nominal
+	declare -f _color_begin_probe
+	declare -f _color_begin_good
+	declare -f _color_begin_warn
+	declare -f _color_begin_bad
+	declare -f _color_begin_Normal
+	declare -f _color_begin_Error
+	declare -f _color_begin_DELAYipc
 	
 	declare -f _messageNormal
 	declare -f _messageError
@@ -11338,6 +11469,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _messagePlain_probe
 	declare -f _messagePlain_probe_cmd
 	declare -f _messagePlain_probe_var
+	declare -f _messagePlain_probe_quoteAddDouble
+	declare -f _messagePlain_probe_quoteAdd
+	declare -f _messagePlain_probe_quoteAddSingle
 	
 	declare -f _qalculate_terse
 	declare -f _qalculate
@@ -11434,7 +11568,7 @@ _tinyCompiler_scriptedIllustrator() {
 	
 	
 	local current_internal_CompressedFunctions
-	current_internal_CompressedFunctions=$(_tinyCompiler_scriptedIllustrator_declareFunctions | xz -z -e9 -C crc64 --threads=1 | base64 -w 156)
+	current_internal_CompressedFunctions=$(_tinyCompiler_scriptedIllustrator_declareFunctions | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
 	local current_internal_CompressedFunctions_cksum
 	current_internal_CompressedFunctions_cksum=$(echo "$current_internal_CompressedFunctions" | env CMD_ENV=xpg4 cksum | cut -f1 -d\  | tr -dc '0-9')
 	local current_internal_CompressedFunctions_bytes
@@ -11564,22 +11698,7 @@ _main() {
 
 
 
-_e_procedure() {
-	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
-	#_safeEcho_newline _e "$@"
-	_safeEcho '_e '
-	while (( "$#" )); do
-		_safeEcho ' '"'""$1""'"
-		shift
-	done
-	_safeEcho_newline
-}
-# Echo command with commented (shell prepending '#' ) output.
-_e() {
-	_e_procedure "$@"
-	"$@" | _shellCommentLines | _noShell_block
-	#eval "$@" | _noShell_block
-}
+
 _e__procedure() {
 	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
 	#_safeEcho_newline _e "$@"
@@ -12021,6 +12140,7 @@ _test_built_default() {
 	chmod u+x "$safeTmp"/converted_repeat.sh
 	! diff --color "$safeTmp"/converted.sh "$safeTmp"/converted_repeat.sh && _messagePlain_bad 'fail: unexpected differences'
 	
+	
 	rm "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh "$safeTmp"/converted.sh "$safeTmp"/converted.html "$safeTmp"/converted.html.sh "$safeTmp"/converted_repeat.sh
 	
 	_messagePlain_good 'done: _test_built_default'
@@ -12046,9 +12166,11 @@ _default() {
 
 
 
+
 # ATTENTION: WIP !
 _scribble_html() {
 	_set_markup_html
+	_set_strings
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
@@ -12064,23 +12186,28 @@ _scribble_html() {
 	echo -n > "$currentOutputFile".tmp
 	! [[ -e "$currentOutputFile".tmp ]] && exit 1
 	
-	# Solely to prevent saved 'html' markup file from being perceived by 'magic sequences' as itself a shell script for file association purposes.
-	echo -n '# <html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
+	
+	
+	echo -n "$document_html_root_begin" >> "$currentOutputFile".tmp
 	echo >> "$currentOutputFile".tmp
 	
-	_HEADER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
 	
 	
-	"$scriptAbsoluteLocation" DOCUMENT | _break_markup_html >> "$currentOutputFile".tmp
 	
 	
-	_FOOTER | _filter__scriptedIllustrator_markup | _hideFrom_markup_html >> "$currentOutputFile".tmp
+	_HEADER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
 	
-	echo -n '# </html> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->' >> "$currentOutputFile".tmp
+	"$scriptAbsoluteLocation" DOCUMENT >> "$currentOutputFile".tmp
+	
+	_FOOTER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	
+	
+	
+	echo -n "$document_html_root_end" >> "$currentOutputFile".tmp
 	echo >> "$currentOutputFile".tmp
+	
 	
 	chmod u+x "$currentOutputFile".tmp
-	
 	mv "$currentOutputFile".tmp "$currentOutputFile"
 }
 
@@ -12098,11 +12225,18 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 
 
 _set_strings_markup_shell() {
-	export comment_shell_begin='if false; then true;'
-	export comment_shell_end='fi'
+	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	
 	export comment_shell_line='#'
 	
-	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	# WARNING: Markup files requiring workaround will be more difficult to read/edit directly (ie. adding '<!-- # --> ' or similar to every line to prevent interpretation of '>' as a redirect character even within an 'if false' 'block comment'.
+	export comment_shell_begin='if false; then true; '"$comment_shell_line"
+	export comment_shell_end='fi'
+	[[ "$current_scriptedIllustrator_markup" == 'html' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
+	
+	# DANGER: CAUTION: Creates a temporary 'here document'. Compatibility problems (ie. MSW/Cygwin) are possible.
+	#export comment_shell_begin=": <<'ey5QoR_""'"" $comment_shell_line"
+	#export comment_shell_end="ey5QoR_"
 }
 
 _filter__scriptedIllustrator_markup() {
@@ -12125,7 +12259,14 @@ _shellCommentLines() {
 	
 }
 
-
+_workaround_shellPrependMarkupLines() {
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$workaround_shellPrependMarkupLines""$currentString"
+		echo
+	done
+}
 
 
 
@@ -12135,13 +12276,13 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell() {
 	declare -f _filter__scriptedIllustrator_markup
 	
 	declare -f _shellCommentLines
+	declare -f _workaround_shellPrependMarkupLines
 }
 
 
 
 # TODO: Cause all markup to print to terminal as ANSI escape codes. Interleaving of shell code may not be possible in this case.
-export current_scriptedIllustrator_markup='terminal'
-unset current_scriptedIllustrator_markup
+#export current_scriptedIllustrator_markup='terminal'
 
 
 
@@ -12155,21 +12296,29 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_terminal() {
 
 
 # TODO: Move from 'wip_functions.sh' .
-export current_scriptedIllustrator_markup='html'
-unset current_scriptedIllustrator_markup
+#export current_scriptedIllustrator_markup='html'
 
 # TODO: Postprocessing may not be able to achieve presentation quality.
-export current_scriptedIllustrator_presentation='true'
-unset current_scriptedIllustrator_presentation
+#export current_scriptedIllustrator_presentation='true'
 
 
 _set_markup_html() {
 	export current_scriptedIllustrator_markup='html'
 	
 	_noShell_block() {
-		_noShell_block_html "$@"
+		_noShell_block-html "$@"
 	}
 	export -f _noShell_block
+	_pre_block() {
+		_pre_block-html "$@"
+	}
+	export -f _pre_block
+	
+	_e() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_e-html "$@"
+	}
+	export -f _e
 }
 
 
@@ -12178,32 +12327,69 @@ _set_strings_markup_html() {
 	export comment_html_end='-->'
 	export comment_html_line=''
 	
-	# Roughly equivalent.
-	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	# 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	export interpret__html_NOT_shell__begin="$comment_shell_line $comment_html_begin $flag__NOT_shell
-$comment_shell_begin $comment_shell_line $flag__NOT_shell
-$comment_shell_line $flag__NOT_shell $comment_html_end"
-	
-	# Roughly equivalent.
-	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	# 'fi # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	export interpret__html_NOT_shell__end="$comment_shell_line $comment_html_begin $flag__NOT_shell
-$comment_shell_end $comment_shell_line $flag__NOT_shell
-$comment_shell_line $flag__NOT_shell $comment_html_end"
+	# 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
+	export interpret__html_NOT_shell__begin="$comment_shell_begin $comment_html_end"
+	export interpret__html_NOT_shell__end="$comment_html_begin
+$comment_shell_end"
 	
 	
+	export markup_html_pre_begin="$workaround_shellPrependMarkupLines"'<pre style="white-space: pre;">'
+	export markup_html_pre_end="$workaround_shellPrependMarkupLines"'</pre>'
 	
-	export markup_html_pre_begin='<pre style="white-space: pre;">'
-	export markup_html_pre_end='</pre>'
 	
-	#"$comment_shell_line $comment_html_begin $flag__NOT_shell $comment_html_end $markup_html_pre_begin"
-	#"$comment_shell_line $markup_html_pre_end $comment_html_begin $flag__NOT_shell $comment_html_end"
+	export markup_html_root_begin='<html>'
+	export markup_html_root_end='</html>'
+	
+	
+	export document_html_root_begin="$comment_shell_line $markup_html_root_begin $comment_html_begin $flag__NOT_shell"
+	export document_html_root_end="$comment_shell_line $flag__NOT_shell $comment_html_end $markup_html_root_end"
+	
 }
 
-_noShell_block_html() {
+
+
+
+
+
+
+# Echo command with commented (shell prepending '#' ) output.
+_e-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	echo "$interpret__html_NOT_shell__begin"
+	echo "$markup_html_pre_begin"
+	_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	"$@" | fold -w 156 -s | _shellCommentLines | _workaround_shellPrependMarkupLines
+	echo "$markup_html_pre_end"
+	echo "$interpret__html_NOT_shell__end"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# No production use.
+_noShell_block-html() {
 	echo -n "$interpret__html_NOT_shell__begin"
 	echo
 	
@@ -12213,41 +12399,19 @@ _noShell_block_html() {
 	echo
 }
 
-_hideFrom_markup_html() {
-	echo -n "$comment_shell_line $comment_html_begin $flag__NOT_shell"
+# No production use.
+_pre_block-html() {
+	echo -n "$markup_html_pre_begin"
 	echo
 	
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$currentString"
-		echo
-	done
+	cat
 	
-	echo -n "$comment_shell_line $flag__NOT_shell $comment_html_end"
+	echo -n "$markup_html_pre_end"
 	echo
 }
 
-# WARNING: Obsolete. Any use of this should be replaced. No production use.
-_break_markup_html() {
-	# Some attributes may control text wrapping if under MediaWiki or similar.
-	# https://www.mediawiki.org/wiki/Help:Formatting
-	
-	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q --> <pre style="white-space: pre;">'
-	echo -n "$comment_shell_line $comment_html_begin $flag__NOT_shell $comment_html_end $markup_html_pre_begin"
-	echo
-	
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$currentString"
-		echo
-	done
-	
-	# '# </pre> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo -n "$comment_shell_line $markup_html_pre_end $comment_html_begin $flag__NOT_shell $comment_html_end"
-	echo
-}
+
+
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
@@ -12255,16 +12419,23 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	declare -f _set_strings_markup_html
 	
-	declare -f _noShell_block_html
-	declare -f _hideFrom_markup_html
-	declare -f _break_markup_html
+	
+	
+	declare -f _e-html
+	
+	
+	
+	declare -f _noShell_block-html
+	declare -f _pre_block-html
 }
+
+
 
 
 # TODO: Expect strong resemblence to 'html' .
 # https://www.mediawiki.org/wiki/Help:Formatting
-export current_scriptedIllustrator_markup='mediawiki'
-unset current_scriptedIllustrator_markup
+#export current_scriptedIllustrator_markup='mediawiki'
+
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
@@ -12273,8 +12444,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 
 
 # TODO: Presentation markup. Extra '#' and similar shell characters deleted. Most likely will 'scribble' temporary HTML (ideally with user-defined page breaks being present), then 'scribble' that HTML to PDF.
-export current_scriptedIllustrator_markup='presentation'
-unset current_scriptedIllustrator_markup
+#export current_scriptedIllustrator_markup='presentation'
+
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_presentation() {
