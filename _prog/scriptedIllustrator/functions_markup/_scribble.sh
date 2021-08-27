@@ -1,7 +1,7 @@
 
 # ATTENTION: WIP !
 _scribble_html() {
-	export current_scriptedIllustrator_markup='html'
+	_set_markup_html
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")

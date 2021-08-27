@@ -5,7 +5,15 @@
 
 
 _set_strings_markup_shell() {
-	export markup_flag_NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	export markup_comment_shell_begin='if false; then true;'
+	export markup_comment_shell_end='fi'
+	export markup_comment_shell_line='#'
+	
+	export markup_flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+}
+
+_filter__scriptedIllustrator_markup() {
+	grep -v "$markup_flag__NOT_shell"
 }
 
 
@@ -14,10 +22,25 @@ _set_strings_markup_shell() {
 
 
 
+_shellCommentLines() {
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$markup_comment_shell_line $currentString"
+		echo
+	done
+	
+}
+
+
 
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell() {
 	declare -f _set_strings_markup_shell
+	
+	declare -f _filter__scriptedIllustrator_markup
+	
+	declare -f _shellCommentLines
 }
 

@@ -1,9 +1,7 @@
 
 #####Markup.
 
-_filter__scriptedIllustrator_markup() {
-	grep -v "$markup_flag_NOT_shell"
-}
+
 _hideFrom_markup_html() {
 	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	echo
@@ -40,49 +38,6 @@ _break_markup_html() {
 }
 
 
-_shellCommentLines() {
-	local currentString
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' '#'"$currentString"
-		echo
-	done
-	
-}
-
-_noShell_block_html() {
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-	
-	#_safeEcho_newline "$@"
-	#cat
-	local currentString
-	export IFS=
-	export LANG=C
-	export LC_ALL=C
-	#LANG=C IFS= read -r -d '' -n 1 currentString
-	while read -r -d '' -n 1 currentString
-	do
-		#[ "$currentString" ] && echo -n "$currentString" || echo
-		[ "$currentString" ] && printf '%b' "$currentString" || echo
-	done
-	
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n 'fi # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
 
 _e_procedure() {
 	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
@@ -97,8 +52,8 @@ _e_procedure() {
 # Echo command with commented (shell prepending '#' ) output.
 _e() {
 	_e_procedure "$@"
-	"$@" | _shellCommentLines | _noShell_block_html
-	#eval "$@" | _noShell_block_html
+	"$@" | _shellCommentLines | _noShell_block
+	#eval "$@" | _noShell_block
 }
 _e__procedure() {
 	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
@@ -112,23 +67,23 @@ _e__procedure() {
 }
 _e_() {
 	_e__procedure "$@"
-	#"$@" | _noShell_block_html
+	#"$@" | _noShell_block
 	#eval "$@" > /dev/null
-	#_noShell_block_html <(eval "$@")
+	#_noShell_block <(eval "$@")
 	
 	# Technically works, but temporary files are a severe disadvantage here (especially MSW/Cygwin with VBox network drives).
 	#eval "$@" > ./temp
-	#cat ./temp | _noShell_block_html
+	#cat ./temp | _noShell_block
 	
-	#_safeEcho "$@" | source /dev/stdin | _noShell_block_html
+	#_safeEcho "$@" | source /dev/stdin | _noShell_block
 	
-	#_safeEcho `eval "$@"` |  _noShell_block_html
+	#_safeEcho `eval "$@"` |  _noShell_block
 	
 	
 	local current_miniSessionID=$(_uid 8)
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block_html
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
 }
 # Internal. Use for variables, equation solving, etc.
@@ -158,7 +113,7 @@ _t() {
 	# Equivalent to 'echo' of something like '#  - - >' .
 	#echo 'IyAtLT4gPCEtLSBzY3JpcHRlZElsbHVzdHJhdG9yX21hcmt1cF91azR1UGhCNjYza1ZjeWdUMHEgLS0+Cg==' | base64 -d
 	
-	#_safeEcho_newline "$@" | _noShell_block_html
+	#_safeEcho_newline "$@" | _noShell_block
 	
 	
 	
@@ -232,7 +187,7 @@ _v() {
 	echo
 	
 	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block_html
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
 }
 
@@ -298,11 +253,8 @@ _r() {
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_wip() {
-	declare -f _filter__scriptedIllustrator_markup
 	declare -f _hideFrom_markup_html
 	declare -f _break_markup_html
-	declare -f _shellCommentLines
-	declare -f _noShell_block_html
 	declare -f _e_procedure
 	declare -f _e
 	declare -f _e__procedure

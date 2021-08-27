@@ -250,3 +250,12 @@ _tinyCompiler_scriptedIllustrator_convert() {
 }
 
 
+
+
+
+
+
+_refresh_anchors() {
+	cp -a "$scriptAbsoluteFolder"/_anchor.bat "$scriptAbsoluteFolder"/_bash.bat
+}
+

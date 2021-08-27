@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3434762391'
+export ub_setScriptChecksum_contents='1949448571'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11516,6 +11516,15 @@ _tinyCompiler_scriptedIllustrator_convert() {
 
 
 
+
+
+
+
+_refresh_anchors() {
+	cp -a "$scriptAbsoluteFolder"/_anchor.bat "$scriptAbsoluteFolder"/_bash.bat
+}
+
+
 #####Program
 
 #Typically launches an application - ie. through virtualized container.
@@ -11548,9 +11557,7 @@ _main() {
 
 #####Markup.
 
-_filter__scriptedIllustrator_markup() {
-	grep -v "$markup_flag_NOT_shell"
-}
+
 _hideFrom_markup_html() {
 	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	echo
@@ -11587,49 +11594,6 @@ _break_markup_html() {
 }
 
 
-_shellCommentLines() {
-	local currentString
-	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' '#'"$currentString"
-		echo
-	done
-	
-}
-
-_noShell_block_html() {
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-	
-	#_safeEcho_newline "$@"
-	#cat
-	local currentString
-	export IFS=
-	export LANG=C
-	export LC_ALL=C
-	#LANG=C IFS= read -r -d '' -n 1 currentString
-	while read -r -d '' -n 1 currentString
-	do
-		#[ "$currentString" ] && echo -n "$currentString" || echo
-		[ "$currentString" ] && printf '%b' "$currentString" || echo
-	done
-	
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n 'fi # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
 
 _e_procedure() {
 	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
@@ -11644,8 +11608,8 @@ _e_procedure() {
 # Echo command with commented (shell prepending '#' ) output.
 _e() {
 	_e_procedure "$@"
-	"$@" | _shellCommentLines | _noShell_block_html
-	#eval "$@" | _noShell_block_html
+	"$@" | _shellCommentLines | _noShell_block
+	#eval "$@" | _noShell_block
 }
 _e__procedure() {
 	# https://tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_07.html
@@ -11659,23 +11623,23 @@ _e__procedure() {
 }
 _e_() {
 	_e__procedure "$@"
-	#"$@" | _noShell_block_html
+	#"$@" | _noShell_block
 	#eval "$@" > /dev/null
-	#_noShell_block_html <(eval "$@")
+	#_noShell_block <(eval "$@")
 	
 	# Technically works, but temporary files are a severe disadvantage here (especially MSW/Cygwin with VBox network drives).
 	#eval "$@" > ./temp
-	#cat ./temp | _noShell_block_html
+	#cat ./temp | _noShell_block
 	
-	#_safeEcho "$@" | source /dev/stdin | _noShell_block_html
+	#_safeEcho "$@" | source /dev/stdin | _noShell_block
 	
-	#_safeEcho `eval "$@"` |  _noShell_block_html
+	#_safeEcho `eval "$@"` |  _noShell_block
 	
 	
 	local current_miniSessionID=$(_uid 8)
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block_html
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
 }
 # Internal. Use for variables, equation solving, etc.
@@ -11705,7 +11669,7 @@ _t() {
 	# Equivalent to 'echo' of something like '#  - - >' .
 	#echo 'IyAtLT4gPCEtLSBzY3JpcHRlZElsbHVzdHJhdG9yX21hcmt1cF91azR1UGhCNjYza1ZjeWdUMHEgLS0+Cg==' | base64 -d
 	
-	#_safeEcho_newline "$@" | _noShell_block_html
+	#_safeEcho_newline "$@" | _noShell_block
 	
 	
 	
@@ -11779,7 +11743,7 @@ _v() {
 	echo
 	
 	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block_html
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
 }
 
@@ -11845,11 +11809,8 @@ _r() {
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_wip() {
-	declare -f _filter__scriptedIllustrator_markup
 	declare -f _hideFrom_markup_html
 	declare -f _break_markup_html
-	declare -f _shellCommentLines
-	declare -f _noShell_block_html
 	declare -f _e_procedure
 	declare -f _e
 	declare -f _e__procedure
@@ -12120,7 +12081,7 @@ _default() {
 
 # ATTENTION: WIP !
 _scribble_html() {
-	export current_scriptedIllustrator_markup='html'
+	_set_markup_html
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
@@ -12170,7 +12131,15 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 
 
 _set_strings_markup_shell() {
-	export markup_flag_NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	export markup_comment_shell_begin='if false; then true;'
+	export markup_comment_shell_end='fi'
+	export markup_comment_shell_line='#'
+	
+	export markup_flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+}
+
+_filter__scriptedIllustrator_markup() {
+	grep -v "$markup_flag__NOT_shell"
 }
 
 
@@ -12179,11 +12148,26 @@ _set_strings_markup_shell() {
 
 
 
+_shellCommentLines() {
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$markup_comment_shell_line $currentString"
+		echo
+	done
+	
+}
+
+
 
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell() {
 	declare -f _set_strings_markup_shell
+	
+	declare -f _filter__scriptedIllustrator_markup
+	
+	declare -f _shellCommentLines
 }
 
 
@@ -12207,17 +12191,68 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_terminal() {
 export current_scriptedIllustrator_markup='html'
 unset current_scriptedIllustrator_markup
 
+# TODO: Postprocessing may not be able to achieve presentation quality.
+export current_scriptedIllustrator_presentation='true'
+unset current_scriptedIllustrator_presentation
+
+
+_set_markup_html() {
+	export current_scriptedIllustrator_markup='html'
+	
+	_noShell_block() {
+		_noShell_block_html "$@"
+	}
+	export -f _noShell_block
+}
+
 
 _set_strings_markup_html() {
-	true
+	export markup_comment_html_begin='<!--'
+	export markup_comment_html_end='-->'
+	export markup_comment_html_line=''
+	
+	# Roughly equivalent.
+	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	# 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
+	export markup_interpret__html_NOT_shell__begin="$markup_comment_shell_line $markup_comment_html_begin $markup_flag__NOT_shell
+$markup_comment_shell_begin $markup_comment_shell_line $markup_flag__NOT_shell
+$markup_comment_shell_line $markup_flag__NOT_shell $markup_comment_html_end"
+	
+	# Roughly equivalent.
+	# '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	# 'fi # scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+	# '# scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
+	export markup_interpret__html_NOT_shell__end="$markup_comment_shell_line $markup_comment_html_begin $markup_flag__NOT_shell
+$markup_comment_shell_end $markup_comment_shell_line $markup_flag__NOT_shell
+$markup_comment_shell_line $markup_flag__NOT_shell $markup_comment_html_end"
 }
 
 
 
 
 
+
+
+_noShell_block_html() {
+	echo -n "$markup_interpret__html_NOT_shell__begin"
+	echo
+	
+	cat
+	
+	echo -n "$markup_interpret__html_NOT_shell__end"
+	echo
+}
+
+
+
+
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
+	declare -f _set_markup_html
+	
 	declare -f _set_strings_markup_html
+	
+	declare -f _noShell_block_html
 }
 
 
