@@ -27,6 +27,8 @@ currentByte=8
 RECODE_markup_html_pre_begin=$(_safeEcho "$markup_html_pre_begin" | recode ascii..html)
 
 
+export current_lorem_ipsum='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+
 
 # NOTICE: COLLECT
 }
@@ -39,24 +41,30 @@ _document_main() {
 # NOTICE: DOCUMENT
 #__HEADER_uk4uPhB663kVcygT0q_HEADER__
 _
+_ '
+
+
+'
+_o _messageNormal 'demo: self-modifying interleaved markup and shell'
+_o _messagePlain_request 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
+_v RECODE_markup_html_pre_begin
+_e_ currentBitsPerSecond=9600
+_v ubiquitiousBashID
+_e_ currentBonesPerPlayer=4
+_o _messagePlain_probe_var ubiquitiousBashID
+_i currentIncrementFramesPerSecond=15
+_i currentIncrementFrameBytesPerBone=2
+_i currentInstantFramesPerSecond=2
+_i currentInstantFrameBytesPerBone=12
 _
 _h '
 # Severely degraded and highly compressed connection between just two players.
 _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesPerSecond=15 ; currentIncrementFrameBytesPerBone=2 ; currentInstantFramesPerSecond=2 ; currentInstantFrameBytesPerBone=12 ; currentByte=8 ; solve "("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"
 # # solve(9600 = (("currentPlayers" * 4 * 30 * 2 * 8) + ("currentPlayers" * 4 * 3 * 33 * 8)), "currentPlayers") =
 # # 5.5555556'
-_ '
-
-
-'
-_v RECODE_markup_html_pre_begin
-_e_ currentBitsPerSecond=9600
-_v ubiquitiousBashID
-_e_ currentBonesPerPlayer=4
-_i currentIncrementFramesPerSecond=15
-_i currentIncrementFrameBytesPerBone=2
-_i currentInstantFramesPerSecond=2
-_i currentInstantFrameBytesPerBone=12
+_e_ solve '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
+_
+_
 _t 'preformatted
 text'
 _r 'raw markup<br \><h1>raw heading1</h2>
@@ -93,6 +101,12 @@ text
 _e ubiquitous_bash.sh _echo 'a
 b'
 _e _color_demo
+_v current_lorem_ipsum
+_ 'blank preformatted text will be ignored - at least add an empty space character'
+_t ''
+_t 'x > /dev/null'
+_t 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+_o _messagePlain_good 'done: demo'
 #__FOOTER_uk4uPhB663kVcygT0q_FOOTER__
 # NOTICE: DOCUMENT
 #y
@@ -109,10 +123,10 @@ echo -e '\n\n'
 
 
 #####Functions. Some may be from 'ubiquitous bash' .
-current_internal_CompressedFunctions_bytes='6039'
-current_internal_CompressedFunctions_cksum='265347862'
+current_internal_CompressedFunctions_bytes='6119'
+current_internal_CompressedFunctions_cksum='2201132106'
 current_internal_CompressedFunctions='
-/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4JFUEVRdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
+/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4JUUEZBdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
 DrV189uAlZ6oqD3MK7bjrSmuGreEaBOC+z5QkGUPIDVaXfJmDg73/A1Y9JqRKxtli7ZDurfX2t/Z3m6RV6ku3LwPHl2qt8/kbWEubRkY3Fl2VTTFWjQ8Z9qfpBK4YyV7fw3X3hcUmN6Fz+u2P8eCSl/fCnNX
 HtvGeiwoJbZ3wje2iPvqVhHoy0BMVkEDcSqWo+znkV0BwqE45qLsZQ9IGG1CzglgciwcOU2fdsqKBFC5XA3WYFGg6uZ2q4mvn5jWR+FbeUz7YjupLAvLl7DE+daOBWzzyYeFrcMhDk1QeqOKpv41V0GTTqAm
 Z7lRbPrhk3oRY/kBiQGZSfRuxTSmIc1zevrFy6JWcZkCJayU/wQ+XEKdvF51XHH+OYrSuhIxvk6G+Ce0sbTr3GBfVRQYdRpxeOs48xNaEfmBf6GZcWUMx5L3LA4cup19vL4O75JjKbnlJeYdoRCjtcPE7A8S
@@ -144,13 +158,13 @@ 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
-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'
+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'
 ! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes

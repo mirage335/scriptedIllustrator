@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3933467387'
+export ub_setScriptChecksum_contents='922896053'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11700,13 +11700,13 @@ _main() {
 
 
 # TODO: Functions to add other markup - ie. '_markup_tag' .
-# Line Breaks
-# Page Breaks
-# Paragraphs
+# Line Breaks (_newLine)
+# Page Breaks (_newPage)
+# Paragraphs (_newParagraph)
 # Frames
-# Tables
+# Tables (rows, columns)
 # Headings
-# Images (base64 HTML Image tags, mediawiki reference, or terminal)
+# Images (base64 HTML Image tags, mediawiki reference, or terminal) (_markup_image)
 
 # TODO: Functions to send 'messages' with standard color schmes - ie. _messagePlain (with environment variable set to emit markup instead of ANSI color codes).
 
@@ -12157,6 +12157,12 @@ _set_markup_html() {
 	}
 	export -f _e_
 	
+	_o() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_o-html "$@"
+	}
+	export -f _o
+	
 	_i() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_i-html "$@"
@@ -12194,6 +12200,12 @@ _set_markup_html() {
 
 
 _set_strings_markup_html() {
+	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
+	#export markup_html_fold=156
+	#export markup_html_fold=93
+	#export markup_html_fold=76
+	
+	
 	export comment_html_begin='<!--'
 	export comment_html_end='-->'
 	export comment_html_line=''
@@ -12212,10 +12224,11 @@ $comment_shell_end"
 	#tab-width: 8;
 	#margin-top: 0px;margin-bottom: 0px;
 	#<code style="white-space: pre;">
-	export markup_html_pre_begin="$workaround_shellPrependMarkupLines"'<pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre;">'
+	#white-space: pre-wrap;
+	export markup_html_pre_begin="$workaround_shellPrependMarkupLines"'<pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
 	export markup_html_pre_end="$workaround_shellPrependMarkupLines"'</pre>'
 	
-	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre;">'
+	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
 	export markup_html_cmd_end="$markup_html_pre_end"
 	
 	# WARNING: Pure HTML (no JS) may be strongly preferable (ie. to 'scribble' presentation PDF from the HTML through automation). JS is not necessary to achieve presentation mode - disable if necessary.
@@ -12231,7 +12244,11 @@ $comment_shell_end"
 	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_html_root_begin="$markup_html_root_begin $comment_html_begin $flag__NOT_shell"
 	export document_html_root_end="$comment_shell_line $flag__NOT_shell $comment_html_end $markup_html_root_end"
 	
+	
+	# ATTENTION: Override.
+	_tryExecFull _set_strings_markup_html_prog "$@"
 }
+
 
 
 
@@ -12249,7 +12266,7 @@ _e-html() {
 	echo "$markup_html_cmd_begin"
 	
 	_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
-	"$@" | fold -w 156 -s | _shellCommentLines | _workaround_shellPrependMarkupLines
+	"$@" | _shellCommentLines | _workaround_shellPrependMarkupLines
 	
 	echo "$markup_html_cmd_end"
 	echo "$interpret__html_NOT_shell__end"
@@ -12268,7 +12285,31 @@ _e_-html() {
 	_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | fold -w 156 -s | _shellCommentLines | _workaround_shellPrependMarkupLines
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	
+	echo "$markup_html_cmd_end"
+	echo "$interpret__html_NOT_shell__end"
+}
+
+# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+_o-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	echo "$markup_html_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	
+	# | _shellCommentLines
+	
+	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_cmd_end"
@@ -12309,7 +12350,7 @@ _v-html() {
 	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	
 	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | fold -w 156 -s | _workaround_shellPrependMarkupLines
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _fold-html | _workaround_shellPrependMarkupLines
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_pre_end"
@@ -12322,6 +12363,9 @@ _v-html() {
 
 # Show preformatted text.
 _t-html() {
+	# No parameters (no input) is meaningless and nothing can be done with that.
+	[[ "$1" == "" ]] && return 0
+	
 	_safeEcho_newline _t "'"
 	echo -n "$flag__NOT_shell $comment_html_end""$markup_html_pre_begin"
 	
@@ -12342,7 +12386,7 @@ _t-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | _filter__scriptedIllustrator_markup
+	_safeEcho "$@" | _filter__scriptedIllustrator_markup | _fold-html
 	
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"
@@ -12352,6 +12396,9 @@ _t-html() {
 
 # Raw. Experimental. No production use.
 _r-html() {
+	# No parameters (no input) is meaningless and nothing can be done with that.
+	[[ "$1" == "" ]] && return 0
+	
 	_safeEcho_newline _r "'"
 	echo -n "$flag__NOT_shell $comment_html_end"
 	
@@ -12416,6 +12463,15 @@ _pre_block-html() {
 
 
 
+_fold-html() {
+	if [[ "$markup_html_fold" != "" ]]
+	then
+		fold -w "$markup_html_fold" -s
+		return
+	fi
+	cat
+}
+
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
@@ -12429,6 +12485,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	declare -f _e_
 	declare -f _e_-html
+	
+	declare -f _o
+	declare -f _o-html
 	
 	declare -f _i
 	declare -f _i-html
@@ -12449,6 +12508,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	declare -f _noShell_block-html
 	declare -f _pre_block-html
+	
+	declare -f _fold-html
 }
 
 
