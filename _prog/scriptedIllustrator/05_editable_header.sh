@@ -32,6 +32,27 @@ _document_main() {
 #b
 # NOTICE: DOCUMENT
 #__HEADER_uk4uPhB663kVcygT0q_HEADER__
+_e_ currentBitsPerSecond=9600
+_e_ currentBonesPerPlayer=4
+_i currentIncrementFramesPerSecond=15
+_i currentIncrementFrameBytesPerBone=2
+_i currentInstantFramesPerSecond=2
+_i currentInstantFrameBytesPerBone=12
+_t 'preformatted
+text'
+_t '
+preformatted
+text'
+_e_ ubiquitous_bash.sh _echo 'a b'
+_t '
+
+
+preformatted
+text
+"$ubiquitiousBashID"
+
+
+'
 _e ubiquitous_bash.sh _echo 'a
 b'
 _e _color_demo
