@@ -40,6 +40,9 @@ $comment_shell_end"
 	export markup_html_pre_begin="$workaround_shellPrependMarkupLines"'<pre style="white-space: pre;">'
 	export markup_html_pre_end="$workaround_shellPrependMarkupLines"'</pre>'
 	
+	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;white-space: pre;">'
+	export markup_html_cmd_end="$markup_html_pre_end"
+	
 	
 	export markup_html_root_begin='<html>'
 	export markup_html_root_end='</html>'
@@ -62,10 +65,10 @@ _e-html() {
 	_safeEcho_newline
 	
 	echo "$interpret__html_NOT_shell__begin"
-	echo "$markup_html_pre_begin"
+	echo "$markup_html_cmd_begin"
 	_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	"$@" | fold -w 156 -s | _shellCommentLines | _workaround_shellPrependMarkupLines
-	echo "$markup_html_pre_end"
+	echo "$markup_html_cmd_end"
 	echo "$interpret__html_NOT_shell__end"
 }
 
