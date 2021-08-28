@@ -1,6 +1,11 @@
 
 
-# ATTENTION: WIP !
+_scribble_html_presentation() {
+	export current_scriptedIllustrator_presentation='true'
+	_scribble_html "$@"
+}
+
+
 _scribble_html() {
 	_set_markup_html
 	_set_strings
@@ -10,6 +15,7 @@ _scribble_html() {
 	
 	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
 	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
 	
 	local currentOutputFile
 	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup"
@@ -48,5 +54,6 @@ _scribble_html() {
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_html
+	declare -f _scribble_html_presentation
 }
 

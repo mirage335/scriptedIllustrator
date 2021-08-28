@@ -91,13 +91,17 @@ $comment_shell_end"
 	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre;">'
 	export markup_html_cmd_end="$markup_html_pre_end"
 	
+	# WARNING: Pure HTML (no JS) may be strongly preferable (ie. to 'scribble' presentation PDF from the HTML through automation). JS is not necessary to achieve presentation mode - disable if necessary.
 	# https://stackoverflow.com/questions/1829370/clear-html-page-using-javascript/1829455
 	# <script type="text/javascript"> document.body.innerHTML = ''; </script>
-	export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	#export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	export markup_html_root_begin='<html>'
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] &&  export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
 	export markup_html_root_end='</html>'
 	
 	
 	export document_html_root_begin="$comment_shell_line $markup_html_root_begin $comment_html_begin $flag__NOT_shell"
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_html_root_begin="$markup_html_root_begin $comment_html_begin $flag__NOT_shell"
 	export document_html_root_end="$comment_shell_line $flag__NOT_shell $comment_html_end $markup_html_root_end"
 	
 }

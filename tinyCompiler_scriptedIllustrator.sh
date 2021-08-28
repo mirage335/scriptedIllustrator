@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3249225076'
+export ub_setScriptChecksum_contents='3933467387'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11699,43 +11699,6 @@ _main() {
 
 
 
-
-
-
-
-
-# Hidden. Use for comments and spacing.
-_h() {
-	# Equivalent to 'echo' of something like '#  < ! - -' .
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	_safeEcho_newline _ "'""$@""'"
-	
-	# Equivalent to 'echo' of something like '#  - - >' .
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
-_() {
-	_h "$@"
-}
-_v() {
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	_safeEcho '_v '
-	_safeEcho ' '"'""$1""'"
-	_safeEcho_newline
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-	
-	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _noShell_block
-	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
-}
-
-
-
-
 # TODO: Functions to add other markup - ie. '_markup_tag' .
 # Line Breaks
 # Page Breaks
@@ -11756,9 +11719,7 @@ _v() {
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_wip() {
-	declare -f _h
-	declare -f _
-	declare -f _v
+	true
 }
 
 
@@ -12021,7 +11982,7 @@ _test_default() {
 # Equivalent to '_main', with the usual '_collect' (aka. '_gather'), '_enter', '_launch', etc.
 _default() {
 	_scribble_html "$@"
-	
+	_scribble_html_presentation "$@"
 	
 	return;
 }
@@ -12030,7 +11991,12 @@ _default() {
 
 
 
-# ATTENTION: WIP !
+_scribble_html_presentation() {
+	export current_scriptedIllustrator_presentation='true'
+	_scribble_html "$@"
+}
+
+
 _scribble_html() {
 	_set_markup_html
 	_set_strings
@@ -12040,6 +12006,7 @@ _scribble_html() {
 	
 	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
 	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
 	
 	local currentOutputFile
 	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup"
@@ -12078,6 +12045,7 @@ _scribble_html() {
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_html
+	declare -f _scribble_html_presentation
 }
 
 
@@ -12250,13 +12218,17 @@ $comment_shell_end"
 	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre;">'
 	export markup_html_cmd_end="$markup_html_pre_end"
 	
+	# WARNING: Pure HTML (no JS) may be strongly preferable (ie. to 'scribble' presentation PDF from the HTML through automation). JS is not necessary to achieve presentation mode - disable if necessary.
 	# https://stackoverflow.com/questions/1829370/clear-html-page-using-javascript/1829455
 	# <script type="text/javascript"> document.body.innerHTML = ''; </script>
-	export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	#export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	export markup_html_root_begin='<html>'
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] &&  export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
 	export markup_html_root_end='</html>'
 	
 	
 	export document_html_root_begin="$comment_shell_line $markup_html_root_begin $comment_html_begin $flag__NOT_shell"
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_html_root_begin="$markup_html_root_begin $comment_html_begin $flag__NOT_shell"
 	export document_html_root_end="$comment_shell_line $flag__NOT_shell $comment_html_end $markup_html_root_end"
 	
 }
