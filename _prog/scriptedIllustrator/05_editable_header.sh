@@ -40,6 +40,24 @@ _i currentInstantFramesPerSecond=2
 _i currentInstantFrameBytesPerBone=12
 _t 'preformatted
 text'
+_r 'raw markup<br \><h1>raw heading1</h2>
+<h2>raw heading2</h2>
+raw markup 
+raw markup
+<p>raw paragraph</p>
+raw markup'
+_r '
+raw markup'
+_r 'raw markup
+'
+_r '
+raw markup
+'
+_r '
+
+raw markup
+
+'
 _t '
 preformatted
 text'

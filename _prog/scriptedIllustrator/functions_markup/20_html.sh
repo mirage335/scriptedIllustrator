@@ -41,6 +41,12 @@ _set_markup_html() {
 		_t-html "$@"
 	}
 	export -f _i
+	
+	_r() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_r-html "$@"
+	}
+	export -f _r
 }
 
 
@@ -171,6 +177,34 @@ _t-html() {
 }
 
 
+# Raw. Experimental. No production use.
+_r-html() {
+	_safeEcho_newline _r "'"
+	echo -n "$flag__NOT_shell $comment_html_end"
+	
+	
+	local currentLine
+	local currentLine_previous
+	local currentIteration
+	currentIteration=0
+	while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
+	do
+		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]]
+		then
+			_safeEcho_newline
+		fi
+		
+		currentLine_previous="$currentLine"
+		let currentIteration=currentIteration+1
+	done <<<$(_safeEcho "$@")
+	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
+	
+	_safeEcho "$@" | _filter__scriptedIllustrator_markup
+	
+	
+	echo "$comment_html_begin $flag__NOT_shell"
+	_safeEcho_newline "'"
+}
 
 
 
@@ -226,6 +260,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	declare -f _t
 	declare -f _t-html
+	
+	declare -f _r
+	declare -f _r-html
 	
 	
 	declare -f _noShell_block-html

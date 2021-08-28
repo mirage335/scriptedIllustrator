@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2943138352'
+export ub_setScriptChecksum_contents='3540708862'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11730,45 +11730,6 @@ _v() {
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
 }
 
-# Raw. Experimental. No production use.
-_r() {
-	echo -n '# <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	_safeEcho_newline _r "'"
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q --> </pre>'
-	
-	local currentLine
-	local currentLine_previous
-	local currentIteration
-	currentIteration=0
-	while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
-	do
-		#echo --------- > /dev/tty
-		#echo "$currentLine" > /dev/tty
-		#echo "$currentLine_previous" > /dev/tty
-		#echo "$currentIteration" > /dev/tty
-		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]]
-		then
-			_safeEcho_newline
-		fi
-		
-		currentLine_previous="$currentLine"
-		let currentIteration=currentIteration+1
-	done <<<$(_safeEcho "$@")
-	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
-	
-	_safeEcho "$@" | _filter__scriptedIllustrator_markup
-	
-	echo -n '<pre style="white-space: pre;"># <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
-	echo
-	
-	_safeEcho_newline "'"
-	
-	echo -n '# --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
-	echo
-}
 
 
 
@@ -11795,7 +11756,6 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_wip() {
 	declare -f _h
 	declare -f _
 	declare -f _v
-	declare -f _r
 }
 
 
@@ -12237,6 +12197,12 @@ _set_markup_html() {
 		_t-html "$@"
 	}
 	export -f _i
+	
+	_r() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_r-html "$@"
+	}
+	export -f _r
 }
 
 
@@ -12364,10 +12330,37 @@ _t-html() {
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
-	
 }
 
 
+# Raw. Experimental. No production use.
+_r-html() {
+	_safeEcho_newline _r "'"
+	echo -n "$flag__NOT_shell $comment_html_end"
+	
+	
+	local currentLine
+	local currentLine_previous
+	local currentIteration
+	currentIteration=0
+	while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
+	do
+		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]]
+		then
+			_safeEcho_newline
+		fi
+		
+		currentLine_previous="$currentLine"
+		let currentIteration=currentIteration+1
+	done <<<$(_safeEcho "$@")
+	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
+	
+	_safeEcho "$@" | _filter__scriptedIllustrator_markup
+	
+	
+	echo "$comment_html_begin $flag__NOT_shell"
+	_safeEcho_newline "'"
+}
 
 
 
@@ -12423,6 +12416,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	declare -f _t
 	declare -f _t-html
+	
+	declare -f _r
+	declare -f _r-html
 	
 	
 	declare -f _noShell_block-html
