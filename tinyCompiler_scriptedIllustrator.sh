@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2843810922'
+export ub_setScriptChecksum_contents='3669770825'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12112,6 +12112,16 @@ _test_built_default() {
 	cp "$scriptAbsoluteLocation" "$safeTmp"/scriptedIllustrator.sh
 	chmod u+x "$safeTmp"/scriptedIllustrator.sh
 	
+	_messagePlain_nominal '_test: comparison of self-modified html from html from shell (original)'
+	"$safeTmp"/scriptedIllustrator.sh _scribble_html "$safeTmp"/scriptedIllustrator.html
+	cp "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html
+	"$safeTmp"/scriptedIllustrator.html
+	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
+	"$safeTmp"/scriptedIllustrator.html _scribble_html
+	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
+	"$safeTmp"/scriptedIllustrator.html _scribble_html "$safeTmp"/scriptedIllustrator.html
+	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
+	
 	_messagePlain_nominal '_test: comparison of html from shell (original) versus html (from original and as shell)'
 	"$safeTmp"/scriptedIllustrator.sh _scribble_html "$safeTmp"/scriptedIllustrator.html
 	mv "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh
@@ -12139,6 +12149,7 @@ _test_built_default() {
 	cat "$safeTmp"/converted.html | grep -v scriptedIllustrator_markup_uk4uPhB663kVcygT0q > "$safeTmp"/converted_repeat.sh
 	chmod u+x "$safeTmp"/converted_repeat.sh
 	! diff --color "$safeTmp"/converted.sh "$safeTmp"/converted_repeat.sh && _messagePlain_bad 'fail: unexpected differences'
+	
 	
 	
 	rm "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh "$safeTmp"/converted.sh "$safeTmp"/converted.html "$safeTmp"/converted.html.sh "$safeTmp"/converted_repeat.sh

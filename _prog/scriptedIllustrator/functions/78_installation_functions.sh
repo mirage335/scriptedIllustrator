@@ -25,6 +25,16 @@ _test_built_default() {
 	cp "$scriptAbsoluteLocation" "$safeTmp"/scriptedIllustrator.sh
 	chmod u+x "$safeTmp"/scriptedIllustrator.sh
 	
+	_messagePlain_nominal '_test: comparison of self-modified html from html from shell (original)'
+	"$safeTmp"/scriptedIllustrator.sh _scribble_html "$safeTmp"/scriptedIllustrator.html
+	cp "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html
+	"$safeTmp"/scriptedIllustrator.html
+	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
+	"$safeTmp"/scriptedIllustrator.html _scribble_html
+	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
+	"$safeTmp"/scriptedIllustrator.html _scribble_html "$safeTmp"/scriptedIllustrator.html
+	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
+	
 	_messagePlain_nominal '_test: comparison of html from shell (original) versus html (from original and as shell)'
 	"$safeTmp"/scriptedIllustrator.sh _scribble_html "$safeTmp"/scriptedIllustrator.html
 	mv "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh
@@ -52,6 +62,7 @@ _test_built_default() {
 	cat "$safeTmp"/converted.html | grep -v scriptedIllustrator_markup_uk4uPhB663kVcygT0q > "$safeTmp"/converted_repeat.sh
 	chmod u+x "$safeTmp"/converted_repeat.sh
 	! diff --color "$safeTmp"/converted.sh "$safeTmp"/converted_repeat.sh && _messagePlain_bad 'fail: unexpected differences'
+	
 	
 	
 	rm "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh "$safeTmp"/converted.sh "$safeTmp"/converted.html "$safeTmp"/converted.html.sh "$safeTmp"/converted_repeat.sh
