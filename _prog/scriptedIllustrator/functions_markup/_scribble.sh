@@ -33,7 +33,6 @@ _scribble_html() {
 	
 	
 	
-	
 	_HEADER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
 	
 	"$scriptAbsoluteLocation" DOCUMENT >> "$currentOutputFile".tmp
