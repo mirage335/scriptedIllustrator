@@ -2,7 +2,8 @@
 
 # Dependencies.
 # Must have 'ubiquitous_bash.sh" in "$PATH".
-# GNU Octave, Qalculate, usually required by 'calculator' scripts.
+# GNU Octave, Qalculate - usually dependency of 'calculator' scripts
+# recode - usually dependency of 'markup documentation' scripts
 
 # NOTICE: README !
 # 
