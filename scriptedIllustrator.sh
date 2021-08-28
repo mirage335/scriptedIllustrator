@@ -18,9 +18,13 @@
 _document_collect() {
 # NOTICE: COLLECT
 
+# Not necessary. Warnings about 'command not found' to 'stderr' will be ignored by script pipelines.
+#! type -p 'recode' > /dev/null 2>&1 && recode() { false; }
 
 
 currentByte=8
+
+RECODE_markup_html_pre_begin=$(_safeEcho "$markup_html_pre_begin" | recode ascii..html)
 
 
 
@@ -34,7 +38,20 @@ _document_main() {
 #b
 # NOTICE: DOCUMENT
 #__HEADER_uk4uPhB663kVcygT0q_HEADER__
+_
+_
+_h '
+# Severely degraded and highly compressed connection between just two players.
+_e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesPerSecond=15 ; currentIncrementFrameBytesPerBone=2 ; currentInstantFramesPerSecond=2 ; currentInstantFrameBytesPerBone=12 ; currentByte=8 ; solve "("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"
+# # solve(9600 = (("currentPlayers" * 4 * 30 * 2 * 8) + ("currentPlayers" * 4 * 3 * 33 * 8)), "currentPlayers") =
+# # 5.5555556'
+_ '
+
+
+'
+_v RECODE_markup_html_pre_begin
 _e_ currentBitsPerSecond=9600
+_v ubiquitiousBashID
 _e_ currentBonesPerPlayer=4
 _i currentIncrementFramesPerSecond=15
 _i currentIncrementFrameBytesPerBone=2
@@ -92,10 +109,10 @@ echo -e '\n\n'
 
 
 #####Functions. Some may be from 'ubiquitous bash' .
-current_internal_CompressedFunctions_bytes='5954'
-current_internal_CompressedFunctions_cksum='2785553896'
+current_internal_CompressedFunctions_bytes='6095'
+current_internal_CompressedFunctions_cksum='1020418363'
 current_internal_CompressedFunctions='
-/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4I28ERJdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
+/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4JVJEXpdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
 DrV189uAlZ6oqD3MK7bjrSmuGreEaBOC+z5QkGUPIDVaXfJmDg73/A1Y9JqRKxtli7ZDurfX2t/Z3m6RV6ku3LwPHl2qt8/kbWEubRkY3Fl2VTTFWjQ8Z9qfpBK4YyV7fw3X3hcUmN6Fz+u2P8eCSl/fCnNX
 HtvGeiwoJbZ3wje2iPvqVhHoy0BMVkEDcSqWo+znkV0BwqE45qLsZQ9IGG1CzglgciwcOU2fdsqKBFC5XA3WYFGg6uZ2q4mvn5jWR+FbeUz7YjupLAvLl7DE+daOBWzzyYeFrcMhDk1QeqOKpv41V0GTTqAm
 Z7lRbPrhk3oRY/kBiQGZSfRuxTSmIc1zevrFy6JWcZkCJayU/wQ+XEKdvF51XHH+OYrSuhIxvk6G+Ce0sbTr3GBfVRQYdRpxeOs48xNaEfmBf6GZcWUMx5L3LA4cup19vL4O75JjKbnlJeYdoRCjtcPE7A8S
@@ -128,11 +145,12 @@ JlgAGoz2ACCF/pi7Ey7nWqKAcdvT+Crjzqim/zCHMzBQ6fQmou37GJDEioqOFlO4+7j9+cAN0wOZFvZV
 gVb/+VkWKDPoqX0YyUD4GLTilnRDkuAoAPLf5i6DP37Nr5ZZW0BpHOta1swbRWt1BQW54mQiFDmPoNWqwDyplEqmnmDPPSXP8kGQT6py8DnB9bdhsYjJs61cNdkPuG3wIE74zvtMV2LiXEddOrwvy0kRq2kc
 8HjYhYAEVj8oQmtlVrXjeTqNGk+qp+diNRkJYNHSSV8Yp/olZJMXH3z9rr3x0IRj1QHkBbNIXqs/z15WTCyUoVwMfMf/aUnL6qktkGQV4B8lEx36XQTsLvKtH20mP3wBahZ7tH3TZrHSnwtGxooNPVfZ1gn+
 kYcKWDvlt+UFunBthuU0qt7wC3loBOxd8BM0M09lBIrXmj5EeVkrNkSHM94aUjb1/WLvz9Mg4DLXM8L5l2wdHvgqdxPbIrFs/Q1RlKF55OIWMzotY21WpbJvPrVGjrYVDPktqzWsz8vtq/z5N/qN/26M41rL
-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'
+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'
 ! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes

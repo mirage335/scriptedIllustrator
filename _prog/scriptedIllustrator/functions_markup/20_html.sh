@@ -36,6 +36,11 @@ _set_markup_html() {
 	}
 	export -f _i
 	
+	_v() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_v-html "$@"
+	}
+	
 	_t() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_t-html "$@"
@@ -47,6 +52,17 @@ _set_markup_html() {
 		_r-html "$@"
 	}
 	export -f _r
+	
+	_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_h-html "$@"
+	}
+	_h() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_h-html "$@"
+	}
+	export -f _
+	export -f _h
 }
 
 
@@ -75,8 +91,9 @@ $comment_shell_end"
 	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre;">'
 	export markup_html_cmd_end="$markup_html_pre_end"
 	
-	
-	export markup_html_root_begin='<html><br \>'
+	# https://stackoverflow.com/questions/1829370/clear-html-page-using-javascript/1829455
+	# <script type="text/javascript"> document.body.innerHTML = ''; </script>
+	export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
 	export markup_html_root_end='</html>'
 	
 	
@@ -144,6 +161,31 @@ _i-html() {
 	echo "$interpret__html_NOT_shell__end"
 }
 
+# Useful to read out a variable (ie. set from 'COLLECT') as preformatted text.
+# Variable. Roughly equivalent to '_messagePlain_probe_var' , however, without any declaration of the variable name .
+# https://stackoverflow.com/questions/11386586/how-to-show-div-tag-literally-in-code-pre-tag
+# 	'You can't (in modern HTML) write markup and have it be interpreted as text.'
+_v-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	echo "$markup_html_pre_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | fold -w 156 -s | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	
+	echo "$markup_html_pre_end"
+	echo "$interpret__html_NOT_shell__end"
+}
+
+
 
 
 
@@ -206,9 +248,11 @@ _r-html() {
 	_safeEcho_newline "'"
 }
 
-
-
-
+# Hidden. Use for comments and (shell code only) spacing.
+_h-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
 
 
 
@@ -258,11 +302,18 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _i
 	declare -f _i-html
 	
+	declare -f _v
+	declare -f _v-html
+	
 	declare -f _t
 	declare -f _t-html
 	
 	declare -f _r
 	declare -f _r-html
+	
+	declare -f _
+	declare -f _h
+	declare -f _h-html
 	
 	
 	declare -f _noShell_block-html
