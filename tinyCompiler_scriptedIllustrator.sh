@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2321214642'
+export ub_setScriptChecksum_contents='2591056903'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12229,14 +12229,14 @@ _set_strings_markup_shell() {
 	
 	export comment_shell_line='#'
 	
-	# WARNING: Markup files requiring workaround will be more difficult to read/edit directly (ie. adding '<!-- # --> ' or similar to every line to prevent interpretation of '>' as a redirect character even within an 'if false' 'block comment'.
-	export comment_shell_begin='if false; then true; '"$comment_shell_line"
-	export comment_shell_end='fi'
-	[[ "$current_scriptedIllustrator_markup" == 'html' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
-	
 	# DANGER: CAUTION: Creates a temporary 'here document'. Compatibility problems (ie. MSW/Cygwin) are possible.
-	#export comment_shell_begin=": <<'ey5QoR_""'"" $comment_shell_line"
-	#export comment_shell_end="ey5QoR_"
+	export comment_shell_begin=": <<'ey5QoR_""'"" $comment_shell_line"
+	export comment_shell_end="ey5QoR_"
+	
+	# WARNING: Markup files requiring workaround will be more difficult to read/edit directly (ie. adding '<!-- # --> ' or similar to every line to prevent interpretation of '>' as a redirect character even within an 'if false' 'block comment'.
+	#export comment_shell_begin='if false; then true; '"$comment_shell_line"
+	#export comment_shell_end='fi'
+	#[[ "$current_scriptedIllustrator_markup" == 'html' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
 }
 
 _filter__scriptedIllustrator_markup() {
