@@ -2,11 +2,14 @@ Copyright (C) 2021 mirage335
 See the end of the file for license conditions.
 See license.txt for scriptedIllustrator license conditions.
 
-Creates editable 'template' scripts.
+The 'UNIX TiddlyWiki' .
 
-Intended to assist quickly or colloboratively embedding dynamic external data (ie. calculations, source code analysis, web sites, images, etc) within documentation. MediaWiki users in particular may simply edit text and post the markup file - only the intended text will be visible while the interleaved code remains executable and commented out from the markup.
 
-Markup files are executable, all having functionally identical shell code, and can automatically convert to other scripting/markup languages (eg. HTML and MediaWiki compatible files are capable of identical output).
+Self-modifying mix of shellcode script and markup. Users need not understand the code to edit the text.
+
+Intended to assist quickly or colloboratively embedding dynamic external data (ie. calculations, source code analysis, web sites, images, etc) within documentation. MediaWiki users in particular may simply edit text and post the markup file - only the intended text will be visible while the interleaved code remains executable and commented out from the markup. 
+
+Markup files of any markup launguage (eg. HTML and MediaWiki) are executable, automatically convertable, all having functionally identical shell code (eg. HTML and MediaWiki compatible files are capable of identical output).
 
 
 
