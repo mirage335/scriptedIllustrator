@@ -2,7 +2,7 @@ Copyright (C) 2021 mirage335
 See the end of the file for license conditions.
 See license.txt for scriptedIllustrator license conditions.
 
-The 'UNIX TiddlyWiki' .
+A 'UNIX TiddlyWiki' . A 'LibreOffice' or 'MSOffice' for programmers. A word processor for wiki, shell, bash, or TI calculator users. 
 
 
 Self-modifying mix of shellcode script and markup. Users need not understand the code to edit the text.

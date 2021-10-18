@@ -46,12 +46,13 @@ _set_markup_html() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_v-html "$@"
 	}
+	export -f _v
 	
 	_t() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_t-html "$@"
 	}
-	export -f _i
+	export -f _t
 	
 	_r() {
 		export currentFunctionName="${FUNCNAME[0]}"
