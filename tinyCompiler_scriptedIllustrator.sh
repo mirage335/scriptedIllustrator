@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3532653535'
+export ub_setScriptChecksum_contents='1097259593'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -349,8 +349,8 @@ _____special_live_hibernate() {
 	fi
 	
 	_messagePlain_nominal 'attempt: HIBERNATE'
-	sudo journalctl --rotate
-	sudo journalctl --vacuum-time=1s
+	sudo -n journalctl --rotate
+	sudo -n journalctl --vacuum-time=1s
 	sudo -n systemctl hibernate
 	
 	
@@ -689,7 +689,11 @@ then
 fi
 
 
+# CAUTION: Fragile, at best.
+# DANGER: MSW apparently does not necessarily allow 'Administrator' access to all network 'drives'. Workaround copying of obvious files is limited.
+# WARNING: Most likely, after significant delay, will 'prompt' the user with a very much obstructive, and not securing very much, dialog box.
 # https://stackoverflow.com/questions/4090301/root-user-sudo-equivalent-in-cygwin
+# https://superuser.com/questions/812018/run-a-command-in-another-cygwin-window-and-not-exit
 _sudo_cygwin_sequence() {
 	_start
 	
@@ -707,12 +711,36 @@ _sudo_cygwin_sequence() {
 	echo "export PATH=\"$PATH\"" >> "$safeTmp"/cygwin_sudo_temp.sh
 	
 	
-	_safeEcho_newline "$@" >> "$safeTmp"/cygwin_sudo_temp.sh
+	_safeEcho_newline "$safeTmp"/_bin.bat "$@" >> "$safeTmp"/cygwin_sudo_temp.sh
+	echo 'echo > "'"$safeTmp"'"/sequenceDone_'"$ubiquitiousBashID" >> "$safeTmp"/cygwin_sudo_temp.sh
+	echo 'sleep 3' >> "$safeTmp"/cygwin_sudo_temp.sh
+	chmod u+x "$safeTmp"/cygwin_sudo_temp.sh
+	
+	
+	
+	cp "$scriptAbsoluteLocation" "$safeTmp"/
+	chmod u+x "$safeTmp"/$(basename "$scriptAbsoluteLocation")
+	
+	cp "$scriptAbsoluteFolder"/_bin.bat "$safeTmp"/_bin.bat
+	chmod u+x "$safeTmp"/_bin.bat
 	
 
 	# 'Do it as Administrator.'
 	#cygstart --action=runas "$scriptAbsoluteFolder"/_bin.bat bash
-	cygstart --action=runas "$scriptAbsoluteFolder"/_bin.bat "$safeTmp"/cygwin_sudo_temp.sh
+	
+	if [[ "$scriptAbsoluteFolder" == "/cygdrive/c"* ]]
+	then
+		# WARNING: May be untested, or (especially under interactive shell) may call obsolete code.
+		cygstart --action=runas "$scriptAbsoluteFolder"/_bin.bat "$safeTmp"/cygwin_sudo_temp.sh
+	else
+		cygstart --action=runas "$safeTmp"/_bin.bat "$safeTmp"/cygwin_sudo_temp.sh
+	fi
+	
+	
+	while ! [[ -e "$safeTmp"/sequenceDone_"$ubiquitiousBashID" ]]
+	do
+		sleep 3
+	done
 	
 	_stop "$?"
 }
@@ -1237,7 +1265,7 @@ _mitigate-ubcp_rewrite() {
 	! _safePath "$1" && _stop 1
 	cd "$1"
 	
-	find "$2" -type l -exec "$scriptAbsoluteLocation" _mitigate-ubcp_rewrite_procedure {} \;
+	find "$2" -type l -exec "$scriptAbsoluteLocation" _mitigate-ubcp_rewrite_procedure '{}' \;
 	
 	return 0
 }
@@ -2324,28 +2352,29 @@ _condition_lines_zero() {
 	return 1
 }
 
-#Generates random alphanumeric characters, default length 18.
+#Generates semi-random alphanumeric characters, default length 18.
 _uid() {
 	local curentLengthUID
 	local currentIteration
 	currentIteration=0
-
+	
 	currentLengthUID="18"
 	! [[ -z "$uidLengthPrefix" ]] && ! [[ "$uidLengthPrefix" -lt "18" ]] && currentLengthUID="$uidLengthPrefix"
 	! [[ -z "$1" ]] && currentLengthUID="$1"
-
+	
 	if [[ -z "$uidLengthPrefix" ]] && [[ -z "$1" ]]
 	then
 		# https://stackoverflow.com/questions/32484504/using-random-to-generate-a-random-string-in-bash
 		# https://www.cyberciti.biz/faq/unix-linux-iterate-over-a-variable-range-of-numbers-in-bash/
-		chars=abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+		#chars=abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+		chars=bgjktwxyz23679BGJKTVWXYZ
 		#for currentIteration in {1..$currentLengthUID} ; do
 		for (( currentIteration=1; currentIteration<="$currentLengthUID"; currentIteration++ )) ; do
 		echo -n "${chars:RANDOM%${#chars}:1}"
 		done
 		echo
 	else
-		cat /dev/urandom 2> /dev/null | base64 2> /dev/null | tr -dc 'a-zA-Z0-9' 2> /dev/null | head -c "$currentLengthUID" 2> /dev/null
+		cat /dev/urandom 2> /dev/null | base64 2> /dev/null | tr -dc 'a-zA-Z0-9' 2> /dev/null | tr -d 'acdefhilmnopqrsuvACDEFHILMNOPQRSU14580' | head -c "$currentLengthUID" 2> /dev/null
 	fi
 	return 0
 }
@@ -2922,21 +2951,21 @@ _messageColors() {
 
 
 _color_demo() {
-	_messagePlain_request "$ubiquitiousBashID"
-	_messagePlain_nominal "$ubiquitiousBashID"
-	_messagePlain_probe "$ubiquitiousBashID"
-	_messagePlain_probe_expr "$ubiquitiousBashID"
-	_messagePlain_probe_var ubiquitiousBashID
-	_messagePlain_good "$ubiquitiousBashID"
-	_messagePlain_warn "$ubiquitiousBashID"
-	_messagePlain_bad "$ubiquitiousBashID"
-	_messagePlain_probe_cmd echo "$ubiquitiousBashID"
-	_messagePlain_probe_quoteAddDouble echo "$ubiquitiousBashID"
-	_messagePlain_probe_quoteAddSingle echo "$ubiquitiousBashID"
-	_messageNormal "$ubiquitiousBashID"
-	_messageError "$ubiquitiousBashID"
-	_messageDELAYipc "$ubiquitiousBashID"
-	_messageProcess "$ubiquitiousBashID"
+	_messagePlain_request _color_demo
+	_messagePlain_nominal _color_demo
+	_messagePlain_probe _color_demo
+	_messagePlain_probe_expr _color_demo
+	_messagePlain_probe_var ubiquitiousBashIDshort
+	_messagePlain_good _color_demo
+	_messagePlain_warn _color_demo
+	_messagePlain_bad _color_demo
+	_messagePlain_probe_cmd echo _color_demo
+	_messagePlain_probe_quoteAddDouble echo _color_demo
+	_messagePlain_probe_quoteAddSingle echo _color_demo
+	_messageNormal _color_demo
+	_messageError _color_demo
+	_messageDELAYipc _color_demo
+	_messageProcess _color_demo
 }
 _color_end() {
 	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '</span>'
@@ -4265,7 +4294,10 @@ _visualPrompt_promptCommand() {
 	if [[ "$PS1_lineNumber" == '1' ]]
 	then
 		# https://unix.stackexchange.com/questions/266921/is-it-possible-to-use-ansi-color-escape-codes-in-bash-here-documents
-		PS1_lineNumberText=$(echo -e -n '\E[1;36m'1'\E[0m')
+		PS1_lineNumberText=$(echo -e -n '\E[1;36m'1)
+		#PS1_lineNumberText=$(echo -e -n '\E[1;36m'1)
+		#PS1_lineNumberText=$(echo -e -n '\[\033[01;36m\]'1)
+		#PS1_lineNumberText=$(echo -e -n '\033[01;36m'1)
 	fi
 }
 
@@ -4294,7 +4326,10 @@ _visualPrompt() {
 	#export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$PS1_lineNumberText\[\033[01;34m\]) \[\033[36m\]>\[\033[00m\] '
 	
 	
-	export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$PS1_lineNumberText\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
+	#export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$PS1_lineNumberText\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
+	
+	
+	export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$([[ "$PS1_lineNumber" == "1" ]] && echo -e -n '"'"'\[\033[01;36m\]'"'"'$PS1_lineNumber || echo -e -n $PS1_lineNumber)\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
 }
 
 #https://stackoverflow.com/questions/15432156/display-filename-before-matching-line-grep
@@ -5494,8 +5529,8 @@ _setupUbiquitous() {
 		# WARNING: Necessarily relies on a 'deprecated' 'field code' with the 'Exec key' of a 'Desktop Entry' file association.
 		# https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html
 		_messagePlain_request 'association: *.bat'
-		echo 'konsole --workdir %d -e /bin/bash %f (open in graphical terminal emulator from file manager)'
-		echo 'bash'
+		echo 'konsole --workdir %d -e /bin/bash %f (open in graphical terminal emulator from file manager) (preferred)'
+		echo "bash ('Advanced Options -> Run in terminal')"
 	fi
 	
 	_messagePlain_request "Now import new functionality into current shell if not in current shell."
@@ -5559,6 +5594,10 @@ _refresh_anchors_ubiquitous() {
 	
 	cp -a "$scriptAbsoluteFolder"/_anchor.bat "$scriptAbsoluteFolder"/_demand_broadcastPipe_page.bat
 	cp -a "$scriptAbsoluteFolder"/_anchor.bat "$scriptAbsoluteFolder"/_terminate_broadcastPipe_page.bat
+	
+	
+	cp -a "$scriptAbsoluteFolder"/_anchor.bat "$scriptAbsoluteFolder"/_packetDriveDevice.bat
+	cp -a "$scriptAbsoluteFolder"/_anchor.bat "$scriptAbsoluteFolder"/_packetDriveDevice_remove.bat
 }
 
 
@@ -7345,7 +7384,7 @@ _broadcastPipe_page_read() {
 		# WARNING: Although sequential throughput may be important in some cases, a 'pair of wires' is fundamentally not a parallel device. Simultaneous writing to aggregator should only occur during (usually undesirable) collisions. Nevertheless, processing these collisions out of order is entirely reasonable.
 		# WARNING: Imposing limits on the number of inputs (eg. due to command line argument length limitations), below a few thousand, is strongly discouraged.
 		# https://serverfault.com/questions/193319/a-better-unix-find-with-parallel-processing
-		_env_broadcastPipe_page find "$1" -mindepth 1 -maxdepth 1 -mmin -0.4 -type f -name '*-tick' -exec "$safeTmp"/broadcastPipe_page_read.sh {} \; 2> /dev/null | _broadcastPipe_page_write "" "$2" "$3" "$4" "$5" 2>/dev/null
+		_env_broadcastPipe_page find "$1" -mindepth 1 -maxdepth 1 -mmin -0.4 -type f -name '*-tick' -exec "$safeTmp"/broadcastPipe_page_read.sh '{}' \; 2> /dev/null | _broadcastPipe_page_write "" "$2" "$3" "$4" "$5" 2>/dev/null
 		
 		# DANGER: Allowing this bus to run without any idle time may result in an immediately overwhelming processor load, if find loop is allowed to 'fork' new processes.
 		[[ "$ub_force_limit_page_rate" != 'false' ]] && sleep "$currentMaxTime_seconds"
@@ -9752,7 +9791,6 @@ _vector() {
 
 #Verifies the timeout and sleep commands work properly, with subsecond specifications.
 _timetest() {
-	
 	local iterations
 	local dateA
 	local dateB
@@ -10136,6 +10174,19 @@ _variableLocalTestC_procedure() {
 _variableLocalTest_sequence() {
 	_start
 	
+	variableLocalTest_currentSubFunction() {
+		if ! [[ "$currentSubFunctionTest" == "true" ]] || ! [[ $(echo "$currentSubFunctionTest") == "true" ]]
+		then
+			_stop 1
+			return 1
+		fi
+		return 0
+	}
+	local currentSubFunctionTest
+	currentSubFunctionTest='true'
+	! variableLocalTest_currentSubFunction && _stop 1
+	
+	
 	local currentSubshellTest1=$(
 		echo x
 	)
@@ -10239,6 +10290,12 @@ _variableLocalTest_sequence() {
 	[[ "$currentVariableFunctionText" != "true" ]] && _messageFAIL && _stop 1
 	unset _exportFunction_variableLocalTest
 	
+	
+	_currentFunctionDefinitionTest() { echo false; }
+	true && _currentFunctionDefinitionTest() { echo true; }
+	false && _currentFunctionDefinitionTest() { echo false; }
+	[[ $(_currentFunctionDefinitionTest) != "true" ]] && _messageFAIL && _stop 1
+	unset _currentFunctionDefinitionTest
 	
 	_stop
 }
@@ -10800,6 +10857,8 @@ _test() {
 	_getDep head
 	_getDep tail
 	
+	_getDep seq
+	
 	_getDep wc
 	
 	_getDep fold
@@ -10840,6 +10899,7 @@ _test() {
 	_getDep touch
 	
 	_getDep dd
+	_wantGetDep blockdev
 	
 	_getDep rm
 	
@@ -10928,6 +10988,7 @@ _test() {
 	
 	_tryExec "_test_virtLocal_X11"
 	
+	_tryExec "_test_packetDriveDevice"
 	_tryExec "_test_gparted"
 	
 	_tryExec "_test_synergy"
@@ -10963,6 +11024,8 @@ _test() {
 	_tryExec "_test_vagrant_build"
 	
 	
+	
+	_tryExec "_test_kernelConfig"
 	
 	
 	_tryExec "_test_clog"
@@ -11374,8 +11437,26 @@ _package() {
 
 
 _test_prog() {
-	_wantGetDep 'recode'
+	! _wantGetDep 'wkhtmltopdf' && echo 'missing: wkhtmltopdf'
+	
+	#! _wantGetDep 'pandoc' && echo 'missing: pandoc'
+	#! _wantGetDep 'perltex'
+	#! _wantGetDep 'wkhtmltopdf' && echo 'missing: wkhtmltopdf'
+	
+	#! _wantGetDep 'phantomjs' && echo 'missing: phantomjs'
+	
+	#! _wantGetDep 'html2ps' && echo 'missing: html2ps'
+	
+	#! _wantGetDep 'htmldoc' && echo 'missing: htmldoc'
+	
+	
+	
+	! _wantGetDep 'recode' && echo 'missing: recode'
 }
+
+
+
+
 
 ##### Core
 
@@ -11436,6 +11517,17 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	
 	declare -f _tryExec
 	declare -f _tryExecFull
+	
+	
+	declare -f _wantGetDep
+	declare -f _wantDep
+	declare -f _typeDep
+	declare -f _if_cygwin
+	declare -f _wantSudo
+	
+	declare -f _getDep
+	
+	
 	
 	# Roughly equivalent to 'specglobalvars'.
 	declare -f _tiny_set_strings
@@ -11516,6 +11608,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _extractAttachment
 	
 	
+	declare -f _test_prog
 	declare -f _test_built_default
 	declare -f _test_default
 	
@@ -11696,26 +11789,6 @@ _main() {
 
 
 #####Markup.
-
-
-
-# TODO: Functions to add other markup - ie. '_markup_tag' .
-# Line Breaks (_newLine)
-# Page Breaks (_newPage)
-# Paragraphs (_newParagraph)
-# Frames
-# Tables (rows, columns)
-# Headings
-# Images (base64 HTML Image tags, mediawiki reference, or terminal) (_markup_image)
-
-# TODO: Functions to send 'messages' with standard color schmes - ie. _messagePlain (with environment variable set to emit markup instead of ANSI color codes).
-
-
-
-
-
-
-
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_wip() {
@@ -11900,6 +11973,13 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_core() {
 
 
 _test_built_default() {
+	export noDate="true"
+	date() {
+		echo 'disabled: date'
+	}
+	export -f date
+	
+	
 	# CAUTION: Do NOT add trap unless necessary or within a function call. Unnecessary and may be problematic for a script which imports 'ubiquitous bash' and does not nominally use '_start'/'_stop'/"$safeTmp"/etc .
 	
 	#Traps, if script is not imported into existing shell, or bypass requested.
@@ -11928,7 +12008,8 @@ _test_built_default() {
 	_messagePlain_nominal '_test: comparison of self-modified html from html from shell (original)'
 	"$safeTmp"/scriptedIllustrator.sh _scribble_html "$safeTmp"/scriptedIllustrator.html
 	cp "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html
-	"$safeTmp"/scriptedIllustrator.html
+	"$safeTmp"/scriptedIllustrator.html _scribble_html
+	"$safeTmp"/scriptedIllustrator.html _scribble_html_presentation
 	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
 	"$safeTmp"/scriptedIllustrator.html _scribble_html
 	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
@@ -11964,7 +12045,6 @@ _test_built_default() {
 	! diff --color "$safeTmp"/converted.sh "$safeTmp"/converted_repeat.sh && _messagePlain_bad 'fail: unexpected differences'
 	
 	
-	
 	rm "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh "$safeTmp"/converted.sh "$safeTmp"/converted.html "$safeTmp"/converted.html.sh "$safeTmp"/converted_repeat.sh
 	
 	_messagePlain_good 'done: _test_built_default'
@@ -11973,6 +12053,8 @@ _test_built_default() {
 }
 
 _test_default() {
+	_test_prog "$@"
+	
 	_test_built_default "$@"
 }
 
@@ -11984,9 +12066,10 @@ _default() {
 	_scribble_html "$@"
 	_scribble_html_presentation "$@"
 	
+	_scribble_pdf "$@"
+	
 	return;
 }
-
 
 
 
@@ -11994,6 +12077,7 @@ _default() {
 _scribble_html_presentation() {
 	export current_scriptedIllustrator_presentation='true'
 	_scribble_html "$@"
+	export current_scriptedIllustrator_presentation=""
 }
 
 
@@ -12040,11 +12124,40 @@ _scribble_html() {
 	mv "$currentOutputFile".tmp "$currentOutputFile"
 }
 
+_scribble_pdf() {
+	_set_markup_html
+	_set_strings
+	
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	
+	local currentOutputFile
+	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".pdf
+	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
+	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
+	
+	! type wkhtmltopdf > /dev/null 2>&1 && rm -f "$currentOutputFile" > /dev/null 2>&1 && return 1
+	
+	
+	rm -f "$currentOutputFile".html > /dev/null 2>&1
+	_scribble_html_presentation "$currentOutputFile".html
+	
+	rm -f "$currentOutputFile" > /dev/null 2>&1
+	#wkhtmltopdf --page-size A4 "$currentOutputFile".html "$currentOutputFile".a4.pdf
+	#wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile".letter.pdf
+	wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile"
+	rm -f "$currentOutputFile".html
+	[[ -e "$currentOutputFile" ]] && return 0
+}
+
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_html
 	declare -f _scribble_html_presentation
+	
+	declare -f _scribble_pdf
 }
 
 
@@ -12172,12 +12285,13 @@ _set_markup_html() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_v-html "$@"
 	}
+	export -f _v
 	
 	_t() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_t-html "$@"
 	}
-	export -f _i
+	export -f _t
 	
 	_r() {
 		export currentFunctionName="${FUNCNAME[0]}"
@@ -12195,6 +12309,68 @@ _set_markup_html() {
 	}
 	export -f _
 	export -f _h
+	
+	
+	
+	_heading1() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading1-html "$@"
+	}
+	export -f _heading1
+	_heading2() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading2-html "$@"
+	}
+	export -f _heading2
+	_heading3() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading3-html "$@"
+	}
+	export -f _heading3
+	_heading4() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading4-html "$@"
+	}
+	export -f _heading4
+	_heading5() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading5-html "$@"
+	}
+	export -f _heading5
+	_heading6() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading6-html "$@"
+	}
+	export -f _heading6
+	
+	_page() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_page-html "$@"
+	}
+	export -f _page
+	
+	_paragraph_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_paragraph_begin-html "$@"
+	}
+	export -f _paragraph_begin
+	_paragraph_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_paragraph_end-html "$@"
+	}
+	export -f _paragraph_end
+	
+	
+	_picture() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_picture-html "$@"
+	}
+	export -f _picture
+	_image() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_image-html "$@"
+	}
+	export -f _image
 }
 
 
@@ -12227,15 +12403,15 @@ $comment_shell_end"
 	export markup_html_pre_begin="$workaround_shellPrependMarkupLines"'<pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
 	export markup_html_pre_end="$workaround_shellPrependMarkupLines"'</pre>'
 	
-	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
+	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
 	export markup_html_cmd_end="$markup_html_pre_end"
 	
 	# WARNING: Pure HTML (no JS) may be strongly preferable (ie. to 'scribble' presentation PDF from the HTML through automation). JS is not necessary to achieve presentation mode - disable if necessary.
 	# https://stackoverflow.com/questions/1829370/clear-html-page-using-javascript/1829455
 	# <script type="text/javascript"> document.body.innerHTML = ''; </script>
-	#export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
-	export markup_html_root_begin='<html>'
-	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] &&  export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	#export markup_html_root_begin='<html style="size: letter;"><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	export markup_html_root_begin='<html style="size: letter;">'
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] &&  export markup_html_root_begin='<html style="size: letter;"><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
 	export markup_html_root_end='</html>'
 	
 	
@@ -12377,15 +12553,16 @@ _t-html() {
 	currentIteration=0
 	while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
 	do
-		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]]
+		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]] && [[ "$currentLine" != "" ]]
 		then
 			_safeEcho_newline
+			true
 		fi
 		
 		currentLine_previous="$currentLine"
 		let currentIteration=currentIteration+1
 	done <<<$(_safeEcho "$@")
-	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
+	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
 	_safeEcho "$@" | _filter__scriptedIllustrator_markup | _fold-html
 	
@@ -12436,6 +12613,150 @@ _h-html() {
 
 
 
+
+
+
+_heading1-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h1>'"$@"'</h1>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading2-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h2>'"$@"'</h2>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading3-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h3>'"$@"'</h3>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading4-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h4>'"$@"'</h4>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading5-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h5>'"$@"'</h5>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading6-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h6>'"$@"'</h6>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+
+# Page break.
+_page-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<div style="page-break-before: always;"> </div>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+
+_paragraph_begin-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<p>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_paragraph_end-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '</p>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+
+_picture-html() {
+	local currentWidth
+	currentWidth=""
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="./'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_image-html() {
+	local currentWidth
+	currentWidth="96%"
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="./'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
 
 
 
@@ -12505,6 +12826,38 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _
 	declare -f _h
 	declare -f _h-html
+	
+	
+	
+	
+	
+	
+	declare -f _heading1
+	declare -f _heading1-html
+	declare -f _heading2
+	declare -f _heading2-html
+	declare -f _heading3
+	declare -f _heading3-html
+	declare -f _heading4
+	declare -f _heading4-html
+	declare -f _heading5
+	declare -f _heading5-html
+	declare -f _heading6
+	declare -f _heading6-html
+	
+	declare -f _page
+	declare -f _page-html
+	
+	declare -f _paragraph_begin
+	declare -f _paragraph_begin-html
+	declare -f _paragraph_end
+	declare -f _paragraph_end-html
+	
+	declare -f _picture
+	declare -f _picture-html
+	declare -f _image
+	declare -f _image-html
+	
 	
 	
 	declare -f _noShell_block-html
@@ -13551,6 +13904,10 @@ _deps_image() {
 	export enUb_image="true"
 }
 
+_deps_disc() {
+	export enUb_disc="true"
+}
+
 _deps_virt_thick() {
 	_deps_distro
 	_deps_build
@@ -13865,6 +14222,8 @@ _compile_bash_deps() {
 		
 		#_deps_queue
 		
+		_deps_disc
+		
 		# _compile_bash_deps 'core'
 		return 0
 	fi
@@ -14015,6 +14374,8 @@ _compile_bash_deps() {
 		
 		_deps_stopwatch
 		
+		_deps_disc
+		
 		_deps_build
 		
 		_deps_build_bash
@@ -14088,6 +14449,8 @@ _compile_bash_deps() {
 		_deps_stopwatch
 		
 		_deps_linux
+		
+		_deps_disc
 		
 		_deps_build
 		
@@ -14417,6 +14780,9 @@ _compile_bash_shortcuts() {
 	[[ "$enUb_docker" == "true" ]] && includeScriptList+=( "shortcuts/docker"/dockercontainer.sh )
 	
 	[[ "$enUb_image" == "true" ]] && includeScriptList+=( "shortcuts/image"/gparted.sh )
+	( [[ "$enUb_image" == "true" ]] || [[ "$enUb_disc" == "true" ]] ) && includeScriptList+=( "shortcuts/image"/packetDrive.sh )
+	
+	( [[ "$enUb_image" == "true" ]] || [[ "$enUb_disc" == "true" ]] ) && includeScriptList+=( "shortcuts/image/disc"/pattern_recovery.sh )
 	
 	
 	[[ "$enUb_linux" == "true" ]] && includeScriptList+=( "shortcuts/linux"/kernelConfig_here.sh )

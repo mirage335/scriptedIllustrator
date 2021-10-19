@@ -50,6 +50,17 @@ Version control very strongly recommended. Obviously these scripts can self-over
 
 
 
+
+# Reference
+
+https://unix.stackexchange.com/questions/533886/is-there-a-command-line-tool-for-converting-html-files-to-pdf
+ 'pandoc'
+ 'htmldoc'
+ 'html2ps'
+ 'phantomjs'
+
+
+
 __Copyright__
 This file is part of scriptedIllustrator.
 

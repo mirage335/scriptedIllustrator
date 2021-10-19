@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3939521267'
+export ub_setScriptChecksum_contents='3628491772'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -349,8 +349,8 @@ _____special_live_hibernate() {
 	fi
 	
 	_messagePlain_nominal 'attempt: HIBERNATE'
-	sudo journalctl --rotate
-	sudo journalctl --vacuum-time=1s
+	sudo -n journalctl --rotate
+	sudo -n journalctl --vacuum-time=1s
 	sudo -n systemctl hibernate
 	
 	
@@ -689,7 +689,11 @@ then
 fi
 
 
+# CAUTION: Fragile, at best.
+# DANGER: MSW apparently does not necessarily allow 'Administrator' access to all network 'drives'. Workaround copying of obvious files is limited.
+# WARNING: Most likely, after significant delay, will 'prompt' the user with a very much obstructive, and not securing very much, dialog box.
 # https://stackoverflow.com/questions/4090301/root-user-sudo-equivalent-in-cygwin
+# https://superuser.com/questions/812018/run-a-command-in-another-cygwin-window-and-not-exit
 _sudo_cygwin_sequence() {
 	_start
 	
@@ -707,12 +711,36 @@ _sudo_cygwin_sequence() {
 	echo "export PATH=\"$PATH\"" >> "$safeTmp"/cygwin_sudo_temp.sh
 	
 	
-	_safeEcho_newline "$@" >> "$safeTmp"/cygwin_sudo_temp.sh
+	_safeEcho_newline "$safeTmp"/_bin.bat "$@" >> "$safeTmp"/cygwin_sudo_temp.sh
+	echo 'echo > "'"$safeTmp"'"/sequenceDone_'"$ubiquitiousBashID" >> "$safeTmp"/cygwin_sudo_temp.sh
+	echo 'sleep 3' >> "$safeTmp"/cygwin_sudo_temp.sh
+	chmod u+x "$safeTmp"/cygwin_sudo_temp.sh
+	
+	
+	
+	cp "$scriptAbsoluteLocation" "$safeTmp"/
+	chmod u+x "$safeTmp"/$(basename "$scriptAbsoluteLocation")
+	
+	cp "$scriptAbsoluteFolder"/_bin.bat "$safeTmp"/_bin.bat
+	chmod u+x "$safeTmp"/_bin.bat
 	
 
 	# 'Do it as Administrator.'
 	#cygstart --action=runas "$scriptAbsoluteFolder"/_bin.bat bash
-	cygstart --action=runas "$scriptAbsoluteFolder"/_bin.bat "$safeTmp"/cygwin_sudo_temp.sh
+	
+	if [[ "$scriptAbsoluteFolder" == "/cygdrive/c"* ]]
+	then
+		# WARNING: May be untested, or (especially under interactive shell) may call obsolete code.
+		cygstart --action=runas "$scriptAbsoluteFolder"/_bin.bat "$safeTmp"/cygwin_sudo_temp.sh
+	else
+		cygstart --action=runas "$safeTmp"/_bin.bat "$safeTmp"/cygwin_sudo_temp.sh
+	fi
+	
+	
+	while ! [[ -e "$safeTmp"/sequenceDone_"$ubiquitiousBashID" ]]
+	do
+		sleep 3
+	done
 	
 	_stop "$?"
 }
@@ -1237,7 +1265,7 @@ _mitigate-ubcp_rewrite() {
 	! _safePath "$1" && _stop 1
 	cd "$1"
 	
-	find "$2" -type l -exec "$scriptAbsoluteLocation" _mitigate-ubcp_rewrite_procedure {} \;
+	find "$2" -type l -exec "$scriptAbsoluteLocation" _mitigate-ubcp_rewrite_procedure '{}' \;
 	
 	return 0
 }
@@ -2324,28 +2352,29 @@ _condition_lines_zero() {
 	return 1
 }
 
-#Generates random alphanumeric characters, default length 18.
+#Generates semi-random alphanumeric characters, default length 18.
 _uid() {
 	local curentLengthUID
 	local currentIteration
 	currentIteration=0
-
+	
 	currentLengthUID="18"
 	! [[ -z "$uidLengthPrefix" ]] && ! [[ "$uidLengthPrefix" -lt "18" ]] && currentLengthUID="$uidLengthPrefix"
 	! [[ -z "$1" ]] && currentLengthUID="$1"
-
+	
 	if [[ -z "$uidLengthPrefix" ]] && [[ -z "$1" ]]
 	then
 		# https://stackoverflow.com/questions/32484504/using-random-to-generate-a-random-string-in-bash
 		# https://www.cyberciti.biz/faq/unix-linux-iterate-over-a-variable-range-of-numbers-in-bash/
-		chars=abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+		#chars=abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ
+		chars=bgjktwxyz23679BGJKTVWXYZ
 		#for currentIteration in {1..$currentLengthUID} ; do
 		for (( currentIteration=1; currentIteration<="$currentLengthUID"; currentIteration++ )) ; do
 		echo -n "${chars:RANDOM%${#chars}:1}"
 		done
 		echo
 	else
-		cat /dev/urandom 2> /dev/null | base64 2> /dev/null | tr -dc 'a-zA-Z0-9' 2> /dev/null | head -c "$currentLengthUID" 2> /dev/null
+		cat /dev/urandom 2> /dev/null | base64 2> /dev/null | tr -dc 'a-zA-Z0-9' 2> /dev/null | tr -d 'acdefhilmnopqrsuvACDEFHILMNOPQRSU14580' | head -c "$currentLengthUID" 2> /dev/null
 	fi
 	return 0
 }
@@ -2922,21 +2951,21 @@ _messageColors() {
 
 
 _color_demo() {
-	_messagePlain_request "$ubiquitiousBashID"
-	_messagePlain_nominal "$ubiquitiousBashID"
-	_messagePlain_probe "$ubiquitiousBashID"
-	_messagePlain_probe_expr "$ubiquitiousBashID"
-	_messagePlain_probe_var ubiquitiousBashID
-	_messagePlain_good "$ubiquitiousBashID"
-	_messagePlain_warn "$ubiquitiousBashID"
-	_messagePlain_bad "$ubiquitiousBashID"
-	_messagePlain_probe_cmd echo "$ubiquitiousBashID"
-	_messagePlain_probe_quoteAddDouble echo "$ubiquitiousBashID"
-	_messagePlain_probe_quoteAddSingle echo "$ubiquitiousBashID"
-	_messageNormal "$ubiquitiousBashID"
-	_messageError "$ubiquitiousBashID"
-	_messageDELAYipc "$ubiquitiousBashID"
-	_messageProcess "$ubiquitiousBashID"
+	_messagePlain_request _color_demo
+	_messagePlain_nominal _color_demo
+	_messagePlain_probe _color_demo
+	_messagePlain_probe_expr _color_demo
+	_messagePlain_probe_var ubiquitiousBashIDshort
+	_messagePlain_good _color_demo
+	_messagePlain_warn _color_demo
+	_messagePlain_bad _color_demo
+	_messagePlain_probe_cmd echo _color_demo
+	_messagePlain_probe_quoteAddDouble echo _color_demo
+	_messagePlain_probe_quoteAddSingle echo _color_demo
+	_messageNormal _color_demo
+	_messageError _color_demo
+	_messageDELAYipc _color_demo
+	_messageProcess _color_demo
 }
 _color_end() {
 	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '</span>'
@@ -5444,6 +5473,10 @@ _deps_image() {
 	export enUb_image="true"
 }
 
+_deps_disc() {
+	export enUb_disc="true"
+}
+
 _deps_virt_thick() {
 	_deps_distro
 	_deps_build
@@ -5758,6 +5791,8 @@ _compile_bash_deps() {
 		
 		#_deps_queue
 		
+		_deps_disc
+		
 		# _compile_bash_deps 'core'
 		return 0
 	fi
@@ -5908,6 +5943,8 @@ _compile_bash_deps() {
 		
 		_deps_stopwatch
 		
+		_deps_disc
+		
 		_deps_build
 		
 		_deps_build_bash
@@ -5981,6 +6018,8 @@ _compile_bash_deps() {
 		_deps_stopwatch
 		
 		_deps_linux
+		
+		_deps_disc
 		
 		_deps_build
 		
@@ -6310,6 +6349,9 @@ _compile_bash_shortcuts() {
 	[[ "$enUb_docker" == "true" ]] && includeScriptList+=( "shortcuts/docker"/dockercontainer.sh )
 	
 	[[ "$enUb_image" == "true" ]] && includeScriptList+=( "shortcuts/image"/gparted.sh )
+	( [[ "$enUb_image" == "true" ]] || [[ "$enUb_disc" == "true" ]] ) && includeScriptList+=( "shortcuts/image"/packetDrive.sh )
+	
+	( [[ "$enUb_image" == "true" ]] || [[ "$enUb_disc" == "true" ]] ) && includeScriptList+=( "shortcuts/image/disc"/pattern_recovery.sh )
 	
 	
 	[[ "$enUb_linux" == "true" ]] && includeScriptList+=( "shortcuts/linux"/kernelConfig_here.sh )

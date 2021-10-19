@@ -1,8 +1,8 @@
 
-
 _scribble_html_presentation() {
 	export current_scriptedIllustrator_presentation='true'
 	_scribble_html "$@"
+	export current_scriptedIllustrator_presentation=""
 }
 
 
@@ -49,10 +49,39 @@ _scribble_html() {
 	mv "$currentOutputFile".tmp "$currentOutputFile"
 }
 
+_scribble_pdf() {
+	_set_markup_html
+	_set_strings
+	
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	
+	local currentOutputFile
+	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".pdf
+	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
+	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
+	
+	! type wkhtmltopdf > /dev/null 2>&1 && rm -f "$currentOutputFile" > /dev/null 2>&1 && return 1
+	
+	
+	rm -f "$currentOutputFile".html > /dev/null 2>&1
+	_scribble_html_presentation "$currentOutputFile".html
+	
+	rm -f "$currentOutputFile" > /dev/null 2>&1
+	#wkhtmltopdf --page-size A4 "$currentOutputFile".html "$currentOutputFile".a4.pdf
+	#wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile".letter.pdf
+	wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile"
+	rm -f "$currentOutputFile".html
+	[[ -e "$currentOutputFile" ]] && return 0
+}
+
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_html
 	declare -f _scribble_html_presentation
+	
+	declare -f _scribble_pdf
 }
 

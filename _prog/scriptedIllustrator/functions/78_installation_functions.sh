@@ -1,5 +1,12 @@
 
 _test_built_default() {
+	export noDate="true"
+	date() {
+		echo 'disabled: date'
+	}
+	export -f date
+	
+	
 	# CAUTION: Do NOT add trap unless necessary or within a function call. Unnecessary and may be problematic for a script which imports 'ubiquitous bash' and does not nominally use '_start'/'_stop'/"$safeTmp"/etc .
 	
 	#Traps, if script is not imported into existing shell, or bypass requested.
@@ -28,7 +35,8 @@ _test_built_default() {
 	_messagePlain_nominal '_test: comparison of self-modified html from html from shell (original)'
 	"$safeTmp"/scriptedIllustrator.sh _scribble_html "$safeTmp"/scriptedIllustrator.html
 	cp "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html
-	"$safeTmp"/scriptedIllustrator.html
+	"$safeTmp"/scriptedIllustrator.html _scribble_html
+	"$safeTmp"/scriptedIllustrator.html _scribble_html_presentation
 	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
 	"$safeTmp"/scriptedIllustrator.html _scribble_html
 	! diff --color "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.compare.html && _messagePlain_bad 'fail: unexpected differences'
@@ -64,7 +72,6 @@ _test_built_default() {
 	! diff --color "$safeTmp"/converted.sh "$safeTmp"/converted_repeat.sh && _messagePlain_bad 'fail: unexpected differences'
 	
 	
-	
 	rm "$safeTmp"/scriptedIllustrator.html "$safeTmp"/scriptedIllustrator.html.sh "$safeTmp"/converted.sh "$safeTmp"/converted.html "$safeTmp"/converted.html.sh "$safeTmp"/converted_repeat.sh
 	
 	_messagePlain_good 'done: _test_built_default'
@@ -73,5 +80,7 @@ _test_built_default() {
 }
 
 _test_default() {
+	_test_prog "$@"
+	
 	_test_built_default "$@"
 }

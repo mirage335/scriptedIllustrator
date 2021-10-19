@@ -6,6 +6,8 @@ _default() {
 	_scribble_html "$@"
 	_scribble_html_presentation "$@"
 	
+	_scribble_pdf "$@"
+	
 	return;
 }
 

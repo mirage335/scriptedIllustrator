@@ -70,6 +70,68 @@ _set_markup_html() {
 	}
 	export -f _
 	export -f _h
+	
+	
+	
+	_heading1() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading1-html "$@"
+	}
+	export -f _heading1
+	_heading2() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading2-html "$@"
+	}
+	export -f _heading2
+	_heading3() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading3-html "$@"
+	}
+	export -f _heading3
+	_heading4() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading4-html "$@"
+	}
+	export -f _heading4
+	_heading5() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading5-html "$@"
+	}
+	export -f _heading5
+	_heading6() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading6-html "$@"
+	}
+	export -f _heading6
+	
+	_page() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_page-html "$@"
+	}
+	export -f _page
+	
+	_paragraph_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_paragraph_begin-html "$@"
+	}
+	export -f _paragraph_begin
+	_paragraph_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_paragraph_end-html "$@"
+	}
+	export -f _paragraph_end
+	
+	
+	_picture() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_picture-html "$@"
+	}
+	export -f _picture
+	_image() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_image-html "$@"
+	}
+	export -f _image
 }
 
 
@@ -102,15 +164,15 @@ $comment_shell_end"
 	export markup_html_pre_begin="$workaround_shellPrependMarkupLines"'<pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
 	export markup_html_pre_end="$workaround_shellPrependMarkupLines"'</pre>'
 	
-	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
+	export markup_html_cmd_begin="$workaround_shellPrependMarkupLines"'<pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
 	export markup_html_cmd_end="$markup_html_pre_end"
 	
 	# WARNING: Pure HTML (no JS) may be strongly preferable (ie. to 'scribble' presentation PDF from the HTML through automation). JS is not necessary to achieve presentation mode - disable if necessary.
 	# https://stackoverflow.com/questions/1829370/clear-html-page-using-javascript/1829455
 	# <script type="text/javascript"> document.body.innerHTML = ''; </script>
-	#export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
-	export markup_html_root_begin='<html>'
-	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] &&  export markup_html_root_begin='<html><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	#export markup_html_root_begin='<html style="size: letter;"><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
+	export markup_html_root_begin='<html style="size: letter;">'
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] &&  export markup_html_root_begin='<html style="size: letter;"><br \><script type="text/javascript"> document.body.innerHTML = '"''"'; </script>'
 	export markup_html_root_end='</html>'
 	
 	
@@ -252,15 +314,16 @@ _t-html() {
 	currentIteration=0
 	while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
 	do
-		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]]
+		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]] && [[ "$currentLine" != "" ]]
 		then
 			_safeEcho_newline
+			true
 		fi
 		
 		currentLine_previous="$currentLine"
 		let currentIteration=currentIteration+1
 	done <<<$(_safeEcho "$@")
-	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
+	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
 	_safeEcho "$@" | _filter__scriptedIllustrator_markup | _fold-html
 	
@@ -311,6 +374,150 @@ _h-html() {
 
 
 
+
+
+
+_heading1-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h1>'"$@"'</h1>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading2-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h2>'"$@"'</h2>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading3-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h3>'"$@"'</h3>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading4-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h4>'"$@"'</h4>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading5-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h5>'"$@"'</h5>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_heading6-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<h6>'"$@"'</h6>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+
+# Page break.
+_page-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<div style="page-break-before: always;"> </div>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+
+_paragraph_begin-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<p>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_paragraph_end-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '</p>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+
+_picture-html() {
+	local currentWidth
+	currentWidth=""
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="./'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_image-html() {
+	local currentWidth
+	currentWidth="96%"
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="./'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
 
 
 
@@ -380,6 +587,38 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _
 	declare -f _h
 	declare -f _h-html
+	
+	
+	
+	
+	
+	
+	declare -f _heading1
+	declare -f _heading1-html
+	declare -f _heading2
+	declare -f _heading2-html
+	declare -f _heading3
+	declare -f _heading3-html
+	declare -f _heading4
+	declare -f _heading4-html
+	declare -f _heading5
+	declare -f _heading5-html
+	declare -f _heading6
+	declare -f _heading6-html
+	
+	declare -f _page
+	declare -f _page-html
+	
+	declare -f _paragraph_begin
+	declare -f _paragraph_begin-html
+	declare -f _paragraph_end
+	declare -f _paragraph_end-html
+	
+	declare -f _picture
+	declare -f _picture-html
+	declare -f _image
+	declare -f _image-html
+	
 	
 	
 	declare -f _noShell_block-html

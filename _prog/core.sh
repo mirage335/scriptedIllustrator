@@ -58,6 +58,17 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _tryExec
 	declare -f _tryExecFull
 	
+	
+	declare -f _wantGetDep
+	declare -f _wantDep
+	declare -f _typeDep
+	declare -f _if_cygwin
+	declare -f _wantSudo
+	
+	declare -f _getDep
+	
+	
+	
 	# Roughly equivalent to 'specglobalvars'.
 	declare -f _tiny_set_strings
 	declare -f _set_strings
@@ -137,6 +148,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _extractAttachment
 	
 	
+	declare -f _test_prog
 	declare -f _test_built_default
 	declare -f _test_default
 	
