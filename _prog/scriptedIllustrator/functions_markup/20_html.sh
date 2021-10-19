@@ -495,7 +495,8 @@ _picture-html() {
 	
 	echo "$interpret__html_NOT_shell__begin"
 	
-	_safeEcho_newline '<img '"$currentWidthParameter"'src="./'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	#./
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }
@@ -514,7 +515,8 @@ _image-html() {
 	
 	echo "$interpret__html_NOT_shell__begin"
 	
-	_safeEcho_newline '<img '"$currentWidthParameter"'src="./'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	#./
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }
