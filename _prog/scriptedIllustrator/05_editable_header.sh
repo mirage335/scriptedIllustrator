@@ -81,8 +81,8 @@ _
 _cells_begin
 _
 _cells_row_begin
-_cells_speck_begin
-_r '*titleA*'
+_cells_speck_begin '100px'
+_t '*titleA*'
 _cells_speck_end
 _cells_speck_begin
 _ CAUTION: Text formatting *intentionally* not compatible with all markup and not recommended unless strictly necessary for presentation HTML/MediaWiki documents!
@@ -90,7 +90,10 @@ _ WARNING: Stay with 'plain text' whenever possible!
 _t '<span style="font-weight:bold;font-style: italic;">*titleB*</span>'
 _cells_speck_end
 _cells_speck_begin
-_r '*titleC*'
+_t '*titleC*'
+_cells_speck_end
+_cells_speck_begin
+_t '  *titleD*  '
 _cells_speck_end
 _cells_row_end
 _
@@ -108,6 +111,8 @@ _cells_speck_begin
 _paragraph_begin
 _e_ ubiquitous_bash.sh _echo 'a b'
 _paragraph_end
+_e ubiquitous_bash.sh _echo 'a
+b'
 _cells_speck_end
 _
 _cells_speck_begin
@@ -120,6 +125,12 @@ _
 _cells_row_begin
 _cells_speck_begin
 _o _safeEcho_newline 'output'
+_cells_speck_end
+_cells_speck_begin '' '2'
+_t 'preformatted text'
+_cells_speck_end
+_cells_speck_begin '' '2'
+_t 'pre'
 _cells_speck_end
 _cells_row_end
 _
@@ -191,10 +202,6 @@ text
 
 
 '
-_paragraph_begin
-_e ubiquitous_bash.sh _echo 'a
-b'
-_paragraph_end
 _t ''
 _t '
 '

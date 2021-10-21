@@ -558,7 +558,7 @@ _image-html() {
 _cells_begin-html() {
 	local currentWidth
 	currentWidth="0%"
-	[[ "$2" != "" ]] && currentWidth="$2"
+	[[ "$1" != "" ]] && currentWidth="$1"
 	
 	local currentWidthParameter
 	currentWidthParameter=""
@@ -570,7 +570,7 @@ _cells_begin-html() {
 	
 	echo "$interpret__html_NOT_shell__begin"
 	
-	_safeEcho_newline '<table '"$currentWidthParameter"' style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '<table '"$currentWidthParameter"'style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }
@@ -610,11 +610,21 @@ _cells_row_end-html() {
 _cells_speck_begin-html() {
 	local currentWidth
 	currentWidth="0%"
-	[[ "$2" != "" ]] && currentWidth="$2"
+	[[ "$1" != "" ]] && currentWidth="$1"
 	
 	local currentWidthParameter
 	currentWidthParameter=""
 	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	
+	local currentColspan
+	currentColspan="1"
+	[[ "$2" != "" ]] && currentColspan="$2"
+	
+	local currentColspanParameter
+	currentColspanParameter=""
+	[[ "$currentColspan" != "" ]] && currentColspanParameter='colspan="'"$currentColspan"'" '
+	
 	
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
@@ -622,7 +632,7 @@ _cells_speck_begin-html() {
 	
 	echo "$interpret__html_NOT_shell__begin"
 	
-	_safeEcho_newline '<td '"$currentWidthParameter"' style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '<td '"$currentWidthParameter"''"$currentColspanParameter"'style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }
