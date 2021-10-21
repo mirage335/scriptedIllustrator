@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='502390577'
+export ub_setScriptChecksum_contents='3071474297'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12238,10 +12238,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_terminal() {
 }
 
 
-# TODO: Move from 'wip_functions.sh' .
+# ATTENTION: set/get global variables if appropriate
 #export current_scriptedIllustrator_markup='html'
-
-# TODO: Postprocessing may not be able to achieve presentation quality.
 #export current_scriptedIllustrator_presentation='true'
 
 
@@ -13014,6 +13012,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 
 # TODO: Expect strong resemblence to 'html' .
 # https://www.mediawiki.org/wiki/Help:Formatting
+
+# ATTENTION: set/get global variables if appropriate
 #export current_scriptedIllustrator_markup='mediawiki'
 
 

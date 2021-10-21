@@ -1,8 +1,6 @@
 
-# TODO: Move from 'wip_functions.sh' .
+# ATTENTION: set/get global variables if appropriate
 #export current_scriptedIllustrator_markup='html'
-
-# TODO: Postprocessing may not be able to achieve presentation quality.
 #export current_scriptedIllustrator_presentation='true'
 
 
