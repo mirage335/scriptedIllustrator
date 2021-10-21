@@ -60,9 +60,10 @@ _t 'preformatted text within paragraph'
 _picture "zPicture_BusinessCard_mirage335_wood.png" 100px
 _paragraph_end
 _paragraph_begin
-_image "zImage_cabling__2020-11-19-03-19-082.jpg" 200px
+_image "zImage_cabling__2020-11-19-03-19-082.jpg" 150px
 _paragraph_end
-_heading2 'equations - heading2'
+_heading2 'equations and commands - heading2'
+_paragraph_begin
 _e_ currentBitsPerSecond=9600
 _e_ currentBonesPerPlayer=4
 _i currentIncrementFramesPerSecond=15
@@ -76,12 +77,12 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 # # solve(9600 = (("currentPlayers" * 4 * 30 * 2 * 8) + ("currentPlayers" * 4 * 3 * 33 * 8)), "currentPlayers") =
 # # 5.5555556'
 _e_ solve '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
-_heading2 'commands - heading2'
+_paragraph_end
 _
 _cells_begin
 _
 _cells_row_begin
-_cells_speck_begin '100px'
+_cells_speck_begin '125px'
 _t '*titleA*'
 _cells_speck_end
 _cells_speck_begin
@@ -103,8 +104,8 @@ _cells_speck_begin
 _t 'example'
 _paragraph_begin
 _o _messagePlain_probe 'commands'
+_o _safeEcho_newline '\# with output'
 _paragraph_end
-_o _safeEcho_newline 'and output'
 _cells_speck_end
 _
 _cells_speck_begin
@@ -113,6 +114,9 @@ _e_ ubiquitous_bash.sh _echo 'a b'
 _paragraph_end
 _e ubiquitous_bash.sh _echo 'a
 b'
+_paragraph_begin
+_o _safeEcho_newline "'"' \ \\  output'"'"
+_paragraph_end
 _cells_speck_end
 _
 _cells_speck_begin
@@ -127,13 +131,20 @@ _cells_speck_begin
 _o _safeEcho_newline 'output'
 _cells_speck_end
 _cells_speck_begin '' '2'
-_t 'preformatted text'
+_r ' raw markup'
 _cells_speck_end
 _cells_speck_begin '' '2'
-_t 'pre'
+_t ' pre'
 _cells_speck_end
 _cells_row_end
 _
+_cells_row_begin
+_cells_speck_begin
+_picture "zPicture_BusinessCard_mirage335_wood.png" 50px
+_cells_speck_end
+_cells_speck_begin '' '3'
+_image "zImage_cabling__2020-11-19-03-19-082.jpg" 50px
+_cells_speck_end
 _cells_end
 _
 _heading2 'breaks - heading2'
