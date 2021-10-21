@@ -132,6 +132,38 @@ _set_markup_html() {
 		_image-html "$@"
 	}
 	export -f _image
+	
+	
+	_cells_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_begin-html "$@"
+	}
+	export -f _cells_begin
+	_cells_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_end-html "$@"
+	}
+	export -f _cells_end
+	_cells_row_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_row_begin-html "$@"
+	}
+	export -f _cells_row_begin
+	_cells_row_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_row_end-html "$@"
+	}
+	export -f _cells_row_end
+	_cells_speck_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_speck_begin-html "$@"
+	}
+	export -f _cells_speck_begin
+	_cells_speck_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_speck_end-html "$@"
+	}
+	export -f _cells_speck_end
 }
 
 
@@ -523,6 +555,92 @@ _image-html() {
 
 
 
+_cells_begin-html() {
+	local currentWidth
+	currentWidth="0%"
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<table '"$currentWidthParameter"' style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_cells_end-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '</table>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_cells_row_begin-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<tr>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_cells_row_end-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '</tr>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_cells_speck_begin-html() {
+	local currentWidth
+	currentWidth="0%"
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '<td '"$currentWidthParameter"' style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+_cells_speck_end-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	
+	_safeEcho_newline '</td>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__html_NOT_shell__end"
+}
+
+
+
+
 
 # No production use.
 _noShell_block-html() {
@@ -620,6 +738,19 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _picture-html
 	declare -f _image
 	declare -f _image-html
+	
+	declare -f _cells_begin
+	declare -f _cells_begin-html
+	declare -f _cells_end
+	declare -f _cells_end-html
+	declare -f _cells_row_begin
+	declare -f _cells_row_begin-html
+	declare -f _cells_row_end
+	declare -f _cells_row_end-html
+	declare -f _cells_speck_begin
+	declare -f _cells_speck_begin-html
+	declare -f _cells_speck_end
+	declare -f _cells_speck_end-html
 	
 	
 	

@@ -77,12 +77,40 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 # # 5.5555556'
 _e_ solve '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
 _heading2 'commands - heading2'
+_
+_cells_begin
+_
+_cells_row_begin
+_
+_cells_speck_begin
+_t 'example'
+_paragraph_begin
+_o _messagePlain_probe 'commands'
+_paragraph_end
+_o _safeEcho_newline 'and output'
+_cells_speck_end
+_
+_cells_speck_begin
 _paragraph_begin
 _e_ ubiquitous_bash.sh _echo 'a b'
 _paragraph_end
-_paragraph_begin
+_cells_speck_end
+_
+_cells_speck_begin
 _e _color_demo
-_paragraph_end
+_cells_speck_end
+_
+_cells_row_end
+_
+_
+_cells_row_begin
+_cells_speck_begin
+_o _safeEcho_newline 'output'
+_cells_speck_end
+_cells_row_end
+_
+_cells_end
+_
 _heading2 'breaks - heading2'
 _paragraph_begin
 _t ' preformatted text at paragraph_begin'
