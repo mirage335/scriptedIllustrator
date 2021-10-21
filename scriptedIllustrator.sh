@@ -83,6 +83,20 @@ _
 _cells_begin
 _
 _cells_row_begin
+_cells_speck_begin
+_r '*titleA*'
+_cells_speck_end
+_cells_speck_begin
+_ CAUTION: Text formatting *intentionally* not compatible with all markup and not recommended unless strictly necessary for presentation HTML/MediaWiki documents!
+_ WARNING: Stay with 'plain text' whenever possible!
+_t '<span style="font-weight:bold;font-style: italic;">*titleB*</span>'
+_cells_speck_end
+_cells_speck_begin
+_r '*titleC*'
+_cells_speck_end
+_cells_row_end
+_
+_cells_row_begin
 _
 _cells_speck_begin
 _t 'example'
