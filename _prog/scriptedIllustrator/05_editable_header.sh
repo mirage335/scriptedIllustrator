@@ -1,5 +1,5 @@
 # Dependencies.
-# Must have 'ubiquitous_bash.sh" in "$PATH".
+# May need 'ubiquitous_bash.sh" in "$PATH".
 # GNU Octave, Qalculate - usually dependency of 'calculator' scripts
 # recode - usually dependency of 'markup documentation' scripts
 # wkhtmltopdf - may be necessary for accurate conversion from HTML to PDF
