@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='276454963'
+export ub_setScriptChecksum_contents='2486537367'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -712,7 +712,7 @@ _sudo_cygwin_sequence() {
 	
 	
 	_safeEcho_newline "$safeTmp"/_bin.bat "$@" >> "$safeTmp"/cygwin_sudo_temp.sh
-	echo 'echo > "'"$safeTmp"'"/sequenceDone_'"$ubiquitiousBashID" >> "$safeTmp"/cygwin_sudo_temp.sh
+	echo 'echo > "'"$safeTmp"'"/sequenceDone_'"$ubiquitousBashID" >> "$safeTmp"/cygwin_sudo_temp.sh
 	echo 'sleep 3' >> "$safeTmp"/cygwin_sudo_temp.sh
 	chmod u+x "$safeTmp"/cygwin_sudo_temp.sh
 	
@@ -737,7 +737,7 @@ _sudo_cygwin_sequence() {
 	fi
 	
 	
-	while ! [[ -e "$safeTmp"/sequenceDone_"$ubiquitiousBashID" ]]
+	while ! [[ -e "$safeTmp"/sequenceDone_"$ubiquitousBashID" ]]
 	do
 		sleep 3
 	done
@@ -903,7 +903,7 @@ then
 		# WARNING: CAUTION: DANGER: UNIX EOL *MANDATORY* !
 		[[ -e "$scriptAbsoluteFolder"/ops-cygwin.sh ]] && . "$scriptAbsoluteFolder"/ops-cygwin.sh
 		
-		# export ubiquitiousBashID=uk4uPhB663kVcygT0q
+		# export ubiquitousBashID=uk4uPhB663kVcygT0q
 		unset currentDriveLetter_cygwin_uk4uPhB663kVcygT0q
 		export currentDriveLetter_cygwin_uk4uPhB663kVcygT0q=$(cygpath -S | sed 's/\/Windows\/System32//g' | sed 's/^\/cygdrive\///')
 		[[ -e /cygdrive/$currentDriveLetter_cygwin_uk4uPhB663kVcygT0q ]] && [[ -e /cygdrive/$currentDriveLetter_cygwin_uk4uPhB663kVcygT0q/ops-cygwin.sh ]] && . /cygdrive/$currentDriveLetter_cygwin_uk4uPhB663kVcygT0q/ops-cygwin.sh
@@ -2753,6 +2753,10 @@ _safeEcho_quoteAddSingle() {
 		shift
 	done
 }
+_safeEcho_quoteAddSingle_newline() {
+	_safeEcho_quoteAddSingle "$@"
+	printf '\n'
+}
 
 _safeEcho_quoteAddDouble() {
 	#https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments
@@ -2765,6 +2769,10 @@ _safeEcho_quoteAddDouble() {
 	done
 	
 	_safeEcho "$currentCommandStringPunctuated"
+}
+_safeEcho_quoteAddDouble_newline() {
+	_safeEcho_quoteAddDouble "$@"
+	printf '\n'
 }
 
 
@@ -2955,7 +2963,7 @@ _color_demo() {
 	_messagePlain_nominal _color_demo
 	_messagePlain_probe _color_demo
 	_messagePlain_probe_expr _color_demo
-	_messagePlain_probe_var ubiquitiousBashIDshort
+	_messagePlain_probe_var ubiquitousBashIDshort
 	_messagePlain_good _color_demo
 	_messagePlain_warn _color_demo
 	_messagePlain_bad _color_demo
@@ -2968,62 +2976,62 @@ _color_demo() {
 	_messageProcess _color_demo
 }
 _color_end() {
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '</span>'
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '</span>'
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n ' \E[0m'
 }
 
 _color_begin_request() {
 	#b218b2
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#b218b2;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#b218b2;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;35m '
 }
 _color_begin_nominal() {
 	#18b2b2
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#18b2b2;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#18b2b2;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;36m '
 }
 _color_begin_probe() {
 	#1818b2
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#1818b2;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#1818b2;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;34m '
 }
 _color_begin_good() {
 	#17ae17
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#17ae17;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#17ae17;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;32m '
 }
 _color_begin_warn() {
 	#ffff54
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#ffff54;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33m '
 }
 _color_begin_bad() {
 	#b21818
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#b21818;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#b21818;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;31m '
 }
 _color_begin_Normal() {
 	#54ff54
 	#18b2b2
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#54ff54;background-color:#18b2b2;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#54ff54;background-color:#18b2b2;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;32;46m '
 }
 _color_begin_Error() {
 	#ffff54
 	#b21818
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#b21818;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#ffff54;background-color:#b21818;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33;41m '
 }
 _color_begin_DELAYipc() {
 	#ffff54
 	#b2b2b2
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#b2b2b2;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#ffff54;background-color:#b2b2b2;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33;47m '
 }
 
@@ -3312,14 +3320,14 @@ _includeScript() {
 	
 	_includeFile "$progDir"/"$includeScriptFilename" && return 0
 	
-	_includeFile "$ubiquitiousLibDir"/"$includeScriptSubdirectory"/"$includeScriptFilename" && return 0
+	_includeFile "$ubiquitousLibDir"/"$includeScriptSubdirectory"/"$includeScriptFilename" && return 0
 	
-	_includeFile "$ubiquitiousLibDir"/"$includeScriptFilename" && return 0
+	_includeFile "$ubiquitousLibDir"/"$includeScriptFilename" && return 0
 	
 	#[[ "$configBaseDir" == "" ]] && configBaseDir="_config"
 	[[ "$configBaseDir" == "" ]] && configBaseDir=$(basename "$configDir")
 	
-	_includeFile "$ubiquitiousLibDir"/"$configBaseDir"/"$includeScriptFilename" && return 0
+	_includeFile "$ubiquitousLibDir"/"$configBaseDir"/"$includeScriptFilename" && return 0
 	
 	return 1
 }
@@ -5711,7 +5719,7 @@ _anchor_autoupgrade() {
 	
 	_findUbiquitous
 	
-	[[ -e "$ubiquitiousLibDir"/_anchor ]] && cp -a "$ubiquitiousLibDir"/_anchor "$scriptAbsoluteFolder"/_anchor
+	[[ -e "$ubiquitousLibDir"/_anchor ]] && cp -a "$ubiquitousLibDir"/_anchor "$scriptAbsoluteFolder"/_anchor
 }
 
 _anchor_configure() {
@@ -6118,10 +6126,13 @@ export tmpSelf=""
 #export descriptiveSelf=""
 
 #####Global variables.
-#Fixed unique identifier for ubiquitious bash created global resources, such as bootdisc images to be automaticaly mounted by guests. Should NEVER be changed.
+#Fixed unique identifier for ubiquitous bash created global resources, such as bootdisc images to be automaticaly mounted by guests. Should NEVER be changed.
 export ubiquitiousBashIDnano=uk4u
 export ubiquitiousBashIDshort="$ubiquitiousBashIDnano"PhB6
 export ubiquitiousBashID="$ubiquitiousBashIDshort"63kVcygT0q
+export ubiquitousBashIDnano=uk4u
+export ubiquitousBashIDshort="$ubiquitousBashIDnano"PhB6
+export ubiquitousBashID="$ubiquitousBashIDshort"63kVcygT0q
 
 ##Parameters
 #"--shell", ""
@@ -6282,9 +6293,9 @@ export bootTmp="$scriptLocal"
 # DANGER: Mandatory strict directory 8.3 compliance for this variable! Long subdirectory/filenames permitted thereafter.
 # DANGER: Permitting multi-user access to this directory may cause unexpected behavior, including inconsitent file ownership.
 #Consistent absolute path abstraction.
-export abstractfs_root=/tmp/"$ubiquitiousBashIDnano"
-( [[ "$bootTmp" == '/dev/shm' ]] || [[ "$bootTmp" == '/tmp' ]] || [[ "$tmpMSW" != "" ]] ) && export abstractfs_root="$bootTmp"/"$ubiquitiousBashIDnano"
-export abstractfs_lock="$bootTmp"/"$ubiquitiousBashID"/afslock
+export abstractfs_root=/tmp/"$ubiquitousBashIDnano"
+( [[ "$bootTmp" == '/dev/shm' ]] || [[ "$bootTmp" == '/tmp' ]] || [[ "$tmpMSW" != "" ]] ) && export abstractfs_root="$bootTmp"/"$ubiquitousBashIDnano"
+export abstractfs_lock="$bootTmp"/"$ubiquitousBashID"/afslock
 
 # Unusually, safeTmpSSH must not be interpreted by client, and therefore is single quoted.
 # TODO Test safeTmpSSH variants including spaces in path.
@@ -8827,7 +8838,7 @@ _db_filter_characters() {
 
 # "$1" == grepPattern
 _db_filter_identifier() {
-	grep '^ubdb_'"$ubiquitiousBashID"'_'"$1" | _db_filter_characters
+	grep '^ubdb_'"$ubiquitousBashID"'_'"$1" | _db_filter_characters
 }
 
 _db_reinit() {
@@ -10358,7 +10369,7 @@ _define_function_test() {
 	current_uid_2=$(_uid)
 	
 	# https://stackoverflow.com/questions/7145337/bash-how-do-i-create-function-from-variable
-	eval "__$current_uid_1() { __$current_uid_2() { echo $ubiquitiousBashID; }; }"
+	eval "__$current_uid_1() { __$current_uid_2() { echo $ubiquitousBashID; }; }"
 	
 	if [[ $(declare -f __$current_uid_1 | wc -c) -lt 50 ]]
 	then
@@ -11453,6 +11464,11 @@ _test_prog() {
 	
 	
 	! _wantGetDep 'recode' && echo 'missing: recode'
+	
+	
+	_getDep 'fold'
+	_getDep 'perl'
+	_getDep 'sed'
 }
 
 
@@ -11541,7 +11557,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _safeEcho
 	declare -f _safeEcho_newline
 	declare -f _safeEcho_quoteAddSingle
+	declare -f _safeEcho_quoteAddSingle_newline
 	declare -f _safeEcho_quoteAddDouble
+	declare -f _safeEcho_quoteAddDouble_newline
 	
 	declare -f _color_demo
 	declare -f _color_end
@@ -11659,8 +11677,11 @@ _tinyCompiler_scriptedIllustrator() {
 	rm -f "$progScript" >/dev/null 2>&1
 	
 	
-	
+	# DANGER: Extremely large filesizes (caused by too much 'current_internal_compressedFuncssedFunctions') may not be compatible with important use cases (eg. 'mediawiki').
+	# https://en.wikipedia.org/wiki/Wikipedia:Article_size
+	#  'maximum limit for Wikipedia is set by the MediaWiki software default article size limit, 2048 kibibytes (specifically, 2,097,152 bytes)'
 	echo "#####Functions. Some may be from 'ubiquitous bash' ." > "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	#echo "# DANGER: Compatibility with some important use cases (eg. 'mediawiki') may fail if 'current_internal_CompressedFunctions_bytes' is substantial ." >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
 	
 	
@@ -12069,6 +12090,12 @@ _default() {
 	
 	_scribble_pdf "$@"
 	
+	# ###
+	
+	
+	
+	_scribble_mediawiki "$@"
+	
 	return;
 }
 
@@ -12085,6 +12112,7 @@ _scribble_html_presentation() {
 _scribble_html() {
 	_set_markup_html
 	_set_strings
+	_set_strings_markup_workaround_html_prog
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
@@ -12117,9 +12145,11 @@ _scribble_html() {
 	
 	
 	
-	echo -n "$document_html_root_end" >> "$currentOutputFile".tmp
-	echo >> "$currentOutputFile".tmp
 	
+	#echo -n "$document_html_root_end" >> "$currentOutputFile".tmp
+	echo -n filename."$current_scriptedIllustrator_markup" "$document_html_root_end" >> "$currentOutputFile".tmp
+	#echo -n "$currentScriptBasename"."$current_scriptedIllustrator_markup" "$document_html_root_end" >> "$currentOutputFile".tmp
+	echo >> "$currentOutputFile".tmp
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
@@ -12128,6 +12158,7 @@ _scribble_html() {
 _scribble_pdf() {
 	_set_markup_html
 	_set_strings
+	_set_strings_markup_html
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
@@ -12152,6 +12183,75 @@ _scribble_pdf() {
 	[[ -e "$currentOutputFile" ]] && return 0
 }
 
+# ###
+
+
+
+_scribble_mediawiki() {
+	_set_markup_mediawiki
+	_set_strings
+	_set_strings_markup_workaround_mediawiki_prog
+	
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	
+	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
+	
+	local currentOutputFile
+	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".txt
+	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
+	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
+	
+	echo -n > "$currentOutputFile".tmp
+	! [[ -e "$currentOutputFile".tmp ]] && exit 1
+	
+	
+	
+	echo -n "$document_mediawiki_root_begin" >> "$currentOutputFile".tmp
+	echo >> "$currentOutputFile".tmp
+	
+	
+	
+	
+	_HEADER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	
+	"$scriptAbsoluteLocation" DOCUMENT >> "$currentOutputFile".tmp
+	
+	_FOOTER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	
+	
+	
+	
+	#echo -n "$document_mediawiki_root_end" >> "$currentOutputFile".tmp
+	echo -n filename."$current_scriptedIllustrator_markup".txt "$document_mediawiki_root_end" >> "$currentOutputFile".tmp
+	#echo -n "$currentScriptBasename"."$current_scriptedIllustrator_markup".txt "$document_mediawiki_root_end" >> "$currentOutputFile".tmp
+	echo >> "$currentOutputFile".tmp
+	
+	chmod u+x "$currentOutputFile".tmp
+	mv "$currentOutputFile".tmp "$currentOutputFile"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
@@ -12159,6 +12259,12 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_html_presentation
 	
 	declare -f _scribble_pdf
+	
+	# ###
+	
+	
+	
+	declare -f _scribble_mediawiki
 }
 
 
@@ -12172,6 +12278,7 @@ _set_strings_markup_shell() {
 	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	
 	export comment_shell_line='#'
+	[[ "$workaround_comment_shell_line" != "" ]] && export comment_shell_line="$workaround_comment_shell_line"
 	
 	# DANGER: CAUTION: Creates a temporary 'here document'. Compatibility problems (ie. MSW/Cygwin) are possible.
 	#export comment_shell_begin=": <<'ey5QoR_""'"" $comment_shell_line"
@@ -12453,8 +12560,21 @@ $comment_shell_end"
 	#[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_html_root_begin="$markup_html_root_begin $comment_html_begin $flag__NOT_shell"
 	
 	
+	export workaround_noInterpret_begin=''
+	export workaround_noInterpret_end=''
+	
+	export workaround_comment_shell_line=''
+	
+	
 	# ATTENTION: Override.
 	_tryExecFull _set_strings_markup_html_prog "$@"
+}
+
+_set_strings_markup_workaround_html_prog() {
+	export workaround_noInterpret_begin=''
+	export workaround_noInterpret_end=''
+	
+	export workaround_comment_shell_line=''
 }
 
 
@@ -12492,9 +12612,9 @@ _e_-html() {
 	
 	_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	
-	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _workaround_shellPrependMarkupLines
-	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _shellCommentLines | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_cmd_end"
 	echo "$interpret__html_NOT_shell__end"
@@ -12516,9 +12636,9 @@ _o-html() {
 	
 	# | _shellCommentLines
 	
-	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines
-	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_cmd_end"
 	echo "$interpret__html_NOT_shell__end"
@@ -12557,9 +12677,9 @@ _v-html() {
 	
 	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	
-	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _fold-html | _workaround_shellPrependMarkupLines
-	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _fold-html | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_pre_end"
 	echo "$interpret__html_NOT_shell__end"
@@ -12595,7 +12715,7 @@ _t-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | _filter__scriptedIllustrator_markup | _fold-html
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
 	
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"
@@ -12628,7 +12748,7 @@ _r-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | _filter__scriptedIllustrator_markup
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html
 	
 	
 	echo "$comment_html_begin $flag__NOT_shell"
@@ -12925,10 +13045,18 @@ _fold-html() {
 
 
 
+_workaround_preformattedCharacters-html() {
+	sed 's/\&#35;/#/g'
+}
+
+
+
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _set_markup_html
 	
 	declare -f _set_strings_markup_html
+	
+	declare -f _set_strings_markup_workaround_html_prog
 	
 	
 	declare -f _e
@@ -13006,6 +13134,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _pre_block-html
 	
 	declare -f _fold-html
+	
+	
+	declare -f _workaround_preformattedCharacters-html
 }
 
 
@@ -13019,9 +13150,829 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 
 
 
-_tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
-	true
+_set_markup_mediawiki() {
+	export current_scriptedIllustrator_markup='mediawiki'
+	
+	_noShell_block() {
+		_noShell_block-mediawiki "$@"
+	}
+	export -f _noShell_block
+	_pre_block() {
+		_pre_block-mediawiki "$@"
+	}
+	export -f _pre_block
+	
+	_e() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_e-mediawiki "$@"
+	}
+	export -f _e
+	
+	_e_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_e_-mediawiki "$@"
+	}
+	export -f _e_
+	
+	_o() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_o-mediawiki "$@"
+	}
+	export -f _o
+	
+	_i() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_i-mediawiki "$@"
+	}
+	export -f _i
+	
+	_v() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_v-mediawiki "$@"
+	}
+	export -f _v
+	
+	_t() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_t-mediawiki "$@"
+	}
+	export -f _t
+	
+	_r() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_r-mediawiki "$@"
+	}
+	export -f _r
+	
+	_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_h-mediawiki "$@"
+	}
+	_h() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_h-mediawiki "$@"
+	}
+	export -f _
+	export -f _h
+	
+	
+	
+	_heading1() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading1-mediawiki "$@"
+	}
+	export -f _heading1
+	_heading2() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading2-mediawiki "$@"
+	}
+	export -f _heading2
+	_heading3() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading3-mediawiki "$@"
+	}
+	export -f _heading3
+	_heading4() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading4-mediawiki "$@"
+	}
+	export -f _heading4
+	_heading5() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading5-mediawiki "$@"
+	}
+	export -f _heading5
+	_heading6() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_heading6-mediawiki "$@"
+	}
+	export -f _heading6
+	
+	_page() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_page-mediawiki "$@"
+	}
+	export -f _page
+	
+	_paragraph_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_paragraph_begin-mediawiki "$@"
+	}
+	export -f _paragraph_begin
+	_paragraph_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_paragraph_end-mediawiki "$@"
+	}
+	export -f _paragraph_end
+	
+	
+	_picture() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_picture-mediawiki "$@"
+	}
+	export -f _picture
+	_image() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_image-mediawiki "$@"
+	}
+	export -f _image
+	
+	
+	_cells_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_begin-mediawiki "$@"
+	}
+	export -f _cells_begin
+	_cells_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_end-mediawiki "$@"
+	}
+	export -f _cells_end
+	_cells_row_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_row_begin-mediawiki "$@"
+	}
+	export -f _cells_row_begin
+	_cells_row_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_row_end-mediawiki "$@"
+	}
+	export -f _cells_row_end
+	_cells_speck_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_speck_begin-mediawiki "$@"
+	}
+	export -f _cells_speck_begin
+	_cells_speck_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_cells_speck_end-mediawiki "$@"
+	}
+	export -f _cells_speck_end
 }
+
+
+_set_strings_markup_mediawiki() {
+	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
+	#export markup_mediawiki_fold=156
+	#export markup_mediawiki_fold=93
+	#export markup_mediawiki_fold=76
+	
+	
+	export comment_mediawiki_begin='<!--'
+	export comment_mediawiki_end='-->'
+	export comment_mediawiki_line=''
+	
+	# 'if false; then true; # scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->'
+	export interpret__mediawiki_NOT_shell__begin="$comment_shell_begin $comment_mediawiki_end"
+	export interpret__mediawiki_NOT_shell__end="$comment_mediawiki_begin
+$comment_shell_end"
+	
+	# https://mediatemple.net/blog/design-creative/considerations-for-styling-the-pre-tag/
+	# https://stackoverflow.com/questions/7962844/mediawiki-how-to-remove-line-spacing-from-pre-tag/20566618
+	#line-height:.1;
+	#display: inline;
+	#width: 100%;
+	#font-family: monospace;
+	#tab-width: 8;
+	#margin-top: 0px;margin-bottom: 0px;
+	#<code style="white-space: pre;">
+	#white-space: pre-wrap;
+	export markup_mediawiki_pre_begin="$workaround_shellPrependMarkupLines"'<p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
+	#export markup_mediawiki_pre_begin="$workaround_shellPrependMarkupLines"'<p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
+	export markup_mediawiki_pre_end="$workaround_shellPrependMarkupLines"'</p>'
+	
+	export markup_mediawiki_cmd_begin="$workaround_shellPrependMarkupLines"'<p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'
+	export markup_mediawiki_cmd_end="$markup_mediawiki_pre_end"
+	
+	export markup_mediawiki_root_begin='<!-- mediawiki -->'
+	export markup_mediawiki_root_end='<!-- /mediawiki -->'
+	
+	
+	export document_mediawiki_root_begin="$comment_shell_line $markup_mediawiki_root_begin $comment_mediawiki_begin $flag__NOT_shell"
+	export document_mediawiki_root_end="$comment_shell_line $flag__NOT_shell $comment_mediawiki_end $markup_mediawiki_root_end"
+	
+	# WARNING: Omitting comment character prevents interpretation as shell script, although it will otherwise be visible without javascript.
+	#[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_mediawiki_root_begin="$markup_mediawiki_root_begin $comment_mediawiki_begin $flag__NOT_shell"
+	
+	
+	
+	export workaround_noInterpret_begin='<nowiki>'
+	export workaround_noInterpret_end='</nowiki>'
+	
+	#export workaround_comment_shell_line='&#35;'
+	#export workaround_comment_shell_line="$workaround_noInterpret_begin"'#'"$workaround_noInterpret_end"
+	
+	
+	# ATTENTION: Override.
+	_tryExecFull _set_strings_markup_mediawiki_prog "$@"
+}
+
+_set_strings_markup_workaround_mediawiki_prog() {
+	export workaround_noInterpret_begin='<nowiki>'
+	export workaround_noInterpret_end='</nowiki>'
+	
+	#export workaround_comment_shell_line='&#35;'
+	export workaround_comment_shell_line="$workaround_noInterpret_begin"'#'"$workaround_noInterpret_end"
+}
+
+
+
+
+
+
+# Echo command with commented (shell prepending '#' ) output.
+_e-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	echo -n "$markup_mediawiki_cmd_begin"
+	
+	_color_begin_probe
+	#echo -n "$workaround_noInterpret_begin"
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	#echo "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
+	_safeEcho_quoteAddSingle_newline "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
+	#echo -n "$workaround_noInterpret_end"
+	_color_end
+	
+	"$@" | _shellCommentLines | _workaround_shellPrependMarkupLines
+	
+	echo "$markup_mediawiki_cmd_end"
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+_e_-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	echo -n "$markup_mediawiki_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	_color_begin_probe
+	#echo -n "$workaround_noInterpret_begin"
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	#echo "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
+	_safeEcho_quoteAddSingle_newline "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
+	#echo -n "$workaround_noInterpret_end"
+	_color_end
+	
+	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _shellCommentLines | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
+	
+	echo "$markup_mediawiki_cmd_end"
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+_o-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	echo -n "$markup_mediawiki_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	
+	# | _shellCommentLines
+	
+	# https://unix.stackexchange.com/questions/254644/how-do-i-remove-the-newline-from-the-last-line-in-a-file-in-order-to-add-text-to
+	#perl -p -e 'chomp if eof'
+	
+	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
+	
+	echo "$markup_mediawiki_cmd_end"
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+# Internal. Use for variables, equation solving, etc.
+_i-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	#echo "$markup_mediawiki_cmd_begin"
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	eval "$@" > /dev/null 2>&1
+	
+	#echo "$markup_mediawiki_cmd_end"
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+# Useful to read out a variable (ie. set from 'COLLECT') as preformatted text.
+# Variable. Roughly equivalent to '_messagePlain_probe_var' , however, without any declaration of the variable name .
+# https://stackoverflow.com/questions/11386586/how-to-show-div-tag-literally-in-code-pre-tag
+# 	'You can't (in modern HTML) write markup and have it be interpreted as text.'
+_v-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	echo -n "$markup_mediawiki_pre_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _fold-mediawiki | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
+	
+	echo "$markup_mediawiki_pre_end"
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+
+
+
+
+# Show preformatted text.
+_t-mediawiki() {
+	# No parameters (no input) is meaningless and nothing can be done with that.
+	[[ "$1" == "" ]] && return 0
+	
+	_safeEcho_newline _t "'"
+	echo -n "$flag__NOT_shell $comment_mediawiki_end""$markup_mediawiki_pre_begin"'<!-- mediawiki_noLineBreak'
+	
+	
+	local currentLine
+	local currentLine_previous
+	local currentIteration
+	currentIteration=0
+	while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
+	do
+		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]] && [[ "$currentLine" != "" ]]
+		then
+			_safeEcho_newline
+			true
+		fi
+		
+		currentLine_previous="$currentLine"
+		let currentIteration=currentIteration+1
+	done <<<$(_safeEcho "$@")
+	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
+	
+	#[[ "$1" != 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho 'mediawiki_noLineBreak --><nowiki>'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	#[[ "$1" == 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	[[ "$1" != 'mediawiki_noLineBreak -->'* ]] && _safeEcho 'mediawiki_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	#_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	
+	
+	#echo '</nowiki>'"$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
+	echo "$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
+	_safeEcho_newline "'"
+}
+
+
+# Raw. Experimental. No production use.
+_r-mediawiki() {
+	# No parameters (no input) is meaningless and nothing can be done with that.
+	[[ "$1" == "" ]] && return 0
+	
+	_safeEcho_newline _r "'"
+	echo -n "$flag__NOT_shell $comment_mediawiki_end"'<!-- mediawiki_noLineBreak'
+	
+	
+	local currentLine
+	local currentLine_previous
+	local currentIteration
+	currentIteration=0
+	while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
+	do
+		if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]]
+		then
+			_safeEcho_newline
+		fi
+		
+		currentLine_previous="$currentLine"
+		let currentIteration=currentIteration+1
+	done <<<$(_safeEcho "$@")
+	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
+	
+	#_safeEcho "$@" | _filter__scriptedIllustrator_markup
+	[[ "$1" != '-->'* ]] && _safeEcho '-->'"$@" | _filter__scriptedIllustrator_markup
+	[[ "$1" == '-->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup
+	
+	
+	echo "$comment_mediawiki_begin $flag__NOT_shell"
+	_safeEcho_newline "'"
+}
+
+# Hidden. Use for comments and (shell code only) spacing.
+_h-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+
+
+
+
+
+
+_heading1-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<h1>'"$@"'</h1>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_heading2-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<h2>'"$@"'</h2>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_heading3-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<h3>'"$@"'</h3>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_heading4-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<h4>'"$@"'</h4>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_heading5-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<h5>'"$@"'</h5>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_heading6-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<h6>'"$@"'</h6>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+# Page break.
+_page-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<div style="page-break-before: always;"> </div>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+_paragraph_begin-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<p>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_paragraph_end-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '</p>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+_picture-mediawiki() {
+	local currentWidth
+	currentWidth=""
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	#./
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_image-mediawiki() {
+	local currentWidth
+	currentWidth="96%"
+	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	#./
+	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+
+
+_cells_begin-mediawiki() {
+	local currentWidth
+	currentWidth="0%"
+	[[ "$1" != "" ]] && currentWidth="$1"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<table '"$currentWidthParameter"'style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_cells_end-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '</table>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_cells_row_begin-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<tr>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_cells_row_end-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '</tr>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_cells_speck_begin-mediawiki() {
+	local currentWidth
+	currentWidth="0%"
+	[[ "$1" != "" ]] && currentWidth="$1"
+	
+	local currentWidthParameter
+	currentWidthParameter=""
+	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+	
+	
+	local currentColspan
+	currentColspan="1"
+	[[ "$2" != "" ]] && currentColspan="$2"
+	
+	local currentColspanParameter
+	currentColspanParameter=""
+	[[ "$currentColspan" != "" ]] && currentColspanParameter='colspan="'"$currentColspan"'" '
+	
+	
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '<td '"$currentWidthParameter"''"$currentColspanParameter"'style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+_cells_speck_end-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	
+	_safeEcho_newline '</td>' | _workaround_shellPrependMarkupLines
+	
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+
+
+
+
+# No production use.
+_noShell_block-mediawiki() {
+	echo -n "$interpret__mediawiki_NOT_shell__begin"
+	echo
+	
+	cat
+	
+	echo -n "$interpret__mediawiki_NOT_shell__end"
+	echo
+}
+
+# No production use.
+_pre_block-mediawiki() {
+	echo -n "$markup_mediawiki_pre_begin"
+	echo
+	
+	cat
+	
+	echo -n "$markup_mediawiki_pre_end"
+	echo
+}
+
+
+
+_fold-mediawiki() {
+	if [[ "$markup_mediawiki_fold" != "" ]]
+	then
+		fold -w "$markup_mediawiki_fold" -s
+		return
+	fi
+	cat
+}
+
+
+
+
+_workaround_preformattedCharacters-mediawiki() {
+	#sed 's/#/\&#35;/g'
+	#sed 's/#/<nowiki>#<\/nowiki>/g'
+	
+	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/#/\&#35;/g'
+}
+
+_workaround_noInterpret-mediawiki() {
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$workaround_noInterpret_begin""$currentString""$workaround_noInterpret_end"
+		echo
+	done
+}
+
+
+_tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
+	declare -f _set_markup_mediawiki
+	
+	declare -f _set_strings_markup_mediawiki
+	
+	declare -f _set_strings_markup_workaround_mediawiki_prog
+	
+	
+	declare -f _e
+	declare -f _e-mediawiki
+	
+	declare -f _e_
+	declare -f _e_-mediawiki
+	
+	declare -f _o
+	declare -f _o-mediawiki
+	
+	declare -f _i
+	declare -f _i-mediawiki
+	
+	declare -f _v
+	declare -f _v-mediawiki
+	
+	declare -f _t
+	declare -f _t-mediawiki
+	
+	declare -f _r
+	declare -f _r-mediawiki
+	
+	declare -f _
+	declare -f _h
+	declare -f _h-mediawiki
+	
+	
+	
+	
+	
+	
+	declare -f _heading1
+	declare -f _heading1-mediawiki
+	declare -f _heading2
+	declare -f _heading2-mediawiki
+	declare -f _heading3
+	declare -f _heading3-mediawiki
+	declare -f _heading4
+	declare -f _heading4-mediawiki
+	declare -f _heading5
+	declare -f _heading5-mediawiki
+	declare -f _heading6
+	declare -f _heading6-mediawiki
+	
+	declare -f _page
+	declare -f _page-mediawiki
+	
+	declare -f _paragraph_begin
+	declare -f _paragraph_begin-mediawiki
+	declare -f _paragraph_end
+	declare -f _paragraph_end-mediawiki
+	
+	declare -f _picture
+	declare -f _picture-mediawiki
+	declare -f _image
+	declare -f _image-mediawiki
+	
+	declare -f _cells_begin
+	declare -f _cells_begin-mediawiki
+	declare -f _cells_end
+	declare -f _cells_end-mediawiki
+	declare -f _cells_row_begin
+	declare -f _cells_row_begin-mediawiki
+	declare -f _cells_row_end
+	declare -f _cells_row_end-mediawiki
+	declare -f _cells_speck_begin
+	declare -f _cells_speck_begin-mediawiki
+	declare -f _cells_speck_end
+	declare -f _cells_speck_end-mediawiki
+	
+	
+	
+	declare -f _noShell_block-mediawiki
+	declare -f _pre_block-mediawiki
+	
+	declare -f _fold-mediawiki
+	
+	
+	declare -f _workaround_preformattedCharacters-mediawiki
+	
+	declare -f _workaround_noInterpret-mediawiki
+}
+
+
 
 
 # TODO: Presentation markup. Extra '#' and similar shell characters deleted. Most likely will 'scribble' temporary HTML (ideally with user-defined page breaks being present), then 'scribble' that HTML to PDF.
@@ -13841,7 +14792,8 @@ _generate_lean-python() {
 
 
 _findUbiquitous() {
-	export ubiquitiousLibDir="$scriptAbsoluteFolder"
+	export ubiquitousLibDir="$scriptAbsoluteFolder"
+	export ubiquitiousLibDir="$ubiquitousLibDir"
 	
 	local scriptBasename=$(basename "$scriptAbsoluteFolder")
 	if [[ "$scriptBasename" == "ubiquitous_bash" ]]
@@ -13849,16 +14801,18 @@ _findUbiquitous() {
 		return 0
 	fi
 	
-	if [[ -e "$ubiquitiousLibDir"/_lib/ubiquitous_bash ]]
+	if [[ -e "$ubiquitousLibDir"/_lib/ubiquitous_bash ]]
 	then
-		export ubiquitiousLibDir="$ubiquitiousLibDir"/_lib/ubiquitous_bash
+		export ubiquitousLibDir="$ubiquitousLibDir"/_lib/ubiquitous_bash
+		export ubiquitiousLibDir="$ubiquitousLibDir"
 		return 0
 	fi
 	
-	local ubiquitiousLibDirDiscovery=$(find ./_lib -maxdepth 3 -type d -name 'ubiquitous_bash' | head -n 1)
-	if [[ "$ubiquitiousLibDirDiscovery" != "" ]] && [[ -e "$ubiquitiousLibDirDiscovery" ]]
+	local ubiquitousLibDirDiscovery=$(find ./_lib -maxdepth 3 -type d -name 'ubiquitous_bash' | head -n 1)
+	if [[ "$ubiquitousLibDirDiscovery" != "" ]] && [[ -e "$ubiquitousLibDirDiscovery" ]]
 	then
-		export ubiquitiousLibDir="$ubiquitiousLibDirDiscovery"
+		export ubiquitousLibDir="$ubiquitousLibDirDiscovery"
+		export ubiquitiousLibDir="$ubiquitousLibDir"
 		return 0
 	fi
 	
@@ -14291,7 +15245,7 @@ _generate_compile_bash() {
 
 # #No production use. Unmaintained, obsolete. Never used literally. Preserved as an example command set to build the otherwise self-hosted generate/compile script manually (ie. bootstrapping).
 # _bootstrap_bash_basic() {
-# 	cat "generic"/minimalheader.sh "labels"/utilitiesLabel.sh "generic/filesystem"/absolutepaths.sh "generic/filesystem"/safedelete.sh "generic/process"/timeout.sh "generic"/uid.sh "generic/filesystem/permissions"/checkpermissions.sh "build/bash"/include.sh "structure"/globalvars.sh "build/bash/ubiquitous"/discoverubiquitious.sh "build/bash/ubiquitous"/depsubiquitous.sh "build/bash"/generate.sh "build/bash"/compile.sh "structure"/overrides.sh > ./compile.sh
+# 	cat "generic"/minimalheader.sh "labels"/utilitiesLabel.sh "generic/filesystem"/absolutepaths.sh "generic/filesystem"/safedelete.sh "generic/process"/timeout.sh "generic"/uid.sh "generic/filesystem/permissions"/checkpermissions.sh "build/bash"/include.sh "structure"/globalvars.sh "build/bash/ubiquitous"/discoverubiquitous.sh "build/bash/ubiquitous"/depsubiquitous.sh "build/bash"/generate.sh "build/bash"/compile.sh "structure"/overrides.sh > ./compile.sh
 # 	echo >> ./compile.sh
 # 	echo _generate_compile_bash >> ./compile.sh
 # 	chmod u+x ./compile.sh
@@ -15095,8 +16049,8 @@ _compile_bash_selfHost() {
 	fi
 	
 	
-	includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitious.sh )
-	#[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitious.sh )
+	includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitous.sh )
+	#[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitous.sh )
 	[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash/ubiquitous"/depsubiquitous.sh )
 	[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( deps.sh )
 	[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash"/generate_bash.sh )

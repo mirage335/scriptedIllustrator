@@ -80,7 +80,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _safeEcho
 	declare -f _safeEcho_newline
 	declare -f _safeEcho_quoteAddSingle
+	declare -f _safeEcho_quoteAddSingle_newline
 	declare -f _safeEcho_quoteAddDouble
+	declare -f _safeEcho_quoteAddDouble_newline
 	
 	declare -f _color_demo
 	declare -f _color_end
@@ -198,8 +200,11 @@ _tinyCompiler_scriptedIllustrator() {
 	rm -f "$progScript" >/dev/null 2>&1
 	
 	
-	
+	# DANGER: Extremely large filesizes (caused by too much 'current_internal_compressedFuncssedFunctions') may not be compatible with important use cases (eg. 'mediawiki').
+	# https://en.wikipedia.org/wiki/Wikipedia:Article_size
+	#  'maximum limit for Wikipedia is set by the MediaWiki software default article size limit, 2048 kibibytes (specifically, 2,097,152 bytes)'
 	echo "#####Functions. Some may be from 'ubiquitous bash' ." > "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	#echo "# DANGER: Compatibility with some important use cases (eg. 'mediawiki') may fail if 'current_internal_CompressedFunctions_bytes' is substantial ." >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
 	
 	

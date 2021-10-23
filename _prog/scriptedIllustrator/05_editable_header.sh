@@ -165,8 +165,8 @@ _page
 _t '-------------------------------------------------------------------------------
 '
 _o _messagePlain_request 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
-_o _messagePlain_probe_var ubiquitiousBashIDshort
-_v ubiquitiousBashIDshort
+_o _messagePlain_probe_var ubiquitousBashIDshort
+_v ubiquitousBashIDshort
 _v RECODE_markup_html_pre_begin
 _
 _
@@ -174,6 +174,7 @@ _t 'preformatted
 text'
 _t '#
 # ###
+&#35; &#35;&#35;&#35;
 '
 _heading1 'heading1'
 _heading2 'heading2'
@@ -209,7 +210,7 @@ _t '
 
 preformatted
 text
-"$ubiquitiousBashIDshort"
+"$ubiquitousBashIDshort"
 
 
 '

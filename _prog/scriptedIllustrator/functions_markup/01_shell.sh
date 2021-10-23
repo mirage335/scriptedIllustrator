@@ -8,6 +8,7 @@ _set_strings_markup_shell() {
 	export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
 	
 	export comment_shell_line='#'
+	[[ "$workaround_comment_shell_line" != "" ]] && export comment_shell_line="$workaround_comment_shell_line"
 	
 	# DANGER: CAUTION: Creates a temporary 'here document'. Compatibility problems (ie. MSW/Cygwin) are possible.
 	#export comment_shell_begin=": <<'ey5QoR_""'"" $comment_shell_line"

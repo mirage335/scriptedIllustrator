@@ -8,6 +8,12 @@ _default() {
 	
 	_scribble_pdf "$@"
 	
+	# ###
+	
+	
+	
+	_scribble_mediawiki "$@"
+	
 	return;
 }
 

@@ -15,6 +15,11 @@ _test_prog() {
 	
 	
 	! _wantGetDep 'recode' && echo 'missing: recode'
+	
+	
+	_getDep 'fold'
+	_getDep 'perl'
+	_getDep 'sed'
 }
 
 

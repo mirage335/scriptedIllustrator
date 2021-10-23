@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3628491772'
+export ub_setScriptChecksum_contents='629531712'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -712,7 +712,7 @@ _sudo_cygwin_sequence() {
 	
 	
 	_safeEcho_newline "$safeTmp"/_bin.bat "$@" >> "$safeTmp"/cygwin_sudo_temp.sh
-	echo 'echo > "'"$safeTmp"'"/sequenceDone_'"$ubiquitiousBashID" >> "$safeTmp"/cygwin_sudo_temp.sh
+	echo 'echo > "'"$safeTmp"'"/sequenceDone_'"$ubiquitousBashID" >> "$safeTmp"/cygwin_sudo_temp.sh
 	echo 'sleep 3' >> "$safeTmp"/cygwin_sudo_temp.sh
 	chmod u+x "$safeTmp"/cygwin_sudo_temp.sh
 	
@@ -737,7 +737,7 @@ _sudo_cygwin_sequence() {
 	fi
 	
 	
-	while ! [[ -e "$safeTmp"/sequenceDone_"$ubiquitiousBashID" ]]
+	while ! [[ -e "$safeTmp"/sequenceDone_"$ubiquitousBashID" ]]
 	do
 		sleep 3
 	done
@@ -903,7 +903,7 @@ then
 		# WARNING: CAUTION: DANGER: UNIX EOL *MANDATORY* !
 		[[ -e "$scriptAbsoluteFolder"/ops-cygwin.sh ]] && . "$scriptAbsoluteFolder"/ops-cygwin.sh
 		
-		# export ubiquitiousBashID=uk4uPhB663kVcygT0q
+		# export ubiquitousBashID=uk4uPhB663kVcygT0q
 		unset currentDriveLetter_cygwin_uk4uPhB663kVcygT0q
 		export currentDriveLetter_cygwin_uk4uPhB663kVcygT0q=$(cygpath -S | sed 's/\/Windows\/System32//g' | sed 's/^\/cygdrive\///')
 		[[ -e /cygdrive/$currentDriveLetter_cygwin_uk4uPhB663kVcygT0q ]] && [[ -e /cygdrive/$currentDriveLetter_cygwin_uk4uPhB663kVcygT0q/ops-cygwin.sh ]] && . /cygdrive/$currentDriveLetter_cygwin_uk4uPhB663kVcygT0q/ops-cygwin.sh
@@ -2753,6 +2753,10 @@ _safeEcho_quoteAddSingle() {
 		shift
 	done
 }
+_safeEcho_quoteAddSingle_newline() {
+	_safeEcho_quoteAddSingle "$@"
+	printf '\n'
+}
 
 _safeEcho_quoteAddDouble() {
 	#https://stackoverflow.com/questions/1668649/how-to-keep-quotes-in-bash-arguments
@@ -2765,6 +2769,10 @@ _safeEcho_quoteAddDouble() {
 	done
 	
 	_safeEcho "$currentCommandStringPunctuated"
+}
+_safeEcho_quoteAddDouble_newline() {
+	_safeEcho_quoteAddDouble "$@"
+	printf '\n'
 }
 
 
@@ -2955,7 +2963,7 @@ _color_demo() {
 	_messagePlain_nominal _color_demo
 	_messagePlain_probe _color_demo
 	_messagePlain_probe_expr _color_demo
-	_messagePlain_probe_var ubiquitiousBashIDshort
+	_messagePlain_probe_var ubiquitousBashIDshort
 	_messagePlain_good _color_demo
 	_messagePlain_warn _color_demo
 	_messagePlain_bad _color_demo
@@ -2968,62 +2976,62 @@ _color_demo() {
 	_messageProcess _color_demo
 }
 _color_end() {
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '</span>'
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '</span>'
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n ' \E[0m'
 }
 
 _color_begin_request() {
 	#b218b2
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#b218b2;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#b218b2;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;35m '
 }
 _color_begin_nominal() {
 	#18b2b2
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#18b2b2;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#18b2b2;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;36m '
 }
 _color_begin_probe() {
 	#1818b2
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#1818b2;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#1818b2;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;34m '
 }
 _color_begin_good() {
 	#17ae17
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#17ae17;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#17ae17;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;32m '
 }
 _color_begin_warn() {
 	#ffff54
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#ffff54;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33m '
 }
 _color_begin_bad() {
 	#b21818
 	#848484
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#b21818;background-color:#848484;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#b21818;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;31m '
 }
 _color_begin_Normal() {
 	#54ff54
 	#18b2b2
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#54ff54;background-color:#18b2b2;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#54ff54;background-color:#18b2b2;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;32;46m '
 }
 _color_begin_Error() {
 	#ffff54
 	#b21818
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#b21818;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#ffff54;background-color:#b21818;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33;41m '
 }
 _color_begin_DELAYipc() {
 	#ffff54
 	#b2b2b2
-	[[ "$current_scriptedIllustrator_markup" == "html" ]] && echo -e -n '<span style="color:#ffff54;background-color:#b2b2b2;"> '
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#ffff54;background-color:#b2b2b2;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[1;33;47m '
 }
 
@@ -3312,14 +3320,14 @@ _includeScript() {
 	
 	_includeFile "$progDir"/"$includeScriptFilename" && return 0
 	
-	_includeFile "$ubiquitiousLibDir"/"$includeScriptSubdirectory"/"$includeScriptFilename" && return 0
+	_includeFile "$ubiquitousLibDir"/"$includeScriptSubdirectory"/"$includeScriptFilename" && return 0
 	
-	_includeFile "$ubiquitiousLibDir"/"$includeScriptFilename" && return 0
+	_includeFile "$ubiquitousLibDir"/"$includeScriptFilename" && return 0
 	
 	#[[ "$configBaseDir" == "" ]] && configBaseDir="_config"
 	[[ "$configBaseDir" == "" ]] && configBaseDir=$(basename "$configDir")
 	
-	_includeFile "$ubiquitiousLibDir"/"$configBaseDir"/"$includeScriptFilename" && return 0
+	_includeFile "$ubiquitousLibDir"/"$configBaseDir"/"$includeScriptFilename" && return 0
 	
 	return 1
 }
@@ -4267,10 +4275,13 @@ export tmpSelf=""
 #export descriptiveSelf=""
 
 #####Global variables.
-#Fixed unique identifier for ubiquitious bash created global resources, such as bootdisc images to be automaticaly mounted by guests. Should NEVER be changed.
+#Fixed unique identifier for ubiquitous bash created global resources, such as bootdisc images to be automaticaly mounted by guests. Should NEVER be changed.
 export ubiquitiousBashIDnano=uk4u
 export ubiquitiousBashIDshort="$ubiquitiousBashIDnano"PhB6
 export ubiquitiousBashID="$ubiquitiousBashIDshort"63kVcygT0q
+export ubiquitousBashIDnano=uk4u
+export ubiquitousBashIDshort="$ubiquitousBashIDnano"PhB6
+export ubiquitousBashID="$ubiquitousBashIDshort"63kVcygT0q
 
 ##Parameters
 #"--shell", ""
@@ -4431,9 +4442,9 @@ export bootTmp="$scriptLocal"
 # DANGER: Mandatory strict directory 8.3 compliance for this variable! Long subdirectory/filenames permitted thereafter.
 # DANGER: Permitting multi-user access to this directory may cause unexpected behavior, including inconsitent file ownership.
 #Consistent absolute path abstraction.
-export abstractfs_root=/tmp/"$ubiquitiousBashIDnano"
-( [[ "$bootTmp" == '/dev/shm' ]] || [[ "$bootTmp" == '/tmp' ]] || [[ "$tmpMSW" != "" ]] ) && export abstractfs_root="$bootTmp"/"$ubiquitiousBashIDnano"
-export abstractfs_lock="$bootTmp"/"$ubiquitiousBashID"/afslock
+export abstractfs_root=/tmp/"$ubiquitousBashIDnano"
+( [[ "$bootTmp" == '/dev/shm' ]] || [[ "$bootTmp" == '/tmp' ]] || [[ "$tmpMSW" != "" ]] ) && export abstractfs_root="$bootTmp"/"$ubiquitousBashIDnano"
+export abstractfs_lock="$bootTmp"/"$ubiquitousBashID"/afslock
 
 # Unusually, safeTmpSSH must not be interpreted by client, and therefore is single quoted.
 # TODO Test safeTmpSSH variants including spaces in path.
@@ -5266,7 +5277,8 @@ _generate_lean-python() {
 
 
 _findUbiquitous() {
-	export ubiquitiousLibDir="$scriptAbsoluteFolder"
+	export ubiquitousLibDir="$scriptAbsoluteFolder"
+	export ubiquitiousLibDir="$ubiquitousLibDir"
 	
 	local scriptBasename=$(basename "$scriptAbsoluteFolder")
 	if [[ "$scriptBasename" == "ubiquitous_bash" ]]
@@ -5274,16 +5286,18 @@ _findUbiquitous() {
 		return 0
 	fi
 	
-	if [[ -e "$ubiquitiousLibDir"/_lib/ubiquitous_bash ]]
+	if [[ -e "$ubiquitousLibDir"/_lib/ubiquitous_bash ]]
 	then
-		export ubiquitiousLibDir="$ubiquitiousLibDir"/_lib/ubiquitous_bash
+		export ubiquitousLibDir="$ubiquitousLibDir"/_lib/ubiquitous_bash
+		export ubiquitiousLibDir="$ubiquitousLibDir"
 		return 0
 	fi
 	
-	local ubiquitiousLibDirDiscovery=$(find ./_lib -maxdepth 3 -type d -name 'ubiquitous_bash' | head -n 1)
-	if [[ "$ubiquitiousLibDirDiscovery" != "" ]] && [[ -e "$ubiquitiousLibDirDiscovery" ]]
+	local ubiquitousLibDirDiscovery=$(find ./_lib -maxdepth 3 -type d -name 'ubiquitous_bash' | head -n 1)
+	if [[ "$ubiquitousLibDirDiscovery" != "" ]] && [[ -e "$ubiquitousLibDirDiscovery" ]]
 	then
-		export ubiquitiousLibDir="$ubiquitiousLibDirDiscovery"
+		export ubiquitousLibDir="$ubiquitousLibDirDiscovery"
+		export ubiquitiousLibDir="$ubiquitousLibDir"
 		return 0
 	fi
 	
@@ -5716,7 +5730,7 @@ _generate_compile_bash() {
 
 # #No production use. Unmaintained, obsolete. Never used literally. Preserved as an example command set to build the otherwise self-hosted generate/compile script manually (ie. bootstrapping).
 # _bootstrap_bash_basic() {
-# 	cat "generic"/minimalheader.sh "labels"/utilitiesLabel.sh "generic/filesystem"/absolutepaths.sh "generic/filesystem"/safedelete.sh "generic/process"/timeout.sh "generic"/uid.sh "generic/filesystem/permissions"/checkpermissions.sh "build/bash"/include.sh "structure"/globalvars.sh "build/bash/ubiquitous"/discoverubiquitious.sh "build/bash/ubiquitous"/depsubiquitous.sh "build/bash"/generate.sh "build/bash"/compile.sh "structure"/overrides.sh > ./compile.sh
+# 	cat "generic"/minimalheader.sh "labels"/utilitiesLabel.sh "generic/filesystem"/absolutepaths.sh "generic/filesystem"/safedelete.sh "generic/process"/timeout.sh "generic"/uid.sh "generic/filesystem/permissions"/checkpermissions.sh "build/bash"/include.sh "structure"/globalvars.sh "build/bash/ubiquitous"/discoverubiquitous.sh "build/bash/ubiquitous"/depsubiquitous.sh "build/bash"/generate.sh "build/bash"/compile.sh "structure"/overrides.sh > ./compile.sh
 # 	echo >> ./compile.sh
 # 	echo _generate_compile_bash >> ./compile.sh
 # 	chmod u+x ./compile.sh
@@ -6520,8 +6534,8 @@ _compile_bash_selfHost() {
 	fi
 	
 	
-	includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitious.sh )
-	#[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitious.sh )
+	includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitous.sh )
+	#[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitous.sh )
 	[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash/ubiquitous"/depsubiquitous.sh )
 	[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( deps.sh )
 	[[ "$enUb_buildBashUbiquitous" == "true" ]] && includeScriptList+=( "build/bash"/generate_bash.sh )

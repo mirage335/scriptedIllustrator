@@ -213,8 +213,21 @@ $comment_shell_end"
 	#[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_html_root_begin="$markup_html_root_begin $comment_html_begin $flag__NOT_shell"
 	
 	
+	export workaround_noInterpret_begin=''
+	export workaround_noInterpret_end=''
+	
+	export workaround_comment_shell_line=''
+	
+	
 	# ATTENTION: Override.
 	_tryExecFull _set_strings_markup_html_prog "$@"
+}
+
+_set_strings_markup_workaround_html_prog() {
+	export workaround_noInterpret_begin=''
+	export workaround_noInterpret_end=''
+	
+	export workaround_comment_shell_line=''
 }
 
 
@@ -252,9 +265,9 @@ _e_-html() {
 	
 	_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	
-	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _shellCommentLines | _workaround_shellPrependMarkupLines
-	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _shellCommentLines | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_cmd_end"
 	echo "$interpret__html_NOT_shell__end"
@@ -276,9 +289,9 @@ _o-html() {
 	
 	# | _shellCommentLines
 	
-	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines
-	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_cmd_end"
 	echo "$interpret__html_NOT_shell__end"
@@ -317,9 +330,9 @@ _v-html() {
 	
 	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	
-	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" | _fold-html | _workaround_shellPrependMarkupLines
-	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitiousBashIDnano:0:3}" > /dev/null 2>&1
+	eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _fold-html | _workaround_shellPrependMarkupLines
+	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_pre_end"
 	echo "$interpret__html_NOT_shell__end"
@@ -355,7 +368,7 @@ _t-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | _filter__scriptedIllustrator_markup | _fold-html
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
 	
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"
@@ -388,7 +401,7 @@ _r-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | _filter__scriptedIllustrator_markup
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html
 	
 	
 	echo "$comment_html_begin $flag__NOT_shell"
@@ -685,10 +698,18 @@ _fold-html() {
 
 
 
+_workaround_preformattedCharacters-html() {
+	sed 's/\&#35;/#/g'
+}
+
+
+
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _set_markup_html
 	
 	declare -f _set_strings_markup_html
+	
+	declare -f _set_strings_markup_workaround_html_prog
 	
 	
 	declare -f _e
@@ -766,6 +787,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _pre_block-html
 	
 	declare -f _fold-html
+	
+	
+	declare -f _workaround_preformattedCharacters-html
 }
 
 
