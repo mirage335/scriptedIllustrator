@@ -50,54 +50,54 @@ _document_main() {
 
 '
  '_heading1' 'document - heading1'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h1>document - heading1</h1>
 <!--
 fi
  '_o' '_messageNormal' 'demo: self-modifying interleaved markup and shell'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#54ff54;background-color:#18b2b2;"> demo: self-modifying interleaved markup and shell</span><!-- # --></p>
 <!--
 fi
  '_heading2' 'date - heading2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h2>date - heading2</h2>
 <!--
 fi
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
  '_o' '_messagePlain_request' 'request: date --iso-8601=ns'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#b218b2;background-color:#848484;"> request: date --iso-8601=ns</span><!-- # --></p>
 <!--
 fi
  '_o' '_messagePlain_probe' 'date' '--iso-8601'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#1818b2;background-color:#848484;"> date --iso-8601</span><!-- # --></p>
 <!--
 fi
  '_e_' '[[ "$noDate" != "true" ]] && date --iso-8601'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'[[ "$noDate" != "true" ]] && date --iso-8601'</nowiki>
 </span><!-- # --><nowiki>#</nowiki> 2021-10-22
 <!-- # --></p>
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
  '_heading2' 'images - heading2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h2>images - heading2</h2>
 <!--
 fi
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
@@ -107,66 +107,66 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '100px'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><img width="100px" src="zPicture_BusinessCard_mirage335_wood.png" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
  '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg' '150px'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><img width="150px" src="zImage_cabling__2020-11-19-03-19-082.jpg" style="margin: 0 0 0 15px;border: 5px solid transparent;">
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
  '_heading2' 'equations and commands - heading2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h2>equations and commands - heading2</h2>
 <!--
 fi
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
  '_e_' 'currentBitsPerSecond=9600'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'currentBitsPerSecond=9600'</nowiki>
 </span><!-- # --></p>
 <!--
 fi
  '_e_' 'currentBonesPerPlayer=4'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'currentBonesPerPlayer=4'</nowiki>
 </span><!-- # --></p>
 <!--
 fi
  '_i' 'currentIncrementFramesPerSecond=15'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!--
 fi
  '_i' 'currentIncrementFrameBytesPerBone=2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!--
 fi
  '_i' 'currentInstantFramesPerSecond=2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!--
 fi
  '_i' 'currentInstantFrameBytesPerBone=12'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!--
 fi
  '_'
@@ -176,31 +176,31 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 # # solve(9600 = (("currentPlayers" * 4 * 30 * 2 * 8) + ("currentPlayers" * 4 * 3 * 33 * 8)), "currentPlayers") =
 # # 5.5555556'
  '_e_' 'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'</nowiki>
 </span><!-- # --><nowiki>#</nowiki> 5.5555556
 <!-- # --></p>
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
  '_'
  '_cells_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><table width="0%" style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
  '_'
  '_cells_row_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><tr>
 <!--
 fi
  '_cells_speck_begin' '125px'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="125px" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
@@ -210,12 +210,12 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
@@ -227,12 +227,12 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
@@ -242,12 +242,12 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
@@ -257,24 +257,24 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_row_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></tr>
 <!--
 fi
  '_'
  '_cells_row_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><tr>
 <!--
 fi
  '_'
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
@@ -284,56 +284,56 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
  '_o' '_messagePlain_probe' 'commands'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#1818b2;background-color:#848484;"> commands</span><!-- # --></p>
 <!--
 fi
  '_o' '_safeEcho_newline' '\# with output'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --># with output<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_'
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
  '_e_' 'ubiquitous_bash.sh' '_echo' 'a b'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'ubiquitous_bash.sh' '_echo' 'a b'</nowiki>
 </span><!-- # --><nowiki>#</nowiki> a b
 <!-- # --></p>
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
  '_e' 'ubiquitous_bash.sh' '_echo' 'a
 b'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'ubiquitous_bash.sh' '_echo' 'a</nowiki>
 <!-- # --><nowiki>b'</nowiki>
 </span><!-- # --><nowiki>#</nowiki> a
@@ -342,33 +342,33 @@ if false; then true; <nowiki>#</nowiki> -->
 <!--
 fi
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
  '_o' '_safeEcho_newline' '' \ \\  output''
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->\ \  output<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_'
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
  '_e' '_color_demo'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'_color_demo'</nowiki>
 </span><!-- # --><nowiki>#</nowiki> <span style="color:#b218b2;background-color:#848484;"> _color_demo</span>
 <!-- # --><nowiki>#</nowiki> <span style="color:#18b2b2;background-color:#848484;"> _color_demo</span>
@@ -389,40 +389,40 @@ if false; then true; <nowiki>#</nowiki> -->
 <!--
 fi
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_'
  '_cells_row_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></tr>
 <!--
 fi
  '_'
  '_'
  '_cells_row_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><tr>
 <!--
 fi
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
  '_o' '_safeEcho_newline' 'output'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->output<!-- # --></p>
 <!--
 fi
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_speck_begin' '' '2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="2" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
@@ -432,12 +432,12 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_speck_begin' '' '2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="2" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
@@ -447,64 +447,64 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_row_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></tr>
 <!--
 fi
  '_'
  '_cells_row_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><tr>
 <!--
 fi
  '_cells_speck_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
  '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '50px'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><img width="50px" src="zPicture_BusinessCard_mirage335_wood.png" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">
 <!--
 fi
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_speck_begin' '' '3'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><td width="0%" colspan="3" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
  '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg' '50px'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><img width="50px" src="zImage_cabling__2020-11-19-03-19-082.jpg" style="margin: 0 0 0 15px;border: 5px solid transparent;">
 <!--
 fi
  '_cells_speck_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
  '_cells_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></table>
 <!--
 fi
  '_'
  '_heading2' 'breaks - heading2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h2>breaks - heading2</h2>
 <!--
 fi
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
@@ -526,7 +526,7 @@ preformatted text at paragraph_end
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
@@ -534,7 +534,7 @@ fi
  '_'
  '_'
  '_page'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><div style="page-break-before: always;"> </div>
 <!--
 fi
@@ -544,23 +544,23 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_o' '_messagePlain_request' 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#b218b2;background-color:#848484;"> request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"</span><!-- # --></p>
 <!--
 fi
  '_o' '_messagePlain_probe_var' 'ubiquitousBashIDshort'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#1818b2;background-color:#848484;"> ubiquitousBashIDshort= uk4uPhB6</span><!-- # --></p>
 <!--
 fi
  '_v' 'ubiquitousBashIDshort'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->uk4uPhB6
 <!-- # --></p>
 <!--
 fi
  '_v' 'RECODE_markup_html_pre_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->&lt;!-- # --&gt;&lt;pre style=&quot;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;&quot;&gt;
 <!-- # --></p>
 <!--
@@ -584,32 +584,32 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_heading1' 'heading1'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h1>heading1</h1>
 <!--
 fi
  '_heading2' 'heading2'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h2>heading2</h2>
 <!--
 fi
  '_heading3' 'heading3'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h3>heading3</h3>
 <!--
 fi
  '_heading4' 'heading4'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h4>heading4</h4>
 <!--
 fi
  '_heading5' 'heading5'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h5>heading5</h5>
 <!--
 fi
  '_heading6' 'heading6'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><h6>heading6</h6>
 <!--
 fi
@@ -690,7 +690,7 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top:
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_v' 'current_lorem_ipsum'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 <!-- # --></p>
 <!--
@@ -705,7 +705,7 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
  '_'
  '_'
  '_page'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><div style="page-break-before: always;"> </div>
 <!--
 fi
@@ -715,17 +715,17 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_begin'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
  '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><img width="96%" src="zImage_cabling__2020-11-19-03-19-082.jpg" style="margin: 0 0 0 15px;border: 5px solid transparent;">
 <!--
 fi
  '_paragraph_end'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
@@ -735,7 +735,7 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_o' '_messagePlain_good' 'done: demo'
-if false; then true; <nowiki>#</nowiki> -->
+if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#17ae17;background-color:#848484;"> done: demo</span><!-- # --></p>
 <!--
 fi
@@ -759,10 +759,10 @@ echo -e '\n\n'
 
 #####Functions. Some may be from 'ubiquitous bash' .
 #_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
-current_internal_CompressedFunctions_bytes='8889'
-current_internal_CompressedFunctions_cksum='3986287981'
+current_internal_CompressedFunctions_bytes='8901'
+current_internal_CompressedFunctions_cksum='2534255682'
 current_internal_CompressedFunctions='
-/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4RmdGaBdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
+/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4RoLGaVdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
 DrV189uAlZ6oqD3MK7bjrSmuGreEaBOC+z5QkGUPIDVaXfJmDg73/A1Y9JqRKxtli7ZDurfX2t/Z3m6RV6ku3LwPHl2qt8/kbWEubRkY3Fl2VTTFWjQ8Z9qfpBK4YyV7fw3X3hcUmN6Fz+u2P8eCSl/fCnNX
 HtvGeiwoJbZ3wje2iPvqVhHoy0BMVkEDcSqWo+znkV0BwqE45qLsZQ9IGG1CzglgciwcOU2fdsqKBFC5XA3WYFGg6uZ2q4mvn5jWR+FbeUz7YjupLAvLl7DE+daOBWzzyYeFrcMhDk1QeqOKpv41V0GTTqAm
 Z7lRbPrhk3oRY/kBiQGZSfRuxTSmIc1zevrFy6JWcZkCJayU/wQ+XEKdvF51XHH+OYrSuhIxvk6G+Ce0sbTr3GBfVRQYdRpxeOs48xNaEfmBf6GZcWUMx5L3LA4cup19vL4O75JjKbnlJeYdoRCjtcPE7A8S
@@ -803,22 +803,22 @@ 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
-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'
+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'
 ! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes

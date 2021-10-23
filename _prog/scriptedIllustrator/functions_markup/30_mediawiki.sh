@@ -212,24 +212,20 @@ $comment_shell_end"
 	#[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_mediawiki_root_begin="$markup_mediawiki_root_begin $comment_mediawiki_begin $flag__NOT_shell"
 	
 	
-	
-	export workaround_noInterpret_begin='<nowiki>'
-	export workaround_noInterpret_end='</nowiki>'
-	
-	#export workaround_comment_shell_line='&#35;'
-	#export workaround_comment_shell_line="$workaround_noInterpret_begin"'#'"$workaround_noInterpret_end"
-	
-	
 	# ATTENTION: Override.
 	_tryExecFull _set_strings_markup_mediawiki_prog "$@"
 }
 
 _set_strings_markup_workaround_mediawiki_prog() {
+	export workaround_noInterpret_begin=''
+	export workaround_noInterpret_end=''
+	
 	export workaround_noInterpret_begin='<nowiki>'
 	export workaround_noInterpret_end='</nowiki>'
 	
+	export workaround_comment_shell_line=
 	#export workaround_comment_shell_line='&#35;'
-	export workaround_comment_shell_line="$workaround_noInterpret_begin"'#'"$workaround_noInterpret_end"
+	#export workaround_comment_shell_line="$workaround_noInterpret_begin"'#'"$workaround_noInterpret_end"
 }
 
 
@@ -254,7 +250,7 @@ _e-mediawiki() {
 	#echo -n "$workaround_noInterpret_end"
 	_color_end
 	
-	"$@" | _shellCommentLines | _workaround_shellPrependMarkupLines
+	"$@" | _workaround_shellCommentLines-mediawiki | _workaround_shellPrependMarkupLines
 	
 	echo "$markup_mediawiki_cmd_end"
 	echo "$interpret__mediawiki_NOT_shell__end"
@@ -279,7 +275,7 @@ _e_-mediawiki() {
 	_color_end
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _shellCommentLines | _workaround_shellPrependMarkupLines
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellCommentLines-mediawiki | _workaround_shellPrependMarkupLines
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_mediawiki_cmd_end"
@@ -300,7 +296,7 @@ _o-mediawiki() {
 	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
 	
 	
-	# | _shellCommentLines
+	# | _workaround_shellCommentLines-mediawiki
 	
 	# https://unix.stackexchange.com/questions/254644/how-do-i-remove-the-newline-from-the-last-line-in-a-file-in-order-to-add-text-to
 	#perl -p -e 'chomp if eof'
@@ -739,6 +735,14 @@ _workaround_noInterpret-mediawiki() {
 	done
 }
 
+_workaround_shellCommentLines-mediawiki() {
+	local currentString
+	while read -r currentString
+	do
+		[ "$currentString" ] && printf '%b' "$workaround_noInterpret_begin""$comment_shell_line""$workaround_noInterpret_end"' '"$currentString"
+		echo
+	done
+}
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _set_markup_mediawiki
@@ -828,6 +832,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _workaround_preformattedCharacters-mediawiki
 	
 	declare -f _workaround_noInterpret-mediawiki
+	
+	declare -f _workaround_shellCommentLines-mediawiki
 }
 
 

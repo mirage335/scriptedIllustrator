@@ -213,12 +213,6 @@ $comment_shell_end"
 	#[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && export document_html_root_begin="$markup_html_root_begin $comment_html_begin $flag__NOT_shell"
 	
 	
-	export workaround_noInterpret_begin=''
-	export workaround_noInterpret_end=''
-	
-	export workaround_comment_shell_line=''
-	
-	
 	# ATTENTION: Override.
 	_tryExecFull _set_strings_markup_html_prog "$@"
 }
