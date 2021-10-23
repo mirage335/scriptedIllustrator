@@ -386,13 +386,14 @@ _t-mediawiki() {
 	
 	#[[ "$1" != 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho 'mediawiki_noLineBreak --><nowiki>'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	#[[ "$1" == 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
-	[[ "$1" != 'mediawiki_noLineBreak -->'* ]] && _safeEcho 'mediawiki_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && _safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	#_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	
 	
 	#echo '</nowiki>'"$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
-	echo "$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
+	#echo "$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
+	echo '</pre>'"$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
 }
 

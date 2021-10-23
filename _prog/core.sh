@@ -215,6 +215,9 @@ _tinyCompiler_scriptedIllustrator() {
 	local current_internal_CompressedFunctions_bytes
 	current_internal_CompressedFunctions_bytes=$(echo "$current_internal_CompressedFunctions" | wc -c | tr -dc '0-9')
 	
+	
+	echo '#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	
 	echo 'current_internal_CompressedFunctions_bytes='\'"$current_internal_CompressedFunctions_bytes"\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	echo 'current_internal_CompressedFunctions_cksum='\'"$current_internal_CompressedFunctions_cksum"\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	echo 'current_internal_CompressedFunctions='\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
@@ -225,6 +228,9 @@ _tinyCompiler_scriptedIllustrator() {
 	#echo 'eval "$( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )"' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
 	echo 'unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	
+	echo '#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	
 	
 	# WARNING: Declaring 'markup' functions as plaintext may cause inappropriate interpretation!
 	#_tinyCompiler_scriptedIllustrator_declareFunctions >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh

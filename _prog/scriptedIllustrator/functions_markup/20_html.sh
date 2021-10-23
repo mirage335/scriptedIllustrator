@@ -368,7 +368,7 @@ _t-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre.*>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
 	
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"

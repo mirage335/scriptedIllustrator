@@ -86,7 +86,7 @@ _cells_speck_begin '125px'
 _t '*titleA*'
 _cells_speck_end
 _cells_speck_begin
-_ CAUTION: Text formatting *intentionally* not compatible with all markup and not recommended unless strictly necessary for presentation HTML/MediaWiki documents!
+_ CAUTION: Text formatting *intentionally* not compatible with all markup and not recommended unless strictly necessary for presentation HTML documents!
 _ WARNING: Stay with 'plain text' whenever possible!
 _t '<span style="font-weight:bold;font-style: italic;">*titleB*</span>'
 _cells_speck_end
@@ -171,6 +171,9 @@ _v RECODE_markup_html_pre_begin
 _
 _
 _t 'preformatted
+ text
+more
+ preformatted
 text'
 _t '#
 # ###

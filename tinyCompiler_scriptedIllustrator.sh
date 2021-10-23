@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2486537367'
+export ub_setScriptChecksum_contents='4197331295'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11692,6 +11692,9 @@ _tinyCompiler_scriptedIllustrator() {
 	local current_internal_CompressedFunctions_bytes
 	current_internal_CompressedFunctions_bytes=$(echo "$current_internal_CompressedFunctions" | wc -c | tr -dc '0-9')
 	
+	
+	echo '#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	
 	echo 'current_internal_CompressedFunctions_bytes='\'"$current_internal_CompressedFunctions_bytes"\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	echo 'current_internal_CompressedFunctions_cksum='\'"$current_internal_CompressedFunctions_cksum"\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	echo 'current_internal_CompressedFunctions='\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
@@ -11702,6 +11705,9 @@ _tinyCompiler_scriptedIllustrator() {
 	#echo 'eval "$( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )"' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
 	echo 'unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	
+	echo '#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	
 	
 	# WARNING: Declaring 'markup' functions as plaintext may cause inappropriate interpretation!
 	#_tinyCompiler_scriptedIllustrator_declareFunctions >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
@@ -12715,7 +12721,7 @@ _t-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre.*>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
 	
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"
@@ -13529,13 +13535,14 @@ _t-mediawiki() {
 	
 	#[[ "$1" != 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho 'mediawiki_noLineBreak --><nowiki>'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	#[[ "$1" == 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
-	[[ "$1" != 'mediawiki_noLineBreak -->'* ]] && _safeEcho 'mediawiki_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && _safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	#_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	
 	
 	#echo '</nowiki>'"$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
-	echo "$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
+	#echo "$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
+	echo '</pre>'"$markup_mediawiki_pre_end""$comment_mediawiki_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
 }
 
