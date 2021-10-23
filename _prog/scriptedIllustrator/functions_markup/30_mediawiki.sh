@@ -248,7 +248,7 @@ _e-mediawiki() {
 	#echo "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
 	_safeEcho_quoteAddSingle_newline "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
 	#echo -n "$workaround_noInterpret_end"
-	_color_end
+	_color_end | _workaround_shellPrependMarkupLines
 	
 	"$@" | _workaround_shellCommentLines-mediawiki | _workaround_shellPrependMarkupLines
 	
@@ -272,7 +272,7 @@ _e_-mediawiki() {
 	#echo "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
 	_safeEcho_quoteAddSingle_newline "$@" | _workaround_noInterpret-mediawiki | _workaround_shellPrependMarkupLines
 	#echo -n "$workaround_noInterpret_end"
-	_color_end
+	_color_end | _workaround_shellPrependMarkupLines
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
 	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellCommentLines-mediawiki | _workaround_shellPrependMarkupLines
