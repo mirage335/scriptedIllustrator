@@ -67,6 +67,15 @@ https://unix.stackexchange.com/questions/533886/is-there-a-command-line-tool-for
  'phantomjs'
 
 
+https://github.com/go-easygen/easygen
+https://pkg.go.dev/github.com/go-easygen/easygen?utm_source=godoc#pkg-examples
+https://github.com/imatix/gsl
+
+
+https://en.wikipedia.org/wiki/AsciiDoc
+https://github.com/dagwieers/asciidoc-odf
+
+
 
 __Copyright__
 This file is part of scriptedIllustrator.
