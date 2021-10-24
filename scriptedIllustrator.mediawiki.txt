@@ -56,7 +56,7 @@ if false; then true; # -->
 fi
  '_o' '_messageNormal' 'demo: self-modifying interleaved markup and shell'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#54ff54;background-color:#18b2b2;"> demo: self-modifying interleaved markup and shell</span><!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;54ff54;background-color:&#35;18b2b2;"> demo: self-modifying interleaved markup and shell</span><!-- # --></p>
 <!--
 fi
  '_heading2' 'date - heading2'
@@ -71,18 +71,18 @@ if false; then true; # -->
 fi
  '_o' '_messagePlain_request' 'request: date --iso-8601=ns'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#b218b2;background-color:#848484;"> request: date --iso-8601=ns</span><!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;b218b2;background-color:&#35;848484;"> request: date --iso-8601=ns</span><!-- # --></p>
 <!--
 fi
  '_o' '_messagePlain_probe' 'date' '--iso-8601'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#1818b2;background-color:#848484;"> date --iso-8601</span><!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;1818b2;background-color:&#35;848484;"> date --iso-8601</span><!-- # --></p>
 <!--
 fi
  '_e_' '[[ "$noDate" != "true" ]] && date --iso-8601'
 if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'[[ "$noDate" != "true" ]] && date --iso-8601'</nowiki>
-<!-- # --><nowiki>#</nowiki> 2021-10-22
+<!-- # --><nowiki>#</nowiki> 2021-10-24
 <!-- # --></p>
 <!--
 fi
@@ -290,12 +290,12 @@ if false; then true; # -->
 fi
  '_o' '_messagePlain_probe' 'commands'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#1818b2;background-color:#848484;"> commands</span><!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;1818b2;background-color:&#35;848484;"> commands</span><!-- # --></p>
 <!--
 fi
  '_o' '_safeEcho_newline' '\# with output'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --># with output<!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->&#35; with output<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
@@ -346,9 +346,11 @@ if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
- '_o' '_safeEcho_newline' '' \ \\  output''
+ '_' 'WARNING:' 'Some' 'quoting' 'may' 'not' 'be' 'preserved' '.'
+ '_' '_o' '_safeEcho_newline' '' ' \' 'output'
+ '_o' '_safeEcho_newline' '' ' \' 'output'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->\ \  output<!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->output<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
@@ -427,8 +429,8 @@ if false; then true; # -->
 <!--
 fi
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
---> raw markup
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
+mediawiki_noLineBreak --> raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
@@ -545,12 +547,12 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 '
  '_o' '_messagePlain_request' 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#b218b2;background-color:#848484;"> request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"</span><!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;b218b2;background-color:&#35;848484;"> request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"</span><!-- # --></p>
 <!--
 fi
  '_o' '_messagePlain_probe_var' 'ubiquitousBashIDshort'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#1818b2;background-color:#848484;"> ubiquitousBashIDshort= uk4uPhB6</span><!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;1818b2;background-color:&#35;848484;"> ubiquitousBashIDshort= uk4uPhB6</span><!-- # --></p>
 <!--
 fi
  '_v' 'ubiquitousBashIDshort'
@@ -619,8 +621,8 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 </pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
--->raw markup<br \><h1>raw heading1</h2>
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
+mediawiki_noLineBreak -->raw markup<br \><h1>raw heading1</h2>
 <h2>raw heading2</h2>
 raw markup 
 raw markup
@@ -629,22 +631,22 @@ raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak-->
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
 raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
--->raw markup
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
+mediawiki_noLineBreak -->raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak-->
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
 raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak-->
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
 
 raw markup
 
@@ -736,7 +738,7 @@ mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-sp
 '
  '_o' '_messagePlain_good' 'done: demo'
 if false; then true; # -->
-<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:#17ae17;background-color:#848484;"> done: demo</span><!-- # --></p>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;17ae17;background-color:&#35;848484;"> done: demo</span><!-- # --></p>
 <!--
 fi
 
@@ -759,10 +761,10 @@ echo -e '\n\n'
 
 #####Functions. Some may be from 'ubiquitous bash' .
 #_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
-current_internal_CompressedFunctions_bytes='8901'
-current_internal_CompressedFunctions_cksum='2570033855'
+current_internal_CompressedFunctions_bytes='9098'
+current_internal_CompressedFunctions_cksum='871400423'
 current_internal_CompressedFunctions='
-/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4RpXGaddAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
+/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4R9TGjtdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
 DrV189uAlZ6oqD3MK7bjrSmuGreEaBOC+z5QkGUPIDVaXfJmDg73/A1Y9JqRKxtli7ZDurfX2t/Z3m6RV6ku3LwPHl2qt8/kbWEubRkY3Fl2VTTFWjQ8Z9qfpBK4YyV7fw3X3hcUmN6Fz+u2P8eCSl/fCnNX
 HtvGeiwoJbZ3wje2iPvqVhHoy0BMVkEDcSqWo+znkV0BwqE45qLsZQ9IGG1CzglgciwcOU2fdsqKBFC5XA3WYFGg6uZ2q4mvn5jWR+FbeUz7YjupLAvLl7DE+daOBWzzyYeFrcMhDk1QeqOKpv41V0GTTqAm
 Z7lRbPrhk3oRY/kBiQGZSfRuxTSmIc1zevrFy6JWcZkCJayU/wQ+XEKdvF51XHH+OYrSuhIxvk6G+Ce0sbTr3GBfVRQYdRpxeOs48xNaEfmBf6GZcWUMx5L3LA4cup19vL4O75JjKbnlJeYdoRCjtcPE7A8S
@@ -789,36 +791,37 @@ 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
-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'
+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'
 ! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes

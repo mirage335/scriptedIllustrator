@@ -20,6 +20,15 @@ _test_prog() {
 	_getDep 'fold'
 	_getDep 'perl'
 	_getDep 'sed'
+	
+	
+	! echo \$123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo \.123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	
 }
 
 

@@ -284,7 +284,7 @@ _o-html() {
 	# | _shellCommentLines
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_preformattedCharacters-html | _workaround_shellPrependMarkupLines
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_cmd_end"
@@ -362,8 +362,8 @@ _t-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre.*>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
-	
+	#sed 's/^mediawiki_noLineBreak --><pre.*>//'
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
@@ -395,7 +395,7 @@ _r-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html
 	
 	
 	echo "$comment_html_begin $flag__NOT_shell"
@@ -694,6 +694,7 @@ _fold-html() {
 
 _workaround_preformattedCharacters-html() {
 	sed 's/\&#35;/#/g'
+	#| sed "s/\&#92;/\\\/"
 }
 
 

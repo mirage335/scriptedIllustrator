@@ -21,6 +21,11 @@ Markup files of any markup launguage (eg. HTML and MediaWiki) are executable, au
 
 ./scriptedIllustrator.sh _scribble_html
 ./scriptedIllustrator.html _scribble_html
+
+# By default, 'scribble' all possible markup .
+./scriptedIllustrator.sh
+./scriptedIllustrator.html
+./scriptedIllustrator.mediawiki.txt
 ```
 
 "KWrite" is strongly recommended. Syntax highlighting of '# NOTICE' is helpful . Syntax highlighting may be either 'bash' or markup at any time as desired.
@@ -37,6 +42,8 @@ Automatic '_test' function attempts some plausible conversions to ensure unexpec
 ```
 ./scriptedIllustrator.sh _test
 ./scriptedIllustrator.html _test
+
+./compile.sh ; ./scriptedIllustrator.html _test ; ./scriptedIllustrator.mediawiki.txt
 
 ```
 

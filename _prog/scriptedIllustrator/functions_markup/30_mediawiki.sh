@@ -302,7 +302,7 @@ _o-mediawiki() {
 	#perl -p -e 'chomp if eof'
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_preformattedCharacters-mediawiki | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_mediawiki_cmd_end"
@@ -382,8 +382,24 @@ _t-mediawiki() {
 	
 	#[[ "$1" != 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho 'mediawiki_noLineBreak --><nowiki>'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	#[[ "$1" == 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
-	[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && _safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
-	[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	#[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && _safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	#[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	
+	#[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && [[ "$@" != *'scriptedIllustrator_markup_uk4uPhB663kVcygT0q'*'mediawiki_noLineBreak --><pre'* ]]
+	#[[ "$@" != *'mediawiki_noLineBreak --><pre'* ]]
+	#! _safeEcho_newline "$@" | grep 'mediawiki_noLineBreak --><pre' > /dev/null 2>&1
+	#! _safeEcho_newline "$@" | grep 'scriptedIllustrator_markup_uk4uPhB663kVcygT0q''.*''mediawiki_noLineBreak --><pre' > /dev/null 2>&1
+	#! _safeEcho_newline "$@" | grep '<pre' > /dev/null 2>&1
+	if _safeEcho_newline "$@" | grep '^.*''scriptedIllustrator_markup_uk4uPhB663kVcygT0q''.*''mediawiki_noLineBreak --><pre''.*$' > /dev/null 2>&1
+	then
+		_safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	elif ! _safeEcho_newline "$@" | grep 'mediawiki_noLineBreak --><pre' > /dev/null 2>&1
+	then
+		_safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	else
+		_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	fi
+	
 	#_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	
 	
@@ -420,8 +436,8 @@ _r-mediawiki() {
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
 	#_safeEcho "$@" | _filter__scriptedIllustrator_markup
-	[[ "$1" != '-->'* ]] && _safeEcho '-->'"$@" | _filter__scriptedIllustrator_markup
-	[[ "$1" == '-->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup
+	[[ "$1" != 'mediawiki_noLineBreak -->'* ]] && _safeEcho 'mediawiki_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup
+	[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup
 	
 	
 	echo "$comment_mediawiki_begin $flag__NOT_shell"
@@ -724,6 +740,7 @@ _workaround_preformattedCharacters-mediawiki() {
 	#sed 's/#/<nowiki>#<\/nowiki>/g'
 	
 	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/#/\&#35;/g'
+	#| sed "s/\\\/\&#92;/"
 }
 
 _workaround_noInterpret-mediawiki() {

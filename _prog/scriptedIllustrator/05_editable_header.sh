@@ -115,6 +115,8 @@ _paragraph_end
 _e ubiquitous_bash.sh _echo 'a
 b'
 _paragraph_begin
+_ WARNING: Some 'quoting' may not be preserved .
+_ _o _safeEcho_newline "'"' \ \\  output'"'"
 _o _safeEcho_newline "'"' \ \\  output'"'"
 _paragraph_end
 _cells_speck_end

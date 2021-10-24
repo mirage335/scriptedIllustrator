@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='3277104756'
+export ub_setScriptChecksum_contents='258345905'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11469,6 +11469,15 @@ _test_prog() {
 	_getDep 'fold'
 	_getDep 'perl'
 	_getDep 'sed'
+	
+	
+	! echo \$123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo \.123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	
 }
 
 
@@ -12124,7 +12133,7 @@ _scribble_html() {
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
 	
 	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
-	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | _scribble_filter_extensions )
 	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
 	
 	local currentOutputFile
@@ -12168,7 +12177,7 @@ _scribble_pdf() {
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
-	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | _scribble_filter_extensions )
 	
 	local currentOutputFile
 	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".pdf
@@ -12202,11 +12211,12 @@ _scribble_mediawiki() {
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
 	
 	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
-	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | _scribble_filter_extensions )
 	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
 	
 	local currentOutputFile
-	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".txt
+	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".txt
+	! _safeEcho_newline "$currentOutputFile" | grep '\.'"$current_scriptedIllustrator_markup".txt > /dev/null 2>&1 && currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".txt
 	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
 	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
 	
@@ -12254,9 +12264,11 @@ _scribble_mediawiki() {
 
 
 
+# ###
 
-
-
+_scribble_filter_extensions() {
+	sed 's/\.mediawiki\.txt$/.txt/' | sed 's/\.[^.]*$//'
+}
 
 
 
@@ -12271,6 +12283,12 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	
 	
 	declare -f _scribble_mediawiki
+	
+	
+	
+	
+	# ###
+	declare -f _scribble_filter_extensions
 }
 
 
@@ -12637,7 +12655,7 @@ _o-html() {
 	# | _shellCommentLines
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_preformattedCharacters-html | _workaround_shellPrependMarkupLines
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_html_cmd_end"
@@ -12715,8 +12733,8 @@ _t-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre.*>//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
-	
+	#sed 's/^mediawiki_noLineBreak --><pre.*>//'
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html | _fold-html
 	
 	echo "$markup_html_pre_end""$comment_html_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
@@ -12748,7 +12766,7 @@ _r-html() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
-	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-html
 	
 	
 	echo "$comment_html_begin $flag__NOT_shell"
@@ -13047,6 +13065,7 @@ _fold-html() {
 
 _workaround_preformattedCharacters-html() {
 	sed 's/\&#35;/#/g'
+	#| sed "s/\&#92;/\\\/"
 }
 
 
@@ -13445,7 +13464,7 @@ _o-mediawiki() {
 	#perl -p -e 'chomp if eof'
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
-	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
+	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_preformattedCharacters-mediawiki | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
 	rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
 	
 	echo "$markup_mediawiki_cmd_end"
@@ -13525,8 +13544,24 @@ _t-mediawiki() {
 	
 	#[[ "$1" != 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho 'mediawiki_noLineBreak --><nowiki>'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	#[[ "$1" == 'mediawiki_noLineBreak --><nowiki>'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
-	[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && _safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
-	[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	#[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && _safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	#[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	
+	#[[ "$1" != 'mediawiki_noLineBreak --><pre'* ]] && [[ "$@" != *'scriptedIllustrator_markup_uk4uPhB663kVcygT0q'*'mediawiki_noLineBreak --><pre'* ]]
+	#[[ "$@" != *'mediawiki_noLineBreak --><pre'* ]]
+	#! _safeEcho_newline "$@" | grep 'mediawiki_noLineBreak --><pre' > /dev/null 2>&1
+	#! _safeEcho_newline "$@" | grep 'scriptedIllustrator_markup_uk4uPhB663kVcygT0q''.*''mediawiki_noLineBreak --><pre' > /dev/null 2>&1
+	#! _safeEcho_newline "$@" | grep '<pre' > /dev/null 2>&1
+	if _safeEcho_newline "$@" | grep '^.*''scriptedIllustrator_markup_uk4uPhB663kVcygT0q''.*''mediawiki_noLineBreak --><pre''.*$' > /dev/null 2>&1
+	then
+		_safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	elif ! _safeEcho_newline "$@" | grep 'mediawiki_noLineBreak --><pre' > /dev/null 2>&1
+	then
+		_safeEcho 'mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	else
+		_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
+	fi
+	
 	#_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-mediawiki | _fold-mediawiki
 	
 	
@@ -13563,8 +13598,8 @@ _r-mediawiki() {
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
 	#_safeEcho "$@" | _filter__scriptedIllustrator_markup
-	[[ "$1" != '-->'* ]] && _safeEcho '-->'"$@" | _filter__scriptedIllustrator_markup
-	[[ "$1" == '-->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup
+	[[ "$1" != 'mediawiki_noLineBreak -->'* ]] && _safeEcho 'mediawiki_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup
+	[[ "$1" == 'mediawiki_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup
 	
 	
 	echo "$comment_mediawiki_begin $flag__NOT_shell"
@@ -13867,6 +13902,7 @@ _workaround_preformattedCharacters-mediawiki() {
 	#sed 's/#/<nowiki>#<\/nowiki>/g'
 	
 	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/#/\&#35;/g'
+	#| sed "s/\\\/\&#92;/"
 }
 
 _workaround_noInterpret-mediawiki() {

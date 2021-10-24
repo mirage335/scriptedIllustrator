@@ -15,7 +15,7 @@ _scribble_html() {
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
 	
 	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
-	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | _scribble_filter_extensions )
 	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
 	
 	local currentOutputFile
@@ -59,7 +59,7 @@ _scribble_pdf() {
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
-	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | _scribble_filter_extensions )
 	
 	local currentOutputFile
 	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".pdf
@@ -93,11 +93,12 @@ _scribble_mediawiki() {
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
 	
 	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
-	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | sed 's/\.[^.]*$//' )
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | _scribble_filter_extensions )
 	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
 	
 	local currentOutputFile
-	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".txt
+	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".txt
+	! _safeEcho_newline "$currentOutputFile" | grep '\.'"$current_scriptedIllustrator_markup".txt > /dev/null 2>&1 && currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".txt
 	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
 	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
 	
@@ -145,9 +146,11 @@ _scribble_mediawiki() {
 
 
 
+# ###
 
-
-
+_scribble_filter_extensions() {
+	sed 's/\.mediawiki\.txt$/.txt/' | sed 's/\.[^.]*$//'
+}
 
 
 
@@ -162,5 +165,11 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	
 	
 	declare -f _scribble_mediawiki
+	
+	
+	
+	
+	# ###
+	declare -f _scribble_filter_extensions
 }
 
