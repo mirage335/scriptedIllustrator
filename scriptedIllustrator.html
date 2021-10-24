@@ -13,7 +13,7 @@
 # 
 # NOTICE: README !
 
-# CAUTION: As a user, you should have been provided a virtual machine or cloud services to run this script - 'ubiquitous bash' provides functions to ease the use of either and both. An SELinux, AppArmor, unprivileged ChRoot, or similar context may be acceptable as well. Routinely modifying, sharing, and running code, may otherwise put both users and organizations at risk.
+# CAUTION: As a user, you should have been provided a virtual machine or cloud services to run this script - 'ubiquitous bash' provides functions to ease the use of either and both. An SELinux, AppArmor, unprivileged ChRoot, or similar context may be acceptable as well. Routinely modifying, sharing, and running code, may otherwise put both users and organizations at possibly unnecessary risk.
 
 
 # Copyright and related rights waived via CC0 only for documentation scripts which predominantly create or represent markup (eg. 'scriptedIllustrator.sh', 'scriptedIllustrator.html', 'scriptedIllustrator.mediawiki.txt') .
@@ -367,11 +367,11 @@ if false; then true; # -->
 <!--
 fi
  '_' 'WARNING:' 'Some' 'quoting' 'may' 'not' 'be' 'preserved' '.'
- '_' '_o' '_safeEcho_newline' '' ' \' 'output'
- '_o' '_safeEcho_newline' '' ' \' 'output'
+ '_' '_o' '_safeEcho_newline' '' \ \\  output''
+ '_o' '_safeEcho_newline' '' \ \\  output''
 if false; then true; # -->
 <!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # -->output
+<!-- # -->\ \  output
 <!-- # --></pre>
 <!--
 fi
