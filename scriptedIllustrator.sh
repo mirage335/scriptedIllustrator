@@ -12,8 +12,12 @@
 # 
 # NOTICE: README !
 
-# Copyright and related rights waived via CC0 .
-# Compressed functions from 'scriptedIllustrator' may remain GPLv3 copyrighted .
+# CAUTION: As a user, you should have been provided a virtual machine or cloud services to run this script - 'ubiquitous bash' provides functions to ease the use of either and both. An SELinux, AppArmor, unprivileged ChRoot, or similar context may be acceptable as well. Routinely modifying, sharing, and running code, may otherwise put both users and organizations at risk.
+
+
+# Copyright and related rights waived via CC0 only for documentation scripts which predominantly create or represent markup (eg. 'scriptedIllustrator.sh', 'scriptedIllustrator.html', 'scriptedIllustrator.mediawiki.txt') .
+# To the extent possible, related software (ie. 'tinyCompiler_scriptedIllustrator.sh' from 'scriptedIllustrator') remains otherwise copyrighted (ie. GPLv3 license).
+# Specifically, please do not use 'scriptedIllustrator' code to distribute unpublished proprietary 'current_internal_CompressedFunctions' .
 
 #__README_uk4uPhB663kVcygT0q_README__
 
