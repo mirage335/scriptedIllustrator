@@ -482,6 +482,11 @@ _heading6-html() {
 }
 
 # Page break.
+#title page (experiment)
+#<div style="page-break-before: always;"> </div>
+#<p>
+#text page (experiment)
+#</p>
 _page-html() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
@@ -533,6 +538,7 @@ _picture-html() {
 	echo "$interpret__html_NOT_shell__begin"
 	
 	#./
+	#https://www.hostpapa.com/knowledgebase/align-float-images-website/
 	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"

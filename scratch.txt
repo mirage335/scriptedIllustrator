@@ -1,0 +1,120 @@
+
+###########################################################
+
+
+_cells_begin-html() {
+	<table style="empty-cells: show; border-spacing: 0px; border: 1px solid black">
+}
+
+_cells_end-html() {
+	</table>
+}
+
+_cells_row_begin-html() {
+	<tr>
+}
+
+_cells_row_end-html() {
+	</tr>
+}
+
+_cells_speck_begin-html() {
+	<td style="border-spacing: 0px; border: 1px solid black">
+}
+
+_cells_speck_end-html() {
+	</td>
+}
+
+
+_cells_begin-mediawiki() {
+	{| class="wikitable"
+}
+
+_cells_end-mediawiki() {
+	|}
+}
+
+_cells_row_begin-mediawiki() {
+	
+}
+
+_cells_row_end-mediawiki() {
+	|-
+}
+
+_cells_speck_begin-mediawiki() {
+	|<!-- -->
+	
+}
+
+_cells_speck_end-mediawiki() {
+	
+}
+
+
+
+
+
+_paragraph_begin-html() {
+	<p>
+}
+
+_paragraph_end-html() {
+	</p>
+}
+
+
+_paragraph_begin-mediawiki() {
+	
+	
+}
+
+_paragraph_end-mediawiki() {
+	
+	
+}
+
+
+
+
+
+
+
+<table style="empty-cells: show; border-spacing: 0px; border: 1px solid black">
+	{| class="wikitable"
+
+<tr>
+	
+
+</tr>
+	|-
+
+<td style="border-spacing: 0px; border: 1px solid black">
+	|
+	
+
+</td>
+	
+
+</table>
+	|}
+
+
+<table style="empty-cells: show; border-spacing: 0px; border: 1px solid black">
+<tr> <td style="border-spacing: 0px; border: 1px solid black"> x </td> <td style="border-spacing: 0px; border: 1px solid black"></td> </tr>
+<tr> <td style="border-spacing: 0px; border: 1px solid black"> z </td> </tr>
+</table>
+
+
+{| class="wikitable"
+|<!-- -->x
+|<!-- -->
+|<!-- -->-
+|<!-- -->z
+|}
+
+###########################################################
+
+
+

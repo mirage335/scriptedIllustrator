@@ -536,6 +536,11 @@ _heading6-mediawiki() {
 }
 
 # Page break.
+#title page (experiment)
+#<div style="page-break-before: always;"> </div>
+#<p>
+#text page (experiment)
+#</p>
 _page-mediawiki() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
