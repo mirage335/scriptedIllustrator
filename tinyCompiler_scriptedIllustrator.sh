@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2023545569'
+export ub_setScriptChecksum_contents='3507735523'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12853,6 +12853,11 @@ _heading6-html() {
 }
 
 # Page break.
+#title page (experiment)
+#<div style="page-break-before: always;"> </div>
+#<p>
+#text page (experiment)
+#</p>
 _page-html() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
@@ -12904,6 +12909,7 @@ _picture-html() {
 	echo "$interpret__html_NOT_shell__begin"
 	
 	#./
+	#https://www.hostpapa.com/knowledgebase/align-float-images-website/
 	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
@@ -13703,6 +13709,11 @@ _heading6-mediawiki() {
 }
 
 # Page break.
+#title page (experiment)
+#<div style="page-break-before: always;"> </div>
+#<p>
+#text page (experiment)
+#</p>
 _page-mediawiki() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
@@ -13750,11 +13761,13 @@ _picture-mediawiki() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
 	
+	_warning_imageName-mediawiki "$@"
 	
 	echo "$interpret__mediawiki_NOT_shell__begin"
 	
 	#./
-	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '[[File:'"$1"'|right|'"$currentWidth"']]'
 	
 	echo "$interpret__mediawiki_NOT_shell__end"
 }
@@ -13770,11 +13783,13 @@ _image-mediawiki() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
 	
+	_warning_imageName-mediawiki "$@"
 	
 	echo "$interpret__mediawiki_NOT_shell__begin"
 	
 	#./
-	_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '[[File:'"$1"'|'"$currentWidth"']]'
 	
 	echo "$interpret__mediawiki_NOT_shell__end"
 }
@@ -13943,6 +13958,32 @@ _workaround_shellCommentLines-mediawiki() {
 	done
 }
 
+_warning_imageName-mediawiki() {
+	# Recommend ' $(_uid)_12345678.123 ' - 'eg. uk4uPhB663kVcygT0q_filename.jpg' - or similar.
+	[[ $(_safeEcho "$1" | wc -c | tr -dc '0-9') -lt 20 ]] && echo "$currentFunctionName"': warn: image filename <20char: possibly not unique: '"$1" > /dev/tty
+	
+	
+	## https://en.wikipedia.org/wiki/Comparison_of_file_systems#Limits
+	
+	## Experimental. No production use.
+	##[[ $(_safeEcho "$1" | wc -c | tr -dc '0-9') -ge 10 ]] && echo "$currentFunctionName"': warn: image filename >=10char: '"$1" > /dev/tty && return 1
+	
+	# May be bad for 'HFS' filesystem.
+	#[[ $(_safeEcho "$1" | wc -c | tr -dc '0-9') -ge 31 ]] && echo "$currentFunctionName"': warn: image filename >=31char: '"$1" > /dev/tty && return 1
+	
+	# May be bad for 'FATX' filesystem.
+	[[ $(_safeEcho "$1" | wc -c | tr -dc '0-9') -ge 42 ]] && echo "$currentFunctionName"': warn: image filename >=42char: '"$1" > /dev/tty && return 1
+	
+	# May be bad for 'CDFS' filesystem.
+	#[[ $(_safeEcho "$1" | wc -c | tr -dc '0-9') -ge 64 ]] && echo "$currentFunctionName"': warn: image filename >=64char: '"$1" > /dev/tty && return 1
+	
+	# May be bad for 'NWFS' filesystem.
+	#[[ $(_safeEcho "$1" | wc -c | tr -dc '0-9') -ge 80 ]] && echo "$currentFunctionName"': warn: image filename >=80char: '"$1" > /dev/tty && return 1
+	
+	# May be bad for 'VMFS' filesystem.
+	#[[ $(_safeEcho "$1" | wc -c | tr -dc '0-9') -ge 128 ]] && echo "$currentFunctionName"': warn: image filename >=128char: '"$1" > /dev/tty && return 1
+}
+
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _set_markup_mediawiki
 	
@@ -14033,6 +14074,10 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _workaround_noInterpret-mediawiki
 	
 	declare -f _workaround_shellCommentLines-mediawiki
+	
+	
+	
+	declare -f _warning_imageName-mediawiki
 }
 
 

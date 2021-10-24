@@ -63,9 +63,13 @@ _paragraph_end
 _heading2 'images - heading2'
 _paragraph_begin
 _t 'preformatted text within paragraph'
+_ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
+_ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _picture "zPicture_BusinessCard_mirage335_wood.png" 100px
 _paragraph_end
 _paragraph_begin
+_ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
+_ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _image "zImage_cabling__2020-11-19-03-19-082.jpg" 150px
 _paragraph_end
 _heading2 'equations and commands - heading2'
@@ -148,9 +152,13 @@ _cells_row_end
 _
 _cells_row_begin
 _cells_speck_begin
+_ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
+_ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _picture "zPicture_BusinessCard_mirage335_wood.png" 50px
 _cells_speck_end
 _cells_speck_begin '' '3'
+_ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
+_ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _image "zImage_cabling__2020-11-19-03-19-082.jpg" 50px
 _cells_speck_end
 _cells_end
@@ -251,6 +259,8 @@ _page
 _t '-------------------------------------------------------------------------------
 '
 _paragraph_begin
+_ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
+_ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _image "zImage_cabling__2020-11-19-03-19-082.jpg"
 _paragraph_end
 _paragraph_begin
@@ -279,10 +289,10 @@ echo -e '\n\n'
 
 #####Functions. Some may be from 'ubiquitous bash' .
 #_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
-current_internal_CompressedFunctions_bytes='9155'
-current_internal_CompressedFunctions_cksum='660023685'
+current_internal_CompressedFunctions_bytes='9324'
+current_internal_CompressedFunctions_cksum='3265185072'
 current_internal_CompressedFunctions='
-/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4SJmGmRdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
+/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4SM0GuJdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
 DrV189uAlZ6oqD3MK7bjrSmuGreEaBOC+z5QkGUPIDVaXfJmDg73/A1Y9JqRKxtli7ZDurfX2t/Z3m6RV6ku3LwPHl2qt8/kbWEubRkY3Fl2VTTFWjQ8Z9qfpBK4YyV7fw3X3hcUmN6Fz+u2P8eCSl/fCnNX
 HtvGeiwoJbZ3wje2iPvqVhHoy0BMVkEDcSqWo+znkV0BwqE45qLsZQ9IGG1CzglgciwcOU2fdsqKBFC5XA3WYFGg6uZ2q4mvn5jWR+FbeUz7YjupLAvLl7DE+daOBWzzyYeFrcMhDk1QeqOKpv41V0GTTqAm
 Z7lRbPrhk3oRY/kBiQGZSfRuxTSmIc1zevrFy6JWcZkCJayU/wQ+XEKdvF51XHH+OYrSuhIxvk6G+Ce0sbTr3GBfVRQYdRpxeOs48xNaEfmBf6GZcWUMx5L3LA4cup19vL4O75JjKbnlJeYdoRCjtcPE7A8S
@@ -338,9 +348,10 @@ eKQfPhorxThZK9xoMmBe+u7NW5P0jjNWKXiD1F1Ab0yCFbyeFhxoUdqG8vg0q/zTjOa5w0niVxJAiwEF
 MZG+oX1s5GR2EbQVm+zBWkYkCpI2e5IQFrCgPcI1R1vSbPqEwtXoigmzhCYY5BgdjTZTa+7aCPuAOAf7KQasOgZKguLA+OtB3RsC9VsdmCihIeJcT2gsRvld+6CsTJdP+u4SGMcWmGnDIJfcd/yUKnkjn39z
 9gPyt7e/18VVGmw1prS4nPw+sGglCmqjxVMPq0Vl4iu7jWXk6fh24WX082W8oWfgo3Ce6wf7V3gl2IFpes3S12FY3slVtUWS2/EEX1HRu+Ty7ww5aKmIunh8uNTmWd0y2j+bh/Iu0zeTse2/8C3YLLwuJTY3
 EJZmiEM128JNl0fYD6LyDT2JpvjAlkHNf8b9QuR0i96ACh5+w8DRoen5a367Rza50KX4OwDaysqhjaJcmRtzO+5+OXl1WUJVUOuzbLV3xktVdNfI7wOzjHnRmkMUhHxuanlHFpfqbtkF2I0wwvWlnq0OPoFS
-fHYXjiISBS9eYw9tMpYL7RnQbwQR1o2HRtP8t/5px+ge/jPWIKrr7AlLeCqazEUBvkySgsbkVcPnBrkAPUl1nKo94U8fR4lyEcq2wXUFn/mDWqd9CbIzThaGXlbx57Hd1nSEVlzxq6DAfCvk1TA5nq7W8NW9
-I5ygjTWDxzjFCU42nyRoehNImrORZnshiq3RQMha8YktJJRT3NZnD8V+n6Bs8EYlSGU/HHqMFgLC/qcGTNO+CLhuWq/syjlGtPaPvM//GCmmxFCeCspIUNmuBw+gxn+Q533rLnz+BFzwLxyRksHzlBSQBL8I
-AACn8hNRS2PAiwABgDXnxAQA6nVGDbHEZ/sCAAAAAARZWg=='
+fHYXjiISBS9eYw9tMpYL7RnQbwQR1o2HRtP8t/5px+gfHMk7WYF8ZPaD80stvgIoJi2ch4yOPs9+QKvolfhkpStF96XBDyGgmeO4fxbE8FhF1fs/53lxhNn7Ix0vQ+wugDflzsSnXtum99h7gI4eS//UxBV7
+sDjKqcI+xjXLQU3TicCLGTTR6Vb2XNQ2npf6jOh3UpVOJZCAaH5my3rmvxoFslbOaAyidhnzY3bqIg/UKPRJifCs03d4akDOvzvD7NLicgRVSaZA9x6wEgQDI4GWNUY3PlD4WH1pkGn4wqDSDZdtXMSvWMVj
+YN/2yAw2WiFo+EW4/vIV7dZM5Bz1y2khUYbbmbrDdpEW0yt1Kxamms+TGM/+eAJvixN+JN3eSMIkIXZm11AHBzM4Y7Ki6y3UduvPipCdURYE4+Id7nPGy5UerNaJiu+jDuwIQ9dEx2dFMl8VojU1mr31c6PI
+o+SInJVhPHsgAAAAAC76wFkpNiEFAAH+NbXGBAAcCu5escRn+wIAAAAABFla'
 ! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes
