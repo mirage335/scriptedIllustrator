@@ -252,7 +252,7 @@ _paragraph_begin
 _image "zImage_cabling__2020-11-19-03-19-082.jpg"
 _paragraph_end
 _paragraph_begin
-# WARNING: Unmatched single quotes may cause failure.
+_ WARNING: Unmatched single quotes may cause failure.
 _t '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} '"''"' " "" '
 _r '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} '"''"' " "" '
 _paragraph_end
