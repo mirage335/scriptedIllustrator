@@ -118,3 +118,47 @@ _paragraph_end-mediawiki() {
 
 
 
+
+wkhtmltopdf scriptedIllustrator_presentation.html scriptedIllustrator.pdf
+
+
+pandoc scriptedIllustrator.html --pdf-engine=wkhtmltopdf -o scriptedIllustrator.pdf
+
+pandoc scriptedIllustrator.html -t docx -o scriptedIllustrator.docx
+
+
+soffice --headless --infilter=writerglobal8_HTML  --convert-to pdc:writer_web_pdf_Export --outdir ./ ./scriptedIllustrator.html
+
+soffice --headless --infilter=writerglobal8_HTML  --convert-to odt --outdir ./ ./scriptedIllustrator.html
+
+
+#writerglobal8_HTML
+#generic_HTML
+#writerweb8_writer
+#graphic_html
+#draw_html_export
+#writer_web_HTML_help
+
+
+
+pandoc -f mediawiki ./scriptedIllustrator.mediawiki.txt -t docx -o test.docx
+
+
+
+
+
+###########################################################
+
+
+
+
+
+
+
+
+
+
+
+
+
+
