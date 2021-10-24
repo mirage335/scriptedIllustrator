@@ -751,8 +751,11 @@ _workaround_preformattedCharacters-mediawiki() {
 	#sed 's/#/\&#35;/g'
 	#sed 's/#/<nowiki>#<\/nowiki>/g'
 	
-	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/#/\&#35;/g'
+	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	
+	
 	#| sed "s/\\\/\&#92;/"
+	#sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g'
 }
 
 _workaround_noInterpret-mediawiki() {

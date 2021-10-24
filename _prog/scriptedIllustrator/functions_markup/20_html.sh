@@ -693,7 +693,12 @@ _fold-html() {
 
 
 _workaround_preformattedCharacters-html() {
-	sed 's/\&#35;/#/g'
+	#sed 's/\&#35;/#/g'
+	
+	
+	sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	
+	
 	#| sed "s/\&#92;/\\\/"
 }
 
