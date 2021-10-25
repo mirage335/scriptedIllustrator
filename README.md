@@ -74,6 +74,8 @@ https://github.com/imatix/gsl
 
 https://en.wikipedia.org/wiki/AsciiDoc
 https://github.com/dagwieers/asciidoc-odf
+https://powerman.name/doc/asciidoc
+https://docs.asciidoctor.org/asciidoc/latest/comments/
 
 
 

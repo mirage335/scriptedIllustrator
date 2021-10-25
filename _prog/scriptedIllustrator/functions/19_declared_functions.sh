@@ -66,6 +66,7 @@ o+SInJVhPHsgAAAAAC76wFkpNiEFAAH+NbXGBAAcCu5escRn+wIAAAAABFla'
 ! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes
+# https://github.com/mirage335/scriptedIllustrator
 #_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
 ! _tiny_criticalDep && exit 1
 
