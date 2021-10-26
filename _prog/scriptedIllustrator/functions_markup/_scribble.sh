@@ -132,9 +132,52 @@ _scribble_mediawiki() {
 }
 
 
-
-
-
+_scribble_asciidoc() {
+	_set_markup_asciidoc
+	_set_strings
+	_set_strings_markup_workaround_asciidoc_prog
+	
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	
+	# https://stackoverflow.com/questions/26633623/remove-all-text-from-last-dot-in-bash
+	currentScriptBasename=$(_safeEcho_newline "$currentScriptBasename" | _scribble_filter_extensions )
+	[[ "$current_scriptedIllustrator_presentation" == 'true' ]] && currentScriptBasename="$currentScriptBasename"_presentation
+	
+	local currentOutputFile
+	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".txt
+	! _safeEcho_newline "$currentOutputFile" | grep '\.'"$current_scriptedIllustrator_markup".txt > /dev/null 2>&1 && currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".txt
+	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
+	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
+	
+	echo -n > "$currentOutputFile".tmp
+	! [[ -e "$currentOutputFile".tmp ]] && exit 1
+	
+	
+	
+	echo -n "$document_asciidoc_root_begin" >> "$currentOutputFile".tmp
+	echo >> "$currentOutputFile".tmp
+	
+	
+	
+	
+	_HEADER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	
+	"$scriptAbsoluteLocation" DOCUMENT >> "$currentOutputFile".tmp
+	
+	_FOOTER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	
+	
+	
+	
+	#echo -n "$document_asciidoc_root_end" >> "$currentOutputFile".tmp
+	echo -n filename."$current_scriptedIllustrator_markup".txt "$document_asciidoc_root_end" >> "$currentOutputFile".tmp
+	#echo -n "$currentScriptBasename"."$current_scriptedIllustrator_markup".txt "$document_asciidoc_root_end" >> "$currentOutputFile".tmp
+	echo >> "$currentOutputFile".tmp
+	
+	chmod u+x "$currentOutputFile".tmp
+	mv "$currentOutputFile".tmp "$currentOutputFile"
+}
 
 
 
@@ -148,8 +191,28 @@ _scribble_mediawiki() {
 
 # ###
 
+_scribble_all() {
+	_scribble_html "$@"
+	_scribble_html_presentation "$@"
+	
+	_scribble_pdf "$@"
+	
+	# ###
+	
+	
+	
+	_scribble_mediawiki "$@"
+	
+	_scribble_asciidoc "$@"
+	
+	
+	return;
+}
+
+# ###
+
 _scribble_filter_extensions() {
-	sed 's/\.mediawiki\.txt$/.txt/' | sed 's/\.[^.]*$//'
+	sed 's/\.mediawiki\.txt$/.txt/' | sed 's/\.asciidoc\.txt$/.txt/' | sed 's/\.[^.]*$//'
 }
 
 
@@ -166,8 +229,14 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	
 	declare -f _scribble_mediawiki
 	
+	declare -f _scribble_asciidoc
 	
 	
+	
+	
+	# ###
+	
+	declare -f _scribble_all
 	
 	# ###
 	declare -f _scribble_filter_extensions

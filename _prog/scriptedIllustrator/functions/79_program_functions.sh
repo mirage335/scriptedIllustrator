@@ -3,18 +3,9 @@
 
 # Equivalent to '_main', with the usual '_collect' (aka. '_gather'), '_enter', '_launch', etc.
 _default() {
-	_scribble_html "$@"
-	_scribble_html_presentation "$@"
+	#true
 	
-	_scribble_pdf "$@"
-	
-	# ###
-	
-	
-	
-	_scribble_mediawiki "$@"
-	
-	return;
+	_scribble_all "$@"
 }
 
 

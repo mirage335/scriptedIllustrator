@@ -29,10 +29,10 @@ _tiny_set_strings() {
 	
 	_set_strings_markup_html
 	_tryExec _set_strings_markup_mediawiki
+	_tryExec _set_strings_markup_asciidoc
 	
 	_tryExec _set_strings_markup_python_docx
 	
-	_tryExec _set_strings_markup_presentation
 	
 	# CAUTION: Developer convenience, not relied upon. Causes 'export -f' functions under '_set_markup_' functions to take precedence over upstream.
 	[[ "$current_scriptedIllustrator_markup" != "" ]] && _set_markup_"$current_scriptedIllustrator_markup"
@@ -183,10 +183,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	
 	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_html
 	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki
+	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc
 	
 	_tryExec _tinyCompiler_scriptedIllustrator_declareFunctions_markup_python_docx
-	
-	_tinyCompiler_scriptedIllustrator_declareFunctions_markup_presentation
 }
 
 

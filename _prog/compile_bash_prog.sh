@@ -138,8 +138,8 @@ _compile_bash_program_prog() {
 	includeScriptList+=( "scriptedIllustrator"/functions_markup/05_terminal.sh )
 	includeScriptList+=( "scriptedIllustrator"/functions_markup/20_html.sh )
 	includeScriptList+=( "scriptedIllustrator"/functions_markup/30_mediawiki.sh )
-	includeScriptList+=( "scriptedIllustrator"/functions_markup/40_python_docx.sh )
-	includeScriptList+=( "scriptedIllustrator"/functions_markup/80_presentation.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/40_asciidoc.sh )
+	includeScriptList+=( "scriptedIllustrator"/functions_markup/70_python_docx.sh )
 }
 
 _compile_bash_config_prog() {	

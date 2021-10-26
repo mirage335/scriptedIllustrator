@@ -17,7 +17,9 @@ _set_strings_markup_shell() {
 	# WARNING: Markup files requiring workaround will be more difficult to read/edit directly (ie. adding '<!-- # --> ' or similar to every line to prevent interpretation of '>' as a redirect character even within an 'if false' 'block comment'.
 	export comment_shell_begin='if false; then true; '"$comment_shell_line"
 	export comment_shell_end='fi'
+	export workaround_shellPrependMarkupLines=""
 	[[ "$current_scriptedIllustrator_markup" == 'html' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
+	[[ "$current_scriptedIllustrator_markup" == 'mediawiki' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
 }
 
 _filter__scriptedIllustrator_markup() {
