@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2892330853'
+export ub_setScriptChecksum_contents='2172526758'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12132,6 +12132,7 @@ _scribble_html() {
 	
 	local currentOutputFile
 	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup"
+	[[ "$current_scriptedIllustrator_markup_markdown" == 'true' ]] && currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".md
 	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
 	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
 	
@@ -12159,6 +12160,16 @@ _scribble_html() {
 	echo -n filename."$current_scriptedIllustrator_markup" "$document_html_root_end" >> "$currentOutputFile".tmp
 	#echo -n "$currentScriptBasename"."$current_scriptedIllustrator_markup" "$document_html_root_end" >> "$currentOutputFile".tmp
 	echo >> "$currentOutputFile".tmp
+	
+	if [[ "$current_scriptedIllustrator_markup_markdown" == 'true' ]]
+	then
+		mv "$currentOutputFile".tmp "$currentOutputFile".tmp.html
+		echo '<!--
+exit
+' >> "$currentOutputFile".tmp.md
+		cat "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html > "$currentOutputFile".tmp
+		rm -f "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html
+	fi
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
@@ -12192,8 +12203,13 @@ _scribble_pdf() {
 	[[ -e "$currentOutputFile" ]] && return 0
 }
 
-# ###
+_scribble_markdown() {
+	export current_scriptedIllustrator_markup_markdown='true'
+	_scribble_html "$@"
+	export current_scriptedIllustrator_markup_markdown=""
+}
 
+# ###
 
 
 _scribble_mediawiki() {
@@ -12309,6 +12325,8 @@ _scribble_all() {
 	
 	_scribble_pdf "$@"
 	
+	_scribble_markdown "$@"
+	
 	# ###
 	
 	
@@ -12334,6 +12352,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_html_presentation
 	
 	declare -f _scribble_pdf
+	
+	declare -f _scribble_markdown
 	
 	# ###
 	

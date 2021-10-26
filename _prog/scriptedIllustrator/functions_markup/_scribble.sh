@@ -20,6 +20,7 @@ _scribble_html() {
 	
 	local currentOutputFile
 	currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup"
+	[[ "$current_scriptedIllustrator_markup_markdown" == 'true' ]] && currentOutputFile="$scriptAbsoluteFolder"/"$currentScriptBasename".md
 	[[ "$1" != "" ]] && currentOutputFile=$(_getAbsoluteLocation "$1")
 	[[ "$1" == "-" ]] && currentOutputFile=/dev/stdout
 	
@@ -47,6 +48,16 @@ _scribble_html() {
 	echo -n filename."$current_scriptedIllustrator_markup" "$document_html_root_end" >> "$currentOutputFile".tmp
 	#echo -n "$currentScriptBasename"."$current_scriptedIllustrator_markup" "$document_html_root_end" >> "$currentOutputFile".tmp
 	echo >> "$currentOutputFile".tmp
+	
+	if [[ "$current_scriptedIllustrator_markup_markdown" == 'true' ]]
+	then
+		mv "$currentOutputFile".tmp "$currentOutputFile".tmp.html
+		echo '<!--
+exit
+' >> "$currentOutputFile".tmp.md
+		cat "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html > "$currentOutputFile".tmp
+		rm -f "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html
+	fi
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
@@ -80,8 +91,13 @@ _scribble_pdf() {
 	[[ -e "$currentOutputFile" ]] && return 0
 }
 
-# ###
+_scribble_markdown() {
+	export current_scriptedIllustrator_markup_markdown='true'
+	_scribble_html "$@"
+	export current_scriptedIllustrator_markup_markdown=""
+}
 
+# ###
 
 
 _scribble_mediawiki() {
@@ -197,6 +213,8 @@ _scribble_all() {
 	
 	_scribble_pdf "$@"
 	
+	_scribble_markdown "$@"
+	
 	# ###
 	
 	
@@ -222,6 +240,8 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_html_presentation
 	
 	declare -f _scribble_pdf
+	
+	declare -f _scribble_markdown
 	
 	# ###
 	
