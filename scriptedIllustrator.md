@@ -1,4 +1,4 @@
-<!-- # <html style="size: letter;"> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+# <!-- <html style="size: letter;"> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 #!/usr/bin/env bash
 
 # Dependencies.
