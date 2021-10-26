@@ -694,6 +694,21 @@ raw markup
 
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
+ '_paragraph_begin'
+if false; then true; # -->
+<!-- # --><p>
+<!--
+fi
+_r '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
+<span style="color:#1818b2;background-color:#848484;"> raw HTML markup within paragraph</span>
+<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+ '_paragraph_end'
+if false; then true; # -->
+<!-- # --></p>
+<!--
+fi
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 preformatted

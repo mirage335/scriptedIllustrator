@@ -1006,6 +1006,31 @@ raw markup
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
+ '_paragraph_begin'
+
+////
+
+<p>
+
+////
+
+_r '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+<!-- asciidoc_noLineBreak
+asciidoc_noLineBreak --><span style="color:&#35;1818b2;background-color:&#35;848484;"> raw HTML markup within paragraph</span>
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+ '_paragraph_end'
+
+////
+
+</p>
+
+////
+
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////

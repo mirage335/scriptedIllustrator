@@ -219,6 +219,9 @@ _r '
 raw markup
 
 '
+_paragraph_begin
+_r '<span style="color:#1818b2;background-color:#848484;"> raw HTML markup within paragraph</span>'
+_paragraph_end
 _t '
 preformatted
 text'
