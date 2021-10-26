@@ -1,7 +1,7 @@
 <!--
 exit
 
-# <html style="size: letter;"> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+# <!-- mediawiki --> <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 #!/usr/bin/env bash
 
 # Dependencies.
@@ -63,9 +63,7 @@ if false; then true; # -->
 fi
  '_o' '_messageNormal' 'demo: self-modifying interleaved markup and shell'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#54ff54;background-color:#18b2b2;"> demo: self-modifying interleaved markup and shell</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;54ff54;background-color:&#35;18b2b2;"> demo: self-modifying interleaved markup and shell</span><!-- # --></p>
 <!--
 fi
  '_heading2' 'date - heading2'
@@ -80,24 +78,19 @@ if false; then true; # -->
 fi
  '_o' '_messagePlain_request' 'request: date --iso-8601=ns'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#b218b2;background-color:#848484;"> request: date --iso-8601=ns</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;b218b2;background-color:&#35;848484;"> request: date --iso-8601=ns</span><!-- # --></p>
 <!--
 fi
  '_o' '_messagePlain_probe' 'date' '--iso-8601'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;"> date --iso-8601</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;1818b2;background-color:&#35;848484;"> date --iso-8601</span><!-- # --></p>
 <!--
 fi
  '_e_' '[[ "$noDate" != "true" ]] && date --iso-8601'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;">  '[[ "$noDate" != "true" ]] && date --iso-8601'</span>
-<!-- # --># 2021-10-26
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'[[ "$noDate" != "true" ]] && date --iso-8601'</nowiki>
+<!-- # --><nowiki>#</nowiki> 2021-10-26
+<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
@@ -116,15 +109,15 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-preformatted text within paragraph
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">preformatted text within paragraph
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '100px'
 if false; then true; # -->
-<!-- # --><img width="100px" src="zPicture_BusinessCard_mirage335_wood.png" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">
+[[File:zPicture_BusinessCard_mirage335_wood.png|right|100px]]
 <!--
 fi
  '_paragraph_end'
@@ -141,7 +134,7 @@ fi
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg' '150px'
 if false; then true; # -->
-<!-- # --><img width="150px" src="zImage_cabling__2020-11-19-03-19-082.jpg" style="margin: 0 0 0 15px;border: 5px solid transparent;">
+[[File:zImage_cabling__2020-11-19-03-19-082.jpg|150px]]
 <!--
 fi
  '_paragraph_end'
@@ -161,16 +154,14 @@ if false; then true; # -->
 fi
  '_e_' 'currentBitsPerSecond=9600'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;">  'currentBitsPerSecond=9600'</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'currentBitsPerSecond=9600'</nowiki>
+<!-- # --></p>
 <!--
 fi
  '_e_' 'currentBonesPerPlayer=4'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;">  'currentBonesPerPlayer=4'</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'currentBonesPerPlayer=4'</nowiki>
+<!-- # --></p>
 <!--
 fi
  '_i' 'currentIncrementFramesPerSecond=15'
@@ -197,10 +188,9 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 # # 5.5555556'
  '_e_' 'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;">  'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'</span>
-<!-- # --># 5.5555556
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'</nowiki>
+<!-- # --><nowiki>#</nowiki> 5.5555556
+<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
@@ -226,9 +216,9 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-*titleA*
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">*titleA*
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
 if false; then true; # -->
@@ -243,9 +233,9 @@ fi
  '_' 'CAUTION:' 'Text' 'formatting' '*intentionally*' 'not' 'compatible' 'with' 'all' 'markup' 'and' 'not' 'recommended' 'unless' 'strictly' 'necessary' 'for' 'presentation' 'HTML' 'documents!'
  '_' 'WARNING:' 'Stay' 'with' 'plain text' 'whenever' 'possible!'
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<span style="font-weight:bold;font-style: italic;">*titleB*</span>
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="font-weight:bold;font-style: italic;">*titleB*</span>
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
 if false; then true; # -->
@@ -258,9 +248,9 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-*titleC*
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">*titleC*
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
 if false; then true; # -->
@@ -273,9 +263,9 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-  *titleD*  
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">  *titleD*  
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
 if false; then true; # -->
@@ -300,9 +290,9 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-example
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">example
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_begin'
 if false; then true; # -->
@@ -311,16 +301,12 @@ if false; then true; # -->
 fi
  '_o' '_messagePlain_probe' 'commands'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;"> commands</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;1818b2;background-color:&#35;848484;"> commands</span><!-- # --></p>
 <!--
 fi
  '_o' '_safeEcho_newline' '\# with output'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --># with output
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->&#35; with output<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
@@ -346,10 +332,9 @@ if false; then true; # -->
 fi
  '_e_' 'ubiquitous_bash.sh' '_echo' 'a b'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;">  'ubiquitous_bash.sh' '_echo' 'a b'</span>
-<!-- # --># a b
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'ubiquitous_bash.sh' '_echo' 'a b'</nowiki>
+<!-- # --><nowiki>#</nowiki> a b
+<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
@@ -360,12 +345,11 @@ fi
  '_e' 'ubiquitous_bash.sh' '_echo' 'a
 b'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;">  'ubiquitous_bash.sh' '_echo' 'a
-<!-- # -->b'</span>
-<!-- # --># a
-<!-- # --># b
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'ubiquitous_bash.sh' '_echo' 'a</nowiki>
+<!-- # --><nowiki>b'</nowiki>
+<!-- # --><nowiki>#</nowiki> a
+<!-- # --><nowiki>#</nowiki> b
+<!-- # --></p>
 <!--
 fi
  '_paragraph_begin'
@@ -377,9 +361,7 @@ fi
  '_' '_o' '_safeEcho_newline' '' \ \\  output''
  '_o' '_safeEcho_newline' '' \ \\  output''
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # -->\ \  output
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->\ \  output<!-- # --></p>
 <!--
 fi
  '_paragraph_end'
@@ -400,24 +382,23 @@ if false; then true; # -->
 fi
  '_e' '_color_demo'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;">  '_color_demo'</span>
-<!-- # --># <span style="color:#b218b2;background-color:#848484;"> _color_demo</span>
-<!-- # --># <span style="color:#18b2b2;background-color:#848484;"> _color_demo</span>
-<!-- # --># <span style="color:#1818b2;background-color:#848484;"> _color_demo</span>
-<!-- # --># <span style="color:#1818b2;background-color:#848484;"> _color_demo</span>
-<!-- # --># <span style="color:#1818b2;background-color:#848484;"> ubiquitousBashIDshort= uk4uPhB6</span>
-<!-- # --># <span style="color:#17ae17;background-color:#848484;"> _color_demo</span>
-<!-- # --># <span style="color:#ffff54;background-color:#848484;"> _color_demo</span>
-<!-- # --># <span style="color:#b21818;background-color:#848484;"> _color_demo</span>
-<!-- # --># <span style="color:#1818b2;background-color:#848484;"> echo _color_demo</span>
-<!-- # --># _color_demo
-<!-- # --># <span style="color:#1818b2;background-color:#848484;">  "echo" "_color_demo"</span>
-<!-- # --># <span style="color:#1818b2;background-color:#848484;">  'echo' '_color_demo'</span>
-<!-- # --># <span style="color:#54ff54;background-color:#18b2b2;"> _color_demo</span>
-<!-- # --># <span style="color:#ffff54;background-color:#b21818;"> _color_demo</span>
-<!-- # --># <span style="color:#ffff54;background-color:#b2b2b2;"> delay: InterProcess-Communication</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'_color_demo'</nowiki>
+<!-- # --><nowiki>#</nowiki> <span style="color:#b218b2;background-color:#848484;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#18b2b2;background-color:#848484;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#1818b2;background-color:#848484;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#1818b2;background-color:#848484;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#1818b2;background-color:#848484;"> ubiquitousBashIDshort= uk4uPhB6</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#17ae17;background-color:#848484;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#ffff54;background-color:#848484;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#b21818;background-color:#848484;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#1818b2;background-color:#848484;"> echo _color_demo</span>
+<!-- # --><nowiki>#</nowiki> _color_demo
+<!-- # --><nowiki>#</nowiki> <span style="color:#1818b2;background-color:#848484;">  "echo" "_color_demo"</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#1818b2;background-color:#848484;">  'echo' '_color_demo'</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#54ff54;background-color:#18b2b2;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#ffff54;background-color:#b21818;"> _color_demo</span>
+<!-- # --><nowiki>#</nowiki> <span style="color:#ffff54;background-color:#b2b2b2;"> delay: InterProcess-Communication</span>
+<!-- # --></p>
 <!--
 fi
  '_cells_speck_end'
@@ -445,9 +426,7 @@ if false; then true; # -->
 fi
  '_o' '_safeEcho_newline' 'output'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # -->output
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->output<!-- # --></p>
 <!--
 fi
  '_cells_speck_end'
@@ -461,8 +440,8 @@ if false; then true; # -->
 <!--
 fi
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
- raw markup
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --> raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
@@ -476,9 +455,9 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
- pre
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"> pre
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_cells_speck_end'
 if false; then true; # -->
@@ -505,7 +484,7 @@ fi
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '50px'
 if false; then true; # -->
-<!-- # --><img width="50px" src="zPicture_BusinessCard_mirage335_wood.png" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">
+[[File:zPicture_BusinessCard_mirage335_wood.png|right|50px]]
 <!--
 fi
  '_cells_speck_end'
@@ -522,7 +501,7 @@ fi
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg' '50px'
 if false; then true; # -->
-<!-- # --><img width="50px" src="zImage_cabling__2020-11-19-03-19-082.jpg" style="margin: 0 0 0 15px;border: 5px solid transparent;">
+[[File:zImage_cabling__2020-11-19-03-19-082.jpg|50px]]
 <!--
 fi
  '_cells_speck_end'
@@ -547,21 +526,21 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
- preformatted text at paragraph_begin
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"> preformatted text at paragraph_begin
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
 
 preformatted text at paragraph_end
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_end'
 if false; then true; # -->
@@ -577,55 +556,49 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
--------------------------------------------------------------------------------
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">-------------------------------------------------------------------------------
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_o' '_messagePlain_request' 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#b218b2;background-color:#848484;"> request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;b218b2;background-color:&#35;848484;"> request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"</span><!-- # --></p>
 <!--
 fi
  '_o' '_messagePlain_probe_var' 'ubiquitousBashIDshort'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#1818b2;background-color:#848484;"> ubiquitousBashIDshort= uk4uPhB6</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;1818b2;background-color:&#35;848484;"> ubiquitousBashIDshort= uk4uPhB6</span><!-- # --></p>
 <!--
 fi
  '_v' 'ubiquitousBashIDshort'
 if false; then true; # -->
-<!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # -->uk4uPhB6
-<!-- # --></pre>
+<!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->uk4uPhB6
+<!-- # --></p>
 <!--
 fi
  '_v' 'RECODE_markup_html_pre_begin'
 if false; then true; # -->
-<!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # -->&lt;!-- # --&gt;&lt;pre style=&quot;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;&quot;&gt;
-<!-- # --></pre>
+<!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->&lt;!-- # --&gt;&lt;pre style=&quot;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;&quot;&gt;
+<!-- # --></p>
 <!--
 fi
  '_'
  '_'
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-preformatted
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">preformatted
  text
 more
  preformatted
 text
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-#
-# ###
-# ###
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">&#35;
+&#35; &#35;&#35;&#35;
+&#35; &#35;&#35;&#35;
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_heading1' 'heading1'
 if false; then true; # -->
@@ -658,13 +631,13 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-#
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">&#35;
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
-raw markup<br \><h1>raw heading1</h2>
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak -->raw markup<br \><h1>raw heading1</h2>
 <h2>raw heading2</h2>
 raw markup 
 raw markup
@@ -673,22 +646,22 @@ raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
 raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak -->raw markup
+<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+_r '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
 raw markup
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
-raw markup
-<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreakmediawiki_noLineBreak -->
 
 raw markup
 
@@ -700,8 +673,8 @@ if false; then true; # -->
 <!--
 fi
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
-<span style="color:#1818b2;background-color:#848484;"> raw HTML markup within paragraph</span>
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><span style="color:&#35;1818b2;background-color:&#35;848484;"> raw HTML markup within paragraph</span>
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_end'
@@ -710,13 +683,13 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 preformatted
 text
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
 
 preformatted
@@ -724,42 +697,41 @@ text
 "$ubiquitousBashIDshort"
 
 
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
 
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
 
 
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_v' 'current_lorem_ipsum'
 if false; then true; # -->
-<!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # -->Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-<!-- # --></pre>
+<!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+<!-- # --></p>
 <!--
 fi
  '_' 'blank preformatted text will be ignored - at least add an empty space character'
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-x > /dev/null
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">x > /dev/null
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_'
  '_'
@@ -770,9 +742,9 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
--------------------------------------------------------------------------------
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">-------------------------------------------------------------------------------
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_begin'
 if false; then true; # -->
@@ -783,7 +755,7 @@ fi
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg'
 if false; then true; # -->
-<!-- # --><img width="96%" src="zImage_cabling__2020-11-19-03-19-082.jpg" style="margin: 0 0 0 15px;border: 5px solid transparent;">
+[[File:zImage_cabling__2020-11-19-03-19-082.jpg|96%]]
 <!--
 fi
  '_paragraph_end'
@@ -800,13 +772,13 @@ fi
  '_' 'WARNING:' 'Some' 'quoting' 'may' 'not' 'be' 'preserved' '.'
  '_' 'ATTENTION:' 'Single' 'quotes' 'may' 'be' 'represented' 'by' 'known' 'alternative' 'markup' 'if' 'necessary' '-' ' \x27 \047 %27 &#92; ' '.'
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q -->
-\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak -->\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
 <!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_end'
@@ -815,15 +787,13 @@ if false; then true; # -->
 <!--
 fi
 _t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-<!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
+mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_o' '_messagePlain_good' 'done: demo'
 if false; then true; # -->
-<!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-<!-- # --><span style="color:#17ae17;background-color:#848484;"> done: demo</span>
-<!-- # --></pre>
+<!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;17ae17;background-color:&#35;848484;"> done: demo</span><!-- # --></p>
 <!--
 fi
 
@@ -997,4 +967,4 @@ exit 0
 __ATTACHMENT_uk4uPhB663kVcygT0q_ATTACHMENT__
 
 
-filename.html # scriptedIllustrator_markup_uk4uPhB663kVcygT0q --> </html>
+filename.mediawiki.txt # scriptedIllustrator_markup_uk4uPhB663kVcygT0q --> <!-- /mediawiki -->
