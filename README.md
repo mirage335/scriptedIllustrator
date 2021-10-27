@@ -8,7 +8,7 @@ A 'UNIX TiddlyWiki' . A 'LibreOffice' or 'MSOffice' for programmers. A word proc
 Self-modifying mix of shellcode script and markup. Users need not understand the code to edit the text.
 
 ```
-./scriptedIllustrator.html -> equations and commands-> scriptedIllustrator.sh , scriptedIllustrator.html , scriptedIllustrator.pdf , scriptedIllustrator.md , etc -> edit 'scriptIllustrator.html' again and again
+./scriptedIllustrator.html -> equations and commands-> , scriptedIllustrator.html , scriptedIllustrator.pdf , scriptedIllustrator.md , etc -> edit 'scriptIllustrator.html' again and again
 ```
 
 
