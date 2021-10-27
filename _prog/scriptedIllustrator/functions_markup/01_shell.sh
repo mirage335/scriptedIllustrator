@@ -22,8 +22,16 @@ _set_strings_markup_shell() {
 	[[ "$current_scriptedIllustrator_markup" == 'mediawiki' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
 }
 
+# WARNING: Affects accurate prevention of '_r' and '_t' inaccurately accumulating or removing newlines.
 _filter__scriptedIllustrator_markup() {
+	# Inherently add newline if not already present.
 	grep -v "$flag__NOT_shell"
+	
+	# Add newline if already present.
+	#grep -v $(_uid) | grep -v "$flag__NOT_shell"
+	
+	# Do not add newline if not already present.
+	#sed 's/^.*'"$flag__NOT_shell"'.*$//g'
 }
 
 

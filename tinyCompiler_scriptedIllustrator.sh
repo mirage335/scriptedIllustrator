@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2811727220'
+export ub_setScriptChecksum_contents='2928297981'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12421,8 +12421,16 @@ _set_strings_markup_shell() {
 	[[ "$current_scriptedIllustrator_markup" == 'mediawiki' ]] && export workaround_shellPrependMarkupLines='<!-- # -->'
 }
 
+# WARNING: Affects accurate prevention of '_r' and '_t' inaccurately accumulating or removing newlines.
 _filter__scriptedIllustrator_markup() {
+	# Inherently add newline if not already present.
 	grep -v "$flag__NOT_shell"
+	
+	# Add newline if already present.
+	#grep -v $(_uid) | grep -v "$flag__NOT_shell"
+	
+	# Do not add newline if not already present.
+	#sed 's/^.*'"$flag__NOT_shell"'.*$//g'
 }
 
 
@@ -12640,6 +12648,20 @@ _set_markup_html() {
 		_cells_speck_end-html "$@"
 	}
 	export -f _cells_speck_end
+	
+	
+	
+	_markup_asciidoc_disable_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_begin-html "$@"
+	}
+	export -f _markup_asciidoc_disable_begin
+	
+	_markup_asciidoc_disable_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_end-html "$@"
+	}
+	export -f _markup_asciidoc_disable_end
 }
 
 
@@ -13141,6 +13163,23 @@ _cells_speck_end-html() {
 
 
 
+
+_markup_asciidoc_disable_begin-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+_markup_asciidoc_disable_end-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+
+
+
+
+
+
 # No production use.
 _noShell_block-html() {
 	echo -n "$interpret__html_NOT_shell__begin"
@@ -13265,6 +13304,11 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _cells_speck_end
 	declare -f _cells_speck_end-html
 	
+	
+	declare -f _markup_asciidoc_disable_begin
+	declare -f _markup_asciidoc_disable_begin-html
+	declare -f _markup_asciidoc_disable_end
+	declare -f _markup_asciidoc_disable_end-html
 	
 	
 	declare -f _noShell_block-html
@@ -13445,6 +13489,20 @@ _set_markup_mediawiki() {
 		_cells_speck_end-mediawiki "$@"
 	}
 	export -f _cells_speck_end
+	
+	
+	
+	_markup_asciidoc_disable_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_begin-mediawiki "$@"
+	}
+	export -f _markup_asciidoc_disable_begin
+	
+	_markup_asciidoc_disable_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_end-mediawiki "$@"
+	}
+	export -f _markup_asciidoc_disable_end
 }
 
 
@@ -14000,6 +14058,23 @@ _cells_speck_end-mediawiki() {
 
 
 
+
+_markup_asciidoc_disable_begin-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+_markup_asciidoc_disable_end-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+
+
+
+
+
+
 # No production use.
 _noShell_block-mediawiki() {
 	echo -n "$interpret__mediawiki_NOT_shell__begin"
@@ -14167,6 +14242,12 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _cells_speck_begin-mediawiki
 	declare -f _cells_speck_end
 	declare -f _cells_speck_end-mediawiki
+	
+	
+	declare -f _markup_asciidoc_disable_begin
+	declare -f _markup_asciidoc_disable_begin-mediawiki
+	declare -f _markup_asciidoc_disable_end
+	declare -f _markup_asciidoc_disable_end-mediawiki
 	
 	
 	
@@ -14352,6 +14433,20 @@ _set_markup_asciidoc() {
 		_cells_speck_end-asciidoc "$@"
 	}
 	export -f _cells_speck_end
+	
+	
+	
+	_markup_asciidoc_disable_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_begin-asciidoc "$@"
+	}
+	export -f _markup_asciidoc_disable_begin
+	
+	_markup_asciidoc_disable_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_end-asciidoc "$@"
+	}
+	export -f _markup_asciidoc_disable_end
 }
 
 
@@ -14548,7 +14643,7 @@ _v-asciidoc() {
 
 
 
-
+# ATTENTION: OVERRIDE - Second function definition.
 # Show preformatted text.
 _t-asciidoc() {
 	# No parameters (no input) is meaningless and nothing can be done with that.
@@ -14581,8 +14676,15 @@ _t-asciidoc() {
 	echo "$markup_asciidoc_pre_end""$comment_asciidoc_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
 }
+# Raw. Intentionally not interleaved output, intended only when necessitated by a markup language that may not tolerate line breaks.
+# _t-asciidoc() {
+# 	# No parameters (no input) is meaningless and nothing can be done with that.
+# 	[[ "$1" == "" ]] && return 0
+# 	#_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
+# 	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | sed 's/^.*'"$flag__NOT_shell"'.*$//g' | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
+# }
 
-
+# ATTENTION: OVERRIDE - Second function definition.
 # Raw. Experimental. No production use.
 _r-asciidoc() {
 	# No parameters (no input) is meaningless and nothing can be done with that.
@@ -14613,6 +14715,13 @@ _r-asciidoc() {
 	
 	echo "$comment_asciidoc_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
+}
+# Raw. Intentionally not interleaved output, intended only when necessitated by a markup language that may not tolerate line breaks.
+_r-asciidoc() {
+	# No parameters (no input) is meaningless and nothing can be done with that.
+	[[ "$1" == "" ]] && return 0
+	#_safeEcho "$@" | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak -->//' | sed 's/^.*'"$flag__NOT_shell"'.*$//g' | _workaround_preformattedCharacters-asciidoc
 }
 
 # Hidden. Use for comments and (shell code only) spacing.
@@ -14754,6 +14863,9 @@ _picture-asciidoc() {
 	currentWidth=""
 	[[ "$2" != "" ]] && currentWidth="$2"
 	
+	[[ "$currentWidth" == *"%" ]] && currentWidth=""
+	[[ "$currentWidth" == *"px" ]] && currentWidth=$(_safeEcho_newline "$currentWidth" | tr -dc '0-9')
+	
 	local currentWidthParameter
 	currentWidthParameter=""
 	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
@@ -14777,8 +14889,12 @@ link="'"$1"'"]'
 }
 _image-asciidoc() {
 	local currentWidth
-	currentWidth="96%"
+	#currentWidth="96%"
+	currentWidth="900px"
 	[[ "$2" != "" ]] && currentWidth="$2"
+	
+	[[ "$currentWidth" == *"%" ]] && currentWidth=""
+	[[ "$currentWidth" == *"px" ]] && currentWidth=$(_safeEcho_newline "$currentWidth" | tr -dc '0-9')
 	
 	local currentWidthParameter
 	currentWidthParameter=""
@@ -14817,7 +14933,7 @@ _cells_begin-asciidoc() {
 	#_safeEcho_newline
 	
 	
-	#echo "$interpret__asciidoc_NOT_shell__begin"
+	echo "$interpret__asciidoc_NOT_shell__begin"
 	
 	_safeEcho_newline '|====' | _workaround_shellPrependMarkupLines
 	
@@ -14832,7 +14948,7 @@ _cells_end-asciidoc() {
 	
 	_safeEcho_newline '|====' | _workaround_shellPrependMarkupLines
 	
-	#echo "$interpret__asciidoc_NOT_shell__end"
+	echo "$interpret__asciidoc_NOT_shell__end"
 }
 _cells_row_begin-asciidoc() {
 	#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
@@ -14895,6 +15011,36 @@ _cells_speck_end-asciidoc() {
 	_safeEcho ' '
 	
 	#echo "$interpret__asciidoc_NOT_shell__end"
+}
+
+
+
+
+
+
+_markup_asciidoc_disable_begin-asciidoc() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	export current_markup_asciidoc_disable="true"
+	
+	export comment_asciidoc_begin=''
+	export comment_asciidoc_end=''
+	export interpret__asciidoc_NOT_shell__begin=""
+	export interpret__asciidoc_NOT_shell__end=""
+}
+
+_markup_asciidoc_disable_end-asciidoc() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	_safeEcho_newline "$comment_asciidoc_end"
+	
+	export current_markup_asciidoc_disable=""
+	unset current_markup_asciidoc_disable
+	_set_markup_asciidoc
+	_set_strings
+	_set_strings_markup_workaround_asciidoc_prog
 }
 
 
@@ -15068,6 +15214,13 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc() {
 	declare -f _cells_speck_begin-asciidoc
 	declare -f _cells_speck_end
 	declare -f _cells_speck_end-asciidoc
+	
+	
+	
+	declare -f _markup_asciidoc_disable_begin
+	declare -f _markup_asciidoc_disable_begin-asciidoc
+	declare -f _markup_asciidoc_disable_end
+	declare -f _markup_asciidoc_disable_end-asciidoc
 	
 	
 	

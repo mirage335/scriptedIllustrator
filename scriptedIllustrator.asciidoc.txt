@@ -68,7 +68,7 @@ date --iso-8601
 
 ----
 
-# 2021-10-26
+# 2021-10-27
 
 
 ////
@@ -82,11 +82,11 @@ date --iso-8601
 
 ////
 
- '_heading2' 'images - heading2'
+ '_heading2' 'images and tables - heading2'
 
 ////
 
-=== images - heading2
+=== images and tables - heading2
 
 ////
 
@@ -119,7 +119,7 @@ preformatted text within paragraph
 ////
 
 image:zPicture_BusinessCard_mirage335_wood.png[
-"picture",width=100px,
+"picture",width=100,
 link="zPicture_BusinessCard_mirage335_wood.png"]
 
 ////
@@ -149,7 +149,7 @@ link="zPicture_BusinessCard_mirage335_wood.png"]
 ////
 
 image:zImage_cabling_2020-11-19-03-19-082.jpg[
-"image",width=150px,
+"image",width=150,
 link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
 ////
@@ -163,6 +163,40 @@ link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
 ////
 
+_t '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+
+----
+
+
+----
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+
+////
+
+|====
+|1 |2 |3 |4 |5 
+|6 |7 |8 |9 |0 
+|====
+
+////
+
+_t '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+
+----
+
+
+----
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
  '_heading2' 'equations and commands - heading2'
 
 ////
@@ -270,60 +304,48 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 ////
 
  '_'
+ '_'
+ '_' 'complicated' 'tables' 'may' 'cause' 'problems' 'for' 'some' 'markup'
+ '_markup_asciidoc_disable_begin'
+
 |====
  '_'
 |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
 ----
 
 *titleA*
 
 ----
-
-////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  | '_' 'CAUTION:' 'Text' 'formatting' '*intentionally*' 'not' 'compatible' 'with' 'all' 'markup' 'and' 'not' 'recommended' 'unless' 'strictly' 'necessary' 'for' 'presentation' 'HTML' 'documents!'
  '_' 'WARNING:' 'Stay' 'with' 'plain text' 'whenever' 'possible!'
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
 ----
 
 <span style="font-weight:bold;font-style: italic;">*titleB*</span>
 
 ----
-
-////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
 ----
 
 *titleC*
 
 ----
-
-////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
 ----
 
   *titleD*  
 
 ----
-
-////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  
@@ -331,64 +353,38 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
  '_'
 |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
 ----
 
 example
 
 ----
-
-////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  '_paragraph_begin'
 
-////
 
 
-
-
-////
 
  '_o' '_messagePlain_probe' 'commands'
 
-////
-
 commands
-
-////
 
  '_o' '_safeEcho_newline' '\# with output'
 
-////
-
 &#35; with output
-
-////
 
  '_paragraph_end'
 
-////
 
 
-
-
-////
 
   '_'
 | '_paragraph_begin'
 
-////
 
 
-
-
-////
 
  '_e_' 'ubiquitous_bash.sh' '_echo' 'a b'
-
-////
 
 
 ----
@@ -400,21 +396,13 @@ commands
 # a b
 
 
-////
-
  '_paragraph_end'
 
-////
 
 
-
-
-////
 
  '_e' 'ubiquitous_bash.sh' '_echo' 'a
 b'
-
-////
 
 
 ----
@@ -428,40 +416,24 @@ b'
 # b
 
 
-////
-
  '_paragraph_begin'
 
-////
 
 
-
-
-////
 
  '_' 'WARNING:' 'Some' 'quoting' 'may' 'not' 'be' 'preserved' '.'
  '_' '_o' '_safeEcho_newline' '' \ \\  output''
  '_o' '_safeEcho_newline' '' \ \\  output''
 
-////
-
 \ \  output
-
-////
 
  '_paragraph_end'
 
-////
 
 
-
-
-////
 
   '_'
 | '_e' '_color_demo'
-
-////
 
 
 ----
@@ -487,40 +459,21 @@ b'
 # delay: InterProcess-Communication
 
 
-////
-
   '_'
 
  '_'
  '_'
 | '_o' '_safeEcho_newline' 'output'
 
-////
-
 output
 
-////
-
- |_r '
+ | raw markup |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
- raw markup
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
- |_t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
 ----
 
  pre
 
 ----
-
-////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
  
@@ -529,27 +482,22 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '50px'
 
-////
-
 image:zPicture_BusinessCard_mirage335_wood.png[
-"picture",width=50px,
+"picture",width=50,
 link="zPicture_BusinessCard_mirage335_wood.png"]
-
-////
 
  | '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '50px'
 
-////
-
 image:zImage_cabling_2020-11-19-03-19-082.jpg[
-"image",width=50px,
+"image",width=50,
 link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
-////
-
  |====
+
+ '_markup_asciidoc_disable_end'
+
  '_'
  '_heading2' 'breaks - heading2'
 
@@ -786,58 +734,19 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
 raw markup<br \><h1>raw heading1</h2>
 <h2>raw heading2</h2>
 raw markup 
 raw markup
 <p>raw paragraph</p>
 raw markup
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-raw markup
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-raw markup
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-raw markup
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
+raw markupraw markup
 
 raw markup
 
 
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
+raw markup
+
  '_paragraph_begin'
 
 ////
@@ -847,16 +756,7 @@ raw markup
 
 ////
 
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-<span style="color:&#35;1818b2;background-color:&#35;848484;"> raw HTML markup within paragraph</span>
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
- '_paragraph_end'
+<span style="color:&#35;1818b2;background-color:&#35;848484;"> raw HTML markup within paragraph</span> '_paragraph_end'
 
 ////
 
@@ -1026,7 +926,7 @@ PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- 
 ////
 
 image:zImage_cabling_2020-11-19-03-19-082.jpg[
-"image",width=96%,
+"image",width=900,
 link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
 ////
@@ -1065,16 +965,7 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
- '_paragraph_end'
+\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39; '_paragraph_end'
 
 ////
 
@@ -1090,36 +981,6 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 ----
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-
-----
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-_t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-----
-
-
-
-----
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-|====
-| | | | | 
-| | | | | 
-|====
-_t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-----
-
-
 
 ----
 

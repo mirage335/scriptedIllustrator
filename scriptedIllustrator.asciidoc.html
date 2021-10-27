@@ -748,20 +748,60 @@ asciidoc.install();
 <div class="content">
 <pre><code>'[[ "$noDate" != "true" ]] &amp;&amp; date --iso-8601'</code></pre>
 </div></div>
-<div class="paragraph"><p># 2021-10-26</p></div>
+<div class="paragraph"><p># 2021-10-27</p></div>
 </div>
 <div class="sect2">
-<h3 id="_images_heading2">images - heading2</h3>
+<h3 id="_images_and_tables_heading2">images and tables - heading2</h3>
 <div class="listingblock">
 <div class="content">
 <pre><code>preformatted text within paragraph</code></pre>
 </div></div>
 <div class="paragraph"><p><span class="image">
-<img src="zPicture_BusinessCard_mirage335_wood.png" alt=""picture"" />
+<a class="image" href="zPicture_BusinessCard_mirage335_wood.png">
+<img src="zPicture_BusinessCard_mirage335_wood.png" alt="picture" width="100" />
+</a>
 </span></p></div>
 <div class="paragraph"><p><span class="image">
-<img src="zImage_cabling_2020-11-19-03-19-082.jpg" alt=""image"" />
+<a class="image" href="zImage_cabling_2020-11-19-03-19-082.jpg">
+<img src="zImage_cabling_2020-11-19-03-19-082.jpg" alt="image" width="150" />
+</a>
 </span></p></div>
+<div class="listingblock">
+<div class="content">
+<pre><code></code></pre>
+</div></div>
+<div class="tableblock">
+<table rules="all"
+width="100%"
+frame="border"
+cellspacing="0" cellpadding="4">
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<tbody>
+<tr>
+<td align="left" valign="top"><p class="table">1</p></td>
+<td align="left" valign="top"><p class="table">2</p></td>
+<td align="left" valign="top"><p class="table">3</p></td>
+<td align="left" valign="top"><p class="table">4</p></td>
+<td align="left" valign="top"><p class="table">5</p></td>
+</tr>
+<tr>
+<td align="left" valign="top"><p class="table">6</p></td>
+<td align="left" valign="top"><p class="table">7</p></td>
+<td align="left" valign="top"><p class="table">8</p></td>
+<td align="left" valign="top"><p class="table">9</p></td>
+<td align="left" valign="top"><p class="table">0</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre><code></code></pre>
+</div></div>
 </div>
 <div class="sect2">
 <h3 id="_equations_and_commands_heading2">equations and commands - heading2</h3>
@@ -778,75 +818,6 @@ asciidoc.install();
 <pre><code>'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'</code></pre>
 </div></div>
 <div class="paragraph"><p># 5.5555556</p></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>*titleA*</code></pre>
-</div></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>&lt;span style="font-weight:bold;font-style: italic;"&gt;*titleB*&lt;/span&gt;</code></pre>
-</div></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>*titleC*</code></pre>
-</div></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>  *titleD*</code></pre>
-</div></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>example</code></pre>
-</div></div>
-<div class="paragraph"><p>commands</p></div>
-<div class="paragraph"><p>&#35; with output</p></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>'ubiquitous_bash.sh' '_echo' 'a b'</code></pre>
-</div></div>
-<div class="paragraph"><p># a b</p></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>'ubiquitous_bash.sh' '_echo' 'a
-b'</code></pre>
-</div></div>
-<div class="paragraph"><p># a
-# b</p></div>
-<div class="paragraph"><p>\ \  output</p></div>
-<div class="listingblock">
-<div class="content">
-<pre><code>'_color_demo'</code></pre>
-</div></div>
-<div class="paragraph"><p># _color_demo
-# _color_demo
-# _color_demo
-# _color_demo
-# ubiquitousBashIDshort= uk4uPhB6
-# _color_demo
-# _color_demo
-# _color_demo
-# echo _color_demo
-# _color_demo
-# "echo" "_color_demo"
-# <em>echo</em> <em>_color_demo</em>
-# _color_demo
-# _color_demo
-# delay: InterProcess-Communication</p></div>
-<div class="paragraph"><p>output</p></div>
-<div class="literalblock">
-<div class="content">
-<pre><code>raw markup</code></pre>
-</div></div>
-<div class="listingblock">
-<div class="content">
-<pre><code> pre</code></pre>
-</div></div>
-<div class="paragraph"><p><span class="image">
-<img src="zPicture_BusinessCard_mirage335_wood.png" alt=""picture"" />
-</span></p></div>
-<div class="paragraph"><p><span class="image">
-<img src="zImage_cabling_2020-11-19-03-19-082.jpg" alt=""image"" />
-</span></p></div>
 </div>
 <div class="sect2">
 <h3 id="_breaks_heading2">breaks - heading2</h3>
@@ -908,17 +879,6 @@ text</code></pre>
 <div class="content">
 <pre><code>&amp;#35;</code></pre>
 </div></div>
-<div class="paragraph"><p>raw markup&lt;br \&gt;&lt;h1&gt;raw heading1&lt;/h2&gt;
-&lt;h2&gt;raw heading2&lt;/h2&gt;
-raw markup
-raw markup
-&lt;p&gt;raw paragraph&lt;/p&gt;
-raw markup</p></div>
-<div class="paragraph"><p>raw markup</p></div>
-<div class="paragraph"><p>raw markup</p></div>
-<div class="paragraph"><p>raw markup</p></div>
-<div class="paragraph"><p>raw markup</p></div>
-<div class="paragraph"><p>&lt;span style="color:&#35;1818b2;background-color:&#35;848484;"&gt; raw HTML markup within paragraph&lt;/span&gt;</p></div>
 <div class="listingblock">
 <div class="content">
 <pre><code>preformatted
@@ -959,24 +919,17 @@ text
 <pre><code>PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak</code></pre>
 </div></div>
 <div class="paragraph"><p><span class="image">
-<img src="zImage_cabling_2020-11-19-03-19-082.jpg" alt=""image"" />
+<a class="image" href="zImage_cabling_2020-11-19-03-19-082.jpg">
+<img src="zImage_cabling_2020-11-19-03-19-082.jpg" alt="image" width="900" />
+</a>
 </span></p></div>
 <div class="listingblock">
 <div class="content">
 <pre><code>\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &amp;#39; &amp;#39; &amp;#39; &amp;#39;</code></pre>
 </div></div>
-<div class="paragraph"><p>\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;</p></div>
 <div class="listingblock">
 <div class="content">
 <pre><code>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</code></pre>
-</div></div>
-<div class="listingblock">
-<div class="content">
-<pre><code></code></pre>
-</div></div>
-<div class="listingblock">
-<div class="content">
-<pre><code></code></pre>
 </div></div>
 <div class="paragraph"><p>done: demo</p></div>
 </div>

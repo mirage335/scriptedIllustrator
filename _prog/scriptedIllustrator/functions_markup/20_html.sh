@@ -162,6 +162,20 @@ _set_markup_html() {
 		_cells_speck_end-html "$@"
 	}
 	export -f _cells_speck_end
+	
+	
+	
+	_markup_asciidoc_disable_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_begin-html "$@"
+	}
+	export -f _markup_asciidoc_disable_begin
+	
+	_markup_asciidoc_disable_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_end-html "$@"
+	}
+	export -f _markup_asciidoc_disable_end
 }
 
 
@@ -663,6 +677,23 @@ _cells_speck_end-html() {
 
 
 
+
+_markup_asciidoc_disable_begin-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+_markup_asciidoc_disable_end-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+
+
+
+
+
+
 # No production use.
 _noShell_block-html() {
 	echo -n "$interpret__html_NOT_shell__begin"
@@ -787,6 +818,11 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _cells_speck_end
 	declare -f _cells_speck_end-html
 	
+	
+	declare -f _markup_asciidoc_disable_begin
+	declare -f _markup_asciidoc_disable_begin-html
+	declare -f _markup_asciidoc_disable_end
+	declare -f _markup_asciidoc_disable_end-html
 	
 	
 	declare -f _noShell_block-html

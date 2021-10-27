@@ -66,7 +66,7 @@ _o _messagePlain_request "request: date --iso-8601=ns"
 _o _messagePlain_probe date --iso-8601
 _e_ '[[ "$noDate" != "true" ]] && date --iso-8601'
 _paragraph_end
-_heading2 'images - heading2'
+_heading2 'images and tables - heading2'
 _paragraph_begin
 _t 'preformatted text within paragraph'
 _ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
@@ -78,6 +78,46 @@ _ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence
 _ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _image "zImage_cabling_2020-11-19-03-19-082.jpg" 150px
 _paragraph_end
+_t '
+'
+_cells_begin
+_cells_row_begin
+_cells_speck_begin
+_r '1'
+_cells_speck_end
+_cells_speck_begin
+_r '2'
+_cells_speck_end
+_cells_speck_begin
+_r '3'
+_cells_speck_end
+_cells_speck_begin
+_r '4'
+_cells_speck_end
+_cells_speck_begin
+_r '5'
+_cells_speck_end
+_cells_row_end
+_cells_row_begin
+_cells_speck_begin
+_r '6'
+_cells_speck_end
+_cells_speck_begin
+_r '7'
+_cells_speck_end
+_cells_speck_begin
+_r '8'
+_cells_speck_end
+_cells_speck_begin
+_r '9'
+_cells_speck_end
+_cells_speck_begin
+_r '0'
+_cells_speck_end
+_cells_row_end
+_cells_end
+_t '
+'
 _heading2 'equations and commands - heading2'
 _paragraph_begin
 _e_ currentBitsPerSecond=9600
@@ -95,6 +135,9 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 _e_ solve '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
 _paragraph_end
 _
+_
+_ complicated tables may cause problems for some markup
+_markup_asciidoc_disable_begin
 _cells_begin
 _
 _cells_row_begin
@@ -168,6 +211,7 @@ _ Citation of external source, specification of copyright license, may be desira
 _image "zImage_cabling_2020-11-19-03-19-082.jpg" 50px
 _cells_speck_end
 _cells_end
+_markup_asciidoc_disable_end
 _
 _heading2 'breaks - heading2'
 _paragraph_begin
@@ -280,38 +324,6 @@ _t '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;'
 _r '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;'
 _paragraph_end
 _t 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
-_t '
-
-'
-_cells_begin
-_cells_row_begin
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_row_end
-_cells_row_begin
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_speck_begin
-_cells_speck_end
-_cells_row_end
-_cells_end
-_t '
-
-'
 _o _messagePlain_good 'done: demo'
 #__FOOTER_uk4uPhB663kVcygT0q_FOOTER__
 # NOTICE: DOCUMENT

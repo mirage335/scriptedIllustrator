@@ -165,6 +165,20 @@ _set_markup_mediawiki() {
 		_cells_speck_end-mediawiki "$@"
 	}
 	export -f _cells_speck_end
+	
+	
+	
+	_markup_asciidoc_disable_begin() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_begin-mediawiki "$@"
+	}
+	export -f _markup_asciidoc_disable_begin
+	
+	_markup_asciidoc_disable_end() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_markup_asciidoc_disable_end-mediawiki "$@"
+	}
+	export -f _markup_asciidoc_disable_end
 }
 
 
@@ -720,6 +734,23 @@ _cells_speck_end-mediawiki() {
 
 
 
+
+_markup_asciidoc_disable_begin-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+_markup_asciidoc_disable_end-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+}
+
+
+
+
+
+
+
 # No production use.
 _noShell_block-mediawiki() {
 	echo -n "$interpret__mediawiki_NOT_shell__begin"
@@ -887,6 +918,12 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _cells_speck_begin-mediawiki
 	declare -f _cells_speck_end
 	declare -f _cells_speck_end-mediawiki
+	
+	
+	declare -f _markup_asciidoc_disable_begin
+	declare -f _markup_asciidoc_disable_begin-mediawiki
+	declare -f _markup_asciidoc_disable_end
+	declare -f _markup_asciidoc_disable_end-mediawiki
 	
 	
 	
