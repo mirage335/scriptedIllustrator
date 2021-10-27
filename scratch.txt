@@ -117,6 +117,13 @@ _paragraph_end-mediawiki() {
 ###########################################################
 
 
+#LibreOffice 'odt', 'docx', etc, conversion, automatically by shell code. From 'soffice', the result seems nearly usable, with a few exceptions.
+# *) Page breaks. Severe bug, unacceptable.
+# *) Image stroage. LibreOffice may not store images in the document. If relying on absolute paths, severe bug, unacceptable.
+# *) Image paths. Apparently LibreOffice infers and uses absolute paths, searching for images from ' ../ ' instead of ' ./ ' .
+# *) Image widths. Possibly the 'pixels' and 'percentage' values have been confused for some other unit (eg. centimeters, inches, etc).
+
+
 
 
 wkhtmltopdf scriptedIllustrator_presentation.html scriptedIllustrator.pdf
@@ -144,6 +151,12 @@ soffice --headless --infilter=writerglobal8_HTML  --convert-to odt --outdir ./ .
 pandoc -f mediawiki ./scriptedIllustrator.mediawiki.txt -t docx -o test.docx
 
 
+
+# https://stackoverflow.com/questions/41784693/python-docx-inserting-html-into-docx
+#from htmldocx import HtmlToDocx
+#new_parser = HtmlToDocx()
+#new_parser.parse_html_file("html_filename", "docx_filename")
+#  Did not seem particularly accurate, may not be promising for 'python-docx' either.
 
 
 

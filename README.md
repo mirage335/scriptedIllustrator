@@ -2,15 +2,23 @@ Copyright (C) 2021 mirage335
 See the end of the file for license conditions.
 See license.txt for scriptedIllustrator license conditions.
 
-A 'UNIX TiddlyWiki' . A 'LibreOffice' or 'MSOffice' for programmers. A word processor for wiki, shell, bash, or TI calculator users. 
+A 'UNIX TiddlyWiki' . A 'LibreOffice' or 'MSOffice' for programmers. A word processor for wiki, shell, bash, or TI calculator users.
 
 
 Self-modifying mix of shellcode script and markup. Users need not understand the code to edit the text.
 
+```
+./scriptedIllustrator.html -> equations and commands-> scriptedIllustrator.sh , scriptedIllustrator.html , scriptedIllustrator.pdf , scriptedIllustrator.md , etc -> edit 'scriptIllustrator.html' again and again
+```
+
+
 Intended to assist quickly or colloboratively embedding dynamic external data (ie. calculations, source code analysis, web sites, images, etc) within documentation. MediaWiki users in particular may simply edit text and post the markup file - only the intended text will be visible while the interleaved code remains executable and commented out from the markup. 
 
-Markup files of any markup launguage (eg. HTML and MediaWiki) are executable, automatically convertable, all having functionally identical shell code (eg. HTML and MediaWiki compatible files are capable of identical output).
+Markup files of many markup launguages (eg. HTML, MediaWiki, markdown) are executable, automatically convertable, all having functionally identical shell code (eg. HTML and MediaWiki compatible files are capable of identical output).
 
+Conversion to 'LibreOffice' 'docx' or 'odt' is best achieved by copy/paste from a web browser.
+
+Automatic conversion to 'asciidoc' is available, however, that format seems to have relatively limited functionality. Automatic conversion to 'LibreOffice' is technically possible, however, copy/paste from a web browser viewing HTML markup achieves more accurate results with much more functionality.
 
 
 # Usage
