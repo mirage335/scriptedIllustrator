@@ -12,7 +12,7 @@ exit
 
 ////
 
-<h1>document - heading1</h1>
+== document - heading1
 
 ////
 
@@ -28,7 +28,7 @@ demo: self-modifying interleaved markup and shell
 
 ////
 
-<h2>date - heading2</h2>
+=== date - heading2
 
 ////
 
@@ -36,7 +36,8 @@ demo: self-modifying interleaved markup and shell
 
 ////
 
-<p>
+
+
 
 ////
 
@@ -60,8 +61,14 @@ date --iso-8601
 
 ////
 
+
+----
+
 '[[ "$noDate" != "true" ]] && date --iso-8601'
-# 2021-10-26
+
+----
+
+# disabled: date
 
 
 ////
@@ -70,7 +77,8 @@ date --iso-8601
 
 ////
 
-</p>
+
+
 
 ////
 
@@ -78,7 +86,7 @@ date --iso-8601
 
 ////
 
-<h2>images - heading2</h2>
+=== images - heading2
 
 ////
 
@@ -86,16 +94,21 @@ date --iso-8601
 
 ////
 
-<p>
+
+
 
 ////
 
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">preformatted text within paragraph
-</pre>
+
+----
+
+preformatted text within paragraph
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -105,7 +118,9 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-[[File:zPicture_BusinessCard_mirage335_wood.png|right|100px]]
+image:zPicture_BusinessCard_mirage335_wood.png[
+"picture",width=100px,
+link="zPicture_BusinessCard_mirage335_wood.png"]
 
 ////
 
@@ -113,7 +128,8 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-</p>
+
+
 
 ////
 
@@ -121,17 +137,20 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<p>
+
+
 
 ////
 
  '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
- '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg' '150px'
+ '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '150px'
 
 ////
 
-[[File:zImage_cabling__2020-11-19-03-19-082.jpg|150px]]
+image:zImage_cabling_2020-11-19-03-19-082.jpg[
+"image",width=150px,
+link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
 ////
 
@@ -139,7 +158,8 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-</p>
+
+
 
 ////
 
@@ -147,7 +167,7 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<h2>equations and commands - heading2</h2>
+=== equations and commands - heading2
 
 ////
 
@@ -155,7 +175,8 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<p>
+
+
 
 ////
 
@@ -163,7 +184,13 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
+
+----
+
 'currentBitsPerSecond=9600'
+
+----
+
 
 
 ////
@@ -172,7 +199,13 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
+
+----
+
 'currentBonesPerPlayer=4'
+
+----
+
 
 
 ////
@@ -215,7 +248,13 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 
 ////
 
+
+----
+
 'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
+
+----
+
 # 5.5555556
 
 
@@ -225,162 +264,81 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 
 ////
 
-</p>
+
+
 
 ////
 
  '_'
- '_cells_begin'
-
-////
-
-<table width="0%" style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
+|====
  '_'
- '_cells_row_begin'
-
-////
-
-<tr>
-
-////
-
- '_cells_speck_begin' '125px'
-
-////
-
-<td width="125px" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
-_t '
+|_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">*titleA*
-</pre>
+
+----
+
+*titleA*
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
- '_' 'CAUTION:' 'Text' 'formatting' '*intentionally*' 'not' 'compatible' 'with' 'all' 'markup' 'and' 'not' 'recommended' 'unless' 'strictly' 'necessary' 'for' 'presentation' 'HTML' 'documents!'
+ | '_' 'CAUTION:' 'Text' 'formatting' '*intentionally*' 'not' 'compatible' 'with' 'all' 'markup' 'and' 'not' 'recommended' 'unless' 'strictly' 'necessary' 'for' 'presentation' 'HTML' 'documents!'
  '_' 'WARNING:' 'Stay' 'with' 'plain text' 'whenever' 'possible!'
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="font-weight:bold;font-style: italic;">*titleB*</span>
-</pre>
+
+----
+
+<span style="font-weight:bold;font-style: italic;">*titleB*</span>
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
-_t '
+ |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">*titleC*
-</pre>
+
+----
+
+*titleC*
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
-_t '
+ |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">  *titleD*  
-</pre>
+
+----
+
+  *titleD*  
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_row_end'
-
-////
-
-</tr>
-
-////
-
+ 
  '_'
- '_cells_row_begin'
-
-////
-
-<tr>
-
-////
-
  '_'
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
-_t '
+|_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">example
-</pre>
+
+----
+
+example
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -388,7 +346,8 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<p>
+
+
 
 ////
 
@@ -412,32 +371,18 @@ commands
 
 ////
 
-</p>
+
+
 
 ////
 
- '_cells_speck_end'
+  '_'
+| '_paragraph_begin'
 
 ////
 
-</td>
 
-////
 
- '_'
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
- '_paragraph_begin'
-
-////
-
-<p>
 
 ////
 
@@ -445,7 +390,13 @@ commands
 
 ////
 
+
+----
+
 'ubiquitous_bash.sh' '_echo' 'a b'
+
+----
+
 # a b
 
 
@@ -455,7 +406,8 @@ commands
 
 ////
 
-</p>
+
+
 
 ////
 
@@ -464,8 +416,14 @@ b'
 
 ////
 
+
+----
+
 'ubiquitous_bash.sh' '_echo' 'a
 b'
+
+----
+
 # a
 # b
 
@@ -476,7 +434,8 @@ b'
 
 ////
 
-<p>
+
+
 
 ////
 
@@ -494,32 +453,23 @@ b'
 
 ////
 
-</p>
+
+
 
 ////
 
- '_cells_speck_end'
+  '_'
+| '_e' '_color_demo'
 
 ////
 
-</td>
 
-////
-
- '_'
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
- '_e' '_color_demo'
-
-////
+----
 
 '_color_demo'
+
+----
+
 # _color_demo
 # _color_demo
 # _color_demo
@@ -539,42 +489,11 @@ b'
 
 ////
 
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_'
- '_cells_row_end'
-
-////
-
-</tr>
-
-////
+  '_'
 
  '_'
  '_'
- '_cells_row_begin'
-
-////
-
-<tr>
-
-////
-
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
- '_o' '_safeEcho_newline' 'output'
+| '_o' '_safeEcho_newline' 'output'
 
 ////
 
@@ -582,147 +501,61 @@ output
 
 ////
 
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_speck_begin' '' '2'
-
-////
-
-<td width="0%" colspan="2" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
-_r '
+ |_r '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --> raw markup
+
+ raw markup
 
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_speck_begin' '' '2'
-
-////
-
-<td width="0%" colspan="2" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
-_t '
+ |_t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"> pre
-</pre>
+
+----
+
+ pre
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_row_end'
-
-////
-
-</tr>
-
-////
-
+ 
  '_'
- '_cells_row_begin'
-
-////
-
-<tr>
-
-////
-
- '_cells_speck_begin'
-
-////
-
-<td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
- '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
+| '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '50px'
 
 ////
 
-[[File:zPicture_BusinessCard_mirage335_wood.png|right|50px]]
+image:zPicture_BusinessCard_mirage335_wood.png[
+"picture",width=50px,
+link="zPicture_BusinessCard_mirage335_wood.png"]
 
 ////
 
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_speck_begin' '' '3'
-
-////
-
-<td width="0%" colspan="3" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
-
-////
-
- '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
+ | '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
- '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg' '50px'
+ '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '50px'
 
 ////
 
-[[File:zImage_cabling__2020-11-19-03-19-082.jpg|50px]]
+image:zImage_cabling_2020-11-19-03-19-082.jpg[
+"image",width=50px,
+link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
 ////
 
- '_cells_speck_end'
-
-////
-
-</td>
-
-////
-
- '_cells_end'
-
-////
-
-</table>
-
-////
-
+ |====
  '_'
  '_heading2' 'breaks - heading2'
 
 ////
 
-<h2>breaks - heading2</h2>
+=== breaks - heading2
 
 ////
 
@@ -730,36 +563,49 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<p>
+
+
 
 ////
 
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"> preformatted text at paragraph_begin
-</pre>
+
+----
+
+ preformatted text at paragraph_begin
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
-</pre>
+----
+
+
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+
+----
+
 
 
 preformatted text at paragraph_end
-</pre>
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -767,7 +613,8 @@ preformatted text at paragraph_end
 
 ////
 
-</p>
+
+
 
 ////
 
@@ -778,16 +625,27 @@ preformatted text at paragraph_end
 
 ////
 
-<div style="page-break-before: always;"> </div>
+
+
+
+
+
+
+
+
 
 ////
 
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">-------------------------------------------------------------------------------
-</pre>
+
+----
+
+PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -811,7 +669,11 @@ ubiquitousBashIDshort= uk4uPhB6
 
 ////
 
+
+----
 uk4uPhB6
+
+----
 
 
 ////
@@ -820,7 +682,11 @@ uk4uPhB6
 
 ////
 
+
+----
 &lt;pre style=&quot;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;&quot;&gt;
+
+----
 
 
 ////
@@ -830,24 +696,32 @@ uk4uPhB6
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">preformatted
+
+----
+
+preformatted
  text
 more
  preformatted
 text
-</pre>
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">&#35;
+
+----
+
+&#35;
 &#35; &#35;&#35;&#35;
 &#35; &#35;&#35;&#35;
-</pre>
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -855,7 +729,7 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<h1>heading1</h1>
+== heading1
 
 ////
 
@@ -863,7 +737,7 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<h2>heading2</h2>
+=== heading2
 
 ////
 
@@ -871,7 +745,7 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<h3>heading3</h3>
+==== heading3
 
 ////
 
@@ -879,7 +753,7 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<h4>heading4</h4>
+===== heading4
 
 ////
 
@@ -887,7 +761,7 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<h5>heading5</h5>
+====== heading5
 
 ////
 
@@ -895,24 +769,28 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<h6>heading6</h6>
+======= heading6
 
 ////
 
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">&#35;
-</pre>
+
+----
+
+&#35;
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak -->raw markup<br \><h1>raw heading1</h2>
+
+raw markup<br \><h1>raw heading1</h2>
 <h2>raw heading2</h2>
 raw markup 
 raw markup
@@ -925,7 +803,7 @@ raw markup
 _r '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak -->
+
 raw markup
 
 ////
@@ -934,16 +812,7 @@ raw markup
 _r '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak -->raw markup
 
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-_r '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak -->
 raw markup
 
 ////
@@ -952,7 +821,16 @@ raw markup
 _r '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak -->
+
+raw markup
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+_r '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+
 
 raw markup
 
@@ -964,15 +842,16 @@ raw markup
 
 ////
 
-<p>
+
+
 
 ////
 
 _r '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><span style="color:&#35;1818b2;background-color:&#35;848484;"> raw HTML markup within paragraph</span>
+
+<span style="color:&#35;1818b2;background-color:&#35;848484;"> raw HTML markup within paragraph</span>
 
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
@@ -981,24 +860,31 @@ asciidoc_noLineBreak --><span style="color:&#35;1818b2;background-color:&#35;848
 
 ////
 
-</p>
+
+
 
 ////
 
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+
+----
+
 preformatted
 text
-</pre>
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+
+----
+
 
 
 preformatted
@@ -1006,45 +892,63 @@ text
 "$ubiquitousBashIDshort"
 
 
-</pre>
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-</pre>
+
+----
+
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
-</pre>
+----
+
+
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+
+----
 
 
-</pre>
+
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreakasciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
+
+----
 
 
 
-</pre>
+
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -1052,7 +956,11 @@ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 
 ////
 
+
+----
 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+----
 
 
 ////
@@ -1061,9 +969,13 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">x > /dev/null
-</pre>
+
+----
+
+x > /dev/null
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -1074,16 +986,27 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<div style="page-break-before: always;"> </div>
+
+
+
+
+
+
+
+
 
 ////
 
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">-------------------------------------------------------------------------------
-</pre>
+
+----
+
+PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -1091,17 +1014,20 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<p>
+
+
 
 ////
 
  '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
- '_image' 'zImage_cabling__2020-11-19-03-19-082.jpg'
+ '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg'
 
 ////
 
-[[File:zImage_cabling__2020-11-19-03-19-082.jpg|96%]]
+image:zImage_cabling_2020-11-19-03-19-082.jpg[
+"image",width=96%,
+link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
 ////
 
@@ -1109,7 +1035,8 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-</p>
+
+
 
 ////
 
@@ -1117,7 +1044,8 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 
 ////
 
-<p>
+
+
 
 ////
 
@@ -1127,17 +1055,21 @@ asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-spa
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
-</pre>
+
+----
+
+\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
 _r '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak -->\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
+
+\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &#39; &#39; &#39;
 
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
@@ -1146,16 +1078,51 @@ asciidoc_noLineBreak -->\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" &#39; &
 
 ////
 
-</p>
+
+
 
 ////
 
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
-<!-- asciidoc_noLineBreak
-asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-</pre>
+
+----
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+----
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+_t '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+
+----
+
+
+
+----
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+|====
+| | | | | 
+| | | | | 
+|====
+_t '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+
+----
+
+
+
+----
+
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '

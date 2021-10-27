@@ -194,12 +194,22 @@ _scribble_asciidoc() {
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
+	
+	
+	
+	#date() {
+	#	echo 'disabled: date'
+	#}
+	#export -f date
+	
+	rm -f "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html
+	
+	asciidoc "$currentOutputFile"
+	# https://stackoverflow.com/questions/8323287/how-can-i-use-sed-to-delete-2-lines-after-match-matches
+	sed -i -e '/^Last updated/,+1d' ./scriptedIllustrator.asciidoc.html
+	
+	wkhtmltopdf --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
 }
-
-
-
-
-
 
 
 
@@ -222,7 +232,18 @@ _scribble_all() {
 	
 	_scribble_mediawiki "$@"
 	
-	_scribble_asciidoc "$@"
+	
+	
+	
+	
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	if [[ "$currentScriptBasename" == 'scriptedIllustrator''.'* ]]
+	then
+		
+		_scribble_asciidoc "$@"
+		
+	fi
 	
 	
 	return;

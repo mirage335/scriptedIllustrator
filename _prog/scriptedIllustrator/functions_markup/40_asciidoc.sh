@@ -183,8 +183,12 @@ _set_strings_markup_asciidoc() {
 	export interpret__asciidoc_NOT_shell__end="$comment_asciidoc_begin"
 	
 	
-	export markup_asciidoc_pre_begin=''
-	export markup_asciidoc_pre_end=""''
+	export markup_asciidoc_pre_begin='
+----
+'
+	export markup_asciidoc_pre_end=""'
+----
+'
 	
 	#export markup_asciidoc_cmd_begin='[gray-background]#x #'
 	export markup_asciidoc_cmd_begin=''
@@ -194,6 +198,7 @@ _set_strings_markup_asciidoc() {
 	export markup_asciidoc_root_end=''
 	
 	
+	# https://github.com/asciidoctor/asciidoctor/issues/1621
 	export document_asciidoc_root_begin="////
 exit
 # WARNING: DANGER: NOT valid shell script code, do NOT attempt to interpret with /bin/bash or similar !
@@ -237,6 +242,7 @@ _e-asciidoc() {
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	echo -n "$markup_asciidoc_cmd_begin"
 	
+	_safeEcho_newline "$markup_asciidoc_pre_begin"
 	_color_begin_probe
 	#echo -n "$workaround_noInterpret_begin"
 	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
@@ -244,6 +250,7 @@ _e-asciidoc() {
 	_safeEcho_quoteAddSingle_newline "$@" | _workaround_noInterpret-asciidoc | _workaround_shellPrependMarkupLines
 	#echo -n "$workaround_noInterpret_end"
 	_color_end | _workaround_shellPrependMarkupLines
+	_safeEcho_newline "$markup_asciidoc_pre_end"
 	
 	"$@" | _workaround_shellCommentLines-asciidoc | _workaround_shellPrependMarkupLines
 	
@@ -261,6 +268,7 @@ _e_-asciidoc() {
 	
 	local current_miniSessionID=$(_uid 8)
 	
+	_safeEcho_newline "$markup_asciidoc_pre_begin"
 	_color_begin_probe
 	#echo -n "$workaround_noInterpret_begin"
 	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
@@ -268,6 +276,7 @@ _e_-asciidoc() {
 	_safeEcho_quoteAddSingle_newline "$@" | _workaround_noInterpret-asciidoc | _workaround_shellPrependMarkupLines
 	#echo -n "$workaround_noInterpret_end"
 	_color_end | _workaround_shellPrependMarkupLines
+	_safeEcho_newline "$markup_asciidoc_pre_end"
 	
 	eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
 	cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_shellCommentLines-asciidoc | _workaround_shellPrependMarkupLines
@@ -355,7 +364,7 @@ _t-asciidoc() {
 	[[ "$1" == "" ]] && return 0
 	
 	_safeEcho_newline _t "'"
-	echo -n "$flag__NOT_shell $comment_asciidoc_end""$markup_asciidoc_pre_begin"'<!-- asciidoc_noLineBreak'
+	echo -n "$flag__NOT_shell $comment_asciidoc_end""$markup_asciidoc_pre_begin"
 	
 	
 	local currentLine
@@ -375,32 +384,10 @@ _t-asciidoc() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
-	#[[ "$1" != 'asciidoc_noLineBreak --><nowiki>'* ]] && _safeEcho 'asciidoc_noLineBreak --><nowiki>'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	#[[ "$1" == 'asciidoc_noLineBreak --><nowiki>'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	#[[ "$1" != 'asciidoc_noLineBreak --><pre'* ]] && _safeEcho 'asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	#[[ "$1" == 'asciidoc_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
+	#sed 's/^mediawiki_noLineBreak --><pre.*>//'
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
 	
-	#[[ "$1" != 'asciidoc_noLineBreak --><pre'* ]] && [[ "$@" != *'scriptedIllustrator_markup_uk4uPhB663kVcygT0q'*'asciidoc_noLineBreak --><pre'* ]]
-	#[[ "$@" != *'asciidoc_noLineBreak --><pre'* ]]
-	#! _safeEcho_newline "$@" | grep 'asciidoc_noLineBreak --><pre' > /dev/null 2>&1
-	#! _safeEcho_newline "$@" | grep 'scriptedIllustrator_markup_uk4uPhB663kVcygT0q''.*''asciidoc_noLineBreak --><pre' > /dev/null 2>&1
-	#! _safeEcho_newline "$@" | grep '<pre' > /dev/null 2>&1
-	if _safeEcho_newline "$@" | grep '^.*''scriptedIllustrator_markup_uk4uPhB663kVcygT0q''.*''asciidoc_noLineBreak --><pre''.*$' > /dev/null 2>&1
-	then
-		_safeEcho 'asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	elif ! _safeEcho_newline "$@" | grep 'asciidoc_noLineBreak --><pre' > /dev/null 2>&1
-	then
-		_safeEcho 'asciidoc_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	else
-		_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	fi
-	
-	#_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	
-	
-	#echo '</nowiki>'"$markup_asciidoc_pre_end""$comment_asciidoc_begin $flag__NOT_shell"
-	#echo "$markup_asciidoc_pre_end""$comment_asciidoc_begin $flag__NOT_shell"
-	echo '</pre>'"$markup_asciidoc_pre_end""$comment_asciidoc_begin $flag__NOT_shell"
+	echo "$markup_asciidoc_pre_end""$comment_asciidoc_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
 }
 
@@ -411,7 +398,7 @@ _r-asciidoc() {
 	[[ "$1" == "" ]] && return 0
 	
 	_safeEcho_newline _r "'"
-	echo -n "$flag__NOT_shell $comment_asciidoc_end"'<!-- asciidoc_noLineBreak'
+	echo -n "$flag__NOT_shell $comment_asciidoc_end"
 	
 	
 	local currentLine
@@ -430,21 +417,7 @@ _r-asciidoc() {
 	done <<<$(_safeEcho "$@")
 	[[ "$currentIteration" == 1 ]] && _safeEcho_newline
 	
-	#_safeEcho "$@" | _filter__scriptedIllustrator_markup
-	#[[ "$1" != 'asciidoc_noLineBreak -->'* ]] && _safeEcho 'asciidoc_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup
-	#[[ "$1" == 'asciidoc_noLineBreak -->'* ]] && _safeEcho "$@" | _filter__scriptedIllustrator_markup
-	
-	
-	if _safeEcho_newline "$@" | grep '^.*''scriptedIllustrator_markup_uk4uPhB663kVcygT0q''.*''asciidoc_noLineBreak -->''.*$' > /dev/null 2>&1
-	then
-		_safeEcho 'asciidoc_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	elif ! _safeEcho_newline "$@" | grep 'asciidoc_noLineBreak -->' > /dev/null 2>&1
-	then
-		_safeEcho 'asciidoc_noLineBreak -->'"$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	else
-		_safeEcho "$@" | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
-	fi
-	
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc
 	
 	
 	echo "$comment_asciidoc_begin $flag__NOT_shell"
@@ -470,7 +443,7 @@ _heading1-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<h1>'"$@"'</h1>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '== '"$@"'' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -481,7 +454,7 @@ _heading2-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<h2>'"$@"'</h2>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '=== '"$@"'' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -492,7 +465,7 @@ _heading3-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<h3>'"$@"'</h3>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '==== '"$@"'' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -503,7 +476,7 @@ _heading4-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<h4>'"$@"'</h4>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '===== '"$@"'' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -514,7 +487,7 @@ _heading5-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<h5>'"$@"'</h5>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '====== '"$@"'' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -525,7 +498,7 @@ _heading6-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<h6>'"$@"'</h6>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '======= '"$@"'' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -543,7 +516,15 @@ _page-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<div style="page-break-before: always;"> </div>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<div style="page-break-before: always;"> </div>' | _workaround_shellPrependMarkupLines
+_safeEcho_newline '
+
+
+
+
+
+
+' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -555,7 +536,10 @@ _paragraph_begin-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<p>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '
+' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<p>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '----' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -566,7 +550,10 @@ _paragraph_end-asciidoc() {
 	
 	echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '</p>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '
+' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '</p>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '----' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -589,7 +576,11 @@ _picture-asciidoc() {
 	
 	#./
 	#_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
-	_safeEcho_newline '[[File:'"$1"'|right|'"$currentWidth"']]'
+	#_safeEcho_newline '[[File:'"$1"'|right|'"$currentWidth"']]'
+	[[ "$currentWidthParameter" != "" ]] && _safeEcho_newline 'image:'"$1"'[
+"picture",width='"$currentWidth"',
+link="'"$1"'"]'
+	[[ "$currentWidthParameter" == "" ]] && _safeEcho_newline 'image:'"$1"'[]'
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -611,7 +602,11 @@ _image-asciidoc() {
 	
 	#./
 	#_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | _workaround_shellPrependMarkupLines
-	_safeEcho_newline '[[File:'"$1"'|'"$currentWidth"']]'
+	#_safeEcho_newline '[[File:'"$1"'|'"$currentWidth"']]'
+	[[ "$currentWidthParameter" != "" ]] && _safeEcho_newline 'image:'"$1"'[
+"image",width='"$currentWidth"',
+link="'"$1"'"]'
+	[[ "$currentWidthParameter" == "" ]] && _safeEcho_newline 'image:'"$1"'[]'
 	
 	echo "$interpret__asciidoc_NOT_shell__end"
 }
@@ -627,48 +622,48 @@ _cells_begin-asciidoc() {
 	currentWidthParameter=""
 	[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
 	
-	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
-	_safeEcho_newline
+	#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	#_safeEcho_newline
 	
 	
-	echo "$interpret__asciidoc_NOT_shell__begin"
+	#echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<table '"$currentWidthParameter"'style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '|====' | _workaround_shellPrependMarkupLines
 	
-	echo "$interpret__asciidoc_NOT_shell__end"
+	#echo "$interpret__asciidoc_NOT_shell__end"
 }
 _cells_end-asciidoc() {
-	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
-	_safeEcho_newline
+	#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	#_safeEcho_newline
 	
 	
-	echo "$interpret__asciidoc_NOT_shell__begin"
+	#echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '</table>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '|====' | _workaround_shellPrependMarkupLines
 	
-	echo "$interpret__asciidoc_NOT_shell__end"
+	#echo "$interpret__asciidoc_NOT_shell__end"
 }
 _cells_row_begin-asciidoc() {
-	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
-	_safeEcho_newline
+	#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	#_safeEcho_newline
 	
 	
-	echo "$interpret__asciidoc_NOT_shell__begin"
+	#echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<tr>' | _workaround_shellPrependMarkupLines
+	_safeEcho ''
 	
-	echo "$interpret__asciidoc_NOT_shell__end"
+	#echo "$interpret__asciidoc_NOT_shell__end"
 }
 _cells_row_end-asciidoc() {
-	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
-	_safeEcho_newline
+	#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	#_safeEcho_newline
 	
 	
-	echo "$interpret__asciidoc_NOT_shell__begin"
+	#echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '</tr>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '' | _workaround_shellPrependMarkupLines
 	
-	echo "$interpret__asciidoc_NOT_shell__end"
+	#echo "$interpret__asciidoc_NOT_shell__end"
 }
 _cells_speck_begin-asciidoc() {
 	local currentWidth
@@ -689,26 +684,26 @@ _cells_speck_begin-asciidoc() {
 	[[ "$currentColspan" != "" ]] && currentColspanParameter='colspan="'"$currentColspan"'" '
 	
 	
-	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
-	_safeEcho_newline
+	#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	#_safeEcho_newline
 	
 	
-	echo "$interpret__asciidoc_NOT_shell__begin"
+	#echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '<td '"$currentWidthParameter"''"$currentColspanParameter"'style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | _workaround_shellPrependMarkupLines
+	_safeEcho '|'
 	
-	echo "$interpret__asciidoc_NOT_shell__end"
+	#echo "$interpret__asciidoc_NOT_shell__end"
 }
 _cells_speck_end-asciidoc() {
-	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
-	_safeEcho_newline
+	#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	#_safeEcho_newline
 	
 	
-	echo "$interpret__asciidoc_NOT_shell__begin"
+	#echo "$interpret__asciidoc_NOT_shell__begin"
 	
-	_safeEcho_newline '</td>' | _workaround_shellPrependMarkupLines
+	_safeEcho ' '
 	
-	echo "$interpret__asciidoc_NOT_shell__end"
+	#echo "$interpret__asciidoc_NOT_shell__end"
 }
 
 

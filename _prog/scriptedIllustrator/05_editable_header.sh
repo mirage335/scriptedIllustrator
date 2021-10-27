@@ -76,7 +76,7 @@ _paragraph_end
 _paragraph_begin
 _ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
 _ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
-_image "zImage_cabling__2020-11-19-03-19-082.jpg" 150px
+_image "zImage_cabling_2020-11-19-03-19-082.jpg" 150px
 _paragraph_end
 _heading2 'equations and commands - heading2'
 _paragraph_begin
@@ -165,7 +165,7 @@ _cells_speck_end
 _cells_speck_begin '' '3'
 _ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
 _ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
-_image "zImage_cabling__2020-11-19-03-19-082.jpg" 50px
+_image "zImage_cabling_2020-11-19-03-19-082.jpg" 50px
 _cells_speck_end
 _cells_end
 _
@@ -184,7 +184,7 @@ _
 _
 _
 _page
-_t '-------------------------------------------------------------------------------
+_t 'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
 '
 _o _messagePlain_request 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
 _o _messagePlain_probe_var ubiquitousBashIDshort
@@ -265,12 +265,12 @@ _
 _
 _
 _page
-_t '-------------------------------------------------------------------------------
+_t 'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
 '
 _paragraph_begin
 _ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
 _ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
-_image "zImage_cabling__2020-11-19-03-19-082.jpg"
+_image "zImage_cabling_2020-11-19-03-19-082.jpg"
 _paragraph_end
 _paragraph_begin
 _ CAUTION: Unmatched single quotes may cause failure.
@@ -280,6 +280,38 @@ _t '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;'
 _r '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;'
 _paragraph_end
 _t 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+_t '
+
+'
+_cells_begin
+_cells_row_begin
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_row_end
+_cells_row_begin
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_speck_begin
+_cells_speck_end
+_cells_row_end
+_cells_end
+_t '
+
+'
 _o _messagePlain_good 'done: demo'
 #__FOOTER_uk4uPhB663kVcygT0q_FOOTER__
 # NOTICE: DOCUMENT
