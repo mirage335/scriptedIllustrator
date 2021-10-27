@@ -82,11 +82,11 @@ date --iso-8601
 
 ////
 
- '_heading2' 'images and tables - heading2'
+ '_heading2' 'images - heading2'
 
 ////
 
-=== images and tables - heading2
+=== images - heading2
 
 ////
 
@@ -163,40 +163,6 @@ link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
 ////
 
-_t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-----
-
-
-----
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
-
-////
-
-|====
-|1 |2 |3 |4 |5 
-|6 |7 |8 |9 |0 
-|====
-
-////
-
-_t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
-////
-
-----
-
-
-----
-
-////
- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
  '_heading2' 'equations and commands - heading2'
 
 ////
@@ -987,6 +953,58 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
+ '_paragraph_begin'
+
+////
+
+
+
+
+////
+
+_t '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+
+----
+
+
+----
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+
+////
+
+|====
+|1 |2 |3 |4 |5 
+|6 |7 |8 |9 |0 
+|====
+
+////
+
+_t '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+////
+
+----
+
+
+----
+
+////
+ scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
+ '_paragraph_end'
+
+////
+
+
+
+
+////
+
  '_o' '_messagePlain_good' 'done: demo'
 
 ////
