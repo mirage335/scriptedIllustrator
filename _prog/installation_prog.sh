@@ -29,9 +29,9 @@ _test_prog() {
 	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && return 1
 	
 	
-	_wantGetDep 'asciidoc' && echo 'missing: asciidoc'
-	_wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
-	_wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
+	! _wantGetDep 'asciidoc' && echo 'missing: asciidoc'
+	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
+	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
 }
 
 

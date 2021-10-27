@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2172526758'
+export ub_setScriptChecksum_contents='1115761665'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11478,9 +11478,9 @@ _test_prog() {
 	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && return 1
 	
 	
-	_wantGetDep 'asciidoc' && echo 'missing: asciidoc'
-	_wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
-	_wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
+	! _wantGetDep 'asciidoc' && echo 'missing: asciidoc'
+	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
+	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
 }
 
 
@@ -12164,9 +12164,8 @@ _scribble_html() {
 	if [[ "$current_scriptedIllustrator_markup_markdown" == 'true' ]]
 	then
 		mv "$currentOutputFile".tmp "$currentOutputFile".tmp.html
-		echo '<!--
-exit
-' >> "$currentOutputFile".tmp.md
+		echo '<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+#exit #scriptedIllustrator_markup_uk4uPhB663kVcygT0q' >> "$currentOutputFile".tmp.md
 		cat "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html > "$currentOutputFile".tmp
 		rm -f "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html
 	fi
@@ -12289,11 +12288,11 @@ _scribble_asciidoc() {
 	
 	
 	
-	_HEADER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	#_HEADER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
 	
 	"$scriptAbsoluteLocation" DOCUMENT >> "$currentOutputFile".tmp
 	
-	_FOOTER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
+	#_FOOTER | _filter__scriptedIllustrator_markup >> "$currentOutputFile".tmp
 	
 	
 	
@@ -14364,8 +14363,12 @@ _set_strings_markup_asciidoc() {
 	
 	
 	export document_asciidoc_root_begin="////
+exit
+# WARNING: DANGER: NOT valid shell script code, do NOT attempt to interpret with /bin/bash or similar !
+
 "
-	export document_asciidoc_root_end="////
+	export document_asciidoc_root_end="
+////
 "
 	
 	# WARNING: Omitting comment character prevents interpretation as shell script, although it will otherwise be visible without javascript.

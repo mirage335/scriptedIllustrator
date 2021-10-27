@@ -195,8 +195,12 @@ _set_strings_markup_asciidoc() {
 	
 	
 	export document_asciidoc_root_begin="////
+exit
+# WARNING: DANGER: NOT valid shell script code, do NOT attempt to interpret with /bin/bash or similar !
+
 "
-	export document_asciidoc_root_end="////
+	export document_asciidoc_root_end="
+////
 "
 	
 	# WARNING: Omitting comment character prevents interpretation as shell script, although it will otherwise be visible without javascript.
