@@ -52,8 +52,8 @@ _scribble_html() {
 	if [[ "$current_scriptedIllustrator_markup_markdown" == 'true' ]]
 	then
 		mv "$currentOutputFile".tmp "$currentOutputFile".tmp.html
-		echo '<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-#exit #scriptedIllustrator_markup_uk4uPhB663kVcygT0q' >> "$currentOutputFile".tmp.md
+		echo '<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+#exit # scriptedIllustrator_markup_uk4uPhB663kVcygT0q ' >> "$currentOutputFile".tmp.md
 		cat "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html > "$currentOutputFile".tmp
 		rm -f "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html
 	fi

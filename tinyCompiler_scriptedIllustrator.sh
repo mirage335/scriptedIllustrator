@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='1115761665'
+export ub_setScriptChecksum_contents='525618376'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12164,8 +12164,8 @@ _scribble_html() {
 	if [[ "$current_scriptedIllustrator_markup_markdown" == 'true' ]]
 	then
 		mv "$currentOutputFile".tmp "$currentOutputFile".tmp.html
-		echo '<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-#exit #scriptedIllustrator_markup_uk4uPhB663kVcygT0q' >> "$currentOutputFile".tmp.md
+		echo '<!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
+#exit # scriptedIllustrator_markup_uk4uPhB663kVcygT0q ' >> "$currentOutputFile".tmp.md
 		cat "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html > "$currentOutputFile".tmp
 		rm -f "$currentOutputFile".tmp.md "$currentOutputFile".tmp.html
 	fi
