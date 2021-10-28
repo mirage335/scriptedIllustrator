@@ -78,7 +78,7 @@ Conversion to &#39;LibreOffice&#39; &#39;docx&#39; or &#39;odt&#39; is best achi
 Automatic conversion to &#39;asciidoc&#39; is available, however, that format seems to have relatively limited functionality. Automatic conversion to &#39;LibreOffice&#39; is technically possible, however, copy/paste from a web browser viewing HTML markup achieves more accurate results with much more functionality.'
 _paragraph_end
 _heading1 'Examples'
-_t 'This README itself is an example. PDF rendering is most accurate.
+_t 'This README itself is an example. PDF render of HTML is most accurate.
 https://github.com/mirage335/scriptedIllustrator/blob/main/README.pdf'
 _t '
 

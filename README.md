@@ -130,7 +130,7 @@ if false; then true; # -->
 fi
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-This README itself is an example. PDF rendering is most accurate.
+This README itself is an example. PDF render of HTML is most accurate.
 https://github.com/mirage335/scriptedIllustrator/blob/main/README.pdf
 <!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
