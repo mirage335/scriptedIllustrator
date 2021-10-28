@@ -435,7 +435,7 @@ _t-asciidoc() {
 	[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
 	
 	#sed 's/^mediawiki_noLineBreak --><pre.*>//'
-	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-asciidoc | _fold-asciidoc
+	_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | _filter__scriptedIllustrator_markup | _fold-asciidoc | _workaround_preformattedCharacters-asciidoc
 	
 	echo "$markup_asciidoc_pre_end""$comment_asciidoc_begin $flag__NOT_shell"
 	_safeEcho_newline "'"
