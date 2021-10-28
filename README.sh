@@ -470,6 +470,12 @@ unset current_script_path
 
 # NOTICE: Overrides ( 'ops.sh' equivalent ).
 
+_default() {
+	_scribble_markdown "$@"
+	_scribble_html "$@"
+	_scribble_pdf "$@"
+}
+
 
 # NOTICE: Overrides ( 'ops.sh' equivalent ).
 

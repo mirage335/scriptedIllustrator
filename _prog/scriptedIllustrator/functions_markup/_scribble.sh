@@ -97,6 +97,9 @@ _scribble_markdown() {
 	_scribble_html "$@"
 	export current_scriptedIllustrator_markup_markdown=""
 }
+_scribble_md() {
+	_scribble_markdown "$@"
+}
 
 # ###
 
@@ -264,6 +267,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_scribble() {
 	declare -f _scribble_pdf
 	
 	declare -f _scribble_markdown
+	declare -f _scribble_md
 	
 	# ###
 	
