@@ -164,7 +164,8 @@ pandoc -f mediawiki ./scriptedIllustrator.mediawiki.txt -t docx -o test.docx
 
 
 
-
+# https://github.com/wkhtmltopdf/wkhtmltopdf/issues/3443
+wkhtmltopdf 'https://google.com' test.pdf
 
 
 
