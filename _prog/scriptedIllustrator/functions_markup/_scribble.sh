@@ -62,6 +62,9 @@ _scribble_html() {
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 _scribble_pdf() {
@@ -90,12 +93,18 @@ _scribble_pdf() {
 	wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile"
 	rm -f "$currentOutputFile".html
 	[[ -e "$currentOutputFile" ]] && return 0
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 _scribble_markdown() {
 	export current_scriptedIllustrator_markup_markdown='true'
 	_scribble_html "$@"
 	export current_scriptedIllustrator_markup_markdown=""
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 _scribble_md() {
 	_scribble_markdown "$@"
@@ -149,6 +158,9 @@ _scribble_mediawiki() {
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 
@@ -212,6 +224,9 @@ _scribble_asciidoc() {
 	sed -i -e '/^Last updated/,+1d' ./scriptedIllustrator.asciidoc.html
 	
 	wkhtmltopdf --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 

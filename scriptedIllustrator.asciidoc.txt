@@ -337,7 +337,7 @@ commands
 
  '_o' '_safeEcho_newline' '\# with output'
 
-&#35; with output
+\&#35; with output
 
  '_paragraph_end'
 
@@ -391,7 +391,7 @@ b'
  '_' '_o' '_safeEcho_newline' '' \ \\  output''
  '_o' '_safeEcho_newline' '' \ \\  output''
 
-\ \  output
+' \ \  output'
 
  '_paragraph_end'
 
@@ -563,7 +563,15 @@ PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- 
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
- '_o' '_messagePlain_request' 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
+ '_o' '_messagePlain_request' 'request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"'
+
+////
+
+request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"
+
+////
+
+ '_o_' '_messagePlain_request' 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
 
 ////
 
@@ -832,19 +840,39 @@ Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor i
 ////
 
  '_' 'blank preformatted text will be ignored - at least add an empty space character'
+ '_' 'ATTENTION:' 'Some' 'characters' 'may' 'be' 'represented' 'by' 'known' 'alternative' 'markup' 'if' 'necessary' '-' 'eg.' ' \x27 \047 %27 &#39; ' '.'
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////
 
 ----
 
-x > /dev/null
+x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
 
 ----
 
 ////
  scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
+ '_o' '_safeEcho_newline' 'x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
+'
+
+////
+
+x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
+
+
+////
+
+ '_o_' '_safeEcho_newline' 'x \> /dev/null
+'
+
+////
+
+x > /dev/null
+
+////
+
  '_'
  '_'
  '_'
@@ -917,7 +945,7 @@ link="zImage_cabling_2020-11-19-03-19-082.jpg"]
 
  '_' 'CAUTION:' 'Unmatched' 'single' 'quotes' 'may' 'cause' 'failure.'
  '_' 'WARNING:' 'Some' 'quoting' 'may' 'not' 'be' 'preserved' '.'
- '_' 'ATTENTION:' 'Single' 'quotes' 'may' 'be' 'represented' 'by' 'known' 'alternative' 'markup' 'if' 'necessary' '-' ' \x27 \047 %27 &#92; ' '.'
+ '_' 'ATTENTION:' 'Single' 'quotes' 'may' 'be' 'represented' 'by' 'known' 'alternative' 'markup' 'if' 'necessary' '-' ' \x27 \047 %27 &#39; ' '.'
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q 
 ////

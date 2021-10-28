@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='1499042546'
+export ub_setScriptChecksum_contents='2932659591'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12174,6 +12174,9 @@ _scribble_html() {
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 _scribble_pdf() {
@@ -12202,12 +12205,18 @@ _scribble_pdf() {
 	wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile"
 	rm -f "$currentOutputFile".html
 	[[ -e "$currentOutputFile" ]] && return 0
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 _scribble_markdown() {
 	export current_scriptedIllustrator_markup_markdown='true'
 	_scribble_html "$@"
 	export current_scriptedIllustrator_markup_markdown=""
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 _scribble_md() {
 	_scribble_markdown "$@"
@@ -12261,6 +12270,9 @@ _scribble_mediawiki() {
 	
 	chmod u+x "$currentOutputFile".tmp
 	mv "$currentOutputFile".tmp "$currentOutputFile"
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 
@@ -12324,6 +12336,9 @@ _scribble_asciidoc() {
 	sed -i -e '/^Last updated/,+1d' ./scriptedIllustrator.asciidoc.html
 	
 	wkhtmltopdf --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
+	
+	export current_scriptedIllustrator_markup=
+	unset current_scriptedIllustrator_markup
 }
 
 
@@ -12523,6 +12538,12 @@ _set_markup_html() {
 		_o-html "$@"
 	}
 	export -f _o
+	
+	_o_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_o_-html "$@"
+	}
+	export -f _o_
 	
 	_i() {
 		export currentFunctionName="${FUNCNAME[0]}"
@@ -12773,6 +12794,28 @@ _e_-html() {
 
 # Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
 _o-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	echo "$markup_html_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	
+	# | _shellCommentLines
+	
+	"$@" | _workaround_preformattedCharacters-html | _workaround_shellPrependMarkupLines
+	
+	echo "$markup_html_cmd_end"
+	echo "$interpret__html_NOT_shell__end"
+}
+
+# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+_o_-html() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
 	
@@ -13221,9 +13264,12 @@ _fold-html() {
 
 _workaround_preformattedCharacters-html() {
 	#sed 's/\&#35;/#/g'
+	#sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
 	
+	#sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	#sed "s/\\\x3c/\&lt;;/g" | sed "s/\\\060/\&lt;;/g" | sed "s/%3c/\&lt;;/g" | sed "s/\&lt;;/\&lt;;/g"
 	
-	sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g" | sed "s/\\\x3c/\&lt;;/g" | sed "s/\\\060/\&lt;;/g" | sed "s/%3c/\&lt;;/g" | sed "s/\&lt;;/\&lt;;/g"
 	
 	
 	#| sed "s/\&#92;/\\\/"
@@ -13247,6 +13293,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	declare -f _o
 	declare -f _o-html
+	
+	declare -f _o_
+	declare -f _o_-html
 	
 	declare -f _i
 	declare -f _i-html
@@ -13364,6 +13413,12 @@ _set_markup_mediawiki() {
 		_o-mediawiki "$@"
 	}
 	export -f _o
+	
+	_o_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_o_-mediawiki "$@"
+	}
+	export -f _o_
 	
 	_i() {
 		export currentFunctionName="${FUNCNAME[0]}"
@@ -13626,6 +13681,31 @@ _e_-mediawiki() {
 
 # Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
 _o-mediawiki() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__mediawiki_NOT_shell__begin"
+	echo -n "$markup_mediawiki_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	
+	# | _workaround_shellCommentLines-mediawiki
+	
+	# https://unix.stackexchange.com/questions/254644/how-do-i-remove-the-newline-from-the-last-line-in-a-file-in-order-to-add-text-to
+	#perl -p -e 'chomp if eof'
+	
+	"$@" | _workaround_preformattedCharacters-mediawiki | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
+	
+	echo "$markup_mediawiki_cmd_end"
+	echo "$interpret__mediawiki_NOT_shell__end"
+}
+
+# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+_o_-mediawiki() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
 	
@@ -14119,7 +14199,7 @@ _workaround_preformattedCharacters-mediawiki() {
 	#sed 's/#/\&#35;/g'
 	#sed 's/#/<nowiki>#<\/nowiki>/g'
 	
-	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g" | sed "s/\\\x3c/\&lt;/g" | sed "s/\\\060/\&lt;/g" | sed "s/%3c/\&lt;/g" | sed "s/\&lt;/\&lt;/g"
 	
 	
 	#| sed "s/\\\/\&#92;/"
@@ -14186,6 +14266,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	
 	declare -f _o
 	declare -f _o-mediawiki
+	
+	declare -f _o_
+	declare -f _o_-mediawiki
 	
 	declare -f _i
 	declare -f _i-mediawiki
@@ -14308,6 +14391,12 @@ _set_markup_asciidoc() {
 		_o-asciidoc "$@"
 	}
 	export -f _o
+	
+	_o_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_o_-asciidoc "$@"
+	}
+	export -f _o_
 	
 	_i() {
 		export currentFunctionName="${FUNCNAME[0]}"
@@ -14578,6 +14667,31 @@ _e_-asciidoc() {
 
 # Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
 _o-asciidoc() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__asciidoc_NOT_shell__begin"
+	echo -n "$markup_asciidoc_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	
+	# | _workaround_shellCommentLines-asciidoc
+	
+	# https://unix.stackexchange.com/questions/254644/how-do-i-remove-the-newline-from-the-last-line-in-a-file-in-order-to-add-text-to
+	#perl -p -e 'chomp if eof'
+	
+	"$@" | _workaround_preformattedCharacters-asciidoc | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
+	
+	echo "$markup_asciidoc_cmd_end"
+	echo "$interpret__asciidoc_NOT_shell__end"
+}
+
+# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+_o_-asciidoc() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
 	
@@ -15091,7 +15205,7 @@ _workaround_preformattedCharacters-asciidoc() {
 	#sed 's/#/\&#35;/g'
 	#sed 's/#/<nowiki>#<\/nowiki>/g'
 	
-	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g" | sed "s/\\\x3c/\&lt;/g" | sed "s/\\\060/\&lt;/g" | sed "s/%3c/\&lt;/g" | sed "s/\&lt;/\&lt;/g"
 	
 	
 	#| sed "s/\\\/\&#92;/"
@@ -15158,6 +15272,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc() {
 	
 	declare -f _o
 	declare -f _o-asciidoc
+	
+	declare -f _o_
+	declare -f _o_-asciidoc
 	
 	declare -f _i
 	declare -f _i-asciidoc

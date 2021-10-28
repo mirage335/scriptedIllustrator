@@ -34,6 +34,12 @@ _set_markup_html() {
 	}
 	export -f _o
 	
+	_o_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_o_-html "$@"
+	}
+	export -f _o_
+	
 	_i() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_i-html "$@"
@@ -283,6 +289,28 @@ _e_-html() {
 
 # Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
 _o-html() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__html_NOT_shell__begin"
+	echo "$markup_html_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	
+	# | _shellCommentLines
+	
+	"$@" | _workaround_preformattedCharacters-html | _workaround_shellPrependMarkupLines
+	
+	echo "$markup_html_cmd_end"
+	echo "$interpret__html_NOT_shell__end"
+}
+
+# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+_o_-html() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
 	
@@ -731,9 +759,12 @@ _fold-html() {
 
 _workaround_preformattedCharacters-html() {
 	#sed 's/\&#35;/#/g'
+	#sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
 	
+	#sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	#sed "s/\\\x3c/\&lt;;/g" | sed "s/\\\060/\&lt;;/g" | sed "s/%3c/\&lt;;/g" | sed "s/\&lt;;/\&lt;;/g"
 	
-	sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g" | sed "s/\\\x3c/\&lt;;/g" | sed "s/\\\060/\&lt;;/g" | sed "s/%3c/\&lt;;/g" | sed "s/\&lt;;/\&lt;;/g"
 	
 	
 	#| sed "s/\&#92;/\\\/"
@@ -757,6 +788,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	declare -f _o
 	declare -f _o-html
+	
+	declare -f _o_
+	declare -f _o_-html
 	
 	declare -f _i
 	declare -f _i-html

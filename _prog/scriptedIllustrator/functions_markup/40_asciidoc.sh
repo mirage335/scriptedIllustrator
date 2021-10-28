@@ -33,6 +33,12 @@ _set_markup_asciidoc() {
 	}
 	export -f _o
 	
+	_o_() {
+		export currentFunctionName="${FUNCNAME[0]}"
+		_o_-asciidoc "$@"
+	}
+	export -f _o_
+	
 	_i() {
 		export currentFunctionName="${FUNCNAME[0]}"
 		_i-asciidoc "$@"
@@ -302,6 +308,31 @@ _e_-asciidoc() {
 
 # Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
 _o-asciidoc() {
+	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+	_safeEcho_newline
+	
+	
+	echo "$interpret__asciidoc_NOT_shell__begin"
+	echo -n "$markup_asciidoc_cmd_begin"
+	
+	local current_miniSessionID=$(_uid 8)
+	
+	#_messagePlain_probe_quoteAddSingle "$@" | _workaround_shellPrependMarkupLines
+	
+	
+	# | _workaround_shellCommentLines-asciidoc
+	
+	# https://unix.stackexchange.com/questions/254644/how-do-i-remove-the-newline-from-the-last-line-in-a-file-in-order-to-add-text-to
+	#perl -p -e 'chomp if eof'
+	
+	"$@" | _workaround_preformattedCharacters-asciidoc | _workaround_shellPrependMarkupLines | perl -p -e 'chomp if eof'
+	
+	echo "$markup_asciidoc_cmd_end"
+	echo "$interpret__asciidoc_NOT_shell__end"
+}
+
+# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+_o_-asciidoc() {
 	_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
 	_safeEcho_newline
 	
@@ -815,7 +846,7 @@ _workaround_preformattedCharacters-asciidoc() {
 	#sed 's/#/\&#35;/g'
 	#sed 's/#/<nowiki>#<\/nowiki>/g'
 	
-	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+	sed 's/<nowiki>#<\/nowiki>/#/g' | sed 's/\&#35;/#/g' | sed 's/\&#/_uk4uPhB663kVcygT0q_char_x23_/g' | sed 's/#/\&#35;/g' | sed 's/_uk4uPhB663kVcygT0q_char_x23_/\&#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g" | sed "s/\\\x3c/\&lt;/g" | sed "s/\\\060/\&lt;/g" | sed "s/%3c/\&lt;/g" | sed "s/\&lt;/\&lt;/g"
 	
 	
 	#| sed "s/\\\/\&#92;/"
@@ -882,6 +913,9 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc() {
 	
 	declare -f _o
 	declare -f _o-asciidoc
+	
+	declare -f _o_
+	declare -f _o_-asciidoc
 	
 	declare -f _i
 	declare -f _i-asciidoc

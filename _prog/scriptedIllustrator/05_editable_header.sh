@@ -190,7 +190,8 @@ _
 _page
 _t 'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
 '
-_o _messagePlain_request 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
+_o _messagePlain_request 'request: maybe the user should copy some file next to the "$scriptAbsoluteFolder"'
+_o_ _messagePlain_request 'request: maybe the user should copy some file next to the \"\$scriptAbsoluteFolder\"'
 _o _messagePlain_probe_var ubiquitousBashIDshort
 _v ubiquitousBashIDshort
 _v RECODE_markup_html_pre_begin
@@ -264,7 +265,13 @@ _t '
 _v current_lorem_ipsum
 _ 'blank preformatted text will be ignored - at least add an empty space character'
 _t ''
-_t 'x > /dev/null'
+_ ATTENTION: Some characters may be represented by known alternative markup if necessary - eg. ' \x27 \047 %27 &#39; ' .
+_t 'x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
+'
+_o _safeEcho_newline 'x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
+'
+_o_ _safeEcho_newline 'x \> /dev/null
+'
 _
 _
 _
@@ -279,7 +286,7 @@ _paragraph_end
 _paragraph_begin
 _ CAUTION: Unmatched single quotes may cause failure.
 _ WARNING: Some 'quoting' may not be preserved .
-_ ATTENTION: Single quotes may be represented by known alternative markup if necessary - ' \x27 \047 %27 &#92; ' .
+_ ATTENTION: Single quotes may be represented by known alternative markup if necessary - ' \x27 \047 %27 &#39; ' .
 _t '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;'
 _r '\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;'
 _paragraph_end
