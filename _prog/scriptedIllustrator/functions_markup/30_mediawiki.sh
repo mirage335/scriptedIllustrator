@@ -190,9 +190,14 @@ _set_markup_mediawiki() {
 
 _set_strings_markup_mediawiki() {
 	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
-	#export markup_mediawiki_fold=156
-	#export markup_mediawiki_fold=93
-	#export markup_mediawiki_fold=76
+	export markup_mediawiki_fold="$current_markup_mediawiki_fold"
+	if [[ "$markup_mediawiki_fold" == "" ]]
+	then
+		true
+		#export markup_mediawiki_fold=156
+		#export markup_mediawiki_fold=93
+		#export markup_mediawiki_fold=76
+	fi
 	
 	
 	export comment_mediawiki_begin='<!--'

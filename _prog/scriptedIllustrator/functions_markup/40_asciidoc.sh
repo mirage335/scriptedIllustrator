@@ -186,9 +186,14 @@ _set_markup_asciidoc() {
 
 _set_strings_markup_asciidoc() {
 	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
-	#export markup_asciidoc_fold=156
-	#export markup_asciidoc_fold=93
-	#export markup_asciidoc_fold=76
+	export markup_asciidoc_fold="$current_markup_asciidoc_fold"
+	if [[ "$markup_asciidoc_fold" == "" ]]
+	then
+		true
+		#export markup_asciidoc_fold=156
+		#export markup_asciidoc_fold=93
+		#export markup_asciidoc_fold=76
+	fi
 	
 	
 	export comment_asciidoc_begin='

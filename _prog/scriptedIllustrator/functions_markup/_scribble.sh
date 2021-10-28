@@ -100,8 +100,11 @@ _scribble_pdf() {
 
 _scribble_markdown() {
 	export current_scriptedIllustrator_markup_markdown='true'
+	export current_markup_html_fold=76
 	_scribble_html "$@"
 	export current_scriptedIllustrator_markup_markdown=""
+	export current_markup_html_fold=
+	unset current_markup_html_fold
 	
 	export current_scriptedIllustrator_markup=
 	unset current_scriptedIllustrator_markup

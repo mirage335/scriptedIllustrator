@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2932659591'
+export ub_setScriptChecksum_contents='3748216754'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12212,8 +12212,11 @@ _scribble_pdf() {
 
 _scribble_markdown() {
 	export current_scriptedIllustrator_markup_markdown='true'
+	export current_markup_html_fold=76
 	_scribble_html "$@"
 	export current_scriptedIllustrator_markup_markdown=""
+	export current_markup_html_fold=
+	unset current_markup_html_fold
 	
 	export current_scriptedIllustrator_markup=
 	unset current_scriptedIllustrator_markup
@@ -12692,9 +12695,14 @@ _set_markup_html() {
 
 _set_strings_markup_html() {
 	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
-	#export markup_html_fold=156
-	#export markup_html_fold=93
-	#export markup_html_fold=76
+	export markup_html_fold="$current_markup_html_fold"
+	if [[ "$markup_html_fold" == "" ]]
+	then
+		true
+		#export markup_html_fold=156
+		#export markup_html_fold=93
+		#export markup_html_fold=76
+	fi
 	
 	
 	export comment_html_begin='<!--'
@@ -13567,9 +13575,14 @@ _set_markup_mediawiki() {
 
 _set_strings_markup_mediawiki() {
 	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
-	#export markup_mediawiki_fold=156
-	#export markup_mediawiki_fold=93
-	#export markup_mediawiki_fold=76
+	export markup_mediawiki_fold="$current_markup_mediawiki_fold"
+	if [[ "$markup_mediawiki_fold" == "" ]]
+	then
+		true
+		#export markup_mediawiki_fold=156
+		#export markup_mediawiki_fold=93
+		#export markup_mediawiki_fold=76
+	fi
 	
 	
 	export comment_mediawiki_begin='<!--'
@@ -14545,9 +14558,14 @@ _set_markup_asciidoc() {
 
 _set_strings_markup_asciidoc() {
 	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
-	#export markup_asciidoc_fold=156
-	#export markup_asciidoc_fold=93
-	#export markup_asciidoc_fold=76
+	export markup_asciidoc_fold="$current_markup_asciidoc_fold"
+	if [[ "$markup_asciidoc_fold" == "" ]]
+	then
+		true
+		#export markup_asciidoc_fold=156
+		#export markup_asciidoc_fold=93
+		#export markup_asciidoc_fold=76
+	fi
 	
 	
 	export comment_asciidoc_begin='

@@ -187,9 +187,14 @@ _set_markup_html() {
 
 _set_strings_markup_html() {
 	# WARNING: Inaccurate. Will 'fold' any markup (such as from _messagePlain_probe and similar) as well as visible text.
-	#export markup_html_fold=156
-	#export markup_html_fold=93
-	#export markup_html_fold=76
+	export markup_html_fold="$current_markup_html_fold"
+	if [[ "$markup_html_fold" == "" ]]
+	then
+		true
+		#export markup_html_fold=156
+		#export markup_html_fold=93
+		#export markup_html_fold=76
+	fi
 	
 	
 	export comment_html_begin='<!--'
