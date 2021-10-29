@@ -486,7 +486,7 @@ fi
 if false; then true; # -->
 <!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 <!-- # --><span style="color:#1818b2;background-color:#848484;">  '[[ "$noDate" != "true" ]] && date --iso-8601'</span>
-<!-- # --># 2021-10-28
+<!-- # --># 2021-10-29
 <!-- # --></pre>
 <!--
 fi
@@ -1609,7 +1609,9 @@ _default() {
 	_scribble_html "$@"
 	_scribble_pdf "$@"
 	
-	"$scriptAbsoluteFolder"/README.html _test
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation" | sed 's/\.[^.]*$//')
+	"$scriptAbsoluteFolder"/"$currentScriptBasename".html _test
 }
 
 # NOTICE: Overrides ( 'ops.sh' equivalent ).

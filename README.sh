@@ -633,7 +633,9 @@ _default() {
 	_scribble_html "$@"
 	_scribble_pdf "$@"
 	
-	"$scriptAbsoluteFolder"/README.html _test
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation" | sed 's/\.[^.]*$//')
+	"$scriptAbsoluteFolder"/"$currentScriptBasename".html _test
 }
 
 # NOTICE: Overrides ( 'ops.sh' equivalent ).
