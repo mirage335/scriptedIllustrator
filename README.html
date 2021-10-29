@@ -1558,6 +1558,10 @@ unset current_script_path
 # NOTICE: Overrides ( 'ops.sh' equivalent ).
 
 _default() {
+	local current_deleteScriptLocal
+	current_deleteScriptLocal="false"
+	[[ ! -e "$scriptLocal" ]] && current_deleteScriptLocal="true"
+	
 	_scribble_markdown "$@"
 	_scribble_html "$@"
 	_scribble_pdf "$@"
@@ -1565,6 +1569,8 @@ _default() {
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation" | sed 's/\.[^.]*$//')
 	"$scriptAbsoluteFolder"/"$currentScriptBasename".html _test
+	
+	[[ "$current_deleteScriptLocal" == "true" ]] && rmdir "$scriptLocal"
 }
 
 # NOTICE: Overrides ( 'ops.sh' equivalent ).
