@@ -89,6 +89,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _color_begin_request
 	declare -f _color_begin_nominal
 	declare -f _color_begin_probe
+	declare -f _color_begin_probe_noindent
 	declare -f _color_begin_good
 	declare -f _color_begin_warn
 	declare -f _color_begin_bad
@@ -104,6 +105,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _messagePlain_warn
 	declare -f _messagePlain_bad
 	declare -f _messagePlain_probe
+	declare -f _messagePlain_probe_noindent
 	declare -f _messagePlain_probe_cmd
 	declare -f _messagePlain_probe_var
 	declare -f _messagePlain_probe_quoteAddDouble

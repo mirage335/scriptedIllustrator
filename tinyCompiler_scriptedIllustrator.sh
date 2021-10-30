@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2107118878'
+export ub_setScriptChecksum_contents='2401241666'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -2998,6 +2998,12 @@ _color_begin_probe() {
 	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#1818b2;background-color:#848484;"> '
 	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;34m '
 }
+_color_begin_probe_noindent() {
+	#1818b2
+	#848484
+	( [[ "$current_scriptedIllustrator_markup" == "html" ]] || [[ "$current_scriptedIllustrator_markup" == "mediawiki" ]] ) && echo -e -n '<span style="color:#1818b2;background-color:#848484;">'
+	[[ "$current_scriptedIllustrator_markup" == "" ]] && echo -e -n '\E[0;34m'
+}
 _color_begin_good() {
 	#17ae17
 	#848484
@@ -3060,6 +3066,15 @@ _messagePlain_nominal() {
 #"generic/ubiquitousheader.sh"
 _messagePlain_probe() {
 	_color_begin_probe
+	#_color_begin_probe_noindent
+	echo -n "$@"
+	_color_end
+	echo
+	return 0
+}
+_messagePlain_probe_noindent() {
+	#_color_begin_probe
+	_color_begin_probe_noindent
 	echo -n "$@"
 	_color_end
 	echo
@@ -4356,7 +4371,7 @@ _findFunction() {
 	#find ./shortcuts -name '*.sh' -type f -size -10000k -exec grep -n "$@" '{}' /dev/null \;
 	#find . -name '*.sh' -type f -size -10000k -exec grep -n "$@" '{}' /dev/null \;
 	
-	find . -not -path "./_local/*" -name '*.sh' -type f -size -1000k -exec grep -n "$@" '{}' /dev/null \;
+	find . -not -path "./_local/*" -name '*.sh' -type f -size -3000k -exec grep -n "$@" '{}' /dev/null \;
 }
 
 
@@ -11388,6 +11403,11 @@ _package_procedure() {
 	cp -a "$scriptAbsoluteFolder"/README.md "$safeTmp"/package/
 	cp -a "$scriptAbsoluteFolder"/USAGE.html "$safeTmp"/package/
 	
+	cp -a "$scriptAbsoluteFolder"/README.sh "$safeTmp"/package/
+	cp -a "$scriptAbsoluteFolder"/README.html "$safeTmp"/package/
+	cp -a "$scriptAbsoluteFolder"/README.pdf "$safeTmp"/package/
+	cp -a "$scriptAbsoluteFolder"/README.md "$safeTmp"/package/
+	
 	
 	cp -a "$scriptAbsoluteFolder"/_config "$safeTmp"/package/
 	
@@ -11578,6 +11598,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _color_begin_request
 	declare -f _color_begin_nominal
 	declare -f _color_begin_probe
+	declare -f _color_begin_probe_noindent
 	declare -f _color_begin_good
 	declare -f _color_begin_warn
 	declare -f _color_begin_bad
@@ -11593,6 +11614,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _messagePlain_warn
 	declare -f _messagePlain_bad
 	declare -f _messagePlain_probe
+	declare -f _messagePlain_probe_noindent
 	declare -f _messagePlain_probe_cmd
 	declare -f _messagePlain_probe_var
 	declare -f _messagePlain_probe_quoteAddDouble
