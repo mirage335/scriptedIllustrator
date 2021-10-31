@@ -32,6 +32,9 @@ _test_prog() {
 	! _wantGetDep 'asciidoc' && echo 'missing: asciidoc'
 	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
 	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
+	
+	
+	! _wantGetDep gs && echo 'missing: gs'
 }
 
 
