@@ -93,13 +93,13 @@ _o _messagePlain_probe_noindent './scriptedIllustrator.sh _README
 ./scriptedIllustrator.sh _scribble_html
 ./scriptedIllustrator.html _scribble_html
 
-# By default, &#39'scribble'&#39 all possible markup .
+# By default, &#39;'scribble'&#39; all possible markup .
 ./scriptedIllustrator.sh
 ./scriptedIllustrator.html
 ./scriptedIllustrator.mediawiki.txt'
 _paragraph_end
 _paragraph_begin
-_t '"KWrite" is strongly recommended. Syntax highlighting of &#39# NOTICE&#39 is helpful . Syntax highlighting may be either &#39bash&#39 or markup at any time as desired.'
+_t '"KWrite" is strongly recommended. Syntax highlighting of &#39;# NOTICE&#39; is helpful . Syntax highlighting may be either &#39;bash&#39; or markup at any time as desired.'
 _paragraph_end
 _t '
 
@@ -110,7 +110,7 @@ _heading1 'Design'
 _paragraph_begin
 _t 'Conversion between scripting/markup launguages must not cause any differences, as these will accumulate in practice. MSW/Cygwin compatible.
 
-Automatic &#39_test&#39 function attempts some plausible conversions to ensure unexpected differences do not occur.'
+Automatic &#39;_test&#39; function attempts some plausible conversions to ensure unexpected differences do not occur.'
 _paragraph_end
 _paragraph_begin
 _o _messagePlain_probe_noindent './scriptedIllustrator.sh _test
@@ -138,10 +138,10 @@ _heading1 'Reference'
 _paragraph_begin
 _t '
 https://unix.stackexchange.com/questions/533886/is-there-a-command-line-tool-for-converting-html-files-to-pdf
- &#39pandoc&#39
- &#39htmldoc&#39
- &#39html2ps&#39
- &#39phantomjs&#39
+ &#39;pandoc&#39;
+ &#39;htmldoc&#39;
+ &#39;html2ps&#39;
+ &#39;phantomjs&#39;
 
 
 https://github.com/go-easygen/easygen

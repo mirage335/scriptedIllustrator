@@ -157,7 +157,7 @@ fi
 ./scriptedIllustrator.sh _scribble_html
 ./scriptedIllustrator.html _scribble_html
 
-# By default, &#39scribble&#39 all possible markup .
+# By default, &#39;scribble&#39; all possible markup .
 ./scriptedIllustrator.sh
 ./scriptedIllustrator.html
 ./scriptedIllustrator.mediawiki.txt'
@@ -169,7 +169,7 @@ if false; then true; # -->
 <!-- # -->./scriptedIllustrator.sh _scribble_html
 <!-- # -->./scriptedIllustrator.html _scribble_html
 
-<!-- # --># By default, &#39scribble&#39 all possible markup .
+<!-- # --># By default, &#39;scribble&#39; all possible markup .
 <!-- # -->./scriptedIllustrator.sh
 <!-- # -->./scriptedIllustrator.html
 <!-- # -->./scriptedIllustrator.mediawiki.txt</span>
@@ -188,8 +188,8 @@ if false; then true; # -->
 fi
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
-"KWrite" is strongly recommended. Syntax highlighting of &#39# NOTICE&#39 
-is helpful . Syntax highlighting may be either &#39bash&#39 or markup at 
+"KWrite" is strongly recommended. Syntax highlighting of &#39;# NOTICE&#39; 
+is helpful . Syntax highlighting may be either &#39;bash&#39; or markup at 
 any time as desired.
 <!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -223,7 +223,7 @@ _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">Conversion between scripting/markup launguages must not cause any 
 differences, as these will accumulate in practice. MSW/Cygwin compatible.
 
-Automatic &#39_test&#39 function attempts some plausible conversions to 
+Automatic &#39;_test&#39; function attempts some plausible conversions to 
 ensure unexpected differences do not occur.
 <!-- # --></pre><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
 '
@@ -318,10 +318,10 @@ _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 https://unix.stackexchange.com/questions/533886/is-there-a-command-line-tool
 -for-converting-html-files-to-pdf
- &#39pandoc&#39
- &#39htmldoc&#39
- &#39html2ps&#39
- &#39phantomjs&#39
+ &#39;pandoc&#39;
+ &#39;htmldoc&#39;
+ &#39;html2ps&#39;
+ &#39;phantomjs&#39;
 
 
 https://github.com/go-easygen/easygen
@@ -486,7 +486,7 @@ fi
 if false; then true; # -->
 <!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 <!-- # --><span style="color:#1818b2;background-color:#848484;">  '[[ "$noDate" != "true" ]] && date --iso-8601'</span>
-<!-- # --># 2021-10-30
+<!-- # --># 2021-10-31
 <!-- # --></pre>
 <!--
 fi
