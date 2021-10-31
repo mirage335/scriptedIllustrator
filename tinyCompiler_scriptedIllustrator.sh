@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2401241666'
+export ub_setScriptChecksum_contents='2981861005'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12492,21 +12492,40 @@ _filter__scriptedIllustrator_markup() {
 
 _shellCommentLines() {
 	local currentString
+	
 	while read -r currentString
 	do
 		[ "$currentString" ] && printf '%b' "$comment_shell_line $currentString"
 		echo
 	done
 	
+	#echo -n "$comment_shell_line"' '
+	##LANG=C IFS=
+	#while LANG=C IFS= read -r -d '' -n 1 currentString
+	#do
+		#[ "$currentString" ] && printf '%b' "$currentString"
+		#[[ "$currentString" == $'\n' ]] && echo -n "$comment_shell_line"' '
+	#done
 }
 
 _workaround_shellPrependMarkupLines() {
 	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$workaround_shellPrependMarkupLines""$currentString"
-		echo
-	done
+	
+	#while read -r currentString
+	#do
+		#[ "$currentString" ] && printf '%b' "$workaround_shellPrependMarkupLines""$currentString"
+		#echo
+	#done
+	
+	#echo -n "$workaround_shellPrependMarkupLines"
+	#LANG=C IFS=
+	#while LANG=C IFS= read -r -d '' -n 1 currentString
+	#do
+		#[ "$currentString" ] && printf '%b' "$currentString"
+		#[[ "$currentString" == $'\n' ]] && echo -n "$workaround_shellPrependMarkupLines"
+	#done
+	
+	sed 's/^/'"$workaround_shellPrependMarkupLines"'/g'
 }
 
 

@@ -123,7 +123,7 @@ _cells_speck_begin
 _t 'example'
 _paragraph_begin
 _o _messagePlain_probe 'commands'
-_o _safeEcho_newline '\# with output'
+_o _safeEcho_newline '# with output'
 _paragraph_end
 _cells_speck_end
 _
@@ -133,11 +133,18 @@ _e_ ubiquitous_bash.sh _echo 'a b'
 _paragraph_end
 _e ubiquitous_bash.sh _echo 'a
 b'
-_paragraph_begin
+_paragraph_begin [
+_o _safeEcho_newline 'output
+	tab
+output'
+_paragraph_end ]
+_paragraph_begin [
 _ WARNING: Some 'quoting' may not be preserved .
 _ _o _safeEcho_newline "'"' \ \\  output'"'"
 _o _safeEcho_newline "'"' \ \\  output'"'"
-_paragraph_end
+_o _safeEcho_newline ']
+\#'
+_paragraph_end ]
 _cells_speck_end
 _
 _cells_speck_begin

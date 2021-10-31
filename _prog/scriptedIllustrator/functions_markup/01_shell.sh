@@ -42,21 +42,40 @@ _filter__scriptedIllustrator_markup() {
 
 _shellCommentLines() {
 	local currentString
+	
 	while read -r currentString
 	do
 		[ "$currentString" ] && printf '%b' "$comment_shell_line $currentString"
 		echo
 	done
 	
+	#echo -n "$comment_shell_line"' '
+	##LANG=C IFS=
+	#while LANG=C IFS= read -r -d '' -n 1 currentString
+	#do
+		#[ "$currentString" ] && printf '%b' "$currentString"
+		#[[ "$currentString" == $'\n' ]] && echo -n "$comment_shell_line"' '
+	#done
 }
 
 _workaround_shellPrependMarkupLines() {
 	local currentString
-	while read -r currentString
-	do
-		[ "$currentString" ] && printf '%b' "$workaround_shellPrependMarkupLines""$currentString"
-		echo
-	done
+	
+	#while read -r currentString
+	#do
+		#[ "$currentString" ] && printf '%b' "$workaround_shellPrependMarkupLines""$currentString"
+		#echo
+	#done
+	
+	#echo -n "$workaround_shellPrependMarkupLines"
+	#LANG=C IFS=
+	#while LANG=C IFS= read -r -d '' -n 1 currentString
+	#do
+		#[ "$currentString" ] && printf '%b' "$currentString"
+		#[[ "$currentString" == $'\n' ]] && echo -n "$workaround_shellPrependMarkupLines"
+	#done
+	
+	sed 's/^/'"$workaround_shellPrependMarkupLines"'/g'
 }
 
 

@@ -68,7 +68,7 @@ date --iso-8601
 
 ----
 
-# 2021-10-30
+# 2021-10-31
 
 
 ////
@@ -335,9 +335,9 @@ example
 
 commands
 
- '_o' '_safeEcho_newline' '\# with output'
+ '_o' '_safeEcho_newline' '# with output'
 
-\&#35; with output
+&#35; with output
 
  '_paragraph_end'
 
@@ -382,7 +382,25 @@ b'
 # b
 
 
- '_paragraph_begin'
+ '_paragraph_begin' '['
+
+
+
+
+ '_o' '_safeEcho_newline' 'output
+	tab
+output'
+
+output
+	tab
+output
+
+ '_paragraph_end' ']'
+
+
+
+
+ '_paragraph_begin' '['
 
 
 
@@ -391,9 +409,15 @@ b'
  '_' '_o' '_safeEcho_newline' '' \ \\  output''
  '_o' '_safeEcho_newline' '' \ \\  output''
 
-' \ \  output'
+' \ \\  output'
 
- '_paragraph_end'
+ '_o' '_safeEcho_newline' ']
+\#'
+
+]
+\&#35;
+
+ '_paragraph_end' ']'
 
 
 
