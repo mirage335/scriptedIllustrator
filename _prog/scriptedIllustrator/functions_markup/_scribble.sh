@@ -232,7 +232,7 @@ _scribble_asciidoc() {
 	
 	asciidoc "$currentOutputFile"
 	# https://stackoverflow.com/questions/8323287/how-can-i-use-sed-to-delete-2-lines-after-match-matches
-	sed -i -e '/^Last updated/,+1d' ./scriptedIllustrator.asciidoc.html
+	sed -i -e '/^Last updated/,+1d' "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html
 	
 	wkhtmltopdf --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
 	
