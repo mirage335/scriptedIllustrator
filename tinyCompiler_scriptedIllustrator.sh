@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2981861005'
+export ub_setScriptChecksum_contents='1246444480'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12222,6 +12222,7 @@ _scribble_pdf() {
 	_scribble_html_presentation "$currentOutputFile".html
 	
 	rm -f "$currentOutputFile" > /dev/null 2>&1
+	#--zoom 1.0 --enable-javascript --javascript-delay 750 --enable-local-file-access --disable-plugins --disable-smart-shrinking
 	#wkhtmltopdf --page-size A4 "$currentOutputFile".html "$currentOutputFile".a4.pdf
 	#wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile".letter.pdf
 	wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile"
@@ -13097,7 +13098,15 @@ _page-html() {
 	
 	echo "$interpret__html_NOT_shell__begin"
 	
-	_safeEcho_newline '<div style="page-break-before: always;"> </div>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '<div style="page-break-before: always;margin: 0;padding: 0; border-width: 0px;"> </div>' | _workaround_shellPrependMarkupLines
+	
+	#_safeEcho_newline '<p style="page-break-after: always;">&nbsp;</p>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<p style="page-break-before: always;">&nbsp;</p>' | _workaround_shellPrependMarkupLines
+	
+	#_safeEcho_newline '<p style="page-break-after: always;">&nbsp;</p><p style="page-break-before: always;">&nbsp;</p>' | _workaround_shellPrependMarkupLines
+	
+	#_safeEcho_newline '<div style="page-break-after: always;"> </div>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<div></div>' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }
@@ -13110,6 +13119,7 @@ _paragraph_begin-html() {
 	echo "$interpret__html_NOT_shell__begin"
 	
 	_safeEcho_newline '<p>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<p style="margin: 0;padding: 0; border-width: 0px;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }

@@ -61,24 +61,19 @@ _document_main() {
 
 
 '
- '_heading1' 'document - heading1'
-if false; then true; # -->
-<!-- # --><h1>document - heading1</h1>
-<!--
-fi
  '_o' '_messageNormal' 'demo: self-modifying interleaved markup and shell'
 if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # --><span style="color:&#35;54ff54;background-color:&#35;18b2b2;"> demo: self-modifying interleaved markup and shell</span><!-- # --></p>
 <!--
 fi
+ '_heading1' 'document - heading1'
+if false; then true; # -->
+<!-- # --><h1>document - heading1</h1>
+<!--
+fi
  '_heading2' 'date - heading2'
 if false; then true; # -->
 <!-- # --><h2>date - heading2</h2>
-<!--
-fi
- '_paragraph_begin'
-if false; then true; # -->
-<!-- # --><p>
 <!--
 fi
  '_o' '_messagePlain_request' 'request: date --iso-8601=ns'
@@ -95,11 +90,6 @@ fi
 if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'[[ "$noDate" != "true" ]] && date --iso-8601'</nowiki>
 <!-- # --></span><!-- # --><nowiki>#</nowiki> 2021-10-31
-<!-- # --></p>
-<!--
-fi
- '_paragraph_end'
-if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
@@ -130,11 +120,6 @@ if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
- '_paragraph_begin'
-if false; then true; # -->
-<!-- # --><p>
-<!--
-fi
  '_' 'Recommend' ' $(_uid)_12345678.123 ' 'or' 'similar' 'filename.' 'Uniqueness' 'and' 'absence' 'of' 'subdirectories' 'may' 'be' 'desirable.'
  '_' 'Citation' 'of' 'external' 'source,' 'specification' 'of' 'copyright' 'license,' 'may' 'be' 'desirable' 'to' 'add' 'as' 'a' 'comment' 'or' 'visible' 'text.'
  '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '150px'
@@ -142,19 +127,9 @@ if false; then true; # -->
 [[File:zImage_cabling_2020-11-19-03-19-082.jpg|150px]]
 <!--
 fi
- '_paragraph_end'
-if false; then true; # -->
-<!-- # --></p>
-<!--
-fi
  '_heading2' 'equations and commands - heading2'
 if false; then true; # -->
 <!-- # --><h2>equations and commands - heading2</h2>
-<!--
-fi
- '_paragraph_begin'
-if false; then true; # -->
-<!-- # --><p>
 <!--
 fi
  '_e_' 'currentBitsPerSecond=9600'
@@ -198,11 +173,10 @@ if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
- '_paragraph_end'
-if false; then true; # -->
-<!-- # --></p>
-<!--
-fi
+_t '
+scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"> 
+</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
+'
  '_'
  '_'
  '_' 'complicated' 'tables' 'may' 'cause' 'problems' 'for' 'some' 'markup'
@@ -333,7 +307,7 @@ if false; then true; # -->
 <!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
- '_paragraph_begin'
+ '_paragraph_begin' '['
 if false; then true; # -->
 <!-- # --><p>
 <!--
@@ -342,11 +316,6 @@ fi
 if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'ubiquitous_bash.sh' '_echo' 'a b'</nowiki>
 <!-- # --></span><!-- # --><nowiki>#</nowiki> a b
-<!-- # --></p>
-<!--
-fi
- '_paragraph_end'
-if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
@@ -360,9 +329,9 @@ if false; then true; # -->
 <!-- # --></p>
 <!--
 fi
- '_paragraph_begin' '['
+ '_paragraph_end' ']'
 if false; then true; # -->
-<!-- # --><p>
+<!-- # --></p>
 <!--
 fi
  '_o' '_safeEcho_newline' 'output
@@ -372,16 +341,6 @@ if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->output
 <!-- # -->	tab
 <!-- # -->output<!-- # --></p>
-<!--
-fi
- '_paragraph_end' ']'
-if false; then true; # -->
-<!-- # --></p>
-<!--
-fi
- '_paragraph_begin' '['
-if false; then true; # -->
-<!-- # --><p>
 <!--
 fi
  '_' 'WARNING:' 'Some' 'quoting' 'may' 'not' 'be' 'preserved' '.'
@@ -396,11 +355,6 @@ fi
 if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- # -->]
 <!-- # -->\&#35;<!-- # --></p>
-<!--
-fi
- '_paragraph_end' ']'
-if false; then true; # -->
-<!-- # --></p>
 <!--
 fi
  '_cells_speck_end'
@@ -560,11 +514,6 @@ if false; then true; # -->
 <!-- # --><p>
 <!--
 fi
-_t '
-scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreak
-mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"> preformatted text at paragraph_begin
-</pre><!-- # --></p><!-- scriptedIllustrator_markup_uk4uPhB663kVcygT0q
-'
 _t '
 scriptedIllustrator_markup_uk4uPhB663kVcygT0q --><!-- # --><p style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><!-- mediawiki_noLineBreakmediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 
@@ -1068,10 +1017,10 @@ echo -e '\n\n'
 
 #####Functions. Some may be from 'ubiquitous bash' .
 #_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
-current_internal_CompressedFunctions_bytes='11204'
-current_internal_CompressedFunctions_cksum='1028222074'
+current_internal_CompressedFunctions_bytes='11236'
+current_internal_CompressedFunctions_cksum='1609716532'
 current_internal_CompressedFunctions='
-/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4YpiIFxdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
+/Td6WFoAAATm1rRGAgAhARwAAAAQz1jM4YqKIHJdAC+ciKYksL89qRi90TdMvSwSEM6J8ipM2rR/Iqc/oYbShD5P+hKgz3ONSu7BhrUf8OSN4oZ8BL1e7m0JQ33pEQs007VTHA7nLczyIuWiilZSo+0zB132
 DrV189uAlZ6oqD3MK7bjrSmuGreEaBOC+z5QkGUPIDVaXfJmDg73/A1Y9JqRKxtli7ZDurfX2t/Z3m6RV6ku3LwPHl2qt8/kbWEubRkY3Fl2VTTFWjQ8Z9qfpBK4YyV7fw3X3hcUmN6Fz+u2P8eCSl/fCnNX
 HtvGeiwoJbZ3wje2iPvqVhHoy0BMVkEDcSqWo+znkV0BwqE45qLsZQ9IGG1CzglgciwcOU2fdsqKBFC5XA3WYFGg6uZ2q4mvn5jWR+FbeUz7YjupLAvLl7DE+daOBWzzyYeFrcMhDk1QeqOKpv41V0GTTqAm
 Z7lRbPrhk3oRY/kBiQGZSfRuxTSmIc1zevrFy6JWcZkCJayU/wQ+XEKdvF51XHH+OYrSuhIxvk6G+Ce0sbTr3GBfVRQYdRpxeOs48xNaEfmBf6GZcWUMx5L3LA4cup19vL4O75JjKbnlJeYdoRCjtcPE7A8S
@@ -1122,27 +1071,27 @@ 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
-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'
+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'
 ! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes

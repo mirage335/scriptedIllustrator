@@ -541,7 +541,15 @@ _page-html() {
 	
 	echo "$interpret__html_NOT_shell__begin"
 	
-	_safeEcho_newline '<div style="page-break-before: always;"> </div>' | _workaround_shellPrependMarkupLines
+	_safeEcho_newline '<div style="page-break-before: always;margin: 0;padding: 0; border-width: 0px;"> </div>' | _workaround_shellPrependMarkupLines
+	
+	#_safeEcho_newline '<p style="page-break-after: always;">&nbsp;</p>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<p style="page-break-before: always;">&nbsp;</p>' | _workaround_shellPrependMarkupLines
+	
+	#_safeEcho_newline '<p style="page-break-after: always;">&nbsp;</p><p style="page-break-before: always;">&nbsp;</p>' | _workaround_shellPrependMarkupLines
+	
+	#_safeEcho_newline '<div style="page-break-after: always;"> </div>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<div></div>' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }
@@ -554,6 +562,7 @@ _paragraph_begin-html() {
 	echo "$interpret__html_NOT_shell__begin"
 	
 	_safeEcho_newline '<p>' | _workaround_shellPrependMarkupLines
+	#_safeEcho_newline '<p style="margin: 0;padding: 0; border-width: 0px;">' | _workaround_shellPrependMarkupLines
 	
 	echo "$interpret__html_NOT_shell__end"
 }

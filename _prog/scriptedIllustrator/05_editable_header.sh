@@ -58,14 +58,12 @@ _ '
 
 
 '
-_heading1 'document - heading1'
 _o _messageNormal 'demo: self-modifying interleaved markup and shell'
+_heading1 'document - heading1'
 _heading2 'date - heading2'
-_paragraph_begin
 _o _messagePlain_request "request: date --iso-8601=ns"
 _o _messagePlain_probe date --iso-8601
 _e_ '[[ "$noDate" != "true" ]] && date --iso-8601'
-_paragraph_end
 _heading2 'images - heading2'
 _paragraph_begin
 _t 'preformatted text within paragraph'
@@ -73,13 +71,10 @@ _ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence
 _ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _picture "zPicture_BusinessCard_mirage335_wood.png" 100px
 _paragraph_end
-_paragraph_begin
 _ Recommend ' $(_uid)_12345678.123 ' or similar filename. Uniqueness and absence of subdirectories may be desirable.
 _ Citation of external source, specification of copyright license, may be desirable to add as a comment or visible text.
 _image "zImage_cabling_2020-11-19-03-19-082.jpg" 150px
-_paragraph_end
 _heading2 'equations and commands - heading2'
-_paragraph_begin
 _e_ currentBitsPerSecond=9600
 _e_ currentBonesPerPlayer=4
 _i currentIncrementFramesPerSecond=15
@@ -93,7 +88,7 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 # # solve(9600 = (("currentPlayers" * 4 * 30 * 2 * 8) + ("currentPlayers" * 4 * 3 * 33 * 8)), "currentPlayers") =
 # # 5.5555556'
 _e_ solve '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"'
-_paragraph_end
+_t ' '
 _
 _
 _ complicated tables may cause problems for some markup
@@ -128,23 +123,19 @@ _paragraph_end
 _cells_speck_end
 _
 _cells_speck_begin
-_paragraph_begin
+_paragraph_begin [
 _e_ ubiquitous_bash.sh _echo 'a b'
-_paragraph_end
 _e ubiquitous_bash.sh _echo 'a
 b'
-_paragraph_begin [
+_paragraph_end ]
 _o _safeEcho_newline 'output
 	tab
 output'
-_paragraph_end ]
-_paragraph_begin [
 _ WARNING: Some 'quoting' may not be preserved .
 _ _o _safeEcho_newline "'"' \ \\  output'"'"
 _o _safeEcho_newline "'"' \ \\  output'"'"
 _o _safeEcho_newline ']
 \#'
-_paragraph_end ]
 _cells_speck_end
 _
 _cells_speck_begin
@@ -182,7 +173,6 @@ _markup_asciidoc_disable_end
 _
 _heading2 'breaks - heading2'
 _paragraph_begin
-_t ' preformatted text at paragraph_begin'
 _t '
 
 '

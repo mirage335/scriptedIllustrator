@@ -88,6 +88,7 @@ _scribble_pdf() {
 	_scribble_html_presentation "$currentOutputFile".html
 	
 	rm -f "$currentOutputFile" > /dev/null 2>&1
+	#--zoom 1.0 --enable-javascript --javascript-delay 750 --enable-local-file-access --disable-plugins --disable-smart-shrinking
 	#wkhtmltopdf --page-size A4 "$currentOutputFile".html "$currentOutputFile".a4.pdf
 	#wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile".letter.pdf
 	wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile"
