@@ -89,7 +89,7 @@ fi
  '_e_' '[[ "$noDate" != "true" ]] && date --iso-8601'
 if false; then true; # -->
 <!-- # --><p style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;"><span style="color:#1818b2;background-color:#848484;"> <!-- # --><nowiki>'[[ "$noDate" != "true" ]] && date --iso-8601'</nowiki>
-<!-- # --></span><!-- # --><nowiki>#</nowiki> 2021-10-31
+<!-- # --></span><!-- # --><nowiki>#</nowiki> 2021-11-01
 <!-- # --></p>
 <!--
 fi
