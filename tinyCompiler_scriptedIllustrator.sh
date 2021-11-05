@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='214933682'
+export ub_setScriptChecksum_contents='1146068254'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -149,11 +149,22 @@ _messagePlain_bad() {
 #"--profile"
 #"--parent", "--embed", "--return", "--devenv"
 #"--call", "--script" "--bypass"
-
+#if [[ "$ub_import" != "" ]]
+#then
+	#[[ "$ub_import" != "" ]] && export ub_import="" && unset ub_import
+	
+	#[[ "$importScriptLocation" != "" ]] && export importScriptLocation= && unset importScriptLocation
+	#[[ "$importScriptFolder" != "" ]] && export importScriptFolder= && unset importScriptFolder
+#fi
+#[[ "$ub_import" != "" ]] && export ub_import="" && unset ub_import
+#[[ "$ub_import_param" != "" ]] && export ub_import_param="" && unset ub_import_param
+#[[ "$ub_import_script" != "" ]] && export ub_import_script="" && unset ub_import_script
+#[[ "$ub_loginshell" != "" ]] && export ub_loginshell="" && unset ub_loginshell
 ub_import=
 ub_import_param=
 ub_import_script=
 ub_loginshell=
+
 
 # ATTENTION: Apparently (Portable) Cygwin Bash interprets correctly.
 [[ "${BASH_SOURCE[0]}" != "${0}" ]] && ub_import="true"
@@ -3827,7 +3838,7 @@ _findPort() {
 	lower_port="$1"
 	upper_port="$2"
 	
-	#Non public ports are between 49152-65535 (2^15 + 2^14 to 2^16 − 1).
+	#Non public ports are between 49152-65535 (2^15 + 2^14 to 2^16 - 1).
 	#Convention is to assign ports 55000-65499 and 50025-53999 to specialized servers.
 	#read lower_port upper_port < /proc/sys/net/ipv4/ip_local_port_range
 	[[ "$lower_port" == "" ]] && lower_port=54000
@@ -5445,6 +5456,7 @@ _installUbiquitous() {
 		local ub_gitPullStatus
 		git pull
 		ub_gitPullStatus="$?"
+		[[ "$ub_gitPullStatus" != 0 ]] && git pull && ub_gitPullStatus="$?"
 		! cd "$localFunctionEntryPWD" && return 1
 		
 		[[ "$ub_gitPullStatus" == "0" ]] && _messagePlain_good 'pass: git pull' && cd "$localFunctionEntryPWD" && return 0
@@ -5453,8 +5465,34 @@ _installUbiquitous() {
 	
 	cd "$ubcoreDir"
 	_messagePlain_nominal 'attempt: git clone'
-	[[ "$nonet" != "true" ]] && type git > /dev/null 2>&1 && [[ ! -e ".git" ]] && _gitClone_ubiquitous && _messagePlain_good 'pass: git clone' && return 0
+	[[ "$nonet" != "true" ]] && type git > /dev/null 2>&1 && [[ ! -e ".git" ]] && [[ ! -e "$ubcoreUBdir"/.git ]] && _gitClone_ubiquitous && _messagePlain_good 'pass: git clone' && return 0
+	[[ "$nonet" != "true" ]] && type git > /dev/null 2>&1 && [[ ! -e ".git" ]] && [[ ! -e "$ubcoreUBdir"/.git ]] && _gitClone_ubiquitous && _messagePlain_good 'pass: git clone' && return 0
 	_messagePlain_warn 'fail: git clone'
+	
+	cd "$ubcoreUBdir"
+	_messagePlain_nominal 'attempt: self git pull'
+	# WARNING: Not attempted if 'nonet' has been set 'true', due to possible conflicts with scripts intending only to copy one file (ie. by SSH transfer).
+	if [[ "$nonet" != "true" ]] && type git > /dev/null 2>&1 && [[ -e "$scriptAbsoluteFolder"/.git ]] && [[ -e "$scriptAbsoluteFolder"/.git ]]
+	then
+		
+		local ub_gitPullStatus
+		#git reset --hard
+		[[ -e "$scriptAbsoluteFolder"/lean.sh ]] && rm -f "$ubcoreUBdir"/lean.sh > /dev/null 2>&1
+		[[ -e "$scriptAbsoluteFolder"/ubcore.sh ]] && rm -f "$ubcoreUBdir"/ubcore.sh > /dev/null 2>&1
+		[[ -e "$scriptAbsoluteFolder"/ubiquitous_bash.sh ]] && rm -f "$ubcoreUBdir"/ubiquitous_bash.sh > /dev/null 2>&1
+		[[ -e "$scriptAbsoluteFolder"/lean_compressed.sh ]] && rm -f "$ubcoreUBdir"/lean_compressed.sh > /dev/null 2>&1
+		[[ -e "$scriptAbsoluteFolder"/core_compressed.sh ]] && rm -f "$ubcoreUBdir"/core_compressed.sh > /dev/null 2>&1
+		[[ -e "$scriptAbsoluteFolder"/ubcore_compressed.sh ]] && rm -f "$ubcoreUBdir"/ubcore_compressed.sh > /dev/null 2>&1
+		[[ -e "$scriptAbsoluteFolder"/ubiquitous_bash_compressed.sh ]] && rm -f "$ubcoreUBdir"/ubiquitous_bash_compressed.sh > /dev/null 2>&1
+		[[ -e "$scriptAbsoluteFolder"/lean.py ]] && rm -f "$ubcoreUBdir"/lean.py > /dev/null 2>&1
+		git reset --hard
+		git pull "$scriptAbsoluteFolder"
+		ub_gitPullStatus="$?"
+		! cd "$localFunctionEntryPWD" && return 1
+		
+		[[ "$ub_gitPullStatus" == "0" ]] && _messagePlain_good 'pass: self git pull' && cd "$localFunctionEntryPWD" && return 0
+	fi
+	_messagePlain_warn 'fail: self git pull'
 	
 	cd "$ubcoreDir"
 	_messagePlain_nominal 'attempt: self clone'
@@ -7139,7 +7177,7 @@ _page_write() {
 	
 	# https://stackoverflow.com/questions/13889659/read-a-file-by-bytes-in-bash
 	# https://www.cyberciti.biz/faq/linux-unix-read-one-character-atatime-while-loop/
-		# 'The way using `read -r -n1` for reading every character is wrong, it can’t handle multi-byte characters.'
+		# 'The way using `read -r -n1` for reading every character is wrong, it can't handle multi-byte characters.'
 	#echo test | while IFS= read -r -n2 car;do [ "$car" ] && echo -n "$car" || echo ; sleep 1 ; done
 	
 	# Inaccurate. Tests with random data ('/dev/urandom') seem to show errors.
@@ -10455,12 +10493,15 @@ _test_embed_sequence() {
 	#echo $ub_import_param
 	
 	# CAUTION: Profoundly unexpected to have called '_test' or similar functions after importing into a current shell in any way.
-	[[ "$ub_import" == 'true' ]] && return 1
-	[[ "$ub_import" != '' ]] && return 1
-	[[ "$ub_import_param" != '' ]] && return 1
-	
+	if ( [[ "$current_internal_CompressedScript" == "" ]] && [[ "$current_internal_CompressedScript" == "" ]] && [[ "$current_internal_CompressedScript_bytes" == "" ]] ) || ( ( [[ "$ub_import_param" != "--embed" ]] ) && [[ "$ub_import_param" != "--bypass" ]] && [[ "$ub_import_param" != "--call" ]] )
+	then
+		[[ "$ub_import" == 'true' ]] && _messageFAIL && _stop 1
+		[[ "$ub_import" != '' ]] && _messageFAIL && _stop 1
+		[[ "$ub_import_param" != '' ]] && _messageFAIL && _stop 1
+	fi
 	
 	! "$safeTmp"/.embed.sh _true && _stop 1
+	
 	"$safeTmp"/.embed.sh _false && _stop 1
 	
 	
@@ -10642,9 +10683,12 @@ _test_sanity() {
 	"$scriptAbsoluteLocation" _false && _messageFAIL && return 1
 	
 	# CAUTION: Profoundly unexpected to have called '_test' or similar functions after importing into a current shell in any way.
-	[[ "$ub_import" == 'true' ]] && _messageFAIL && _stop 1
-	[[ "$ub_import" != '' ]] && _messageFAIL && _stop 1
-	[[ "$ub_import_param" != '' ]] && _messageFAIL && _stop 1
+	if ( [[ "$current_internal_CompressedScript" == "" ]] && [[ "$current_internal_CompressedScript" == "" ]] && [[ "$current_internal_CompressedScript_bytes" == "" ]] ) || ( ( [[ "$ub_import_param" != "--embed" ]] ) && [[ "$ub_import_param" != "--bypass" ]] && [[ "$ub_import_param" != "--call" ]] )
+	then
+		[[ "$ub_import" == 'true' ]] && _messageFAIL && _stop 1
+		[[ "$ub_import" != '' ]] && _messageFAIL && _stop 1
+		[[ "$ub_import_param" != '' ]] && _messageFAIL && _stop 1
+	fi
 	
 	local santiySessionID_length
 	santiySessionID_length=$(echo -n "$sessionid" | wc -c | tr -dc '0-9')
@@ -10953,6 +10997,7 @@ _test() {
 	
 	_getDep bc
 	_getDep xxd
+	_getDep od
 	
 	_getDep yes
 	
@@ -16705,10 +16750,20 @@ _generate_compile_bash() {
 	"$scriptAbsoluteFolder"/compile.sh _compile_bash
 	
 	[[ "$objectName" == "ubiquitous_bash" ]] && "$scriptAbsoluteFolder"/compile.sh _compile_bash lean lean.sh
-	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-lean_compressed
+	[[ "$objectName" == "ubiquitous_bash" ]] && "$scriptAbsoluteFolder"/compile.sh _compile_bash core core_monolithic.sh
 	[[ "$objectName" == "ubiquitous_bash" ]] && "$scriptAbsoluteFolder"/compile.sh _compile_bash ubcore ubcore.sh
 	
 	[[ "$1" != "" ]] && "$scriptAbsoluteFolder"/compile.sh _compile_bash "$@"
+	
+	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-compressed_procedure lean
+	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-compressed_procedure ubcore
+	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-compressed_procedure core_monolithic
+	rm -f "$scriptAbsoluteFolder"/core_monolithic.sh
+	#mv "$scriptAbsoluteFolder"/core_monolithic_compressed.sh "$scriptAbsoluteFolder"/core_compressed.sh
+	
+	
+	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-compressed_procedure ubiquitous_bash
+	
 	
 	_generate_compile_bash_prog
 	
@@ -16729,9 +16784,25 @@ _generate_compile_bash() {
 
 
 
-
-_generate_compile_bash-lean_compressed() {
-	echo "#!/usr/bin/env bash" > "$scriptAbsoluteFolder"/lean_compressed.sh
+_generate_compile_bash-compressed_procedure() {
+	# If a "base85"/"ascii85" implementation were widely available at all possibly relevant 'environments', then compressed scripts could possibly be ~5% smaller.
+	# WARNING: Do NOT attempt 'yEnc', apparently NOT 'utf8' text editor compatible.
+	# https://en.wikipedia.org/wiki/Ascii85
+	# https://en.wikipedia.org/wiki/Binary-to-text_encoding
+	# https://sites.google.com/site/dannychouinard/Home/unix-linux-trinkets/little-utilities/base64-and-base85-encoding-awk-scripts
+	#  'if you plan on running these on Solaris, use the /usr/xpg4/bin versions of awk'
+	#  https://sites.google.com/site/dannychouinard/Home
+	#   'Everything is open source, either public domain or GPL V2.'
+	#  Experiments may have found input character corruption apparently with few but significant binary symbols.
+	# https://metacpan.org/pod/Math::Base85
+	# https://stackoverflow.com/questions/51821351/how-do-i-use-m-flag-to-load-a-perl-module-using-its-relative-path-from-command
+	#uudeview
+	#local current_textBinaryEncoder
+	#current_textBinaryEncoder=""
+	#current_textBinaryEncoder="$2"
+	#sed -i 'N;s/\n//'
+	
+	echo "#!/usr/bin/env bash" > "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
 	_compressed_criticalDep() {
 		! _getAbsolute_criticalDep && exit 1
@@ -16753,7 +16824,7 @@ _generate_compile_bash-lean_compressed() {
 		return 0
 	}
 	
-	_compress_lean_declare_headerFunctions() {
+	_compress_declare_headerFunctions() {
 	declare -f _realpath_L
 	declare -f _realpath_L_s
 	declare -f _cygwin_translation_rootFileParameter
@@ -16767,31 +16838,45 @@ _generate_compile_bash-lean_compressed() {
 	
 	
 	#local current_internal_compressedScript_headerFunctions
-	current_internal_compressedScript_headerFunctions=$(_compress_lean_declare_headerFunctions | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
+	current_internal_compressedScript_headerFunctions=$(_compress_declare_headerFunctions | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
 	
 	
 	
+	# Comment filter seems to greatly improve compressibility, possibly due to comments being much less compressible than code.
+	# WARNING: Comment filter may incorrectly remove comments within here documents, as with '#!/bin/dash' from '_here_header_bash_or_dash()' . Interleaved code using different comment characters (eg. 'batch' files interpretable as 'bash', 'scriptedIllustrator', etc) will fail. Diagnostic/debugging/etc comments may also be removed.
+	# https://unix.stackexchange.com/questions/157328/how-can-i-remove-all-comments-from-a-file
+	#grep -o '^[^#]*'
+	#sed '/^[[:blank:]]*#/d;s/#.*//''
+	#shfmt -mn foo.sh
+	# https://stackoverflow.com/questions/3349156/general-utility-to-remove-strip-all-comments-from-source-code-in-various-languag
+	#cloc --strip-comments=small
+	#--use-sloccount
+	#grep -v '^'"[[:space:]]"'#'
+	#grep -v '^#' | grep -v '^'"[[:space:]]"'#'
+	#grep -v '^#[^!]' | grep -v '^'"[[:space:]]"'#[^!]'
 	
+	local current_internal_CompressedScript
+	#current_internal_CompressedScript=$(cat "$scriptAbsoluteFolder"/"$1".sh | grep -v '^_main "$@"$' | sed 's/^_main "$@"$//' | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
 	
-	#local current_internal_CompressedScript
-	current_internal_CompressedScript=$(cat "$scriptAbsoluteFolder"/lean.sh | grep -v '^_main "$@"$' | sed 's/^_main "$@"$//' | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
+	current_internal_CompressedScript=$(cat "$scriptAbsoluteFolder"/"$1".sh | grep -v '^_main "$@"$' | sed 's/^_main "$@"$//' | grep -v '^#[^!]' | grep -v '^'"[[:space:]]"'#[^!]' | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
+	
 	#local current_internal_CompressedScript_cksum
 	current_internal_CompressedScript_cksum=$(echo "$current_internal_CompressedScript" | env CMD_ENV=xpg4 cksum | cut -f1 -d\  | tr -dc '0-9')
 	#local current_internal_CompressedScript_bytes
 	current_internal_CompressedScript_bytes=$(echo "$current_internal_CompressedScript" | wc -c | tr -dc '0-9')
 	
-	echo '#_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'export ub_setScriptChecksum_disable="true"' >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo '#_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo 'export ub_setScriptChecksum_disable="true"' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
-	echo 'current_internal_CompressedScript_bytes='\'"$current_internal_CompressedScript_bytes"\' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'current_internal_CompressedScript_cksum='\'"$current_internal_CompressedScript_cksum"\' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'current_internal_CompressedScript='\' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo "$current_internal_CompressedScript"\' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'current_internal_compressedScript_headerFunctions='\' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo "$current_internal_compressedScript_headerFunctions"\' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo '! echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d > /dev/null && exit 1' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'source <(echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d)' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo 'current_internal_CompressedScript_bytes='\'"$current_internal_CompressedScript_bytes"\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo 'current_internal_CompressedScript_cksum='\'"$current_internal_CompressedScript_cksum"\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo 'current_internal_CompressedScript='\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo "$current_internal_CompressedScript"\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo 'current_internal_compressedScript_headerFunctions='\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo "$current_internal_compressedScript_headerFunctions"\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo '! echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d > /dev/null && exit 1' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo 'source <(echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d)' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 export importScriptLocation=$(_getScriptAbsoluteLocation)
 export importScriptFolder=$(_getScriptAbsoluteFolder)
 ! type readlink > /dev/null 2>&1 && exit 1;
@@ -16803,61 +16888,73 @@ export importScriptFolder=$(_getScriptAbsoluteFolder)
 ! _getAbsolute_criticalDep && exit 1
 CZXWXcRMTo8EmM8i4d
 	
-	echo '! _compressed_criticalDep && exit 1' >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo '! _compressed_criticalDep && exit 1' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
-	echo '! echo "$current_internal_CompressedScript" | base64 -d | xz -d > /dev/null && exit 1' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	#echo 'source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) --call' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) --bypass "$@"' >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo '! echo "$current_internal_CompressedScript" | base64 -d | xz -d > /dev/null && exit 1' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	#echo 'source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) --call' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	#echo 'source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) --bypass "$@"' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+if [[ "$1" == "--embed" ]]
+then
+	source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) "$@"
+	exit "$?"
+elif [[ "$1" == "--profile" ]] || [[ "$1" == "--parent" ]]
+then
+	source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) "$@"
+else
+	source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) --bypass "$@"
+fi
+CZXWXcRMTo8EmM8i4d
 	
-	echo 'unset current_internal_CompressedScript ; unset current_internal_CompressedScript_cksum ; unset current_internal_CompressedScript_bytes' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'export ub_setScriptChecksum_disable=' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo 'unset ub_setScriptChecksum_disable' >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo 'unset current_internal_CompressedScript ; unset current_internal_CompressedScript_cksum ; unset current_internal_CompressedScript_bytes' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo 'export ub_setScriptChecksum_disable=' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo 'unset ub_setScriptChecksum_disable' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
-	echo 'true' >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo 'true' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
-	echo '# https://github.com/mirage335/ubiquitous_bash' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo '#_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript' >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo '# https://github.com/mirage335/ubiquitous_bash' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo '#_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript_uk4uPhB663kVcygT0q_compressedScript' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
 	unset current_internal_CompressedScript ; unset current_internal_CompressedScript_cksum ; unset current_internal_CompressedScript_bytes
 	
 	
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo '#####Entry' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo '# ###' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo '#####Entry' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo '# ###' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
-	echo '[[ "$1" == '"'"_"'"'* ]] && type "$1" > /dev/null 2>&1 && "$@"' >> "$scriptAbsoluteFolder"/lean_compressed.sh
-	echo >> "$scriptAbsoluteFolder"/lean_compressed.sh
+	echo '[[ "$1" == '"'"_"'"'* ]] && type "$1" > /dev/null 2>&1 && "$@"' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
-	chmod u+x "$scriptAbsoluteFolder"/lean_compressed.sh
+	chmod u+x "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
 }
 
@@ -18199,6 +18296,11 @@ _bash() {
 
 #Mostly if not entirely intended for end user convenience.
 _python() {
+	if [[ -e "$safeTmp"/lean.py ]]
+	then
+		"$safeTmp"/lean.py '_python()'
+		return
+	fi
 	if [[ -e "$scriptAbsoluteFolder"/lean.py ]]
 	then
 		"$scriptAbsoluteFolder"/lean.py '_python()'
@@ -18310,8 +18412,12 @@ fi
 #"$scriptAbsoluteLocation" _setup
 
 
+
+
+if [[ "$1" == '_'* ]]
+then
+	"$@"
+	exit "$?"
+fi
 _main "$@"
-
-[[ "$1" == '_'* ]] && type "$1" > /dev/null 2>&1 && "$@"
-
 
