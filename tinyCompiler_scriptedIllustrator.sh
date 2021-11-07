@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='214987307'
+export ub_setScriptChecksum_contents='503929916'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -2388,6 +2388,17 @@ _uid() {
 		cat /dev/urandom 2> /dev/null | base64 2> /dev/null | tr -dc 'a-zA-Z0-9' 2> /dev/null | tr -d 'acdefhilmnopqrsuvACDEFHILMNOPQRSU14580' | head -c "$currentLengthUID" 2> /dev/null
 	fi
 	return 0
+}
+
+# WARNING: Reduces uniqueness, irreversible. Multiple input characters result in same output character.
+_filter_random() {
+	tr 'a-z' 'bgjktwxyz''bgjktwxyz''bgjktwxyz' | tr 'A-Z' 'BGJKTVWXYZ''BGJKTVWXYZ''BGJKTVWXYZ' | tr '0-9' '23679''23679''23679' | tr -dc 'bgjktwxyz23679BGJKTVWXYZ'
+}
+
+# WARNING: Reduces uniqueness, irreversible. Multiple input characters result in same output character.
+# WARNING: Not recommended for short strings (ie. not recommended for '8.3' compatibility ).
+_filter_hex() {
+	tr 'a-z' 'bcdf''bcdf''bcdf''bcdf''bcdf''bcdf''bcdf''bcdf' | tr 'A-Z' 'BCDF''BCDF''BCDF''BCDF''BCDF''BCDF''BCDF''BCDF' | tr '0-9' '23679''23679''23679' | tr -dc 'bcdf23679BCDF'
 }
 
 _compat_stat_c_run() {
@@ -11066,6 +11077,8 @@ _test() {
 	
 	_tryExec "_test_virtLocal_X11"
 	
+	_tryExec "_test_search"
+	
 	_tryExec "_test_packetDriveDevice"
 	_tryExec "_test_gparted"
 	
@@ -16345,6 +16358,7 @@ _init_deps() {
 	export enUb_git=""
 	export enUb_bup=""
 	export enUb_repo=""
+	export enUb_search=""
 	export enUb_cloud=""
 	export enUb_cloud_self=""
 	export enUb_cloud_build=""
@@ -16360,6 +16374,7 @@ _init_deps() {
 	export enUb_blockchain=""
 	export enUb_java=""
 	export enUb_image=""
+	export enUb_disc=""
 	export enUb_virt=""
 	export enUb_virt_thick=""
 	export enUb_virt_translation=""
@@ -16428,6 +16443,17 @@ _deps_bup() {
 
 _deps_repo() {
 	export enUb_repo="true"
+}
+
+_deps_search() {
+	_deps_abstractfs
+	
+	_deps_git
+	_deps_bup
+	
+	_deps_x11
+	
+	export enUb_search="true"
 }
 
 _deps_cloud() {
@@ -16991,6 +17017,7 @@ _test_prog() {
 	true
 }
 _main() {
+	#_start
 	_start scriptLocal_mkdir_disable
 	
 	_collect
@@ -16999,11 +17026,14 @@ _main() {
 	
 	_stop
 }
-current_deleteScriptLocal="false"
-[[ ! -e "$scriptLocal" ]] && current_deleteScriptLocal="true"
-_stop_prog() {
-	[[ "$current_deleteScriptLocal" == "true" ]] && rmdir "$scriptLocal" > /dev/null 2>&1
-}
+if [[ "$1" == '_test' ]]
+then
+	current_deleteScriptLocal="false"
+	[[ ! -e "$scriptLocal" ]] && current_deleteScriptLocal="true"
+	_stop_prog() {
+		[[ "$current_deleteScriptLocal" == "true" ]] && rmdir "$scriptLocal" > /dev/null 2>&1
+	}
+fi
 if [[ "$1" == '_'* ]] && type "$1" > /dev/null 2>&1
 then
 	"$@"
@@ -17087,6 +17117,8 @@ _compile_bash_deps() {
 		_deps_bup
 		
 		_deps_repo
+		
+		_deps_search
 		
 		# WARNING: Only known production use in this context is '_cloud_reset' , '_cloud_unhook' , and similar.
 		_deps_cloud
@@ -17239,6 +17271,8 @@ _compile_bash_deps() {
 		_deps_bup
 		_deps_repo
 		
+		_deps_search
+		
 		#_deps_cloud
 		#_deps_cloud_self
 		#_deps_cloud_build
@@ -17320,6 +17354,8 @@ _compile_bash_deps() {
 		_deps_bup
 		_deps_repo
 		
+		_deps_search
+		
 		#_deps_cloud
 		#_deps_cloud_self
 		#_deps_cloud_build
@@ -17400,6 +17436,8 @@ _compile_bash_deps() {
 		_deps_git
 		_deps_bup
 		_deps_repo
+		
+		_deps_search
 		
 		_deps_cloud
 		_deps_cloud_self
@@ -17687,6 +17725,10 @@ _compile_bash_shortcuts() {
 	
 	( [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_repo" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/repo/mktorrent"/mktorrent.sh )
 	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_dev" == "true" ]] || [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_image" == "true" ]] || [[ "$enUb_repo" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/repo/disk"/dd.sh )
+	
+	
+	( [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_search" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/search"/search.sh )
+	( [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_search" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/search/recoll"/recoll.sh )
 	
 	
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/self/screenScraper"/screenScraper-nix.sh )
