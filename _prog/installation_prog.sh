@@ -28,10 +28,16 @@ _test_prog() {
 	
 	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && return 1
 	
-	
-	! _wantGetDep 'asciidoc' && echo 'missing: asciidoc'
-	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
-	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	local currentScriptFolderBasename
+	currentScriptFolderBasename=$(basename "$scriptAbsoluteFolder")
+	if [[ "$currentScriptBasename" == 'tinyCompiler_scriptedIllustrator.sh' ]] || [[ "$currentScriptBasename" == 'scriptedIllustrator''.'* ]] || [[ "$currentScriptFolderBasename" == 'scriptedIllustrator' ]]
+	then
+		! _wantGetDep 'asciidoc' && echo 'missing: asciidoc'
+		! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
+		! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
+	fi
 	
 	
 	! _wantGetDep gs && echo 'missing: gs'

@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='503929916'
+export ub_setScriptChecksum_contents='2858775691'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -11562,10 +11562,16 @@ _test_prog() {
 	
 	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && return 1
 	
-	
-	! _wantGetDep 'asciidoc' && echo 'missing: asciidoc'
-	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
-	! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	local currentScriptFolderBasename
+	currentScriptFolderBasename=$(basename "$scriptAbsoluteFolder")
+	if [[ "$currentScriptBasename" == 'tinyCompiler_scriptedIllustrator.sh' ]] || [[ "$currentScriptBasename" == 'scriptedIllustrator''.'* ]] || [[ "$currentScriptFolderBasename" == 'scriptedIllustrator' ]]
+	then
+		! _wantGetDep 'asciidoc' && echo 'missing: asciidoc'
+		! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.sty && echo 'missing: asciidoc: dblatex'
+		! _wantGetDep /etc/asciidoc/dblatex/asciidoc-dblatex.xsl && echo 'missing: asciidoc: dblatex'
+	fi
 	
 	
 	! _wantGetDep gs && echo 'missing: gs'
@@ -11636,13 +11642,41 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _tryExecFull
 	
 	
-	declare -f _wantGetDep
-	declare -f _wantDep
+	#declare -f _wantGetDep
+	#declare -f _wantDep
 	declare -f _typeDep
 	declare -f _if_cygwin
-	declare -f _wantSudo
+	#declare -f _wantSudo
 	
 	declare -f _getDep
+	
+	_wantGetDep() {
+		_typeDep "$@"
+	}
+	export -f _wantGetDep
+	declare -f _wantGetDep
+	_wantDep() {
+		_typeDep "$@"
+	}
+	export -f _wantDep
+	declare -f _wantDep
+	_wantSudo() {
+		false
+	}
+	export -f _wantSudo
+	declare -f _wantSudo
+	_getDep() {
+		_typeDep "$@"
+	}
+	export -f _getDep
+	declare -f _getDep
+	
+	# CAUTION: Interleaved markup scripts may not be correctly interpreted as bash when called through 'sudo', among other problems. Apparently, this may occur even if 'bash -c' is called by sudo .
+	sudo() {
+		false
+	}
+	export -f sudo
+	declare -f sudo
 	
 	
 	

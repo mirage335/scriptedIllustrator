@@ -59,13 +59,41 @@ _tinyCompiler_scriptedIllustrator_declareFunctions() {
 	declare -f _tryExecFull
 	
 	
-	declare -f _wantGetDep
-	declare -f _wantDep
+	#declare -f _wantGetDep
+	#declare -f _wantDep
 	declare -f _typeDep
 	declare -f _if_cygwin
-	declare -f _wantSudo
+	#declare -f _wantSudo
 	
 	declare -f _getDep
+	
+	_wantGetDep() {
+		_typeDep "$@"
+	}
+	export -f _wantGetDep
+	declare -f _wantGetDep
+	_wantDep() {
+		_typeDep "$@"
+	}
+	export -f _wantDep
+	declare -f _wantDep
+	_wantSudo() {
+		false
+	}
+	export -f _wantSudo
+	declare -f _wantSudo
+	_getDep() {
+		_typeDep "$@"
+	}
+	export -f _getDep
+	declare -f _getDep
+	
+	# CAUTION: Interleaved markup scripts may not be correctly interpreted as bash when called through 'sudo', among other problems. Apparently, this may occur even if 'bash -c' is called by sudo .
+	sudo() {
+		false
+	}
+	export -f sudo
+	declare -f sudo
 	
 	
 	
