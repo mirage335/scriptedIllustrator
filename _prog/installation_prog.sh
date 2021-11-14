@@ -22,11 +22,11 @@ _test_prog() {
 	_getDep 'sed'
 	
 	
-	! echo \$123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
-	! echo \.123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
-	echo 123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo \$123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && _stop 1
+	! echo \.123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && _stop 1
+	echo 123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && _stop 1
 	
-	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo '123' | grep -E '1.*3' > /dev/null 2>&1 && _messageFAIL && _stop 1
 	
 	local currentScriptBasename
 	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
@@ -41,6 +41,8 @@ _test_prog() {
 	
 	
 	! _wantGetDep gs && echo 'missing: gs'
+	
+	return 0
 }
 
 
