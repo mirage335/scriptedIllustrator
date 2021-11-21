@@ -11,4 +11,6 @@
 
 _tinyCompiler_scriptedIllustrator_declareFunctions_markup_terminal() {
 	true
+	
+	type _declareFunctions_markup_terminal > /dev/null 2>&1 && _declareFunctions_markup_terminal "$@"
 }
