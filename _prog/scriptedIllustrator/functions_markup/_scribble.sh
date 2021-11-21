@@ -248,6 +248,17 @@ _scribble_asciidoc() {
 # ###
 
 _scribble_all() {
+	local currentScriptBasename
+	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	
+	if [[ "$currentScriptBasename" == 'scriptedIllustrator''.'* ]]
+	then
+	
+		"$scriptAbsoluteLocation" DOCUMENT > "$scriptAbsoluteLocation".out.txt
+	
+	fi
+	
+	
 	_scribble_html "$@"
 	_scribble_html_presentation "$@"
 	
@@ -265,8 +276,7 @@ _scribble_all() {
 	
 	
 	
-	local currentScriptBasename
-	currentScriptBasename=$(basename "$scriptAbsoluteLocation")
+	
 	if [[ "$currentScriptBasename" == 'scriptedIllustrator''.'* ]]
 	then
 		
