@@ -1,0 +1,277 @@
+[0;37;100m[1;32;46m demo: self-modifying interleaved markup and shell [0m[0m
+_ document - heading1 _
+__ date - heading2 __
+[0;37;100m[0;35m request: date --iso-8601=ns [0m[0m
+[0;37;100m[0;34m date --iso-8601 [0m[0m
+[0;34m  '[[ "$noDate" != "true" ]] && date --iso-8601' [0m
+[0;37;100m# 2021-11-21[0m
+__ images - heading2 __
+
+
+preformatted text within paragraph
+ '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '100px'
+
+ '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '150px'
+__ equations and commands - heading2 __
+[0;34m  'currentBitsPerSecond=9600' [0m
+[0;34m  'currentBonesPerPlayer=4' [0m
+[0;34m  'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"' [0m
+[0;37;100m# 5.5555556[0m
+ 
+ '_cells_begin'
+ '_cells_row_begin'
+ '_cells_speck_begin' '125px'
+
+*titleA*
+ '_cells_speck_end'
+ '_cells_speck_begin'
+
+<span style="font-weight:bold;font-style: italic;">*titleB*</span>
+ '_cells_speck_end'
+ '_cells_speck_begin'
+
+*titleC*
+ '_cells_speck_end'
+ '_cells_speck_begin'
+
+  *titleD*  
+ '_cells_speck_end'
+ '_cells_row_end'
+ '_cells_row_begin'
+ '_cells_speck_begin'
+
+example
+
+[0;37;100m[0;34m commands [0m[0m
+[0;37;100m# with output[0m
+
+ '_cells_speck_end'
+ '_cells_speck_begin'
+
+[0;34m  'ubiquitous_bash.sh' '_echo' 'a b' [0m
+[0;37;100m# a b[0m
+[0;37;100m[0;34m  'ubiquitous_bash.sh' '_echo' 'a[0m
+[0;37;100mb' [0m[0m
+# a
+# b
+
+[0;37;100moutput[0m
+[0;37;100mtab[0m
+[0;37;100moutput[0m
+[0;37;100m' \ \  output'[0m
+[0;37;100m][0m
+[0;37;100m\#[0m
+ '_cells_speck_end'
+ '_cells_speck_begin'
+[0;37;100m[0;34m  '_color_demo' [0m[0m
+# [0;35m _color_demo [0m
+# [0;36m _color_demo [0m
+# [0;34m _color_demo [0m
+# [0;34m _color_demo [0m
+# [0;34m ubiquitousBashIDshort= uk4uPhB6 [0m
+# [0;32m _color_demo [0m
+# [1;33m _color_demo [0m
+# [0;31m _color_demo [0m
+# [0;34m echo _color_demo [0m
+# _color_demo
+# [0;34m  "echo" "_color_demo" [0m
+# [0;34m  'echo' '_color_demo' [0m
+# [1;32;46m _color_demo [0m
+# [1;33;41m _color_demo [0m
+# [1;33;47m delay: InterProcess-Communication [0m
+ '_cells_speck_end'
+ '_cells_row_end'
+ '_cells_row_begin'
+ '_cells_speck_begin'
+[0;37;100moutput[0m
+ '_cells_speck_end'
+ '_cells_speck_begin' '' '2'
+_r '
+ raw markup
+'
+ '_cells_speck_end'
+ '_cells_speck_begin' '' '2'
+
+ pre
+ '_cells_speck_end'
+ '_cells_row_end'
+ '_cells_row_begin'
+ '_cells_speck_begin'
+ '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '50px'
+ '_cells_speck_end'
+ '_cells_speck_begin' '' '3'
+ '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '50px'
+ '_cells_speck_end'
+ '_cells_end'
+__ breaks - heading2 __
+
+
+
+
+
+
+preformatted text at paragraph_end
+
+ '_page'
+PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+		
+
+PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+[0;37;100m[0;35m request: maybe the user should copy some file next to the "$scriptAbsoluteFolder" [0m[0m
+[0;37;100m[0;35m request: maybe the user should copy some file next to the "$scriptAbsoluteFolder" [0m[0m
+[0;37;100m[0;34m ubiquitousBashIDshort= uk4uPhB6 [0m[0m
+uk4uPhB6
+&lt;pre style=&quot;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;&quot;&gt;
+
+preformatted
+ text
+more
+ preformatted
+text
+
+#
+# ###
+&#35; &#35;&#35;&#35;
+_ heading1 _
+__ heading2 __
+___ heading3 ___
+____ heading4 ____
+_____ heading5 _____
+______ heading6 ______
+
+#
+_r '
+raw markup<br \><h1>raw heading1</h2>
+<h2>raw heading2</h2>
+raw markup 
+raw markup
+<p>raw paragraph</p>
+raw markup
+'
+_r '
+raw markup
+'
+_r '
+raw markup
+'
+_r '
+raw markup
+'
+_r '
+
+raw markup
+
+'
+
+_r '
+<span style="color:#1818b2;background-color:#848484;"> raw HTML markup within paragraph</span>
+'
+
+
+preformatted
+text
+
+
+
+preformatted
+text
+"$ubiquitousBashIDshort"
+
+
+
+
+
+
+
+
+
+
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
+[0;37;100mx > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;[0m
+
+[0;37;100mx > /dev/null[0m
+ '_page'
+PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+		
+
+PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+
+ '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg'
+
+
+
+\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;
+_r '
+\ \\ \\\ \\\\ \\\\\ ` `` ``` ```` $() [] {} " "" \x27 \047 %27 &#39;
+'
+
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+
+ '_cells_begin'
+ '_cells_row_begin'
+ '_cells_speck_begin'
+_r '
+1
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+2
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+3
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+4
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+5
+'
+ '_cells_speck_end'
+ '_cells_row_end'
+ '_cells_row_begin'
+ '_cells_speck_begin'
+_r '
+6
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+7
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+8
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+9
+'
+ '_cells_speck_end'
+ '_cells_speck_begin'
+_r '
+0
+'
+ '_cells_speck_end'
+ '_cells_row_end'
+ '_cells_end'
+
+
+[0;37;100m[0;32m done: demo [0m[0m
+
+
+
