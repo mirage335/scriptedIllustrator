@@ -794,32 +794,32 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _set_strings_markup_workaround_html_prog
 	
 	
-	declare -f _e
+	#declare -f _e
 	declare -f _e-html
 	
-	declare -f _e_
+	#declare -f _e_
 	declare -f _e_-html
 	
-	declare -f _o
+	#declare -f _o
 	declare -f _o-html
 	
-	declare -f _o_
+	#declare -f _o_
 	declare -f _o_-html
 	
-	declare -f _i
+	#declare -f _i
 	declare -f _i-html
 	
-	declare -f _v
+	#declare -f _v
 	declare -f _v-html
 	
-	declare -f _t
+	#declare -f _t
 	declare -f _t-html
 	
-	declare -f _r
+	#declare -f _r
 	declare -f _r-html
 	
-	declare -f _
-	declare -f _h
+	#declare -f _
+	#declare -f _h
 	declare -f _h-html
 	
 	
@@ -827,49 +827,49 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	
 	
-	declare -f _heading1
+	#declare -f _heading1
 	declare -f _heading1-html
-	declare -f _heading2
+	#declare -f _heading2
 	declare -f _heading2-html
-	declare -f _heading3
+	#declare -f _heading3
 	declare -f _heading3-html
-	declare -f _heading4
+	#declare -f _heading4
 	declare -f _heading4-html
-	declare -f _heading5
+	#declare -f _heading5
 	declare -f _heading5-html
-	declare -f _heading6
+	#declare -f _heading6
 	declare -f _heading6-html
 	
-	declare -f _page
+	#declare -f _page
 	declare -f _page-html
 	
-	declare -f _paragraph_begin
+	#declare -f _paragraph_begin
 	declare -f _paragraph_begin-html
-	declare -f _paragraph_end
+	#declare -f _paragraph_end
 	declare -f _paragraph_end-html
 	
-	declare -f _picture
+	#declare -f _picture
 	declare -f _picture-html
-	declare -f _image
+	#declare -f _image
 	declare -f _image-html
 	
-	declare -f _cells_begin
+	#declare -f _cells_begin
 	declare -f _cells_begin-html
-	declare -f _cells_end
+	#declare -f _cells_end
 	declare -f _cells_end-html
-	declare -f _cells_row_begin
+	#declare -f _cells_row_begin
 	declare -f _cells_row_begin-html
-	declare -f _cells_row_end
+	#declare -f _cells_row_end
 	declare -f _cells_row_end-html
-	declare -f _cells_speck_begin
+	#declare -f _cells_speck_begin
 	declare -f _cells_speck_begin-html
-	declare -f _cells_speck_end
+	#declare -f _cells_speck_end
 	declare -f _cells_speck_end-html
 	
 	
-	declare -f _markup_asciidoc_disable_begin
+	#declare -f _markup_asciidoc_disable_begin
 	declare -f _markup_asciidoc_disable_begin-html
-	declare -f _markup_asciidoc_disable_end
+	#declare -f _markup_asciidoc_disable_end
 	declare -f _markup_asciidoc_disable_end-html
 	
 	

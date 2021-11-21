@@ -886,32 +886,32 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _set_strings_markup_workaround_mediawiki_prog
 	
 	
-	declare -f _e
+	#declare -f _e
 	declare -f _e-mediawiki
 	
-	declare -f _e_
+	#declare -f _e_
 	declare -f _e_-mediawiki
 	
-	declare -f _o
+	#declare -f _o
 	declare -f _o-mediawiki
 	
-	declare -f _o_
+	#declare -f _o_
 	declare -f _o_-mediawiki
 	
-	declare -f _i
+	#declare -f _i
 	declare -f _i-mediawiki
 	
-	declare -f _v
+	#declare -f _v
 	declare -f _v-mediawiki
 	
-	declare -f _t
+	#declare -f _t
 	declare -f _t-mediawiki
 	
-	declare -f _r
+	#declare -f _r
 	declare -f _r-mediawiki
 	
-	declare -f _
-	declare -f _h
+	#declare -f _
+	#declare -f _h
 	declare -f _h-mediawiki
 	
 	
@@ -919,49 +919,49 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	
 	
 	
-	declare -f _heading1
+	#declare -f _heading1
 	declare -f _heading1-mediawiki
-	declare -f _heading2
+	#declare -f _heading2
 	declare -f _heading2-mediawiki
-	declare -f _heading3
+	#declare -f _heading3
 	declare -f _heading3-mediawiki
-	declare -f _heading4
+	#declare -f _heading4
 	declare -f _heading4-mediawiki
-	declare -f _heading5
+	#declare -f _heading5
 	declare -f _heading5-mediawiki
-	declare -f _heading6
+	#declare -f _heading6
 	declare -f _heading6-mediawiki
 	
-	declare -f _page
+	#declare -f _page
 	declare -f _page-mediawiki
 	
-	declare -f _paragraph_begin
+	#declare -f _paragraph_begin
 	declare -f _paragraph_begin-mediawiki
-	declare -f _paragraph_end
+	#declare -f _paragraph_end
 	declare -f _paragraph_end-mediawiki
 	
-	declare -f _picture
+	#declare -f _picture
 	declare -f _picture-mediawiki
-	declare -f _image
+	#declare -f _image
 	declare -f _image-mediawiki
 	
-	declare -f _cells_begin
+	#declare -f _cells_begin
 	declare -f _cells_begin-mediawiki
-	declare -f _cells_end
+	#declare -f _cells_end
 	declare -f _cells_end-mediawiki
-	declare -f _cells_row_begin
+	#declare -f _cells_row_begin
 	declare -f _cells_row_begin-mediawiki
-	declare -f _cells_row_end
+	#declare -f _cells_row_end
 	declare -f _cells_row_end-mediawiki
-	declare -f _cells_speck_begin
+	#declare -f _cells_speck_begin
 	declare -f _cells_speck_begin-mediawiki
-	declare -f _cells_speck_end
+	#declare -f _cells_speck_end
 	declare -f _cells_speck_end-mediawiki
 	
 	
-	declare -f _markup_asciidoc_disable_begin
+	#declare -f _markup_asciidoc_disable_begin
 	declare -f _markup_asciidoc_disable_begin-mediawiki
-	declare -f _markup_asciidoc_disable_end
+	#declare -f _markup_asciidoc_disable_end
 	declare -f _markup_asciidoc_disable_end-mediawiki
 	
 	

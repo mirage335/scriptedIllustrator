@@ -910,32 +910,32 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc() {
 	declare -f _set_strings_markup_workaround_asciidoc_prog
 	
 	
-	declare -f _e
+	#declare -f _e
 	declare -f _e-asciidoc
 	
-	declare -f _e_
+	#declare -f _e_
 	declare -f _e_-asciidoc
 	
-	declare -f _o
+	#declare -f _o
 	declare -f _o-asciidoc
 	
-	declare -f _o_
+	#declare -f _o_
 	declare -f _o_-asciidoc
 	
-	declare -f _i
+	#declare -f _i
 	declare -f _i-asciidoc
 	
-	declare -f _v
+	#declare -f _v
 	declare -f _v-asciidoc
 	
-	declare -f _t
+	#declare -f _t
 	declare -f _t-asciidoc
 	
-	declare -f _r
+	#declare -f _r
 	declare -f _r-asciidoc
 	
-	declare -f _
-	declare -f _h
+	#declare -f _
+	#declare -f _h
 	declare -f _h-asciidoc
 	
 	
@@ -943,50 +943,50 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc() {
 	
 	
 	
-	declare -f _heading1
+	#declare -f _heading1
 	declare -f _heading1-asciidoc
-	declare -f _heading2
+	#declare -f _heading2
 	declare -f _heading2-asciidoc
-	declare -f _heading3
+	#declare -f _heading3
 	declare -f _heading3-asciidoc
-	declare -f _heading4
+	#declare -f _heading4
 	declare -f _heading4-asciidoc
-	declare -f _heading5
+	#declare -f _heading5
 	declare -f _heading5-asciidoc
-	declare -f _heading6
+	#declare -f _heading6
 	declare -f _heading6-asciidoc
 	
-	declare -f _page
+	#declare -f _page
 	declare -f _page-asciidoc
 	
-	declare -f _paragraph_begin
+	#declare -f _paragraph_begin
 	declare -f _paragraph_begin-asciidoc
-	declare -f _paragraph_end
+	#declare -f _paragraph_end
 	declare -f _paragraph_end-asciidoc
 	
-	declare -f _picture
+	#declare -f _picture
 	declare -f _picture-asciidoc
-	declare -f _image
+	#declare -f _image
 	declare -f _image-asciidoc
 	
-	declare -f _cells_begin
+	#declare -f _cells_begin
 	declare -f _cells_begin-asciidoc
-	declare -f _cells_end
+	#declare -f _cells_end
 	declare -f _cells_end-asciidoc
-	declare -f _cells_row_begin
+	#declare -f _cells_row_begin
 	declare -f _cells_row_begin-asciidoc
-	declare -f _cells_row_end
+	#declare -f _cells_row_end
 	declare -f _cells_row_end-asciidoc
-	declare -f _cells_speck_begin
+	#declare -f _cells_speck_begin
 	declare -f _cells_speck_begin-asciidoc
-	declare -f _cells_speck_end
+	#declare -f _cells_speck_end
 	declare -f _cells_speck_end-asciidoc
 	
 	
 	
-	declare -f _markup_asciidoc_disable_begin
+	#declare -f _markup_asciidoc_disable_begin
 	declare -f _markup_asciidoc_disable_begin-asciidoc
-	declare -f _markup_asciidoc_disable_end
+	#declare -f _markup_asciidoc_disable_end
 	declare -f _markup_asciidoc_disable_end-asciidoc
 	
 	

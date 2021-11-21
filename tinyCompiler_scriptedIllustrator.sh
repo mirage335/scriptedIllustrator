@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='2075454054'
+export ub_setScriptChecksum_contents='994258954'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -4831,6 +4831,896 @@ _test_devqalculate() {
 	return 0
 }
 
+
+
+
+_set_markup_terminal() {
+	
+	#&& [[ "$flag__NOT_shell" == "" ]] && [[ "$comment_shell_line" == "" ]]
+	if [[ "$current_scriptedIllustrator_markup" == "" ]] && [[ "$current_scriptedIllustrator_markup_markdown" == "" ]] && [[ "$workaround_noInterpret_begin" == "" ]] && [[ "$workaround_noInterpret_end" == "" ]] && [[ "$workaround_comment_shell_line" == "" ]]
+	then
+		
+		export flag__NOT_shell='scriptedIllustrator_markup_uk4uPhB663kVcygT0q'
+		export comment_shell_line='#'
+		
+		
+		_e() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_e-terminal "$@"
+		}
+		#export -f _e
+		
+		_e_() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_e_-terminal "$@"
+		}
+		#export -f _e_
+		
+		_o() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_o-terminal "$@"
+		}
+		#export -f _o
+		
+		_o_() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_o_-terminal "$@"
+		}
+		#export -f _o_
+		
+		_i() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_i-terminal "$@"
+		}
+		#export -f _i
+		
+		_v() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_v-terminal "$@"
+		}
+		#export -f _v
+		
+		_t() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_t-terminal "$@"
+		}
+		#export -f _t
+		
+		_r() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_r-terminal "$@"
+		}
+		#export -f _r
+		
+		_() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_h-terminal "$@"
+		}
+		_h() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_h-terminal "$@"
+		}
+		#export -f _
+		#export -f _h
+		
+		
+		
+		_heading1() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_heading1-terminal "$@"
+		}
+		#export -f _heading1
+		_heading2() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_heading2-terminal "$@"
+		}
+		#export -f _heading2
+		_heading3() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_heading3-terminal "$@"
+		}
+		#export -f _heading3
+		_heading4() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_heading4-terminal "$@"
+		}
+		#export -f _heading4
+		_heading5() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_heading5-terminal "$@"
+		}
+		#export -f _heading5
+		_heading6() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_heading6-terminal "$@"
+		}
+		#export -f _heading6
+		
+		_page() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_page-terminal "$@"
+		}
+		#export -f _page
+		
+		_paragraph_begin() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_paragraph_begin-terminal "$@"
+		}
+		#export -f _paragraph_begin
+		_paragraph_end() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_paragraph_end-terminal "$@"
+		}
+		#export -f _paragraph_end
+		
+		
+		_picture() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_picture-terminal "$@"
+		}
+		#export -f _picture
+		_image() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_image-terminal "$@"
+		}
+		#export -f _image
+		
+		
+		_cells_begin() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_cells_begin-terminal "$@"
+		}
+		#export -f _cells_begin
+		_cells_end() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_cells_end-terminal "$@"
+		}
+		#export -f _cells_end
+		_cells_row_begin() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_cells_row_begin-terminal "$@"
+		}
+		#export -f _cells_row_begin
+		_cells_row_end() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_cells_row_end-terminal "$@"
+		}
+		#export -f _cells_row_end
+		_cells_speck_begin() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_cells_speck_begin-terminal "$@"
+		}
+		#export -f _cells_speck_begin
+		_cells_speck_end() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_cells_speck_end-terminal "$@"
+		}
+		#export -f _cells_speck_end
+		
+		
+		
+		
+		_markup_asciidoc_disable_begin() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_markup_asciidoc_disable_begin-terminal "$@"
+		}
+		#export -f _markup_asciidoc_disable_begin
+		
+		_markup_asciidoc_disable_end() {
+			export currentFunctionName="${FUNCNAME[0]}"
+			_markup_asciidoc_disable_end-terminal "$@"
+		}
+		#export -f _markup_asciidoc_disable_end
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		# Echo command with commented (shell prepending '#' ) output.
+		_e-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			#echo "$markup_terminal_cmd_begin"
+			
+			_messagePlain_probe_quoteAddSingle "$@" | cat
+			"$@" | _shellCommentLines | cat
+			
+			#echo "$markup_terminal_cmd_begin"
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		_e_-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			#echo "$markup_terminal_cmd_begin"
+			
+			local current_miniSessionID=$(_uid 8)
+			
+			_messagePlain_probe_quoteAddSingle "$@" | cat
+			
+			eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+			cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _shellCommentLines | cat
+			rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
+			
+			#echo "$markup_terminal_cmd_begin"
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+		_o-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			#echo "$markup_terminal_cmd_begin"
+			
+			local current_miniSessionID=$(_uid 8)
+			
+			#_messagePlain_probe_quoteAddSingle "$@" | cat
+			
+			
+			# | _shellCommentLines
+			
+			"$@" | _workaround_preformattedCharacters-terminal | cat
+			
+			#echo "$markup_terminal_cmd_begin"
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		# Output only. Useful for '_messagePlain_probe_var', _messagePlain_request' and similar.
+		_o_-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			#echo "$markup_terminal_cmd_begin"
+			
+			local current_miniSessionID=$(_uid 8)
+			
+			#_messagePlain_probe_quoteAddSingle "$@" | cat
+			
+			
+			# | _shellCommentLines
+			
+			eval "$@" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+			cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _workaround_preformattedCharacters-terminal | cat
+			rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
+			
+			#echo "$markup_terminal_cmd_begin"
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		# Internal. Use for variables, equation solving, etc.
+		_i-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			##echo "$markup_terminal_cmd_begin"
+			
+			#_messagePlain_probe_quoteAddSingle "$@" | cat
+			
+			eval "$@" > /dev/null 2>&1
+			
+			##echo "$markup_terminal_cmd_begin"
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		# Useful to read out a variable (ie. set from 'COLLECT') as preformatted text.
+		# Variable. Roughly equivalent to '_messagePlain_probe_var' , however, without any declaration of the variable name .
+		# https://stackoverflow.com/questions/11386586/how-to-show-div-tag-literally-in-code-pre-tag
+		# 	'You can't (in modern HTML) write markup and have it be interpreted as text.'
+		_v-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			#echo "$markup_terminal_pre_begin"
+			
+			local current_miniSessionID=$(_uid 8)
+			
+			#_messagePlain_probe_quoteAddSingle "$@" | cat
+			
+			eval echo -e \$"$1" > "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}"
+			cat "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" | _fold-terminal | cat
+			rm -f "$bootTmp"/"$current_miniSessionID"."${ubiquitousBashIDnano:0:3}" > /dev/null 2>&1
+			
+			#echo "$markup_terminal_pre_end"
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		
+		
+		
+		
+		# Show preformatted text.
+		_t-terminal() {
+			# No parameters (no input) is meaningless and nothing can be done with that.
+			[[ "$1" == "" ]] && return 0
+			
+			#_t-terminal #_safeEcho_newline _t "'"
+			_safeEcho _t "'"
+			#echo -n "$flag__NOT_shell $comment_terminal_end""$markup_terminal_pre_begin"
+			
+			
+			local currentLine
+			local currentLine_previous
+			local currentIteration
+			currentIteration=0
+			while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
+			do
+				if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]] && [[ "$currentLine" != "" ]]
+				then
+					_safeEcho_newline
+					true
+				fi
+				
+				currentLine_previous="$currentLine"
+				let currentIteration=currentIteration+1
+			done <<<$(_safeEcho "$@")
+			[[ "$currentIteration" == 1 ]] && [[ "$currentLine_previous" != "" ]] && _safeEcho_newline
+			
+			#sed 's/^mediawiki_noLineBreak --><pre.*>//'
+			_safeEcho "$@" | sed 's/^mediawiki_noLineBreak --><nowiki>//' | sed 's/^mediawiki_noLineBreak --><pre style="margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">//' | _filter__scriptedIllustrator_markup | _fold-terminal | _workaround_preformattedCharacters-terminal
+			
+			#echo "$markup_terminal_pre_end""$comment_terminal_begin $flag__NOT_shell"
+			_safeEcho_newline "'"
+		}
+		
+		
+		# Raw. Experimental. No production use.
+		_r-terminal() {
+			# No parameters (no input) is meaningless and nothing can be done with that.
+			[[ "$1" == "" ]] && return 0
+			
+			#_t-terminal #_safeEcho_newline _r "'"
+			_safeEcho _r "'"
+			echo -n "$flag__NOT_shell $comment_terminal_end"
+			
+			
+			local currentLine
+			local currentLine_previous
+			local currentIteration
+			currentIteration=0
+			while read -r currentLine && [[ "$currentIteration" -lt 2 ]]
+			do
+				if [[ "$currentIteration" == 1 ]] && _safeEcho_newline "$currentLine" | _filter__scriptedIllustrator_markup > /dev/null 2>&1 && [[ "$currentLine_previous" != "" ]]
+				then
+					_safeEcho_newline
+				fi
+				
+				currentLine_previous="$currentLine"
+				let currentIteration=currentIteration+1
+			done <<<$(_safeEcho "$@")
+			[[ "$currentIteration" == 1 ]] && _safeEcho_newline
+			
+			_safeEcho "$@" | sed 's/^mediawiki_noLineBreak -->//' | _filter__scriptedIllustrator_markup | _workaround_preformattedCharacters-terminal
+			
+			
+			echo "$comment_terminal_begin $flag__NOT_shell"
+			_safeEcho_newline "'"
+		}
+		
+		# Hidden. Use for comments and (shell code only) spacing.
+		_h-terminal() {
+			true
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+		}
+		
+		
+		
+		
+		
+		
+		
+		_heading1-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '_ '"$@"' _' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_heading2-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '__ '"$@"' __' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_heading3-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '___ '"$@"' ___' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_heading4-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '____ '"$@"' ____' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_heading5-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '_____ '"$@"' _____' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_heading6-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '______ '"$@"' ______' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		# Page break.
+		#title page (experiment)
+		#<div style="page-break-before: always;"> </div>
+		#<p>
+		#text page (experiment)
+		#</p>
+		_page-terminal() {
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline 'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+		' | cat
+			
+			#_safeEcho_newline '<p style="page-break-after: always;">&nbsp;</p>' | cat
+			#_safeEcho_newline '<p style="page-break-before: always;">&nbsp;</p>' | cat
+			
+			#_safeEcho_newline '<p style="page-break-after: always;">&nbsp;</p><p style="page-break-before: always;">&nbsp;</p>' | cat
+			
+			#_safeEcho_newline '<div style="page-break-after: always;"> </div>' | cat
+			#_safeEcho_newline '<div></div>' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		_paragraph_begin-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '' | cat
+			#_safeEcho_newline '<p style="margin: 0;padding: 0; border-width: 0px;">' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_paragraph_end-terminal() {
+			#_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			#_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			_safeEcho_newline '' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		_picture-terminal() {
+			local currentWidth
+			currentWidth=""
+			[[ "$2" != "" ]] && currentWidth="$2"
+			
+			local currentWidthParameter
+			currentWidthParameter=""
+			[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+			
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#./
+			#https://www.hostpapa.com/knowledgebase/align-float-images-website/
+			#_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="float: right;margin: 0 0 0 15px;border: 5px solid transparent;">' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_image-terminal() {
+			local currentWidth
+			currentWidth="96%"
+			[[ "$2" != "" ]] && currentWidth="$2"
+			
+			local currentWidthParameter
+			currentWidthParameter=""
+			[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+			
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#./
+			#_safeEcho_newline '<img '"$currentWidthParameter"'src="'"$1"'" style="margin: 0 0 0 15px;border: 5px solid transparent;">' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		
+		
+		_cells_begin-terminal() {
+			local currentWidth
+			currentWidth="0%"
+			[[ "$1" != "" ]] && currentWidth="$1"
+			
+			local currentWidthParameter
+			currentWidthParameter=""
+			[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+			
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#_safeEcho_newline '<table '"$currentWidthParameter"'style="empty-cells: show; border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_cells_end-terminal() {
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#_safeEcho_newline '</table>' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_cells_row_begin-terminal() {
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#_safeEcho_newline '<tr>' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_cells_row_end-terminal() {
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#_safeEcho_newline '</tr>' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_cells_speck_begin-terminal() {
+			local currentWidth
+			currentWidth="0%"
+			[[ "$1" != "" ]] && currentWidth="$1"
+			
+			local currentWidthParameter
+			currentWidthParameter=""
+			[[ "$currentWidth" != "" ]] && currentWidthParameter='width="'"$currentWidth"'" '
+			
+			
+			local currentColspan
+			currentColspan="1"
+			[[ "$2" != "" ]] && currentColspan="$2"
+			
+			local currentColspanParameter
+			currentColspanParameter=""
+			[[ "$currentColspan" != "" ]] && currentColspanParameter='colspan="'"$currentColspan"'" '
+			
+			
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#_safeEcho_newline '<td '"$currentWidthParameter"''"$currentColspanParameter"'style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		_cells_speck_end-terminal() {
+			_safeEcho_quoteAddSingle "$currentFunctionName" "$@"
+			_safeEcho_newline
+			
+			
+			#echo "$interpret__terminal_NOT_shell__begin"
+			
+			#_safeEcho_newline '</td>' | cat
+			
+			#echo "$interpret__terminal_NOT_shell__end"
+		}
+		
+		
+		
+		_markup_asciidoc_disable_begin-terminal() {
+			true
+		}
+		_markup_asciidoc_disable_end-terminal() {
+			true
+		}
+		
+		
+		
+		
+		_fold-terminal() {
+			#if [[ "$markup_terminal_fold" != "" ]]
+			#then
+				#fold -w "$markup_terminal_fold" -s
+				#return
+			#fi
+			cat
+		}
+		
+		
+		
+		_workaround_preformattedCharacters-terminal() {
+			#sed 's/\&#35;/#/g'
+			#sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+			
+			#sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g"
+			#sed "s/\\\x3c/\&lt;;/g" | sed "s/\\\060/\&lt;;/g" | sed "s/%3c/\&lt;;/g" | sed "s/\&lt;;/\&lt;;/g"
+			
+			#sed 's/\&#35;/#/g' | sed "s/\\\x27/\&#39;/g" | sed "s/\\\047/\&#39;/g" | sed "s/%27/\&#39;/g" | sed "s/\&#39;/\&#39;/g" | sed "s/\\\x3c/\&lt;;/g" | sed "s/\\\060/\&lt;;/g" | sed "s/%3c/\&lt;;/g" | sed "s/\&lt;;/\&lt;;/g"
+			
+			cat
+			
+			
+			#| sed "s/\&#92;/\\\/"
+		}
+	fi
+	
+	if [[ "$current_scriptedIllustrator_markup" == "" ]] && [[ "$current_scriptedIllustrator_markup_markdown" == "" ]] && [[ "$workaround_noInterpret_begin" == "" ]] && [[ "$workaround_noInterpret_end" == "" ]] && [[ "$workaround_comment_shell_line" == "" ]]
+	then
+		_shellCommentLines() {
+			local currentString
+			
+			while read -r currentString
+			do
+				[ "$currentString" ] && printf '%b' "$comment_shell_line $currentString"
+				echo
+			done
+			
+			#echo -n "$comment_shell_line"' '
+			##LANG=C IFS=
+			#while LANG=C IFS= read -r -d '' -n 1 currentString
+			#do
+				#[ "$currentString" ] && printf '%b' "$currentString"
+				#[[ "$currentString" == $'\n' ]] && echo -n "$comment_shell_line"' '
+			#done
+		}
+		
+		# WARNING: Affects accurate prevention of '_r' and '_t' inaccurately accumulating or removing newlines.
+		_filter__scriptedIllustrator_markup() {
+			# Inherently add newline if not already present.
+			grep -v "$flag__NOT_shell"
+			
+			# Add newline if already present.
+			#grep -v $(_uid) | grep -v "$flag__NOT_shell"
+			
+			# Do not add newline if not already present.
+			#sed 's/^.*'"$flag__NOT_shell"'.*$//g'
+		}
+	fi
+	
+}
+_set_markup_terminal
+
+
+_set_markup_terminal_exportFunctions() {
+	_set_markup_terminal "$@"
+	
+	#export current_scriptedIllustrator_markup='terminal'
+	export current_scriptedIllustrator_markup=''
+	
+	export -f _e
+	
+	export -f _e_
+	
+	export -f _o
+	
+	export -f _o_
+	
+	export -f _i
+	
+	export -f _v
+	
+	export -f _t
+	
+	export -f _r
+	
+	export -f _
+	export -f _h
+	
+	
+	
+	export -f _heading1
+	export -f _heading2
+	export -f _heading3
+	export -f _heading4
+	export -f _heading5
+	export -f _heading6
+	
+	export -f _page
+	
+	export -f _paragraph_begin
+	export -f _paragraph_end
+	
+	
+	export -f _picture
+	export -f _image
+	
+	
+	export -f _cells_begin
+	export -f _cells_end
+	export -f _cells_row_begin
+	export -f _cells_row_end
+	export -f _cells_speck_begin
+	export -f _cells_speck_end
+	
+	export -f _markup_asciidoc_disable_begin
+	export -f _markup_asciidoc_disable_end
+}
+
+_declareFunctions_markup_terminal() {
+	declare -f _set_markup_terminal
+	declare -f _set_markup_terminal_exportFunctions
+	
+	
+	declare -f _e
+	declare -f _e-terminal
+	
+	declare -f _e_
+	declare -f _e_-terminal
+	
+	declare -f _o
+	declare -f _o-terminal
+	
+	declare -f _o_
+	declare -f _o_-terminal
+	
+	declare -f _i
+	declare -f _i-terminal
+	
+	declare -f _v
+	declare -f _v-terminal
+	
+	declare -f _t
+	declare -f _t-terminal
+	
+	declare -f _r
+	declare -f _r-terminal
+	
+	declare -f _
+	declare -f _h
+	declare -f _h-terminal
+	
+	
+	
+	
+	
+	
+	declare -f _heading1
+	declare -f _heading1-terminal
+	declare -f _heading2
+	declare -f _heading2-terminal
+	declare -f _heading3
+	declare -f _heading3-terminal
+	declare -f _heading4
+	declare -f _heading4-terminal
+	declare -f _heading5
+	declare -f _heading5-terminal
+	declare -f _heading6
+	declare -f _heading6-terminal
+	
+	declare -f _page
+	declare -f _page-terminal
+	
+	declare -f _paragraph_begin
+	declare -f _paragraph_begin-terminal
+	declare -f _paragraph_end
+	declare -f _paragraph_end-terminal
+	
+	declare -f _picture
+	declare -f _picture-terminal
+	declare -f _image
+	declare -f _image-terminal
+	
+	declare -f _cells_begin
+	declare -f _cells_begin-terminal
+	declare -f _cells_end
+	declare -f _cells_end-terminal
+	declare -f _cells_row_begin
+	declare -f _cells_row_begin-terminal
+	declare -f _cells_row_end
+	declare -f _cells_row_end-terminal
+	declare -f _cells_speck_begin
+	declare -f _cells_speck_begin-terminal
+	declare -f _cells_speck_end
+	declare -f _cells_speck_end-terminal
+	
+	
+	declare -f _markup_asciidoc_disable_begin
+	declare -f _markup_asciidoc_disable_begin-terminal
+	declare -f _markup_asciidoc_disable_end
+	declare -f _markup_asciidoc_disable_end-terminal
+	
+	
+	declare -f _fold-terminal
+	
+	
+	declare -f _workaround_preformattedCharacters-terminal
+}
 
 
 #Simulated client/server discussion testing.
@@ -12648,6 +13538,7 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_shell() {
 
 # TODO: Cause all markup to print to terminal as ANSI escape codes. Interleaving of shell code may not be possible in this case.
 #export current_scriptedIllustrator_markup='terminal'
+#export current_scriptedIllustrator_markup=''
 
 
 
@@ -13455,32 +14346,32 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	declare -f _set_strings_markup_workaround_html_prog
 	
 	
-	declare -f _e
+	#declare -f _e
 	declare -f _e-html
 	
-	declare -f _e_
+	#declare -f _e_
 	declare -f _e_-html
 	
-	declare -f _o
+	#declare -f _o
 	declare -f _o-html
 	
-	declare -f _o_
+	#declare -f _o_
 	declare -f _o_-html
 	
-	declare -f _i
+	#declare -f _i
 	declare -f _i-html
 	
-	declare -f _v
+	#declare -f _v
 	declare -f _v-html
 	
-	declare -f _t
+	#declare -f _t
 	declare -f _t-html
 	
-	declare -f _r
+	#declare -f _r
 	declare -f _r-html
 	
-	declare -f _
-	declare -f _h
+	#declare -f _
+	#declare -f _h
 	declare -f _h-html
 	
 	
@@ -13488,49 +14379,49 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_html() {
 	
 	
 	
-	declare -f _heading1
+	#declare -f _heading1
 	declare -f _heading1-html
-	declare -f _heading2
+	#declare -f _heading2
 	declare -f _heading2-html
-	declare -f _heading3
+	#declare -f _heading3
 	declare -f _heading3-html
-	declare -f _heading4
+	#declare -f _heading4
 	declare -f _heading4-html
-	declare -f _heading5
+	#declare -f _heading5
 	declare -f _heading5-html
-	declare -f _heading6
+	#declare -f _heading6
 	declare -f _heading6-html
 	
-	declare -f _page
+	#declare -f _page
 	declare -f _page-html
 	
-	declare -f _paragraph_begin
+	#declare -f _paragraph_begin
 	declare -f _paragraph_begin-html
-	declare -f _paragraph_end
+	#declare -f _paragraph_end
 	declare -f _paragraph_end-html
 	
-	declare -f _picture
+	#declare -f _picture
 	declare -f _picture-html
-	declare -f _image
+	#declare -f _image
 	declare -f _image-html
 	
-	declare -f _cells_begin
+	#declare -f _cells_begin
 	declare -f _cells_begin-html
-	declare -f _cells_end
+	#declare -f _cells_end
 	declare -f _cells_end-html
-	declare -f _cells_row_begin
+	#declare -f _cells_row_begin
 	declare -f _cells_row_begin-html
-	declare -f _cells_row_end
+	#declare -f _cells_row_end
 	declare -f _cells_row_end-html
-	declare -f _cells_speck_begin
+	#declare -f _cells_speck_begin
 	declare -f _cells_speck_begin-html
-	declare -f _cells_speck_end
+	#declare -f _cells_speck_end
 	declare -f _cells_speck_end-html
 	
 	
-	declare -f _markup_asciidoc_disable_begin
+	#declare -f _markup_asciidoc_disable_begin
 	declare -f _markup_asciidoc_disable_begin-html
-	declare -f _markup_asciidoc_disable_end
+	#declare -f _markup_asciidoc_disable_end
 	declare -f _markup_asciidoc_disable_end-html
 	
 	
@@ -14433,32 +15324,32 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	declare -f _set_strings_markup_workaround_mediawiki_prog
 	
 	
-	declare -f _e
+	#declare -f _e
 	declare -f _e-mediawiki
 	
-	declare -f _e_
+	#declare -f _e_
 	declare -f _e_-mediawiki
 	
-	declare -f _o
+	#declare -f _o
 	declare -f _o-mediawiki
 	
-	declare -f _o_
+	#declare -f _o_
 	declare -f _o_-mediawiki
 	
-	declare -f _i
+	#declare -f _i
 	declare -f _i-mediawiki
 	
-	declare -f _v
+	#declare -f _v
 	declare -f _v-mediawiki
 	
-	declare -f _t
+	#declare -f _t
 	declare -f _t-mediawiki
 	
-	declare -f _r
+	#declare -f _r
 	declare -f _r-mediawiki
 	
-	declare -f _
-	declare -f _h
+	#declare -f _
+	#declare -f _h
 	declare -f _h-mediawiki
 	
 	
@@ -14466,49 +15357,49 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_mediawiki() {
 	
 	
 	
-	declare -f _heading1
+	#declare -f _heading1
 	declare -f _heading1-mediawiki
-	declare -f _heading2
+	#declare -f _heading2
 	declare -f _heading2-mediawiki
-	declare -f _heading3
+	#declare -f _heading3
 	declare -f _heading3-mediawiki
-	declare -f _heading4
+	#declare -f _heading4
 	declare -f _heading4-mediawiki
-	declare -f _heading5
+	#declare -f _heading5
 	declare -f _heading5-mediawiki
-	declare -f _heading6
+	#declare -f _heading6
 	declare -f _heading6-mediawiki
 	
-	declare -f _page
+	#declare -f _page
 	declare -f _page-mediawiki
 	
-	declare -f _paragraph_begin
+	#declare -f _paragraph_begin
 	declare -f _paragraph_begin-mediawiki
-	declare -f _paragraph_end
+	#declare -f _paragraph_end
 	declare -f _paragraph_end-mediawiki
 	
-	declare -f _picture
+	#declare -f _picture
 	declare -f _picture-mediawiki
-	declare -f _image
+	#declare -f _image
 	declare -f _image-mediawiki
 	
-	declare -f _cells_begin
+	#declare -f _cells_begin
 	declare -f _cells_begin-mediawiki
-	declare -f _cells_end
+	#declare -f _cells_end
 	declare -f _cells_end-mediawiki
-	declare -f _cells_row_begin
+	#declare -f _cells_row_begin
 	declare -f _cells_row_begin-mediawiki
-	declare -f _cells_row_end
+	#declare -f _cells_row_end
 	declare -f _cells_row_end-mediawiki
-	declare -f _cells_speck_begin
+	#declare -f _cells_speck_begin
 	declare -f _cells_speck_begin-mediawiki
-	declare -f _cells_speck_end
+	#declare -f _cells_speck_end
 	declare -f _cells_speck_end-mediawiki
 	
 	
-	declare -f _markup_asciidoc_disable_begin
+	#declare -f _markup_asciidoc_disable_begin
 	declare -f _markup_asciidoc_disable_begin-mediawiki
-	declare -f _markup_asciidoc_disable_end
+	#declare -f _markup_asciidoc_disable_end
 	declare -f _markup_asciidoc_disable_end-mediawiki
 	
 	
@@ -15444,32 +16335,32 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc() {
 	declare -f _set_strings_markup_workaround_asciidoc_prog
 	
 	
-	declare -f _e
+	#declare -f _e
 	declare -f _e-asciidoc
 	
-	declare -f _e_
+	#declare -f _e_
 	declare -f _e_-asciidoc
 	
-	declare -f _o
+	#declare -f _o
 	declare -f _o-asciidoc
 	
-	declare -f _o_
+	#declare -f _o_
 	declare -f _o_-asciidoc
 	
-	declare -f _i
+	#declare -f _i
 	declare -f _i-asciidoc
 	
-	declare -f _v
+	#declare -f _v
 	declare -f _v-asciidoc
 	
-	declare -f _t
+	#declare -f _t
 	declare -f _t-asciidoc
 	
-	declare -f _r
+	#declare -f _r
 	declare -f _r-asciidoc
 	
-	declare -f _
-	declare -f _h
+	#declare -f _
+	#declare -f _h
 	declare -f _h-asciidoc
 	
 	
@@ -15477,50 +16368,50 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_markup_asciidoc() {
 	
 	
 	
-	declare -f _heading1
+	#declare -f _heading1
 	declare -f _heading1-asciidoc
-	declare -f _heading2
+	#declare -f _heading2
 	declare -f _heading2-asciidoc
-	declare -f _heading3
+	#declare -f _heading3
 	declare -f _heading3-asciidoc
-	declare -f _heading4
+	#declare -f _heading4
 	declare -f _heading4-asciidoc
-	declare -f _heading5
+	#declare -f _heading5
 	declare -f _heading5-asciidoc
-	declare -f _heading6
+	#declare -f _heading6
 	declare -f _heading6-asciidoc
 	
-	declare -f _page
+	#declare -f _page
 	declare -f _page-asciidoc
 	
-	declare -f _paragraph_begin
+	#declare -f _paragraph_begin
 	declare -f _paragraph_begin-asciidoc
-	declare -f _paragraph_end
+	#declare -f _paragraph_end
 	declare -f _paragraph_end-asciidoc
 	
-	declare -f _picture
+	#declare -f _picture
 	declare -f _picture-asciidoc
-	declare -f _image
+	#declare -f _image
 	declare -f _image-asciidoc
 	
-	declare -f _cells_begin
+	#declare -f _cells_begin
 	declare -f _cells_begin-asciidoc
-	declare -f _cells_end
+	#declare -f _cells_end
 	declare -f _cells_end-asciidoc
-	declare -f _cells_row_begin
+	#declare -f _cells_row_begin
 	declare -f _cells_row_begin-asciidoc
-	declare -f _cells_row_end
+	#declare -f _cells_row_end
 	declare -f _cells_row_end-asciidoc
-	declare -f _cells_speck_begin
+	#declare -f _cells_speck_begin
 	declare -f _cells_speck_begin-asciidoc
-	declare -f _cells_speck_end
+	#declare -f _cells_speck_end
 	declare -f _cells_speck_end-asciidoc
 	
 	
 	
-	declare -f _markup_asciidoc_disable_begin
+	#declare -f _markup_asciidoc_disable_begin
 	declare -f _markup_asciidoc_disable_begin-asciidoc
-	declare -f _markup_asciidoc_disable_end
+	#declare -f _markup_asciidoc_disable_end
 	declare -f _markup_asciidoc_disable_end-asciidoc
 	
 	
@@ -17733,6 +18624,7 @@ _compile_bash_shortcuts() {
 	( ( [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_metaengine" == "true" ]] ) || [[ "$enUb_calculators" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/calculators"/gnuoctave.sh )
 	( ( [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_metaengine" == "true" ]] ) || [[ "$enUb_calculators" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/calculators"/gnuoctave_extra.sh )
 	( ( [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_metaengine" == "true" ]] ) || [[ "$enUb_calculators" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/calculators"/qalculate.sh )
+	( ( [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_metaengine" == "true" ]] ) || [[ "$enUb_calculators" == "true" ]] ) && includeScriptList+=( "shortcuts/dev/app/calculators"/scriptedIllustrator_terminal.sh )
 	
 	[[ "$enUb_fakehome" == "true" ]] && [[ "$enUb_dev_heavy" == "true" ]] && includeScriptList+=( "shortcuts/dev/app"/devemacs.sh )
 	[[ "$enUb_fakehome" == "true" ]] && [[ "$enUb_dev_heavy" == "true" ]] && includeScriptList+=( "shortcuts/dev/app"/devatom.sh )
