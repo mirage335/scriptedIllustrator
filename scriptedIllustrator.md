@@ -98,7 +98,7 @@ fi
 if false; then true; # -->
 <!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 <!-- # --><span style="color:#1818b2;background-color:#848484;">  '[[ "$noDate" != "true" ]] && date --iso-8601'</span>
-<!-- # --># 2021-11-21
+<!-- # --># 2021-11-23
 <!-- # --></pre>
 <!--
 fi
@@ -1013,9 +1013,9 @@ if false; then true; # -->
 <!-- # --></td>
 <!--
 fi
- '_cells_speck_begin'
+ '_cells_speck_begin' '100%'
 if false; then true; # -->
-<!-- # --><td width="0%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
+<!-- # --><td width="100%" colspan="1" style="border-spacing: 0px; border: 1px solid black; margin-top: 0px; vertical-align: top;">
 <!--
 fi
 _r '

@@ -154,7 +154,7 @@ __ date - heading2 __
 [0;37;100m[0;35m request: date --iso-8601=ns [0m[0m
 [0;37;100m[0;34m date --iso-8601 [0m[0m
 [0;34m  '[[ "$noDate" != "true" ]] && date --iso-8601' [0m
-[0;37;100m# 2021-11-21[0m
+[0;37;100m# 2021-11-23[0m
 __ images - heading2 __
 
 
@@ -412,7 +412,7 @@ _r '
 9
 '
  '_cells_speck_end'
- '_cells_speck_begin'
+ '_cells_speck_begin' '100%'
 _r '
 0
 '

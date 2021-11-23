@@ -322,7 +322,7 @@ _cells_speck_end
 _cells_speck_begin
 _r '9'
 _cells_speck_end
-_cells_speck_begin
+_cells_speck_begin '100%'
 _r '0'
 _cells_speck_end
 _cells_row_end
