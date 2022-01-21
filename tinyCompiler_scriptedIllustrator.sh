@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='182187954'
+export ub_setScriptChecksum_contents='1713856924'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -12922,38 +12922,38 @@ _tinyCompiler_scriptedIllustrator_declareFunctions_experimental() {
 
 _README() {
 	local currentAttachmentLine
-	currentAttachmentLine=`awk '/^#__README_uk4uPhB663kVcygT0q_README__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine=`awk '/^#__README_uk4uPhB663kVcygT0q_README__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine="$currentAttachmentLine - 1"
-	head -n$currentAttachmentLine $scriptAbsoluteLocation
+	head -n$currentAttachmentLine "$scriptAbsoluteLocation"
 }
 #[[ "$1" == "" ]] && _README && exit 0
 
 _HEADER-scriptCode() {
 	local currentAttachmentLine
-	currentAttachmentLine=`awk '/^#__HEADER-scriptCode_uk4uPhB663kVcygT0q_HEADER-scriptCode__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine=`awk '/^#__HEADER-scriptCode_uk4uPhB663kVcygT0q_HEADER-scriptCode__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine="$currentAttachmentLine - 1"
-	head -n$currentAttachmentLine $scriptAbsoluteLocation
+	head -n$currentAttachmentLine "$scriptAbsoluteLocation"
 }
 _FOOTER-scriptCode() {
 	local currentAttachmentLine
-	currentAttachmentLine=`awk '/^#__FOOTER-scriptCode_uk4uPhB663kVcygT0q_FOOTER-scriptCode__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine=`awk '/^#__FOOTER-scriptCode_uk4uPhB663kVcygT0q_FOOTER-scriptCode__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine="$currentAttachmentLine - 1"
-	tail -n+$currentAttachmentLine $scriptAbsoluteLocation
+	tail -n+$currentAttachmentLine "$scriptAbsoluteLocation"
 }
 _DOCUMENT-scriptCode() {
 	local currentAttachmentLine_header
-	currentAttachmentLine_header=`awk '/^#__HEADER-scriptCode_uk4uPhB663kVcygT0q_HEADER-scriptCode__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine_header=`awk '/^#__HEADER-scriptCode_uk4uPhB663kVcygT0q_HEADER-scriptCode__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine_header="$currentAttachmentLine_header - 1"
 	
 	local currentAttachmentLine_footer
-	currentAttachmentLine_footer=`awk '/^#__FOOTER-scriptCode_uk4uPhB663kVcygT0q_FOOTER-scriptCode__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine_footer=`awk '/^#__FOOTER-scriptCode_uk4uPhB663kVcygT0q_FOOTER-scriptCode__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine_footer="$currentAttachmentLine_footer - 1 -1"
 	
 	local currentAttachmentLine_length
 	let currentAttachmentLine_length="$currentAttachmentLine_footer - $currentAttachmentLine_header"
 	
 	
-	head -n$currentAttachmentLine_footer $scriptAbsoluteLocation | tail -n$currentAttachmentLine_length
+	head -n$currentAttachmentLine_footer "$scriptAbsoluteLocation" | tail -n$currentAttachmentLine_length
 }
 _ignore_DOCUMENT_HEADER() {
 #echo -e "_ignore_CZXWXcRMTo8EmM8i4d() {\ntrue #_ignore_CZXWXcRMTo8EmM8i4d"
@@ -12968,30 +12968,30 @@ echo "ignore_CZXWXcRMTo8EmM8i4d"
 
 _HEADER() {
 	local currentAttachmentLine
-	currentAttachmentLine=`awk '/^#__HEADER_uk4uPhB663kVcygT0q_HEADER__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine=`awk '/^#__HEADER_uk4uPhB663kVcygT0q_HEADER__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine="$currentAttachmentLine - 1"
-	head -n$currentAttachmentLine $scriptAbsoluteLocation
+	head -n$currentAttachmentLine "$scriptAbsoluteLocation"
 }
 _FOOTER() {
 	local currentAttachmentLine
-	currentAttachmentLine=`awk '/^#__FOOTER_uk4uPhB663kVcygT0q_FOOTER__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine=`awk '/^#__FOOTER_uk4uPhB663kVcygT0q_FOOTER__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine="$currentAttachmentLine - 1"
-	tail -n+$currentAttachmentLine $scriptAbsoluteLocation
+	tail -n+$currentAttachmentLine "$scriptAbsoluteLocation"
 }
 _DOCUMENT() {
 	local currentAttachmentLine_header
-	currentAttachmentLine_header=`awk '/^#__HEADER_uk4uPhB663kVcygT0q_HEADER__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine_header=`awk '/^#__HEADER_uk4uPhB663kVcygT0q_HEADER__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine_header="$currentAttachmentLine_header - 1"
 	
 	local currentAttachmentLine_footer
-	currentAttachmentLine_footer=`awk '/^#__FOOTER_uk4uPhB663kVcygT0q_FOOTER__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine_footer=`awk '/^#__FOOTER_uk4uPhB663kVcygT0q_FOOTER__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine_footer="$currentAttachmentLine_footer - 1 -1"
 	
 	local currentAttachmentLine_length
 	let currentAttachmentLine_length="$currentAttachmentLine_footer - $currentAttachmentLine_header"
 	
 	
-	head -n$currentAttachmentLine_footer $scriptAbsoluteLocation | tail -n$currentAttachmentLine_length
+	head -n$currentAttachmentLine_footer "$scriptAbsoluteLocation" | tail -n$currentAttachmentLine_length
 }
 
 
@@ -13000,14 +13000,14 @@ _DOCUMENT() {
 # https://www.linuxjournal.com/node/1005818
 _onlyAttachment() {
 	local currentAttachmentLine
-	currentAttachmentLine=`awk '/^__ATTACHMENT_uk4uPhB663kVcygT0q_ATTACHMENT__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
-	tail -n+$currentAttachmentLine $scriptAbsoluteLocation | base64 -d
+	currentAttachmentLine=`awk '/^__ATTACHMENT_uk4uPhB663kVcygT0q_ATTACHMENT__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
+	tail -n+$currentAttachmentLine "$scriptAbsoluteLocation" | base64 -d
 }
 _noAttachment() {
 	local currentAttachmentLine
-	currentAttachmentLine=`awk '/^__ATTACHMENT_uk4uPhB663kVcygT0q_ATTACHMENT__/ {print NR + 1; exit 0; }' $scriptAbsoluteLocation`
+	currentAttachmentLine=`awk '/^__ATTACHMENT_uk4uPhB663kVcygT0q_ATTACHMENT__/ {print NR + 1; exit 0; }' "$scriptAbsoluteLocation"`
 	let currentAttachmentLine="$currentAttachmentLine - 1"
-	head -n$currentAttachmentLine $scriptAbsoluteLocation
+	head -n$currentAttachmentLine "$scriptAbsoluteLocation"
 }
 _rmAttachment() {
 	 _start
