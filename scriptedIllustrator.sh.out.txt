@@ -1,10 +1,13 @@
 [0;37;100m[1;32;46m demo: self-modifying interleaved markup and shell [0m[0m
+
 _ document - heading1 _
+
 __ date - heading2 __
 [0;37;100m[0;35m request: date --iso-8601=ns [0m[0m
 [0;37;100m[0;34m date --iso-8601 [0m[0m
 [0;34m  '[[ "$noDate" != "true" ]] && date --iso-8601' [0m
 [0;37;100m# 2022-01-22[0m
+
 __ images - heading2 __
 
 
@@ -12,6 +15,7 @@ preformatted text within paragraph
  '_picture' 'zPicture_BusinessCard_mirage335_wood.png' '100px'
 
  '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '150px'
+
 __ equations and commands - heading2 __
 [0;34m  'currentBitsPerSecond=9600' [0m
 [0;34m  'currentBonesPerPlayer=4' [0m
@@ -103,6 +107,7 @@ _r '
  '_image' 'zImage_cabling_2020-11-19-03-19-082.jpg' '50px'
  '_cells_speck_end'
  '_cells_end'
+
 __ breaks - heading2 __
 
 
@@ -112,8 +117,8 @@ __ breaks - heading2 __
 
 preformatted text at paragraph_end
 
- '_page'
-PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+
+ '_page'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
 		
 
 PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
@@ -132,11 +137,17 @@ text
 #
 # ###
 &#35; &#35;&#35;&#35;
+
 _ heading1 _
+
 __ heading2 __
+
 ___ heading3 ___
+
 ____ heading4 ____
+
 _____ heading5 _____
+
 ______ heading6 ______
 
 #
@@ -194,8 +205,8 @@ x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
 [0;37;100mx > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;[0m
 
 [0;37;100mx > /dev/null[0m
- '_page'
-PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
+
+ '_page'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
 		
 
 PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
