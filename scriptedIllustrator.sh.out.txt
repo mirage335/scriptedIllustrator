@@ -6,7 +6,7 @@ __ date - heading2 __
 [0;37;100m[0;35m request: date --iso-8601=ns [0m[0m
 [0;37;100m[0;34m date --iso-8601 [0m[0m
 [0;34m  '[[ "$noDate" != "true" ]] && date --iso-8601' [0m
-[0;37;100m# 2022-01-22[0m
+[0;37;100m# 2022-01-25[0m
 
 __ images - heading2 __
 
@@ -119,7 +119,7 @@ preformatted text at paragraph_end
 
 
  '_page'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
-		
+
 
 PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
 [0;37;100m[0;35m request: maybe the user should copy some file next to the "$scriptAbsoluteFolder" [0m[0m
@@ -207,7 +207,7 @@ x > /dev/null < /dev/null &lt;/dev/null> &lt;h://w.example.com/page/&gt;
 [0;37;100mx > /dev/null[0m
 
  '_page'PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
-		
+
 
 PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak -H-H-H-H- PageBreak
 
