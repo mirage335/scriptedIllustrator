@@ -247,10 +247,10 @@ _tinyCompiler_scriptedIllustrator() {
 	
 	echo '#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
-	echo 'current_internal_CompressedFunctions_bytes='\'"$current_internal_CompressedFunctions_bytes"\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
-	echo 'current_internal_CompressedFunctions_cksum='\'"$current_internal_CompressedFunctions_cksum"\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
-	echo 'current_internal_CompressedFunctions='\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
-	echo "$current_internal_CompressedFunctions"\' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo 'current_internal_CompressedFunctions_bytes='\""$current_internal_CompressedFunctions_bytes"\" >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo 'current_internal_CompressedFunctions_cksum='\""$current_internal_CompressedFunctions_cksum"\" >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo 'current_internal_CompressedFunctions='\" >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
+	echo "$current_internal_CompressedFunctions"\" >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	echo '! echo "$current_internal_CompressedFunctions" | base64 -d | xz -d > /dev/null && exit 1' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh
 	
 	echo 'source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )' >> "$scriptAbsoluteFolder"/_prog/scriptedIllustrator/functions/19_declared_functions.sh

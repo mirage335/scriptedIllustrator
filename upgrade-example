@@ -1,5 +1,23 @@
-#####Functions. Some may be from 'ubiquitous bash' .
-#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
+
+
+
+# Example shell code to report files with checksums of NOT upgraded compressedFunctions .
+grep -r -E '000NUMcksumNUM000'
+grep -r -E '000bad000|000bad000'
+grep -r -E '3845181394|4000152164'
+
+# Example shell code to report files with any cksum.
+# Line count (from 'wc -l') will match line count from upgraded checksum if all files upgraded.
+grep -r 'current_internal_CompressedFunctions_cksum='
+
+
+
+# CAUTION: Not recommended.
+# DANGER: Uses 'current directory'.
+# Example upgrade shell code. Replace '000NUMcksumNUM000' and 'NEWcompressedFunctionsNEW' (or similar).
+
+
+export upgrade_block_compressedFunctions='#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
 current_internal_CompressedFunctions_bytes="12375"
 current_internal_CompressedFunctions_cksum="3023785929"
 current_internal_CompressedFunctions="
@@ -86,8 +104,20 @@ ittGFgYT23izDSV6kXsjY0D+1eldNG2EfZZAlSevM/IQkXN/6LzWi8eGYnHHYLtgsv98z6C84JGhJm+P
 source <( echo "$current_internal_CompressedFunctions" | base64 -d | xz -d )
 unset current_internal_CompressedFunctions ; unset current_internal_CompressedFunctions_cksum ; unset current_internal_CompressedFunctions_bytes
 # https://github.com/mirage335/scriptedIllustrator
-#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions
-! _tiny_criticalDep && exit 1
+#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions'
+export upgrade_block_compressedFunctions=$(echo "$upgrade_block_compressedFunctions" | sed 's/\//\\\//g' | sed 's/"/\\"/g' | sed 's/\$/\\$/g')
 
-# Special Global Variables
-_tiny_set_strings
+
+_upgrade_scriptedIllustrator() {
+find . -iname '*.sh' -exec perl -0777 -pi -e 's/#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions[.\S\s]*3845181394[.\S\s]*#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions/'"$upgrade_block_compressedFunctions"'/g' {} \;
+find . -iname '*.sh' -exec perl -0777 -pi -e 's/#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions[.\S\s]*4000152164[.\S\s]*#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions/'"$upgrade_block_compressedFunctions"'/g' {} \;
+}
+
+_upgrade_scriptedIllustrator
+
+
+
+
+
+find . -iname '*.sh' -exec perl -0777 -pi -e 's/#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions[.\S\s]*000NUMcksumNUM000[.\S\s]*#_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions_uk4uPhB663kVcygT0q_compressedFunctions/'"$upgrade_block_compressedFunctions"'/g' {} \;
+
