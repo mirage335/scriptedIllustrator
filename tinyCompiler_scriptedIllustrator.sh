@@ -32,7 +32,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='349371451'
+export ub_setScriptChecksum_contents='3802201041'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -210,6 +210,16 @@ fi
 
 #Override.
 # DANGER: Recursion hazard. Do not create override alias/function without checking that alternate exists.
+
+
+# Seems Ubuntu 20 used an 'alias' for 'python', which may not be usable by shell scripts.
+if ! type python > /dev/null 2>&1 && type python3 > /dev/null 2>&1
+then
+	python() {
+		python3 "$@"
+	}
+fi
+
 
 
 # Workaround for very minor OS misconfiguration. Setting this variable at all may be undesirable however. Consider enabling and generating all locales with 'sudo dpkg-reconfigure locales' or similar .
@@ -612,6 +622,15 @@ _____special_live_dent_restore() {
 
 #Override, cygwin.
 
+# WARNING: Multiple reasons to instead consider direct detection by other commands -  ' uname -a | grep -i cygwin > /dev/null 2>&1 ' , ' [[ -e '/cygdrive' ]] ' , etc .
+_if_cygwin() {
+	if uname -a | grep -i cygwin > /dev/null 2>&1
+	then
+		return 0
+	fi
+	return 1
+}
+
 
 # WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
 #/usr/local/bin:/usr/bin:/cygdrive/c/WINDOWS/system32:/cygdrive/c/WINDOWS:/usr/bin:/usr/lib/lapack:/cygdrive/x:/cygdrive/x/_bin:/cygdrive/x/_bundle:/opt/ansible/bin:/opt/nodejs/current:/opt/testssl:/home/root/bin
@@ -629,15 +648,18 @@ then
 fi
 
 
-
-# WARNING: Multiple reasons to instead consider direct detection by other commands -  ' uname -a | grep -i cygwin > /dev/null 2>&1 ' , ' [[ -e '/cygdrive' ]] ' , etc .
-_if_cygwin() {
-	if uname -a | grep -i cygwin > /dev/null 2>&1
+# ATTENTION: Workaround - Cygwin Portable - append MSW PATH if reasonable.
+# NOTICE: Also see '_test-shell-cygwin' .
+if [[ "$MSWEXTPATH" != "" ]] && ( [[ "$PATH" == *"/cygdrive"* ]] || [[ "$PATH" == "/cygdrive"* ]] ) && [[ "$convertedMSWEXTPATH" == "" ]] && _if_cygwin
+then
+	if [[ $(echo "$MSWEXTPATH" | grep -o ';\|:' | wc -l | tr -dc '0-9') -le 32 ]] && [[ $(echo "$PATH" | grep -o ':' | wc -l | tr -dc '0-9') -le 32 ]]
 	then
-		return 0
+		export convertedMSWEXTPATH=$(cygpath -p "$MSWEXTPATH")
+		export PATH="$PATH":"$convertedMSWEXTPATH"
 	fi
-	return 1
-}
+fi
+
+
 
 # ATTENTION: Workaround - Cygwin Portable - change directory to current directory as detected by 'ubcp.cmd' .
 if [[ "$CWD" != "" ]] && [[ "$cygwin_CWD_onceOnly_done" != 'true' ]] && uname -a | grep -i cygwin > /dev/null 2>&1
@@ -645,6 +667,13 @@ then
 	! cd "$CWD" && exit 1
 	export cygwin_CWD_onceOnly_done='true'
 fi
+
+
+# Forces Cygwin symlinks to best compatibility. Should be set by default elsewhere. Use sparingly only if necessary (eg. _setup_ubcp) .
+_force_cygwin_symlinks() {
+	! _if_cygwin && return 0
+	[[ "$CYGWIN" != *"winsymlinks:lnk"* ]] && export CYGWIN="winsymlinks:lnk ""$CYGWIN"
+}
 
 
 # ATTENTION: User must launch "tmux" (no parameters) in a graphical Cygwin terminal.
@@ -762,7 +791,7 @@ _sudo_cygwin() {
 # CAUTION: BROKEN !
 if _if_cygwin && type cygstart > /dev/null 2>&1
 then
-	sudo() {
+	sudo_cygwin() {
 		[[ "$1" == "-n" ]] && shift
 		if type cygstart > /dev/null 2>&1
 		then
@@ -861,13 +890,16 @@ _discoverResource-cygwinNative-ProgramFiles() {
 	unset currentDriveLetter_cygwin_uk4uPhB663kVcygT0q
 	export currentDriveLetter_cygwin_uk4uPhB663kVcygT0q="$currentCygdriveC_equivalent"
 	_discoverResource-cygwinNative-ProgramFiles-declaration-ProgramFiles "$@"
-	
+	[[ "$3" != "true" ]] && type "$currentBinary_functionName" > /dev/null 2>&1 && return 0
 	
 	# ATTENTION: Configure: 'c..w' (aka. 'w..c') .
+	# WARNING: Program Files at drive letters other than 'c' may not be supported now or ever. Especially other than 'c,d,e'.
 	unset currentDriveLetter_cygwin_uk4uPhB663kVcygT0q
-	for currentDriveLetter_cygwin_uk4uPhB663kVcygT0q in {c..w}
+	#for currentDriveLetter_cygwin_uk4uPhB663kVcygT0q in {c..w}
+	for currentDriveLetter_cygwin_uk4uPhB663kVcygT0q in {c..f}
 	do
 		_discoverResource-cygwinNative-ProgramFiles-declaration-ProgramFiles "$@"
+		[[ "$3" != "true" ]] && type "$currentBinary_functionName" > /dev/null 2>&1 && return 0
 	done
 	
 	_discoverResource-cygwinNative-ProgramFiles-declaration-core "$@"
@@ -890,6 +922,8 @@ _ops_cygwinOverride_allDisks() {
 	unset currentDriveLetter_cygwin_uk4uPhB663kVcygT0q
 }
 
+# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
+[[ "$profileScriptLocation_new" == 'true' ]] && echo -n '.'
 
 if [[ -e /cygdrive ]] && _if_cygwin
 then
@@ -905,9 +939,6 @@ then
 		
 		_discoverResource-cygwinNative-ProgramFiles 'nmap' 'Nmap' false
 		
-		# WARNING: Native 'vncviewer.exe' is a GUI app, and cannot be launched directly from Cygwin SSH server.
-		_discoverResource-cygwinNative-ProgramFiles 'vncviewer' 'TigerVNC' false '_workaround_cygwin_tmux '
-		
 		_discoverResource-cygwinNative-ProgramFiles 'qalc' 'Qalculate' false
 		
 		
@@ -922,10 +953,23 @@ then
 		#_ops_cygwinOverride_allDisks "$@"
 		
 		unset currentDriveLetter_cygwin_uk4uPhB663kVcygT0q
+		
+		
+		
+		# CAUTION: Performance - such '_discoverResource' functions are time consuming . If reasonable, instead call only from functions as necessary (eg. as part of '_userVBox') .
+		# ATTENTION: Expect 0.500s for any program which is not found at 'C:\Program Files' or similar, and 0.200s for any program which is found quickly.
+		# Other inefficiencies of Cygwin are usually more substantial if only a few entries are here.
+		
+		
+		# WARNING: Native 'vncviewer.exe' is a GUI app, and cannot be launched directly from Cygwin SSH server.
+		_discoverResource-cygwinNative-ProgramFiles 'vncviewer' 'TigerVNC' false '_workaround_cygwin_tmux '
+		
+		_discoverResource-cygwinNative-ProgramFiles 'kate' 'Kate/bin' false
 	fi
 fi
 
-
+# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
+[[ "$profileScriptLocation_new" == 'true' ]] && echo -n '.'
 
 
 
@@ -965,7 +1009,9 @@ _setup_ubiquitousBash_cygwin_procedure() {
 	_messagePlain_nominal 'init: _setup_ubiquitousBash_cygwin'
 	
 	local currentCygdriveC_equivalent
-	currentCygdriveC_equivalent=$(cygpath -S | sed 's/\/Windows\/System32//g')
+	currentCygdriveC_equivalent="$1"
+	[[ "$currentCygdriveC_equivalent" == "" ]] && currentCygdriveC_equivalent=$(cygpath -S | sed 's/\/Windows\/System32//g')
+	[[ "$1" == "/" ]] && currentCygdriveC_equivalent=$(echo "$PWD" | sed 's/\(\/cygdrive\/[a-zA-Z]*\).*/\1/')
 	
 	mkdir -p "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash
 	cd "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash
@@ -995,6 +1041,8 @@ _setup_ubiquitousBash_cygwin_procedure() {
 	cp "$scriptAbsoluteFolder"/_anchor.bat "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
 	cp "$scriptAbsoluteFolder"/_setup_ubcp.bat "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
 	
+	cp "$scriptAbsoluteFolder"/_setupUbiquitous.bat "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
+	
 	
 	cp "$scriptAbsoluteFolder"/package.tar.xz "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
 	
@@ -1020,6 +1068,8 @@ _setup_ubiquitousBash_cygwin_procedure() {
 	
 	cp "$scriptLocal"/ubcp/ubcp.cmd "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/_local/ubcp/
 	cp "$scriptLocal"/ubcp/ubcp_rename-to-enable.cmd "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/_local/ubcp/
+	
+	cp "$scriptLocal"/ubcp/cygwin-portable-installer-config.cmd  "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/_local/ubcp/
 	cp "$scriptLocal"/ubcp/ubcp-cygwin-portable-installer.cmd "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/_local/ubcp/
 	
 	
@@ -1061,6 +1111,11 @@ _setup_ubiquitousBash_cygwin_procedure() {
 	#sudo -n "$scriptAbsoluteLocation" _setup_ubiquitousBash_cygwin_procedure_root "$@"
 	
 	
+	# ATTENTION: NOTICE: Any installer for developers which relies on unpacking directories to '/core/infrastructure' must also add this to '/' .
+	# Having '_bash.bat' at '/' normally allows developers to get a bash prompt from both 'CMD' and 'PowerShell' terminal windows by '/_bash' command.
+	cp "$scriptAbsoluteFolder"/_bash.bat "$currentCygdriveC_equivalent"/
+	
+	
 	_messagePlain_good 'done: _setup_ubiquitousBash_cygwin: lean'
 	sleep 1
 }
@@ -1081,7 +1136,9 @@ _setup_ubcp_procedure() {
 	tskill ssh-pageant > /dev/null 2>&1
 	
 	local currentCygdriveC_equivalent
-	currentCygdriveC_equivalent=$(cygpath -S | sed 's/\/Windows\/System32//g')
+	currentCygdriveC_equivalent="$1"
+	[[ "$currentCygdriveC_equivalent" == "" ]] && currentCygdriveC_equivalent=$(cygpath -S | sed 's/\/Windows\/System32//g')
+	[[ "$1" == "/" ]] && currentCygdriveC_equivalent=$(echo "$PWD" | sed 's/\(\/cygdrive\/[a-zA-Z]*\).*/\1/')
 	
 	export safeToDeleteGit="true"
 	if [[ -e "$currentCygdriveC_equivalent"/core/infrastructure/ubcp ]]
@@ -1117,19 +1174,21 @@ _setup_ubcp_procedure() {
 
 
 # CAUTION: Do NOT hook to '_setup' .
-# No production use. Developer feature.
+# WARNING: ATTENTION: NOTICE: No production use. Developer feature.
 # Highly irregular accommodation for usage of 'ubiquitous_bash' through 'ubcp' (cygwin portable) compatibility layer through MSW network drive (especially '_userVBox' MSW guest network drive) .
 # WARNING: May require 'administrator' privileges under MSW. However, it may be better for this directory to be 'owned' by the 'primary' 'user' account. Particularly considering the VR/gaming/CAD software that remains 'exclusive' to MSW is 'legacy' software which for both licensing and technical reasons may be inherently incompatible with 'multi-user' access.
 # WARNING: MSW 'administrator' 'privileges' may break 'ubcp' .
 _setup_ubcp() {
+	_force_cygwin_symlinks
+	
 	# WARNING: May break if 'mitigation' has not been applied!
 	if ! [[ -e "$scriptLocal"/ubcp/package_ubcp-cygwinOnly.tar.gz ]] && ! [[ -e "$scriptLocal"/ubcp/package_ubcp-cygwinOnly.tar.xz ]] && [[ -e "$scriptLocal"/ubcp/cygwin ]]
 	then
-		"$scriptAbsoluteLocation" _package_procedure-cygwinOnly "$@"
+		"$scriptAbsoluteLocation" _package_procedure-cygwinOnly
 	fi
 	
-	"$scriptAbsoluteLocation" _setup_ubcp_procedure "$@"
-	"$scriptAbsoluteLocation" _setup_ubiquitousBash_cygwin_procedure "$@"
+	"$scriptAbsoluteLocation" _setup_ubcp_procedure "$1"
+	"$scriptAbsoluteLocation" _setup_ubiquitousBash_cygwin_procedure "$1"
 }
 
 
@@ -1139,6 +1198,7 @@ _setup_ubcp() {
 
 _mitigate-ubcp_rewrite_procedure() {
 	_messagePlain_nominal 'init: _mitigate-ubcp_rewrite_procedure'
+	[[ "$currentPWD" != "" ]] && cd "$currentPWD"
 	
 	local currentRoot=$(_getAbsoluteLocation "$PWD")
 	
@@ -1271,14 +1331,78 @@ _mitigate-ubcp_rewrite_procedure() {
 	return 0
 }
 
-_mitigate-ubcp_rewrite() {
+# WARNING: May be untested.
+_mitigate-ubcp_rewrite_parallel() {
+	local currentArg
+	for currentArg in "$@"
+	do
+		true
+		
+		_mitigate-ubcp_rewrite_procedure "$currentArg"
+		
+		# WARNING: May be untested.
+		#_mitigate-ubcp_rewrite_procedure "$currentArg" &
+		
+		#/bin/echo "$currentArg" > /dev/tty
+	done
+}
+
+_mitigate-ubcp_rewrite_sequence() {
 	export safeToDeleteGit="true"
 	! _safePath "$1" && _stop 1
 	cd "$1"
 	
-	find "$2" -type l -exec "$scriptAbsoluteLocation" _mitigate-ubcp_rewrite_procedure '{}' \;
+	
+	# WARNING: May be slow (multiple hours).
+	unset currentPWD
+	#find "$2" -type l -exec "$scriptAbsoluteLocation" _mitigate-ubcp_rewrite_procedure '{}' \;
+	
+	
+	# WARNING: May be untested.
+	# https://stackoverflow.com/questions/4321456/find-exec-a-shell-function-in-linux
+	# Since only the shell knows how to run shell functions, you have to run a shell to run a function.
+	# export -f dosomething
+	# find . -exec bash -c 'dosomething "$0"' {} \;
+	unset currentPWD
+	export currentPWD="$PWD"
+	#export currentPWD="$1"
+	unset currentFile
+	export -f "_mitigate-ubcp_rewrite_procedure"
+	export -f "_messagePlain_nominal"
+	export -f "_color_begin_nominal"
+	export -f "_color_end"
+	export -f "_getAbsoluteLocation"
+	export -f "_realpath_L_s"
+	export -f "_realpath_L"
+	export -f "_compat_realpath_run"
+	export -f "_compat_realpath"
+	export -f "_messagePlain_probe_var"
+	export -f "_color_begin_probe"
+	export -f "_messagePlain_probe"
+	#find "$2" -print0 | while IFS= read -r -d '' currentFile; do _mitigate-ubcp_rewrite_procedure "$currentFile"; done
+	
+	
+	
+	# WARNING: May be untested.
+	##find "$2" -type l -exec bash -c '_mitigate-ubcp_rewrite_procedure "$1"' _ {} \;
+	
+	
+	
+	# WARNING: Diagnostic output will be corrupted by parallelism.
+	# ATTENTION: Expect as much as 4x as many CPU threads may be saturated due to MSW (MSW, NOT Cygwin) inefficiencies.
+	# Or only 2x if CPU has leading single-thread (ie. per-thread) performance and MSW inefficiencies have been reduced.
+	# Expect done in as little as 15 minutes.
+	# https://serverfault.com/questions/193319/a-better-unix-find-with-parallel-processing
+	# https://stackoverflow.com/questions/11003418/calling-shell-functions-with-xargs
+	export -f "_mitigate-ubcp_rewrite_parallel"
+	#find "$2" -type l -print0 | xargs -0 -n 1 -P 4 -I {} bash -c '_mitigate-ubcp_rewrite_parallel "$@"' _ {}
+	find "$2" -type l -print0 | xargs -0 -n 1 -P 4 -I {} bash -c '_mitigate-ubcp_rewrite_procedure "$@"' _ {}
 	
 	return 0
+}
+
+_mitigate-ubcp_rewrite() {
+	"$scriptAbsoluteLocation" _mitigate-ubcp_rewrite_sequence "$@"
 }
 
 
@@ -1588,7 +1712,7 @@ _test_realpath_L_s_sequence() {
 _test_realpath_L_s() {
 	#Optional safety check. Nonconformant realpath solution should be caught by synthetic test cases.
 	#_compat_realpath
-	#! [[ -e "$compat_realpath_bin" ]] && [[ "$compat_realpath_bin" != "" ]] && echo 'crit: missing: realpath' && _stop 1
+	#  ! [[ -e "$compat_realpath_bin" ]] && [[ "$compat_realpath_bin" != "" ]] && echo 'crit: missing: realpath' && _stop 1
 	
 	"$scriptAbsoluteLocation" _test_realpath_L_s_sequence "$@"
 	[[ "$?" != "0" ]] && _stop 1
@@ -1762,7 +1886,7 @@ _cygwin_translation_rootFileParameter() {
 
 #Critical prerequsites.
 _getAbsolute_criticalDep() {
-	#! type realpath > /dev/null 2>&1 && return 1
+	#  ! type realpath > /dev/null 2>&1 && return 1
 	! type readlink > /dev/null 2>&1 && return 1
 	! type dirname > /dev/null 2>&1 && return 1
 	! type basename > /dev/null 2>&1 && return 1
@@ -2015,7 +2139,7 @@ _safeRMR() {
 	[[ "$safeToDeleteGit" != "true" ]] && [[ -d "$1" ]] && [[ -e "$1" ]] && find "$1" 2>/dev/null | grep -i '\.git$' >/dev/null 2>&1 && return 1
 	
 	#Validate necessary tools were available for path building and checks.
-	#! type realpath > /dev/null 2>&1 && return 1
+	#  ! type realpath > /dev/null 2>&1 && return 1
 	! type readlink > /dev/null 2>&1 && return 1
 	! type dirname > /dev/null 2>&1 && return 1
 	! type basename > /dev/null 2>&1 && return 1
@@ -2112,7 +2236,7 @@ _safePath() {
 	[[ "$safeToDeleteGit" != "true" ]] && [[ -d "$1" ]] && [[ -e "$1" ]] && find "$1" 2>/dev/null | grep -i '\.git$' >/dev/null 2>&1 && return 1
 	
 	#Validate necessary tools were available for path building and checks.
-	#! type realpath > /dev/null 2>&1 && return 1
+	#  ! type realpath > /dev/null 2>&1 && return 1
 	! type readlink > /dev/null 2>&1 && return 1
 	! type dirname > /dev/null 2>&1 && return 1
 	! type basename > /dev/null 2>&1 && return 1
@@ -2205,7 +2329,7 @@ _command_safeBackup() {
 	[[ "$1" == "$HOME" ]] && return 1
 	[[ "$1" == "$HOME/" ]] && return 1
 	
-	#! type realpath > /dev/null 2>&1 && return 1
+	#  ! type realpath > /dev/null 2>&1 && return 1
 	! type readlink > /dev/null 2>&1 && return 1
 	! type dirname > /dev/null 2>&1 && return 1
 	! type basename > /dev/null 2>&1 && return 1
@@ -2488,7 +2612,7 @@ _permissions_ubiquitous_repo() {
 
 _test_permissions_ubiquitous-cygwin() {
 	! _if_cygwin && _stop 1
-	#! _if_cygwin && _stop "$1"
+	#  ! _if_cygwin && _stop "$1"
 	
 	_if_cygwin && echo 'warn: accepted: cygwin: permissions' && return 0
 }
@@ -3403,6 +3527,70 @@ _includeScripts() {
 	#return 1
 #}
 
+#Determines if user is root. If yes, then continue. If not, exits after printing error message.
+_mustBeRoot() {
+if [[ $(id -u) != 0 ]]; then 
+	echo "This must be run as root!"
+	exit
+fi
+}
+alias mustBeRoot=_mustBeRoot
+
+#Determines if sudo is usable by scripts.
+_mustGetSudo() {
+	# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
+	_if_cygwin && return 0
+	
+	local rootAvailable
+	rootAvailable=false
+	
+	rootAvailable=$(sudo -n echo true)
+	
+	#[[ $(id -u) == 0 ]] && rootAvailable=true
+	
+	! [[ "$rootAvailable" == "true" ]] && exit 1
+	
+	return 0
+}
+
+#Determines if sudo is usable by scripts. Will not exit on failure.
+_wantSudo() {
+	# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
+	_if_cygwin && return 0
+	
+	local rootAvailable
+	rootAvailable=false
+	
+	rootAvailable=$(sudo -n echo true 2> /dev/null)
+	
+	#[[ $(id -u) == 0 ]] && rootAvailable=true
+	
+	! [[ "$rootAvailable" == "true" ]] && return 1
+	
+	return 0
+}
+
+#Returns a UUID in the form of xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
+_getUUID() {
+	if [[ -e /proc/sys/kernel/random/uuid ]]
+	then
+		cat /proc/sys/kernel/random/uuid
+		return 0
+	fi
+	
+	
+	if type -p uuidgen > /dev/null 2>&1
+	then
+		uuidgen
+		return 0
+	fi
+	
+	# Failure. Intentionally adds extra characters to cause any tests of uuid output to fail.
+	_uid 40
+	return 1
+}
+alias getUUID=_getUUID
+
 #Gets filename extension, specifically any last three characters in given string.
 #"$1" == filename
 _getExt() {
@@ -3930,7 +4118,7 @@ _checkPort_ipv4() {
 }
 
 _checkPort_sequence() {
-	_start
+	_start scriptLocal_mkdir_disable
 	
 	local currentEchoStatus
 	currentEchoStatus=$(stty --file=/dev/tty -g 2>/dev/null)
@@ -4215,9 +4403,14 @@ _mustGetDep() {
 }
 
 _fetchDep_distro() {
-	if [[ -e /etc/issue ]] && cat /etc/issue | grep 'Debian' > /dev/null 2>&1
+	if [[ -e /etc/issue ]] && cat /etc/issue | grep 'Debian\|Raspbian' > /dev/null 2>&1
 	then
 		_tryExecFull _fetchDep_debian "$@"
+		return
+	fi
+	if [[ -e /etc/issue ]] && cat /etc/issue | grep 'Ubuntu' > /dev/null 2>&1
+	then
+		_tryExecFull _fetchDep_ubuntu "$@"
 		return
 	fi
 	return 1
@@ -4239,70 +4432,6 @@ _getDep() {
 	
 	_mustGetDep "$@"
 }
-
-#Determines if user is root. If yes, then continue. If not, exits after printing error message.
-_mustBeRoot() {
-if [[ $(id -u) != 0 ]]; then 
-	echo "This must be run as root!"
-	exit
-fi
-}
-alias mustBeRoot=_mustBeRoot
-
-#Determines if sudo is usable by scripts.
-_mustGetSudo() {
-	# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
-	_if_cygwin && return 0
-	
-	local rootAvailable
-	rootAvailable=false
-	
-	rootAvailable=$(sudo -n echo true)
-	
-	#[[ $(id -u) == 0 ]] && rootAvailable=true
-	
-	! [[ "$rootAvailable" == "true" ]] && exit 1
-	
-	return 0
-}
-
-#Determines if sudo is usable by scripts. Will not exit on failure.
-_wantSudo() {
-	# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
-	_if_cygwin && return 0
-	
-	local rootAvailable
-	rootAvailable=false
-	
-	rootAvailable=$(sudo -n echo true 2> /dev/null)
-	
-	#[[ $(id -u) == 0 ]] && rootAvailable=true
-	
-	! [[ "$rootAvailable" == "true" ]] && return 1
-	
-	return 0
-}
-
-#Returns a UUID in the form of xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-_getUUID() {
-	if [[ -e /proc/sys/kernel/random/uuid ]]
-	then
-		cat /proc/sys/kernel/random/uuid
-		return 0
-	fi
-	
-	
-	if type -p uuidgen > /dev/null 2>&1
-	then
-		uuidgen
-		return 0
-	fi
-	
-	# Failure. Intentionally adds extra characters to cause any tests of uuid output to fail.
-	_uid 40
-	return 1
-}
-alias getUUID=_getUUID
 
 _resetFakeHomeEnv_extra() {
 	true
@@ -4377,6 +4506,13 @@ _visualPrompt() {
 	export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$([[ "$PS1_lineNumber" == "1" ]] && echo -e -n '"'"'\[\033[01;36m\]'"'"'$PS1_lineNumber || echo -e -n $PS1_lineNumber)\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
 }
 
+
+_request_visualPrompt() {
+	_messagePlain_request 'export profileScriptLocation="'"$scriptAbsoluteLocation"'"'
+	_messagePlain_request 'export profileScriptFolder="'"$scriptAbsoluteFolder"'"'
+	_messagePlain_request ". "'"'"$scriptAbsoluteLocation"'"' --profile _importShortcuts
+}
+
 #https://stackoverflow.com/questions/15432156/display-filename-before-matching-line-grep
 _grepFileLine() {
 	grep -n "$@" /dev/null
@@ -4448,7 +4584,7 @@ _octave_script() {
 
 
 _octave_filter-messages() {
-	grep -v 'Symbolic pkg .*1: Python communication link active, SymPy v' | grep -v '_____' | grep -v '^$' | sed 's/^ans = //' | sed 's/^(sym) //'
+	grep -v 'Symbolic pkg .*: Python communication link active, SymPy v' | grep -v '_____' | grep -v '^$' | sed 's/^ans = //' | sed 's/^(sym) //'
 	#cat
 }
 
@@ -4519,7 +4655,7 @@ _test_devgnuoctave() {
 	
 	
 	
-	_tryExec '_test_devgnuoctave-debian-x64'
+	_tryExec '_test_devgnuoctave-extra'
 	
 	
 	
@@ -4527,10 +4663,49 @@ _test_devgnuoctave() {
 }
 
 
+_test_devgnuoctave_wantGetDep-octavePackage-internal() {
+	if [[ "$1" == "symbolic" ]]
+	then
+		_wantGetDep 'python3/dist-packages/sympy/__init__.py'
+		_wantGetDep 'python3/dist-packages/isympy.py'
+		
+		"$scriptAbsoluteLocation" _octave pkg list | grep symbolic > /dev/null && return 0
+		
+		_wantGetDep octave-symbolic
+		"$scriptAbsoluteLocation" _octave pkg install -forge symbolic
+		return 0
+	fi
+	
+	
+	return 1
+}
+
+
+
+_test_devgnuoctave_wantGetDep-octavePackage-debian-x64-special-debianBullseye() {
+	! [[ -e /etc/issue ]] && return 1
+	! cat /etc/issue | grep 'Debian' > /dev/null 2>&1 && return 1
+	! [[ -e /etc/debian_version ]] && return 1
+	! cat /etc/debian_version | head -c 2 | grep 11 > /dev/null 2>&1 && return 1
+	
+	
+	if [[ "$1" == "symbolic" ]]
+	then
+		_test_devgnuoctave_wantGetDep-octavePackage-internal "$@"
+		return
+	fi
+	
+	return 1
+}
+
+
+
+
+
 # ATTENTION: WARNING: Only tested with Debian Stable. May require rewrite to accommodate other distro (ie. Gentoo).
 _test_devgnuoctave_wantGetDep-octavePackage-debian-x64() {
-	# If not Debian, then simply accept these pacakges may not be available.
-	[[ -e /etc/issue ]] && ! cat /etc/issue | grep 'Debian' > /dev/null 2>&1 && return 0
+	## If not Debian, then simply accept these pacakges may not be available.
+	#[[ -e /etc/issue ]] && ! cat /etc/issue | grep 'Debian' > /dev/null 2>&1 && return 0
 	
 	# If not x64, then simply accept these pacakges may not be available.
 	local hostArch
@@ -4540,20 +4715,32 @@ _test_devgnuoctave_wantGetDep-octavePackage-debian-x64() {
 		return 0
 	fi
 	
-	! _typeShare_dir_wildcard 'octave/packages/'"$1" && ! _typeShare_dir_wildcard 'octave/packages/'octave-"$1" && _wantGetDep octave-"$1"
+	if _test_devgnuoctave_wantGetDep-octavePackage-debian-x64-special-debianBullseye "$@"
+	then
+		return 0
+	fi
+	
+	local currentPackageSuffix
+	currentPackageSuffix=$(echo "$1" | sed 's/-$//')
+	
+	! _typeShare_dir_wildcard 'octave/packages/'"$1" && ! _typeShare_dir_wildcard 'octave/packages/'"$1" && _wantGetDep octave-"$currentPackageSuffix"
+	! _typeShare_dir_wildcard 'octave/packages/'"$1" && ! _typeShare_dir_wildcard 'octave/packages/'octave-"$1" && _wantGetDep octave-"$currentPackageSuffix"
 	#_wantGetDep octave-"$1"
 	
 	return 0
 }
 
 _test_devgnuoctave-debian-x64() {
-	# If not Debian, then simply accept these pacakges may not be available.
-	[[ -e /etc/issue ]] && ! cat /etc/issue | grep 'Debian' > /dev/null 2>&1 && return 0
-	
-	
-	# If not x64, then simply accept these pacakges may not be available.
 	local hostArch
 	hostArch=$(uname -m)
+	
+	
+	# If not Debian, then simply accept these pacakges may not be available.
+	# Experimentally, some Debian-like distributions may be allowed to attempt to such more complete octave package installation.
+	# \|Ubuntu
+	[[ -e /etc/issue ]] && ! cat /etc/issue | grep 'Debian' > /dev/null 2>&1 && return 0
+	
+	# If not x64, then simply accept these pacakges may not be available.
 	if [[ "$hostArch" != "x86_64" ]]
 	then
 		return 0
@@ -4646,8 +4833,12 @@ _test_devgnuoctave-debian-x64() {
 	
 	_test_devgnuoctave_wantGetDep-octavePackage-debian-x64 netcdf
 	
-	_wantGetDep x86_64-linux-gnu/octave/site/oct/x86_64-pc-linux-gnu/nlopt/nlopt_optimize.oct
-	! _typeShare 'octave/site/m/nlopt/nlopt_optimize.m' && _wantGetDep octave-nlopt
+	if ! _typeDep 'x86_64-linux-gnu/octave/site/oct/x86_64-pc-linux-gnu/nlopt_optimize.oct' && ! _typeDep 'x86_64-linux-gnu/octave/site/oct/x86_64-pc-linux-gnu/nlopt/nlopt_optimize.oct'
+	then
+		_wantGetDep x86_64-linux-gnu/octave/site/oct/x86_64-pc-linux-gnu/nlopt_optimize.oct
+		_wantGetDep x86_64-linux-gnu/octave/site/oct/x86_64-pc-linux-gnu/nlopt/nlopt_optimize.oct
+	fi
+	! _typeShare 'octave/site/m/nlopt/nlopt_optimize.m' && ! _typeShare '/usr/share/octave/site/m/nlopt_minimize.m' && _wantGetDep octave-nlopt
 	
 	_test_devgnuoctave_wantGetDep-octavePackage-debian-x64 nurbs
 	
@@ -4667,11 +4858,11 @@ _test_devgnuoctave-debian-x64() {
 	
 	_test_devgnuoctave_wantGetDep-octavePackage-debian-x64 parallel
 	
-	_wantGetDep x86_64-linux-gnu/octave/site/oct/x86_64-pc-linux-gnu/pfstools/pfsread.oct
-	! _typeShare 'octave/site/m/pfstools/pfs_read_xyz.m' && _wantGetDep octave-pfstools
+	#_wantGetDep x86_64-linux-gnu/octave/site/oct/x86_64-pc-linux-gnu/pfstools/pfsread.oct
+	#! _typeShare 'octave/site/m/pfstools/pfs_read_xyz.m' && _wantGetDep octave-pfstools
 	
-	_wantGetDep x86_64-linux-gnu/octave/site/oct/api-v52/x86_64-pc-linux-gnu/plplot_octave.oct
-	! _typeShare 'plplot_octave/mesh.m' && _wantGetDep octave-plplot
+	#_wantGetDep x86_64-linux-gnu/octave/site/oct/api-v52/x86_64-pc-linux-gnu/plplot_octave.oct
+	#! _typeShare 'plplot_octave/mesh.m' && _wantGetDep octave-plplot
 	
 	_wantGetDep psychtoolbox-3/PsychBasic/PsychPortAudio.mex
 	
@@ -4722,6 +4913,25 @@ _test_devgnuoctave-debian-x64() {
 	return 0
 }
 
+_test_devgnuoctave-extra() {
+	local hostArch
+	hostArch=$(uname -m)
+	
+	if [[ "$hostArch" == "x86_64" ]] && [[ -e /etc/issue ]] && cat /etc/issue | grep 'Ubuntu' > /dev/null 2>&1
+	then
+		_test_devgnuoctave_wantGetDep-octavePackage-internal symbolic
+		_test_devgnuoctave_wantGetDep-octavePackage-debian-x64 quaternion
+		_test_devgnuoctave_wantGetDep-octavePackage-debian-x64 vrml
+		_test_devgnuoctave_wantGetDep-octavePackage-debian-x64 zeromq
+	fi
+	
+	_test_devgnuoctave-debian-x64
+}
+
+
+
+
+
 
 
 
@@ -4745,6 +4955,8 @@ _qalculate_terse() {
 
 # Interactive.
 _qalculate() {
+	mkdir -p .config/qalculate
+	
 	if [[ "$1" != "" ]]
 	then
 		_qalculate_terse "$@"
@@ -4812,13 +5024,26 @@ fi
 
 
 _test_devqalculate() {
-	_wantGetDep qalculate-gtk
-	_wantGetDep qalculate
+	# Debian Bullseye (stable) apparently does not include 'qualculate-gtk'.
+	# GUI may be installed from binaries provided elsewhere, although the '_qalculate' , '_clc' , and 'c' , functions do not require this.
+	# https://qalculate.github.io/downloads.html
+	if [[ -e /etc/debian_version ]] && cat /etc/debian_version | head -c 2 | grep 11 > /dev/null 2>&1
+	then
+		! _typeDep qalculate-gtk && sudo -n apt-get install --install-recommends -y qalculate-gtk
+	else
+		_wantGetDep qalculate-gtk
+		#_wantGetDep qalculate
+	fi
 	
 	_wantGetDep qalc
 	
-	! _typeShare 'texmf/tex/latex/gnuplot/gnuplot.cfg' && _wantGetDep gnuplot-data
-	! _typeShare 'texmf/tex/latex/gnuplot/gnuplot.cfg' && echo 'warn: missing: gnuplot-data'
+	if ! _typeShare 'texmf/tex/latex/gnuplot/gnuplot.cfg' && ! _typeShare 'texmf/tex/gnuplot.cfg'
+	then
+		! _wantGetDep 'texmf/tex/latex/gnuplot/gnuplot.cfg' && ! _wantGetDep 'texmf/tex/gnuplot.cfg' && ! _wantGetDep gnuplot-data
+	fi
+	
+	
+	! _typeShare 'texmf/tex/latex/gnuplot/gnuplot.cfg' && ! _typeShare 'texmf/tex/gnuplot.cfg' && echo 'warn: missing: gnuplot-data'
 	
 	#_wantGetDep gnuplot-data
 	#_wantGetDep gnuplot-x11
@@ -5856,6 +6081,273 @@ _query() {
 }
 
 
+_gitBest_detect_github_procedure() {
+	[[ "$current_gitBest_source_GitHub" == "FAIL" ]] && export current_gitBest_source_GitHub=""
+	[[ "$current_gitBest_source_GitHub" != "" ]] && return
+	
+	_messagePlain_nominal 'init: _gitBest_detect_github_procedure'
+	
+	if [[ "$current_gitBest_source_GitHub" == "" ]]
+	then
+		_messagePlain_request 'performance: export current_gitBest_source_GitHub=$("'"$scriptAbsoluteLocation"'" _gitBest_detect_github_sequence | tail -n1)'
+		
+		if [[ -e "$HOME"/core ]]
+		then
+			export current_gitBest_source_GitHub="github_core"
+		fi
+		
+		local currentSSHoutput
+		if currentSSHoutput=$(ssh -o StrictHostKeyChecking=no -o Compression=yes -o ConnectionAttempts=3 -o ServerAliveInterval=6 -o ServerAliveCountMax=9 -o ConnectTimeout="$netTimeout" -o PubkeyAuthentication=yes -o PasswordAuthentication=no git@github.com 2>&1 ; true) && _safeEcho_newline "$currentSSHoutput" | grep 'successfully authenticated'
+		then
+			export current_gitBest_source_GitHub="github_ssh"
+			return
+		fi
+		_safeEcho_newline "$currentSSHoutput"
+		
+		#if _checkPort github.com 443
+		if wget -qO- https://github.com > /dev/null
+		then
+			export current_gitBest_source_GitHub="github_https"
+			return
+		fi
+		
+		
+		[[ "$current_gitBest_source_GitHub" == "" ]] && export current_gitBest_source_GitHub="FAIL"
+		return 1
+	fi
+	return 0
+}
+_gitBest_detect_github_sequence() {
+	_gitBest_detect_github_procedure "$@"
+	_messagePlain_probe_var current_gitBest_source_GitHub
+	echo "$current_gitBest_source_GitHub"
+}
+_gitBest_detect_github() {
+	local currentOutput
+	currentOutput=$("$scriptAbsoluteLocation" _gitBest_detect_github_sequence "$@")
+	_safeEcho_newline "$currentOutput"
+	export current_gitBest_source_GitHub=$(_safeEcho_newline "$currentOutput" | tail -n 1)
+	[[ "$current_gitBest_source_GitHub" != "github_"* ]] && export current_gitBest_source_GitHub="FAIL"
+	
+	return 0
+}
+_gitBest_detect() {
+	_gitBest_detect_github "$@"
+}
+
+
+
+_gitBest_override_config_insteadOf-core() {
+	git config --global url."file://""$realHome""/core/infrastructure/""$1".insteadOf git@github.com:mirage335/"$1".git git@github.com:mirage335/"$1"
+}
+
+
+_gitBest_override_github-github_core() {
+	_gitBest_override_config_insteadOf-core ubiquitous_bash
+	_gitBest_override_config_insteadOf-core extendedInterface
+	_gitBest_override_config_insteadOf-core scriptedIllustrator
+	_gitBest_override_config_insteadOf-core arduinoUbiquitous
+	_gitBest_override_config_insteadOf-core mirage335_documents
+	
+	_gitBest_override_config_insteadOf-core BOM_designer
+	_gitBest_override_config_insteadOf-core CoreAutoSSH
+	_gitBest_override_config_insteadOf-core coreoracle
+	_gitBest_override_config_insteadOf-core flipKey
+	_gitBest_override_config_insteadOf-core freecad-assembly2
+	_gitBest_override_config_insteadOf-core Freerouting
+	_gitBest_override_config_insteadOf-core gEDA_designer
+	_gitBest_override_config_insteadOf-core metaBus
+	_gitBest_override_config_insteadOf-core PanelBoard
+	_gitBest_override_config_insteadOf-core PatchRap
+	_gitBest_override_config_insteadOf-core PatchRap_LulzBot
+	_gitBest_override_config_insteadOf-core PatchRap_to_CNC
+	_gitBest_override_config_insteadOf-core pcb-ioAutorouter
+	_gitBest_override_config_insteadOf-core RigidTable
+	_gitBest_override_config_insteadOf-core SigBlockly-mod
+	_gitBest_override_config_insteadOf-core stepperTester
+	_gitBest_override_config_insteadOf-core TazIntermediate
+	_gitBest_override_config_insteadOf-core webClient
+	_gitBest_override_config_insteadOf-core zipTiePanel
+}
+_gitBest_override_github-github_https() {
+	git config --global url."https://github.com/".insteadOf git@github.com:
+}
+
+
+
+_gitBest_override_github() {
+	_messagePlain_nominal 'init: _gitBest_override_github'
+	
+	cat "$realHome"/.gitconfig >> "$HOME"/.gitconfig
+	
+	if [[ "$current_gitBest_source_GitHub" == "github_core" ]]
+	then
+		_gitBest_override_github-github_core
+	fi
+	
+	if [[ "$current_gitBest_source_GitHub" == "github_https" ]]
+	then
+		_gitBest_override_github-github_https
+	fi
+	
+	if [[ "$current_gitBest_source_GitHub" == "github_ssh" ]]
+	then
+		_messagePlain_good 'good: preferred: github_ssh'
+	fi
+	
+	if [[ "$current_gitBest_source_GitHub" == "FAIL" ]]
+	then
+		_messageError 'FAIL: missing: GitHub'
+		_stop 1
+	fi
+	return 0
+}
+
+
+
+
+
+
+
+
+_gitBest_sequence() {
+	_messagePlain_nominal 'init: _gitBest_sequence'
+	
+	_start scriptLocal_mkdir_disable
+	
+	export realHome="$HOME"
+	export HOME="$safeTmp"/special_fakeHome
+	mkdir -p "$HOME"
+	
+	_messagePlain_probe_var current_gitBest_source_GitHub
+	_messagePlain_probe_var HOME
+	
+	
+	_gitBest_override_github
+	
+	if ! [[ -e "$HOME"/.gitconfig ]]
+	then
+		_messagePlain_good 'good: write: overrides: none'
+	else
+		echo
+		echo
+		cat "$HOME"/.gitconfig
+		echo
+		echo
+	fi
+	
+	
+	_messagePlain_nominal 'init: git'
+	
+	git "$@"
+	
+	
+	_stop "$?"
+}
+
+_gitBest() {
+	_messageNormal 'init: _gitBest'
+	
+	_gitBest_detect "$@"
+	
+	"$scriptAbsoluteLocation" _gitBest_sequence "$@"
+}
+
+
+_test_gitBest() {
+	_wantGetDep stty
+	_wantGetDep ssh
+	
+	_wantGetDep git
+	
+	_wantGetDep nmap
+	#_wantGetDep curl
+	#_wantGetDep wget
+}
+
+
+
+
+
+
+# May transfer large files out of cloud CI services, or may copy files into cloud or CI services for installation.
+
+_set_rclone_limited_file() {
+	export rclone_limited_file="$scriptLocal"/rclone_limited/rclone.conf
+	! [[ -e "$rclone_limited_file" ]] && export rclone_limited_file=/rclone.conf
+}
+_prepare_rclone_limited_file() {
+	if type RCLONE_LIMITED_CONF_BASE64 > /dev/null 2>&1
+	then
+		export rclone_limited_conf_base64=$(RCLONE_LIMITED_CONF_BASE64)
+	fi
+	
+	_set_rclone_limited_file
+	if ! [[ -e "$rclone_limited_file" ]] && [[ "$rclone_limited_conf_base64" != "" ]]
+	then
+		if ! [[ -e /rclone.conf ]]
+		then
+			echo "$rclone_limited_conf_base64" | base64 -d | sudo -n tee /rclone.conf > /dev/null
+		fi
+		
+		if ! [[ -e "$scriptLocal"/rclone_limited/rclone.conf ]]
+		then
+			mkdir -p "$scriptLocal"/rclone_limited
+			echo "$rclone_limited_conf_base64" | base64 -d > "$scriptLocal"/rclone_limited/rclone.conf
+		fi
+	fi
+	_set_rclone_limited_file
+	if ! [[ -e "$rclone_limited_file" ]]
+	then
+		_messageError 'FAIL: missing: rclone_limited_file'
+		_stop 1
+	fi
+	if ! [[ -s "$rclone_limited_file" ]]
+	then
+		_messageError 'FAIL: empty: rclone_limited_file'
+		_stop 1
+	fi
+	return 0
+}
+
+_rclone_limited_sequence() {
+	_prepare_rclone_limited_file
+	
+	export ub_function_override_rclone=''
+	unset ub_function_override_rclone
+	unset rclone
+	env XDG_CONFIG_HOME="$scriptLocal"/rclone_limited rclone --config="$rclone_limited_file" "$@"
+}
+
+_rclone_limited() {
+	"$scriptAbsoluteLocation" _rclone_limited_sequence "$@"
+	[[ "$?" != "0" ]] && _stop 1
+	return 0
+}
+
+_test_rclone_limited() {
+	! _wantGetDep 'rclone' && echo 'missing: rclone'
+	return 0
+}
+
+
+
+_importShortcuts() {
+	_tryExec "_resetFakeHomeEnv"
+	
+	if ! [[ "$PATH" == *":""$HOME""/bin"* ]] && ! [[ "$PATH" == "$HOME""/bin"* ]] && [[ -e "$HOME"/bin ]] && [[ -d "$HOME"/bin ]]
+	then
+		export PATH="$PATH":"$HOME"/bin
+	fi
+	
+	_tryExec "_visualPrompt"
+	
+	_tryExec "_scopePrompt"
+	
+	return 0
+}
+
+
 # ATTENTION: Override with 'ops.sh' , 'core.sh' , or similar.
 _setupUbiquitous_accessories_here-gnuoctave() {
 	cat << CZXWXcRMTo8EmM8i4d
@@ -6044,14 +6536,14 @@ CZXWXcRMTo8EmM8i4d
 _setupUbiquitous_accessories_here-cloud_bin() {
 	cat << CZXWXcRMTo8EmM8i4d
 
-if [[ "$PATH" != *'.ebcli-virtual-env/executables'* ]] && [[ -e "$HOME"/.ebcli-virtual-env/executables ]]
+if [[ "\$PATH" != *'.ebcli-virtual-env/executables'* ]] && [[ -e "$HOME"/.ebcli-virtual-env/executables ]]
 then
 	# WARNING: Must interpret "$HOME" as is at this point and NOT after any "$HOME" override.
-	export PATH="$HOME"/.ebcli-virtual-env/executables:"$PATH"
+	export PATH="$HOME"/.ebcli-virtual-env/executables:"\$PATH"
 fi
 
 
-if [[ "$PATH" != *'.gcloud/google-cloud-sdk'* ]] && [[ -e "$HOME"/.gcloud/google-cloud-sdk/completion.bash.inc ]] && [[ -e "$HOME"/.gcloud/google-cloud-sdk/path.bash.inc ]]
+if [[ "\$PATH" != *'.gcloud/google-cloud-sdk'* ]] && [[ -e "$HOME"/.gcloud/google-cloud-sdk/completion.bash.inc ]] && [[ -e "$HOME"/.gcloud/google-cloud-sdk/path.bash.inc ]]
 then
 	. "$HOME"/.gcloud/google-cloud-sdk/completion.bash.inc
 	. "$HOME"/.gcloud/google-cloud-sdk/path.bash.inc
@@ -6253,7 +6745,7 @@ CZXWXcRMTo8EmM8i4d
 	# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
 	_if_cygwin && cat << CZXWXcRMTo8EmM8i4d
 
-[[ -e '/cygdrive' ]] && uname -a | grep -i cygwin > /dev/null 2>&1 && echo -n '.'
+[[ -e '/cygdrive' ]] && uname -a | grep -i cygwin > /dev/null 2>&1 && echo -n '_'
 
 [[ "\$profileScriptLocation" == "" ]] && export profileScriptLocation_new='true'
 
@@ -6308,11 +6800,16 @@ then
 		export profileScriptLocation_new=''
 		unset profileScriptLocation_new
 		
-		sleep 0.1
-		echo '.'
-		sleep 0.1
-		echo '.'
-		sleep 0.1
+		# May have prevented issues from services (eg. ssh-pageant) that now do not continue to cause such issues, have been disabled, or have been removed, etc. Uncomment 'sleep 0.1' commands, replacing the other true/noop/sleep, if necessary or desired.
+		#sleep 0.1
+		true
+		echo '_'
+		#sleep 0.1
+		true
+		echo '_'
+		#sleep 0.1
+		true
+		
 		clear
 	fi
 fi
@@ -6321,6 +6818,18 @@ true
 
 CZXWXcRMTo8EmM8i4d
 
+}
+
+
+_setupUbiquitous_bashProfile_here() {
+	! uname -a | grep -i cygwin > /dev/null 2>&1 && cat << CZXWXcRMTo8EmM8i4d
+
+if [[ -e "$HOME"/.bashrc ]] && [[ "\$ubiquitousBashID" == "" ]]
+then
+	source "$HOME"/.bashrc
+fi
+
+CZXWXcRMTo8EmM8i4d
 }
 
 _configureLocal() {
@@ -6339,27 +6848,14 @@ _resetOps() {
 	rm "$scriptAbsoluteFolder"/ops
 }
 
-_importShortcuts() {
-	_tryExec "_resetFakeHomeEnv"
-	
-	if ! [[ "$PATH" == *":""$HOME""/bin"* ]] && ! [[ "$PATH" == "$HOME""/bin"* ]] && [[ -e "$HOME"/bin ]] && [[ -d "$HOME"/bin ]]
-	then
-		export PATH="$PATH":"$HOME"/bin
-	fi
-	
-	_tryExec "_visualPrompt"
-	
-	_tryExec "_scopePrompt"
-	
-	return 0
-}
-
 _gitPull_ubiquitous() {
-	git pull
+	#git pull
+	_gitBest pull
 }
 
 _gitClone_ubiquitous() {
-	git clone --depth 1 git@github.com:mirage335/ubiquitous_bash.git
+	#git clone --depth 1 git@github.com:mirage335/ubiquitous_bash.git
+	_gitBest clone --depth 1 git@github.com:mirage335/ubiquitous_bash.git
 }
 
 _selfCloneUbiquitous() {
@@ -6384,11 +6880,14 @@ _installUbiquitous() {
 	_messagePlain_nominal 'attempt: git pull'
 	if [[ "$nonet" != "true" ]] && type git > /dev/null 2>&1
 	then
+		_gitBest_detect
 		
 		local ub_gitPullStatus
-		git pull
+		#git pull
+		_gitBest pull
 		ub_gitPullStatus="$?"
-		[[ "$ub_gitPullStatus" != 0 ]] && git pull && ub_gitPullStatus="$?"
+		#[[ "$ub_gitPullStatus" != 0 ]] && git pull && ub_gitPullStatus="$?"
+		[[ "$ub_gitPullStatus" != 0 ]] && _gitBest pull && ub_gitPullStatus="$?"
 		! cd "$localFunctionEntryPWD" && return 1
 		
 		[[ "$ub_gitPullStatus" == "0" ]] && _messagePlain_good 'pass: git pull' && cd "$localFunctionEntryPWD" && return 0
@@ -6417,8 +6916,10 @@ _installUbiquitous() {
 		[[ -e "$scriptAbsoluteFolder"/ubcore_compressed.sh ]] && rm -f "$ubcoreUBdir"/ubcore_compressed.sh > /dev/null 2>&1
 		[[ -e "$scriptAbsoluteFolder"/ubiquitous_bash_compressed.sh ]] && rm -f "$ubcoreUBdir"/ubiquitous_bash_compressed.sh > /dev/null 2>&1
 		[[ -e "$scriptAbsoluteFolder"/lean.py ]] && rm -f "$ubcoreUBdir"/lean.py > /dev/null 2>&1
-		git reset --hard
-		git pull "$scriptAbsoluteFolder"
+		#git reset --hard
+		#git pull "$scriptAbsoluteFolder"
+		_gitBest pull "$scriptAbsoluteFolder"
+		_gitBest reset --hard
 		ub_gitPullStatus="$?"
 		! cd "$localFunctionEntryPWD" && return 1
 		
@@ -6443,6 +6944,14 @@ _installUbiquitous() {
 _setupUbiquitous() {
 	_messageNormal "init: setupUbiquitous"
 	
+	if _if_cygwin
+	then
+		echo 'detected: cygwin'
+		_messagePlain_probe_cmd git config --global core.autocrlf input
+		_messagePlain_probe_cmd git config --global core.eol lf
+	fi
+	
+	_force_cygwin_symlinks
 	_if_cygwin && _setup_ubiquitousBash_cygwin_procedure
 	
 	
@@ -6505,6 +7014,12 @@ _setupUbiquitous() {
 	! grep ubcore "$ubHome"/.bashrc > /dev/null 2>&1 && _messagePlain_bad 'missing: bashrc hook' && _messageFAIL && return 1
 	
 	
+	if [[ ! -e "$HOME"/.bash_profile ]] || ! grep '\.bashrc' "$HOME"/.bash_profile > /dev/null 2>&1
+	then
+		_setupUbiquitous_bashProfile_here >> "$HOME"/.bash_profile
+	fi
+	
+	
 	
 	
 	_messageNormal "install: setupUbiquitous_accessories"
@@ -6527,7 +7042,12 @@ _setupUbiquitous() {
 	fi
 	
 	_messagePlain_request "Now import new functionality into current shell if not in current shell."
-	_messagePlain_request ". "'"'"$scriptAbsoluteLocation"'"' --profile _importShortcuts
+	if [[ "$profileScriptLocation" != "" ]] && [[ "$profileScriptFolder" != "" ]]
+	then
+		_messagePlain_request ". "'"'"$scriptAbsoluteLocation"'"' --profile _importShortcuts
+	else
+		_request_visualPrompt
+	fi
 	
 	sleep 3
 	return 0
@@ -10199,6 +10719,13 @@ _prepare_abstract() {
 	chmod 0700 "$abstractfs_root" > /dev/null 2>&1
 	! chmod 700 "$abstractfs_root" && exit 1
 	
+	if [[ "$CI" != "" ]] && ! type chown > /dev/null 2>&1
+	then
+		chown() {
+			true
+		}
+	fi
+	
 	if _if_cygwin
 	then
 		if ! chown "$USER":None "$abstractfs_root" > /dev/null 2>&1
@@ -11263,8 +11790,8 @@ _variableLocalTest_sequence() {
 	currentBashBinLocation=$(type -p bash)
 	[[ "$sessionid" == '' ]] &&  _stop 1
 	! env -i sessionid="$sessionid" "$currentBashBinLocation" -c '[[ "$sessionid" != "" ]]' && _stop 1
-	env -i sessionid="" "$currentBashBinLocation" -c '[[ "$sessionid" != "" ]]' && _stop 1
-	env -i "$currentBashBinLocation" -c '[[ "$sessionid" != "" ]]' && _stop 1
+	env -i sessionid="" "$currentBashBinLocation" --norc -c '[[ "$sessionid" != "" ]]' && _stop 1
+	env -i "$currentBashBinLocation" --norc -c '[[ "$sessionid" != "" ]]' && _stop 1
 	
 	
 	
@@ -11764,6 +12291,81 @@ _test_sanity() {
 
 
 
+_test-shell-cygwin() {
+	_messageNormal "Cygwin detected... MSW configuration issues..."
+	
+	
+	local currentScriptTime
+	if type _stopwatch > /dev/null 2>&1
+	then
+		if [[ -e "$scriptAbsoluteFolder"/ubiquitous_bash.sh ]]
+		then
+			currentScriptTime=$(_timeout 45 _stopwatch "$scriptAbsoluteFolder"/ubiquitous_bash.sh _true 2>/dev/null | tr -dc '0-9')
+		else
+			currentScriptTime=$(_timeout 45 _stopwatch "$scriptAbsoluteLocation" _true 2>/dev/null | tr -dc '0-9')
+		fi
+	else
+		# If '_stopwatch' is not available, assume this is not an issue.
+		currentScriptTime="2000"
+	fi
+	
+	# Unusual, broken, non-desktop, etc user/login/account/etc configuration in MSW, might cause prohibitively long Cygwin delays.
+	# MSW has a fragile track record, and cannot be used for combining complex applications (eg. flight sim) with 'enterprise' user/login/account/etc and/or deployment. Unless extensive testing conclusively shows a long track record otherwise, or unless MS has a direct commitment under a valuable contract to specifically ensure compatibility with such a use case, it would be obviously gross negligence to put a business at risk of unacceptable downtime from such a fragile stack. Any 'bonus' compensation so earned should incur liability for the disproportionate risk.
+	# Enterprise must either use GNU/Linux, or similar, or maybe swap single-user preinstalled physical laptops/desktops.
+	if [[ "$currentScriptTime" == "" ]]
+	then
+		echo 'fail: blank: currentScriptTime'
+		_messageFAIL
+	fi
+	if [[ "$currentScriptTime" -gt '9500' ]]
+	then
+		echo 'fail: slow: currentScriptTime: '"$currentScriptTime"
+		_messageFAIL
+	fi
+	if [[ "$currentScriptTime" -gt '3500' ]]
+	then
+		echo 'warn: slow: currentScriptTime: '"$currentScriptTime"
+		_messagePlain_request 'request: obtain a CPU with better single-thread performance, disable HyperThreading, disable EfficiencyCores, and/or reduce MSW OS installed functionality'
+	fi
+	
+	
+	local currentPathCount
+	currentPathCount=$(echo "$PATH" | grep -o ':' | wc -l | tr -dc '0-9')
+	if [[ "$currentPathCount" -gt 50 ]]
+	then
+		echo 'fail: count: PATH: '"$currentPathCount"
+		_messageFAIL
+	fi
+	if [[ "$currentPathCount" -gt 32 ]]
+	then
+		echo 'warn: count: PATH: '"$currentPathCount"
+		echo 'warn: MSWEXTPATH may be ignored'
+		_messagePlain_request 'request: reduce the length of PATH variable'
+	fi
+	
+	
+	local currentPathCount
+	currentPathCount=$(echo "$MSWEXTPATH" | grep -o ';\|:' | wc -l | tr -dc '0-9')
+	if [[ "$currentPathCount" -gt 50 ]] && [[ "$CI" == "" ]]
+	then
+		echo 'fail: count: MSWEXTPATH: '"$currentPathCount"
+		_messageFAIL
+	fi
+	if [[ "$currentPathCount" -gt 32 ]]
+	then
+		echo 'warn: count: MSWEXTPATH: '"$currentPathCount"
+		echo 'warn: MSWEXTPATH may be ignored by default'
+		_messagePlain_request 'request: reduce the length of PATH variable'
+	fi
+	
+	
+	# Before stating 'PASS' for Cygwin/MSW, use case specific (eg. flight sim with usual desktop applications installed) test cases may be necessary. Self-hosted 'runners' may be able to implement these test cases, with the resulting fragility reduced somewhat by another computer pulling frequent backups and artifacts.
+	# Unusually, MSW may have use case specific issues due to a track record for configuration changes to the MSW OS causing prohibitive performance issues (eg. Cygwin being delayed more than tens of seconds possibly due to a program adding some kind of user account, some programs known to drastically increase frame dropping in intense applications, etc).
+	#_messagePASS
+	
+	
+	return 0
+}
 _test-shell() {
 	_installation_nonet_default
 	
@@ -11790,13 +12392,39 @@ _test-shell() {
 	#fi
 	_messagePASS
 	
+	
+	if _if_cygwin
+	then
+		! _test-shell-cygwin && _messageFAIL
+	fi
+	
+	
+	return 0
 }
 
 _test() {
 	_test-shell "$@"
 	_installation_nonet_default
 	
-	if type _timetest > /dev/null 2>&1
+	if ! _typeDep sudo && [[ "$UID" == "0" ]]
+	then
+		if _typeDep 'apt-get'
+		then
+			apt-get -y install sudo
+		fi
+	fi
+	#! _typeDep sudo && _stop 1
+	
+	if ! _typeDep bc
+	then
+		if _typeDep 'apt-get'
+		then
+			sudo -n apt-get -y install bc
+		fi
+	fi
+	! _typeDep bc && _stop 1
+	
+	if type _timetest > /dev/null 2>&1 && [[ "$devfast" != 'true' ]]
 	then
 		echo -n -e '\E[1;32;46m Timing...		\E[0m'
 		echo
@@ -11933,6 +12561,19 @@ _test() {
 	
 	_getDep yes
 	
+	
+	_getDep xargs
+	
+	
+	
+	_getDep perl
+	
+	
+	_tryExec "_test_python"
+	_tryExec "_test_haskell"
+	
+	
+	
 	_test_readlink_f
 	
 	_tryExec "_test_package"
@@ -11941,6 +12582,10 @@ _test() {
 	
 	_tryExec "_testFindPort"
 	_tryExec "_test_waitport"
+	
+	
+	_tryExec "_test_gitBest"
+	
 	
 	_tryExec "_testProxySSH"
 	
@@ -12003,7 +12648,10 @@ _test() {
 	_tryExec "_test_packetDriveDevice"
 	_tryExec "_test_gparted"
 	
-	_tryExec "_test_synergy"
+	# WARNING: Disabled by default. Newer FLOSS (ie. 'barrier'), seems to have displaced the older 'synergy' software.
+	# ATTENTION: Override with 'ops' or similar.
+	# More portable computing (ie. better laptops) and hardware (eg. mechanical) USB switches are also displacing the usefulness of such keyboard/mouse sharing software.
+	#_tryExec "_test_synergy"
 	
 	
 	_tryExec "_test_devqalculate"
@@ -12037,6 +12685,10 @@ _test() {
 	
 	
 	
+	_tryExec "_test_rclone_limited"
+	
+	
+	
 	_tryExec "_test_kernelConfig"
 	
 	
@@ -12051,7 +12703,7 @@ _test() {
 	
 	_messagePASS
 	
-	if type _test_queue > /dev/null 2>&1
+	if type _test_queue > /dev/null 2>&1 && [[ "$devfast" != 'true' ]]
 	then
 		_messageNormal "Queue..."
 		
@@ -12339,6 +12991,9 @@ _package_subdir() {
 _package_procedure() {
 	_start scriptLocal_mkdir_disable
 	mkdir -p "$safeTmp"/package
+	
+	# May not have any effect - Cygwin symlinks should be transparent to 'tar' and similar.
+	_force_cygwin_symlinks
 	
 	# WARNING: Largely due to presence of '.gitignore' files in 'ubcp' .
 	export safeToDeleteGit="true"
@@ -17110,14 +17765,7 @@ class ubPythonPS1(object):
 sys.ps1 = ubPythonPS1()
 sys.ps2 = "\x01\033[0;96m\x02|...\x01\033[0m\x02 "
 
-
-
-
 #_python()
-
-
-
-
 
 CZXWXcRMTo8EmM8i4d
 }
@@ -17126,6 +17774,9 @@ CZXWXcRMTo8EmM8i4d
 _generate_lean-overrides-python_here() {
 	cat << 'CZXWXcRMTo8EmM8i4d'
 
+# WARNING: Strongly discouraged example.
+# (strongly prefer to inherit a single os.environ['scriptAbsoluteFolder'] environment variable from being called by an 'ubiquitous_bash' script)
+#exec(open(_getScriptAbsoluteFolder()+'/lean.py').read())
 
 
 
@@ -17134,37 +17785,21 @@ _generate_lean-overrides-python_here() {
 
 
 
+
+
+
+# ATTENTION: NOTICE: Environment variables from 'ubiquitous_bash' can be used to import other python scripts.
+#exec(open(os.environ['scriptAbsoluteFolder']+'/lean.py').read())
 
 #################################################
-# ATTENTION: Add '_prog' script code here!
-
-
-
-
-
-
+# ATTENTION: NOTICE: Add '_prog' script code here!
 
 def _main():
 	pass
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# ATTENTION: Add '_prog' script code here!
+# ATTENTION: NOTICE: Add '_prog' script code here!
 #################################################
 
 
@@ -17174,9 +17809,10 @@ if sys.hexversion > 0x03000000:
 
 import sys
 import string
-#./lean.py "_python(c('1 + 2'))"
+#./lean.py "_python(c('1 + 2'))" #FAIL
+#python3 ./lean.py "_print(c('1 + 2'))"
+#python2 ./lean.py "print(c('1 + 2'))"
 #./lean.py "_print(c('1 + 2'))"
-#./lean.py "print(c('1 + 2'))"
 # https://www.tutorialspoint.com/python/python_command_line_arguments.htm
 # https://www.programiz.com/python-programming/methods/built-in/exec
 # https://www.geeksforgeeks.org/python-program-to-convert-a-list-to-string/
@@ -17190,18 +17826,7 @@ if len(sys.argv) > 1:
 		exec( sys.argv[1] )
 
 
-
-
-
-
-
-
-
-
-
 _main()
-
-
 
 CZXWXcRMTo8EmM8i4d
 }
@@ -17377,6 +18002,9 @@ _init_deps() {
 	
 	export enUb_linux=""
 	
+	export enUb_python=""
+	export enUb_haskell=""
+	
 	export enUb_calculators=""
 }
 
@@ -17455,6 +18083,10 @@ _deps_notLean() {
 
 _deps_distro() {
 	export enUb_distro="true"
+}
+
+_deps_getMinimal() {
+	export enUb_getMinimal="true"
 }
 
 _deps_build() {
@@ -17667,6 +18299,13 @@ _deps_linux() {
 	export enUb_linux="true"
 }
 
+_deps_python() {
+	export enUb_python="true"
+}
+_deps_haskell() {
+	export enUb_haskell="true"
+}
+
 _deps_calculators() {
 	export enUb_calculators="true"
 }
@@ -17775,6 +18414,16 @@ _generate_compile_bash() {
 	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-compressed_procedure ubiquitous_bash
 	
 	
+	
+	[[ "$objectName" == "ubiquitous_bash" ]] && "$scriptAbsoluteFolder"/compile.sh _compile_bash rotten rotten.sh
+	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-compressed_procedure rotten
+	#[[ "$objectName" == "ubiquitous_bash" ]] && mv -f "$scriptAbsoluteFolder"/rotten_compressed.sh "$scriptAbsoluteFolder"/rotten.sh
+	
+	[[ "$objectName" == "ubiquitous_bash" ]] && "$scriptAbsoluteFolder"/compile.sh _compile_bash rotten_test rotten_test.sh
+	[[ "$objectName" == "ubiquitous_bash" ]] && _generate_compile_bash-compressed_procedure rotten_test
+	[[ "$objectName" == "ubiquitous_bash" ]] && mv -f "$scriptAbsoluteFolder"/rotten_test_compressed.sh "$scriptAbsoluteFolder"/rotten_test.sh
+	
+	
 	_generate_compile_bash_prog
 	
 	# DANGER Do NOT remove.
@@ -17793,7 +18442,10 @@ _generate_compile_bash() {
 
 
 
-
+# ATTENTION: WARNING: CAUTION: Do NOT oversimplify! Keep in mind this seemingly 'spaghetti code' logic has in fact been thoroughly tested for safety, and is complex due to an extraordinary combination of preventive inheritance checks, workarounds, and compressed code. Compressed scripts are already a workaround for purely arbitrary limitations (eg. cloud init script size limits). This stuff goes as far as ensuring the compressed scripts can be included through '.bashrc' without any possibility of interfering with other 'ubiquitous bash' scripts.
+# WARNING: Unfortunately, this really is necessarily as complicated as it looks. A text editor which highlights a currently selected text fragment elsewhere, may help 'browse' the code, such as double-clicking the 'source' word and comparing other occurrences. Removing code which specifically optimizes what does not appear in the especially small 'rotten' script may also help make the code a bit easier to understand.
+# WARNING: Keep in mind some logical conditions here may yet have no production use, but are thoroughly expected to have a production use in the future. Other logic may have an existing use which only becomes obvious if some of the software using 'ubiquitous bash' is tested. Particularly, '_scope', 'arduinoUbiquitous', '_setupUbiquitous', etc. MSW also causes significant issues. Building automatic tests for such issues may require a network of Virtual Machines, and testing strictly interactive (ie. '_bash', 'bash -i', etc) shells, all of which may also require software development of the relevant toolchain first.
+# _request_visualPrompt
 _generate_compile_bash-compressed_procedure() {
 	# If a "base85"/"ascii85" implementation were widely available at all possibly relevant 'environments', then compressed scripts could possibly be ~5% smaller.
 	# WARNING: Do NOT attempt 'yEnc', apparently NOT 'utf8' text editor compatible.
@@ -17865,10 +18517,17 @@ _generate_compile_bash-compressed_procedure() {
 	#grep -v '^#' | grep -v '^'"[[:space:]]"'#'
 	#grep -v '^#[^!]' | grep -v '^'"[[:space:]]"'#[^!]'
 	
+	# https://stackoverflow.com/questions/16414410/delete-empty-lines-using-sed
+	
 	local current_internal_CompressedScript
 	#current_internal_CompressedScript=$(cat "$scriptAbsoluteFolder"/"$1".sh | grep -v '^_main "$@"$' | sed 's/^_main "$@"$//' | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
 	
-	current_internal_CompressedScript=$(cat "$scriptAbsoluteFolder"/"$1".sh | grep -v '^_main "$@"$' | sed 's/^_main "$@"$//' | grep -v '^#[^!]' | grep -v '^'"[[:space:]]"'#[^!]' | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
+	if [[ "$1" == "rotten" ]] && [[ "$1" == "rotten"* ]]
+	then
+		current_internal_CompressedScript=$(cat "$scriptAbsoluteFolder"/"$1".sh | grep -v '^_main "$@"$' | sed 's/^_main "$@"$//' | grep -v '^#[^!]' | grep -v '^'"[[:space:]]"'#[^!]' | sed '/\S/!d' | grep -v -P '^\t*#' | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
+	else
+		current_internal_CompressedScript=$(cat "$scriptAbsoluteFolder"/"$1".sh | grep -v '^_main "$@"$' | sed 's/^_main "$@"$//' | grep -v '^#[^!]' | grep -v '^'"[[:space:]]"'#[^!]' | xz -z -e9 -C crc64 --threads=1 | base64 -w 156 | fold -w 156 -s)
+	fi
 	
 	#local current_internal_CompressedScript_cksum
 	current_internal_CompressedScript_cksum=$(echo "$current_internal_CompressedScript" | env CMD_ENV=xpg4 cksum | cut -f1 -d\  | tr -dc '0-9')
@@ -17885,7 +18544,23 @@ _generate_compile_bash-compressed_procedure() {
 	echo 'current_internal_compressedScript_headerFunctions='\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	echo "$current_internal_compressedScript_headerFunctions"\' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	echo '! echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d > /dev/null && exit 1' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
-	echo 'source <(echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d)' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	#echo 'source <(echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d)' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	
+	[[ "$1" != "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+if [[ -e /cygdrive ]] && uname -a | grep -i cygwin > /dev/null 2>&1
+then
+	export tmpMSW_compressed=$( cd "$LOCALAPPDATA" 2>/dev/null ; pwd )"/Temp"/uk4u_"$RANDOM""$RANDOM""$RANDOM".sh
+	echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d > "$tmpMSW_compressed"
+	source "$tmpMSW_compressed"
+	rm -f "$tmpMSW_compressed"
+else
+	source <(echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d)
+fi
+CZXWXcRMTo8EmM8i4d
+	[[ "$1" == "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	source <(echo "$current_internal_compressedScript_headerFunctions" | base64 -d | xz -d)
+CZXWXcRMTo8EmM8i4d
+	
 	cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 export importScriptLocation=$(_getScriptAbsoluteLocation)
 export importScriptFolder=$(_getScriptAbsoluteFolder)
@@ -17893,6 +18568,9 @@ export importScriptFolder=$(_getScriptAbsoluteFolder)
 ! type dirname > /dev/null 2>&1 && exit 1;
 ! type basename > /dev/null 2>&1 && exit 1;
 ! readlink -f . > /dev/null 2>&1 && exit 1;
+CZXWXcRMTo8EmM8i4d
+	echo '[[ "$1" == "--profile" ]] && ( [[ '"$1"' == "rotten"* ]] || [[ '"$1"' == "rotten" ]] ) && export ub_import="true" && export importScriptLocation="$profileScriptLocation" && export importScriptFolder="$profileScriptFolder"' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 [[ "$importScriptLocation" == "" ]] && exit 1
 [[ "$importScriptFolder" == "" ]] && exit 1
 ! _getAbsolute_criticalDep && exit 1
@@ -17908,15 +18586,65 @@ CZXWXcRMTo8EmM8i4d
 cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 if [[ "$1" == "--embed" ]]
 then
+CZXWXcRMTo8EmM8i4d
+
+	[[ "$1" == "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) "$@"
 	internalFunctionExitStatus="$?"
+CZXWXcRMTo8EmM8i4d
+	[[ "$1" != "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	if [[ -e /cygdrive ]] && uname -a | grep -i cygwin > /dev/null 2>&1
+	then
+		echo "$current_internal_CompressedScript" | base64 -d | xz -d > "$tmpMSW_compressed"
+		source "$tmpMSW_compressed" "$@"
+		internalFunctionExitStatus="$?"
+		rm -f "$tmpMSW_compressed"
+	else
+		source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) "$@"
+		internalFunctionExitStatus="$?"
+	fi
+CZXWXcRMTo8EmM8i4d
+	
+	cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	return "$internalFunctionExitStatus" > /dev/null 2>&1
 	exit "$internalFunctionExitStatus"
 elif [[ "$1" == "--profile" ]] || [[ "$1" == "--parent" ]]
 then
+CZXWXcRMTo8EmM8i4d
+	
+	[[ "$1" == "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) "$@"
+CZXWXcRMTo8EmM8i4d
+	[[ "$1" != "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	if [[ -e /cygdrive ]] && uname -a | grep -i cygwin > /dev/null 2>&1
+	then
+		echo "$current_internal_CompressedScript" | base64 -d | xz -d > "$tmpMSW_compressed"
+		source "$tmpMSW_compressed" "$@"
+		rm -f "$tmpMSW_compressed"
+	else
+		source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) "$@"
+	fi
+CZXWXcRMTo8EmM8i4d
+
+	cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 else
+CZXWXcRMTo8EmM8i4d
+	
+	[[ "$1" == "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) --compressed "$@"
+CZXWXcRMTo8EmM8i4d
+	[[ "$1" != "rotten" ]] && cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	if [[ -e /cygdrive ]] && uname -a | grep -i cygwin > /dev/null 2>&1
+	then
+		echo "$current_internal_CompressedScript" | base64 -d | xz -d > "$tmpMSW_compressed"
+		source "$tmpMSW_compressed" --compressed "$@"
+		rm -f "$tmpMSW_compressed"
+	else
+		source <(echo "$current_internal_CompressedScript" | base64 -d | xz -d) --compressed "$@"
+	fi
+CZXWXcRMTo8EmM8i4d
+	
+	cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	ub_import=
 	ub_import_param=
 	ub_import_script=
@@ -17924,8 +18652,13 @@ else
 fi
 if [[ "$ub_import" == "true" ]] && ! ( [[ "$ub_import_param" == "--bypass" ]] ) || [[ "$ub_import_param" == "--compressed" ]] || [[ "$ub_import_param" == "--parent" ]] || [[ "$ub_import_param" == "--profile" ]]
 then
-	return 0 > /dev/null 2>&1
-	exit 0
+CZXWXcRMTo8EmM8i4d
+	echo '	if [[ "$ubiquitousBashID" != "" ]] || [[ -e "$HOME"/.ubcore ]] || ( [[ '"$1"' != "rotten"* ]] || [[ '"$1"' != "rotten" ]] )' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+cat << 'CZXWXcRMTo8EmM8i4d' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	then
+		return 0 > /dev/null 2>&1
+		exit 0
+	fi
 fi
 CZXWXcRMTo8EmM8i4d
 	
@@ -18065,13 +18798,16 @@ _generate_compile_bash_prog() {
 
 #Default is to include all, or run a specified configuration. For this reason, it will be more typical to override this entire function, rather than append any additional code.
 _compile_bash_deps() {
+	[[ "$1" == "rotten" ]] && return 0
+	[[ "$1" == "rotten"* ]] && return 0
+	
 	if [[ "$1" == "lean" ]]
 	then
 		#_deps_git
 		
 		#_deps_virt_translation
 		
-		#_deps_stopwatch
+		_deps_stopwatch
 		
 		_deps_queue
 		
@@ -18103,7 +18839,11 @@ _compile_bash_deps() {
 		
 		
 		_deps_distro
+		_deps_getMinimal
 		_deps_linux
+		
+		_deps_python
+		_deps_haskell
 		
 		_deps_calculators
 		
@@ -18153,6 +18893,9 @@ _compile_bash_deps() {
 	then
 		_deps_dev
 		
+		_deps_python
+		_deps_haskell
+		
 		_deps_calculators
 		
 		_deps_channel
@@ -18160,12 +18903,17 @@ _compile_bash_deps() {
 		_deps_queue
 		_deps_metaengine
 		
+		_deps_stopwatch
+		
 		return 0
 	fi
 	
 	if [[ "$1" == "abstract" ]] || [[ "$1" == "abstractfs" ]]
 	then
 		_deps_dev
+		
+		_deps_python
+		_deps_haskell
 		
 		_deps_calculators
 		
@@ -18176,6 +18924,8 @@ _compile_bash_deps() {
 		
 		_deps_abstractfs
 		
+		_deps_stopwatch
+		
 		return 0
 	fi
 	
@@ -18183,6 +18933,9 @@ _compile_bash_deps() {
 	if [[ "$1" == "fakehome" ]]
 	then
 		_deps_dev
+		
+		_deps_python
+		_deps_haskell
 		
 		_deps_calculators
 		
@@ -18193,6 +18946,8 @@ _compile_bash_deps() {
 		
 		_deps_fakehome
 		_deps_abstractfs
+		
+		_deps_stopwatch
 		
 		return 0
 	fi
@@ -18230,6 +18985,9 @@ _compile_bash_deps() {
 		_deps_fakehome
 		_deps_abstractfs
 		
+		_deps_python
+		_deps_haskell
+		
 		_deps_calculators
 		
 		_deps_channel
@@ -18248,6 +19006,7 @@ _compile_bash_deps() {
 		#_deps_cloud_build
 		
 		_deps_distro
+		_deps_getMinimal
 		
 		#_deps_blockchain
 		
@@ -18313,6 +19072,9 @@ _compile_bash_deps() {
 		_deps_fakehome
 		_deps_abstractfs
 		
+		_deps_python
+		_deps_haskell
+		
 		_deps_calculators
 		
 		_deps_channel
@@ -18331,6 +19093,7 @@ _compile_bash_deps() {
 		#_deps_cloud_build
 		
 		_deps_distro
+		_deps_getMinimal
 		
 		#_deps_blockchain
 		
@@ -18396,6 +19159,9 @@ _compile_bash_deps() {
 		_deps_fakehome
 		_deps_abstractfs
 		
+		_deps_python
+		_deps_haskell
+		
 		_deps_calculators
 		
 		_deps_channel
@@ -18414,6 +19180,7 @@ _compile_bash_deps() {
 		_deps_cloud_build
 		
 		_deps_distro
+		_deps_getMinimal
 		
 		_deps_blockchain
 		
@@ -18509,6 +19276,12 @@ _compile_bash_utilities() {
 	export includeScriptList
 	
 	#####Utilities
+	includeScriptList+=( "special"/mustberoot.sh )
+	includeScriptList+=( "special"/mustgetsudo.sh )
+	
+	includeScriptList+=( "special"/uuid.sh )
+	
+	
 	includeScriptList+=( "generic/filesystem"/getext.sh )
 	
 	includeScriptList+=( "generic/filesystem"/finddir.sh )
@@ -18564,14 +19337,17 @@ _compile_bash_utilities() {
 	
 	includeScriptList+=( "os"/getDep.sh )
 	[[ "$enUb_notLean" == "true" ]] && includeScriptList+=( "os/distro/debian"/getDep_debian.sh )
+	[[ "$enUb_notLean" == "true" ]] && includeScriptList+=( "os/distro/ubuntu"/getDep_ubuntu.sh )
+	
+	[[ "$enUb_notLean" == "true" ]] && includeScriptList+=( "os/distro"/getMost.sh )
+	
+	[[ "$enUb_getMinimal" == "true" ]] && includeScriptList+=( "os/distro"/getMinimal.sh )
+	
 	
 	[[ "$enUb_notLean" == "true" ]] && includeScriptList+=( "os/unix/systemd"/here_systemd.sh )
 	[[ "$enUb_notLean" == "true" ]] && includeScriptList+=( "os/unix/systemd"/hook_systemd.sh )
 	
-	includeScriptList+=( "special"/mustberoot.sh )
-	includeScriptList+=( "special"/mustgetsudo.sh )
 	
-	includeScriptList+=( "special"/uuid.sh )
 	
 	[[ "$enUb_dev_heavy" == "true" ]] && includeScriptList+=( "instrumentation"/bashdb/bashdb.sh )
 	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_stopwatch" == "true" ]] ) && includeScriptList+=( "instrumentation"/profiling/stopwatch.sh )
@@ -18585,6 +19361,13 @@ _compile_bash_utilities() {
 _compile_bash_utilities_java() {
 	[[ "$enUb_java" == "true" ]] && includeScriptList+=( "special/java"/java.sh )
 #	[[ "$enUb_java" == "true" ]] && includeScriptList+=( "special/java"/javac.sh )
+}
+
+_compile_bash_utilities_python() {
+	[[ "$enUb_python" == "true" ]] && includeScriptList+=( "build/python"/python.sh )
+}
+_compile_bash_utilities_haskell() {
+	[[ "$enUb_haskell" == "true" ]] && includeScriptList+=( "build/haskell"/haskell.sh )
 }
 
 _compile_bash_utilities_virtualization() {
@@ -18690,6 +19473,7 @@ _compile_bash_shortcuts() {
 	
 	( [[ "$enUb_repo" == "true" ]] && [[ "$enUb_git" == "true" ]] ) && includeScriptList+=( "shortcuts/git"/git.sh )
 	( [[ "$enUb_repo" == "true" ]] && [[ "$enUb_git" == "true" ]] ) && includeScriptList+=( "shortcuts/git"/gitBare.sh )
+	includeScriptList+=( "shortcuts/git"/gitBest.sh )
 	
 	[[ "$enUb_bup" == "true" ]] && includeScriptList+=( "shortcuts/bup"/bup.sh )
 	
@@ -18727,6 +19511,8 @@ _compile_bash_shortcuts() {
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/nubo/nubo.sh )
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/rclone/rclone.sh )
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/paramiko/paramiko.sh )
+	
+	includeScriptList+=( "shortcuts/cloud/bridge"/rclone/rclone_limited.sh )
 	
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/terraform/terraform.sh )
 	
@@ -18784,6 +19570,8 @@ _compile_bash_shortcuts() {
 
 _compile_bash_shortcuts_setup() {
 	export includeScriptList
+	
+	includeScriptList+=( "shortcuts"/importShortcuts.sh )
 	
 	includeScriptList+=( "shortcuts"/setupUbiquitous_accessories_here.sh )
 	includeScriptList+=( "shortcuts"/setupUbiquitous_accessories.sh )
@@ -18934,11 +19722,12 @@ _compile_bash_selfHost() {
 	
 	
 	#####Generate/Compile
-	if ( [[ "$enUb_buildBashUbiquitous" == "true" ]] || [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_dev" == "true" ]] || [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] || [[ "$enUb_cloud_self" == "true" ]] || [[ "$enUb_cloud_build" == "true" ]] || [[ "$enUb_metaengine" == "true" ]] || [[ "$enUb_calculators" == "true" ]] )
-	then
+	#if ( [[ "$enUb_buildBashUbiquitous" == "true" ]] || [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_dev" == "true" ]] || [[ "$enUb_dev_heavy" == "true" ]] || [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] || [[ "$enUb_cloud_self" == "true" ]] || [[ "$enUb_cloud_build" == "true" ]] || [[ "$enUb_metaengine" == "true" ]] || [[ "$enUb_calculators" == "true" ]] )
+	#then
+		# '_setupUbiquitous', '_setupUbiquitous_accessories_here-python'
 		includeScriptList+=( "build/python"/python_lean_here.sh )
 		includeScriptList+=( "build/python"/python_lean_here_prog.sh )
-	fi
+	#fi
 	
 	
 	includeScriptList+=( "build/bash/ubiquitous"/discoverubiquitous.sh )
@@ -19028,89 +19817,215 @@ _compile_bash() {
 	
 	export includeScriptList
 	
-	_compile_bash_header
-	_compile_bash_header_prog
-	_compile_bash_header_program
-	_compile_bash_header_program_prog
+	if [[ "$1" != "rotten" ]] && [[ "$1" != "rotten"* ]]
+	then
+		_compile_bash_header
+		_compile_bash_header_prog
+		_compile_bash_header_program
+		_compile_bash_header_program_prog
+		
+		_compile_bash_essential_utilities
+		_compile_bash_essential_utilities_prog
+		_compile_bash_utilities
+		_compile_bash_utilities_prog
+		_compile_bash_utilities_java
+		_compile_bash_utilities_python
+		_compile_bash_utilities_haskell
+		_compile_bash_utilities_virtualization
+		_compile_bash_utilities_virtualization_prog
+		
+		_compile_bash_shortcuts
+		_compile_bash_shortcuts_prog
+		_compile_bash_shortcuts_setup
+		_compile_bash_shortcuts_setup_prog
+		
+		_compile_bash_shortcuts_os
+		
+		_compile_bash_bundled
+		_compile_bash_bundled_prog
+		
+		_compile_bash_command
+		
+		_compile_bash_user
+		
+		_compile_bash_hardware
+		
+		
+		_tryExec _compile_bash_queue
+		
+		_tryExec _compile_bash_metaengine
+		
+		
+		_compile_bash_vars_basic
+		_compile_bash_vars_basic_prog
+		_compile_bash_vars_global
+		_compile_bash_vars_global_prog
+		_compile_bash_vars_spec
+		_compile_bash_vars_spec_prog
+		
+		_compile_bash_vars_shortcuts
+		_compile_bash_vars_shortcuts_prog
+		
+		_compile_bash_vars_virtualization
+		_compile_bash_vars_virtualization_prog
+		_compile_bash_vars_bundled
+		_compile_bash_vars_bundled_prog
+		
+		
+		_tryExec _compile_bash_vars_queue
+		
+		_tryExec _compile_bash_vars_metaengine
+		
+		
+		_compile_bash_buildin
+		_compile_bash_buildin_prog
+		
+		
+		_compile_bash_environment
+		_compile_bash_environment_prog
+		
+		_compile_bash_installation
+		_compile_bash_installation_prog
+		
+		_compile_bash_program
+		_compile_bash_program_prog
+		
+		
+		_compile_bash_config
+		_compile_bash_config_prog
+		
+		_compile_bash_extension
+		_compile_bash_selfHost
+		_compile_bash_selfHost_prog
+		
+		
+		_compile_bash_overrides
+		_compile_bash_overrides_prog
+		
+		_compile_bash_entry
+		_compile_bash_entry_prog
+	else
+		includeScriptList+=( "generic"/rottenheader.sh )
+		#includeScriptList+=( "generic"/minimalheader.sh )
+		#includeScriptList+=( "generic"/ubiquitousheader.sh )
+		
+		#includeScriptList+=( "os/override"/override.sh )
+		#includeScriptList+=( "os/override"/override_prog.sh )
+		
+		#includeScriptList+=( "os/override"/override_cygwin.sh )
+		
+		
+		
+		#####Essential Utilities
+		includeScriptList+=( "labels"/utilitiesLabel.sh )
+		includeScriptList+=( "generic/filesystem"/absolutepaths.sh )
+		includeScriptList+=( "generic/filesystem"/safedelete.sh )
+		includeScriptList+=( "generic/filesystem"/moveconfirm.sh )
+		includeScriptList+=( "generic/filesystem"/allLogic.sh )
+		includeScriptList+=( "generic/process"/timeout.sh )
+		#includeScriptList+=( "generic/process"/terminate.sh )
+		includeScriptList+=( "generic"/condition.sh )
+		includeScriptList+=( "generic"/uid.sh )
+		includeScriptList+=( "generic/filesystem/permissions"/checkpermissions.sh )
+		#includeScriptList+=( "generic"/findInfrastructure.sh )
+		includeScriptList+=( "generic"/gather.sh )
+		
+		#includeScriptList+=( "generic/filesystem"/internal.sh )
+		
+		#includeScriptList+=( "generic"/messaging.sh )
+		
+		includeScriptList+=( "generic"/config/mustcarry.sh )
+		
+		
+		
+		
+		
+		
+		
+		#####Utilities
+		includeScriptList+=( "special"/mustberoot.sh )
+		includeScriptList+=( "special"/mustgetsudo.sh )
+		
+		includeScriptList+=( "special"/uuid.sh )
+		
+		includeScriptList+=( "generic/process"/embed_here.sh )
+		includeScriptList+=( "generic/process"/embed.sh )
+		
+		includeScriptList+=( "generic/net"/fetch.sh )
+		
+		includeScriptList+=( "generic"/showCommand.sh )
+		includeScriptList+=( "generic"/validaterequest.sh )
+		
+		includeScriptList+=( "generic"/preserveLog.sh )
+		
+		
+		#( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_stopwatch" == "true" ]] ) && 
+			includeScriptList+=( "instrumentation"/profiling/stopwatch.sh )
+		
+		
+		
+		
+		#####Shortcuts
+		includeScriptList+=( "labels"/shortcutsLabel.sh )
+		
+		includeScriptList+=( "shortcuts"/importShortcuts.sh )
+		
+		includeScriptList+=( "shortcuts/prompt"/visualPrompt.sh )
+		
+		
+		
+		
+		#####Basic Variable Management
+		includeScriptList+=( "labels"/basicvarLabel.sh )
+		
+		
+		includeScriptList+=( "structure"/resetvars.sh )
 	
-	_compile_bash_essential_utilities
-	_compile_bash_essential_utilities_prog
-	_compile_bash_utilities
-	_compile_bash_utilities_prog
-	_compile_bash_utilities_java
-	_compile_bash_utilities_virtualization
-	_compile_bash_utilities_virtualization_prog
-	
-	_compile_bash_shortcuts
-	_compile_bash_shortcuts_prog
-	_compile_bash_shortcuts_setup
-	_compile_bash_shortcuts_setup_prog
-	
-	_compile_bash_shortcuts_os
-	
-	_compile_bash_bundled
-	_compile_bash_bundled_prog
-	
-	_compile_bash_command
-	
-	_compile_bash_user
-	
-	_compile_bash_hardware
-	
-	
-	_tryExec _compile_bash_queue
-	
-	_tryExec _compile_bash_metaengine
-	
-	
-	_compile_bash_vars_basic
-	_compile_bash_vars_basic_prog
-	_compile_bash_vars_global
-	_compile_bash_vars_global_prog
-	_compile_bash_vars_spec
-	_compile_bash_vars_spec_prog
-	
-	_compile_bash_vars_shortcuts
-	_compile_bash_vars_shortcuts_prog
-	
-	_compile_bash_vars_virtualization
-	_compile_bash_vars_virtualization_prog
-	_compile_bash_vars_bundled
-	_compile_bash_vars_bundled_prog
-	
-	
-	_tryExec _compile_bash_vars_queue
-	
-	_tryExec _compile_bash_vars_metaengine
+		#Optional, rarely used, intended for overload.
+		includeScriptList+=( "structure"/prefixvars.sh )
+		
+		#####Global variables.
+		includeScriptList+=( "structure"/globalvars.sh )
+		
+		
+		includeScriptList+=( "structure"/specglobalvars.sh )
+		
+		
+		includeScriptList+=( "shortcuts/git"/gitVars.sh )
+		
+		
+		
+		includeScriptList+=( "structure"/localfs.sh )
+		
+		includeScriptList+=( "structure"/localenv.sh )
+		includeScriptList+=( "structure"/localenv_prog.sh )
+		
+		
+		if [[ "$1" == "rotten_test" ]]
+		then
+			includeScriptList+=( "structure"/installation.sh )
+			includeScriptList+=( "structure"/installation_prog.sh )
+		fi
+		
+		#includeScriptList+=( "structure"/program.sh )
+		
+		
+		
+		#####Hardcoded
+		#includeScriptList+=( "_config"/netvars.sh )
+		
+		
+		
+		includeScriptList+=( "structure"/overrides.sh )
+		
+		includeScriptList+=( "structure"/overrides_disable.sh )
+		
+		
+		
+		includeScriptList+=( "structure"/entry.sh )
+	fi
 	
 	
-	_compile_bash_buildin
-	_compile_bash_buildin_prog
-	
-	
-	_compile_bash_environment
-	_compile_bash_environment_prog
-	
-	_compile_bash_installation
-	_compile_bash_installation_prog
-	
-	_compile_bash_program
-	_compile_bash_program_prog
-	
-	
-	_compile_bash_config
-	_compile_bash_config_prog
-	
-	_compile_bash_extension
-	_compile_bash_selfHost
-	_compile_bash_selfHost_prog
-	
-	
-	_compile_bash_overrides
-	_compile_bash_overrides_prog
-	
-	_compile_bash_entry
-	_compile_bash_entry_prog
 	
 	
 	
@@ -19479,7 +20394,7 @@ _sudo() {
 
 _true() {
 	#"$scriptAbsoluteLocation" _false && return 1
-	#! "$scriptAbsoluteLocation" _bin true && return 1
+	#  ! "$scriptAbsoluteLocation" _bin true && return 1
 	#"$scriptAbsoluteLocation" _bin false && return 1
 	true
 }
