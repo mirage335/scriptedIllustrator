@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+[[ "$PATH" != *"/usr/local/bin"* ]] && [[ -e "/usr/local/bin" ]] && export PATH=/usr/local/bin:"$PATH"
+[[ "$PATH" != *"/usr/bin"* ]] && [[ -e "/usr/bin" ]] && export PATH=/usr/bin:"$PATH"
+[[ "$PATH" != *"/bin:"* ]] && [[ -e "/bin" ]] && export PATH=/bin:"$PATH"
+
 if [[ "$ub_setScriptChecksum" != "" ]]
 then
 	export ub_setScriptChecksum=
@@ -31,8 +35,8 @@ _ub_cksum_special_derivativeScripts_contents() {
 
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
-export ub_setScriptChecksum_header='1891409836'
-export ub_setScriptChecksum_contents='1412993493'
+export ub_setScriptChecksum_header='2591634041'
+export ub_setScriptChecksum_contents='3953009916'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -669,6 +673,20 @@ then
 fi
 
 
+
+# ATTENTION: Workaround - Cygwin Portable - symlink home directory if nonexistent .
+# https://stackoverflow.com/questions/39551802/how-to-fix-cygwin-using-wrong-ssh-directory-no-matter-what-i-do
+#  'OpenSSH never honors $HOME.'
+# https://sourceware.org/legacy-ml/cygwin/2016-06/msg00404.html
+#  'OpenSSH never honors $HOME.'
+# https://cygwin.com/cygwin-ug-net/ntsec.html
+if [[ "$HOME" == "/home/root" ]] && [[ ! -e /home/"$USER" ]] && _if_cygwin
+then
+	ln -s --no-target-directory "/home/root" /home/"$USER" > /dev/null 2>&1
+fi
+
+
+
 # Forces Cygwin symlinks to best compatibility. Should be set by default elsewhere. Use sparingly only if necessary (eg. _setup_ubcp) .
 _force_cygwin_symlinks() {
 	! _if_cygwin && return 0
@@ -811,6 +829,39 @@ fi
 
 
 
+# Calls MSW native programs from Cygwin/MSW with file parameter translation.
+#_userMSW kate /etc/fstab
+_userMSW() {
+	if ! _if_cygwin || ! type cygpath > /dev/null 2>&1
+	then
+		"$@"
+		return
+	fi
+	
+	
+	local currentArg
+	local currentResult
+	processedArgs=()
+	for currentArg in "$@"
+	do
+		if [[ -e "$currentArg" ]] || [[ "$currentArg" == "/cygdrive/"* ]] || [[ "$currentArg" == "/home/"* ]] || [[ "$currentArg" == "/root/"* ]]
+		then
+			currentResult=$(cygpath -w "$currentArg")
+		else
+			currentResult="$currentArg"
+		fi
+		
+		processedArgs+=("$currentResult")
+	done
+	
+	
+	"${processedArgs[@]}"
+}
+
+
+
+
+
 _discoverResource-cygwinNative-ProgramFiles-declaration-ProgramFiles() {
 	local currentBinary
 	currentBinary="$1"
@@ -909,6 +960,109 @@ _discoverResource-cygwinNative-ProgramFiles() {
 }
 
 
+_set_at_userMSW_discoverResource-cygwinNative-ProgramFiles() {
+	export functionEntry_USERPROFILE="$USERPROFILE"
+	export functionEntry_HOMEDRIVE="$HOMEDRIVE"
+	export functionEntry_HOMEPATH="$HOMEPATH"
+	
+	# https://docs.oracle.com/en/virtualization/virtualbox/6.0/admin/vboxconfigdata.html
+	#  'Windows: $HOME/.VirtualBox.'
+	# https://en.wikipedia.org/wiki/Home_directory
+	# %USERPROFILE%
+	# %HOMEDRIVE%%HOMEPATH%
+	# echo $USERPROFILE
+	# export USERPROFILE="$USERPROFILE"'\Downloads'
+	# cmd
+	# echo %USERPROFILE%
+	
+	if [[ "$HOME" != "/root" ]] && [[ "$HOME" != "/home/root" ]] && [[ "$HOME" != "/home/""$USER" ]]
+	then
+		export USERPROFILE=$(cygpath -w "$HOME")
+		export HOMEDRIVE=$(echo "$USERPROFILE" | head -c 2)
+		export HOMEPATH=$(echo "$USERPROFILE" | tail -c +3)
+	fi
+	
+	# WARNING: Cygwin/MSW HOME directory redirection may be disabled for future versions of 'ubiquitous bash'.
+	if [[ "$USERPROFILE" == "$functionEntry_USERPROFILE" ]] && [[ "$VBOX_USER_HOME_short" != "" ]]
+	then
+		export USERPROFILE=$(cygpath -w "$VBOX_USER_HOME_short")
+		export HOMEDRIVE=$(echo "$VBOX_USER_HOME_short" | head -c 2)
+		export HOMEPATH=$(echo "$VBOX_USER_HOME_short" | tail -c +3)
+	fi
+	
+	export functionEntry_VBOXID="$VBOXID"
+	export functionEntry_vBox_vdi="$vBox_vdi"
+	export functionEntry_vBoxInstanceDir="$vBoxInstanceDir"
+	export functionEntry_VBOX_ID_FILE="$VBOX_ID_FILE"
+	export functionEntry_VBOX_USER_HOME="$VBOX_USER_HOME"
+	export functionEntry_VBOX_USER_HOME_local="$VBOX_USER_HOME_local"
+	export functionEntry_VBOX_USER_HOME_short="$VBOX_USER_HOME_short"
+	export functionEntry_VBOX_IPC_SOCKETID="$VBOX_IPC_SOCKETID"
+	export functionEntry_VBoxXPCOMIPCD_PIDfile="$VBoxXPCOMIPCD_PIDfile"
+	
+	[[ -e "$VBOXID" ]] && export VBOXID=$(cygpath -w "$VBOXID")
+	[[ -e "$vBox_vdi" ]] && export vBox_vdi=$(cygpath -w "$vBox_vdi")
+	[[ -e "$vBoxInstanceDir" ]] && export vBoxInstanceDir=$(cygpath -w "$vBoxInstanceDir")
+	[[ -e "$VBOX_ID_FILE" ]] && export VBOX_ID_FILE=$(cygpath -w "$VBOX_ID_FILE")
+	[[ -e "$VBOX_USER_HOME" ]] && export VBOX_USER_HOME=$(cygpath -w "$VBOX_USER_HOME")
+	[[ -e "$VBOX_USER_HOME_local" ]] && export VBOX_USER_HOME_local=$(cygpath -w "$VBOX_USER_HOME_local")
+	[[ -e "$VBOX_USER_HOME_short" ]] && export VBOX_USER_HOME_short=$(cygpath -w "$VBOX_USER_HOME_short")
+	[[ -e "$VBOX_IPC_SOCKETID" ]] && export VBOX_IPC_SOCKETID=$(cygpath -w "$VBOX_IPC_SOCKETID")
+	[[ -e "$VBoxXPCOMIPCD_PIDfile" ]] && export VBoxXPCOMIPCD_PIDfile=$(cygpath -w "$VBoxXPCOMIPCD_PIDfile")
+}
+
+_setFunctionEntry_at_userMSW_discoverResource-cygwinNative-ProgramFiles() {
+	export USERPROFILE="$functionEntry_USERPROFILE"
+	export HOMEDRIVE="$functionEntry_HOMEDRIVE"
+	export HOMEPATH="$functionEntry_HOMEPATH"
+	
+	export VBOXID="$functionEntry_VBOXID"
+	export vBox_vdi="$functionEntry_vBox_vdi"
+	export vBoxInstanceDir="$functionEntry_vBoxInstanceDir"
+	export VBOX_ID_FILE="$functionEntry_VBOX_ID_FILE"
+	export VBOX_USER_HOME="$functionEntry_VBOX_USER_HOME"
+	export VBOX_USER_HOME_local="$functionEntry_VBOX_USER_HOME_local"
+	export VBOX_USER_HOME_short="$functionEntry_VBOX_USER_HOME_short"
+	export VBOX_IPC_SOCKETID="$functionEntry_VBOX_IPC_SOCKETID"
+	export VBoxXPCOMIPCD_PIDfile="$functionEntry_VBoxXPCOMIPCD_PIDfile"
+}
+
+_prepare_at_userMSW_discoverResource-cygwinNative-ProgramFiles() {
+	mkdir -p "$HOME"
+	
+	_set_at_userMSW_discoverResource-cygwinNative-ProgramFiles "$@"
+}
+
+
+#_at_userMSW_discoverResource-cygwinNative-ProgramFiles VBoxManage Oracle/VirtualBox false
+_at_userMSW_discoverResource-cygwinNative-ProgramFiles() {
+	_at_userMSW_probeCmd_discoverResource-cygwinNative-ProgramFiles "$@"
+}
+
+# WARNING: Output of 'probe' messages may interfere if program (eg. VBoxManage) output is expected not to include such messages.
+#_at_userMSW_probeCmd_discoverResource-cygwinNative-ProgramFiles 'kate' 'Kate/bin' false
+#_at_userMSW_probeCmd_discoverResource-cygwinNative-ProgramFiles VBoxManage Oracle/VirtualBox false
+_at_userMSW_probeCmd_discoverResource-cygwinNative-ProgramFiles() {
+	if declare -f orig_"$1" > /dev/null 2>&1
+	then
+		_messagePlain_probe 'exists: override: '"$1"
+		return 0
+	fi
+	
+	unset "$1"
+	_discoverResource-cygwinNative-ProgramFiles "$1" "$2" "$3"
+	
+	! type "$1" > /dev/null 2>&1 && return 1
+	
+	
+	# https://stackoverflow.com/questions/1203583/how-do-i-rename-a-bash-function
+	eval orig_"$(declare -f ""$1"")"
+	
+	unset "$1"
+	eval "$1"'() { _prepare_at_userMSW_discoverResource-cygwinNative-ProgramFiles ; _userMSW _messagePlain_probe_cmd orig_'"$1"' "$@" ; _setFunctionEntry_at_userMSW_discoverResource-cygwinNative-ProgramFiles ; }'
+}
+
+
 _ops_cygwinOverride_allDisks() {
 	# DANGER: Calling a script from every connected Cygwin/MSW drive arguably causes obvious problems, although any device or network directly connected to any MSW machine inevitably entails such risks.
 	# WARNING: Looping through {w..c} completely may impose delays sufficient to break "_test_selfTime", "_test_broadcastPipe_page", etc, if extremely slow storage is attached.
@@ -964,8 +1118,16 @@ then
 		# WARNING: Native 'vncviewer.exe' is a GUI app, and cannot be launched directly from Cygwin SSH server.
 		_discoverResource-cygwinNative-ProgramFiles 'vncviewer' 'TigerVNC' false '_workaround_cygwin_tmux '
 		
-		_discoverResource-cygwinNative-ProgramFiles 'kate' 'Kate/bin' false
+		#_discoverResource-cygwinNative-ProgramFiles 'kate' 'Kate/bin' false
+		
+		
+		
+		
+		
+		_at_userMSW_probeCmd_discoverResource-cygwinNative-ProgramFiles 'kate' 'Kate/bin' false > /dev/null 2>&1
 	fi
+	
+	export override_cygwin_vncviewer="true"
 fi
 
 # WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
@@ -1042,6 +1204,8 @@ _setup_ubiquitousBash_cygwin_procedure() {
 	cp "$scriptAbsoluteFolder"/_setup_ubcp.bat "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
 	
 	cp "$scriptAbsoluteFolder"/_setupUbiquitous.bat "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
+	
+	cp "$scriptAbsoluteFolder"/fork "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
 	
 	
 	cp "$scriptAbsoluteFolder"/package.tar.xz "$currentCygdriveC_equivalent"/core/infrastructure/ubiquitous_bash/
@@ -3445,6 +3609,11 @@ _messageProcess() {
 	return 0
 }
 
+
+_sep() {
+	echo '________________________________________'
+}
+
 _mustcarry() {
 	grep "$1" "$2" > /dev/null 2>&1 && return 0
 	
@@ -4476,6 +4645,16 @@ _visualPrompt_promptCommand() {
 }
 
 _visualPrompt() {
+	local currentHostname
+	currentHostname="$HOSTNAME"
+	
+	[[ -e /etc/hostname ]] && export currentHostname=$(cat /etc/hostname)
+	
+	
+	export currentChroot=
+	[[ "$chrootName" != "" ]] && export currentChroot="$chrootName"
+	
+	
 	#+%H:%M:%S\ %Y-%m-%d\ Q%q
 	#+%H:%M:%S\ %b\ %d,\ %y
 
@@ -4503,7 +4682,18 @@ _visualPrompt() {
 	#export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$PS1_lineNumberText\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
 	
 	
-	export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$([[ "$PS1_lineNumber" == "1" ]] && echo -e -n '"'"'\[\033[01;36m\]'"'"'$PS1_lineNumber || echo -e -n $PS1_lineNumber)\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
+	if [[ "$SHELL" == *"/nix/store/"*"/bin/bash"* ]]
+	then
+		export prompt_nixShell="nixShell"
+	else
+		export prompt_nixShell=""
+	fi
+	
+	#export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${debian_chroot:+($debian_chroot)}\[\033[01;33m\]\u\[\033[01;32m\]@\h\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]'"$prompt_nixShell"'\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$([[ "$PS1_lineNumber" == "1" ]] && echo -e -n '"'"'\[\033[01;36m\]'"'"'$PS1_lineNumber || echo -e -n $PS1_lineNumber)\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
+	
+	export PS1='\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[01;31m\]${?}:${currentChroot:+($currentChroot)}\[\033[01;33m\]\u\[\033[01;32m\]@'"$currentHostname"'\[\033[01;36m\]\[\033[01;34m\])\[\033[01;36m\]\[\033[01;34m\]-'"$prompt_cloudNetName"'(\[\033[01;35m\]$(date +%H:%M:%S\.%d)\[\033[01;34m\])\[\033[01;36m\]|\[\033[00m\]'"$prompt_nixShell"'\n\[\033[01;40m\]\[\033[01;36m\]\[\033[01;34m\]|\[\033[37m\][\w]\[\033[00m\]\n\[\033[01;36m\]\[\033[01;34m\]|$([[ "$PS1_lineNumber" == "1" ]] && echo -e -n '"'"'\[\033[01;36m\]'"'"'$PS1_lineNumber || echo -e -n $PS1_lineNumber)\[\033[01;34m\]) \[\033[36m\]'""'>\[\033[00m\] '
+	
+	#export PS1="$prompt_nixShell""$PS1"
 }
 
 
@@ -4955,7 +5145,7 @@ _qalculate_terse() {
 
 # Interactive.
 _qalculate() {
-	mkdir -p .config/qalculate
+	mkdir -p "$HOME"/.config/qalculate
 	
 	if [[ "$1" != "" ]]
 	then
@@ -6166,6 +6356,7 @@ _gitBest_override_github-github_core() {
 	_gitBest_override_config_insteadOf-core SigBlockly-mod
 	_gitBest_override_config_insteadOf-core stepperTester
 	_gitBest_override_config_insteadOf-core TazIntermediate
+	_gitBest_override_config_insteadOf-core translate2geda
 	_gitBest_override_config_insteadOf-core webClient
 	_gitBest_override_config_insteadOf-core zipTiePanel
 }
@@ -6608,7 +6799,13 @@ CZXWXcRMTo8EmM8i4d
 
 
 
+_setupUbiquitous_accessories_here-nixenv-bashrc() {
+	cat << CZXWXcRMTo8EmM8i4d
 
+[[ -e "$HOME"/.nix-profile/etc/profile.d/nix.sh ]] && . "$HOME"/.nix-profile/etc/profile.d/nix.sh
+
+CZXWXcRMTo8EmM8i4d
+}
 
 
 
@@ -6693,6 +6890,7 @@ _setupUbiquitous_accessories-python() {
 
 
 
+
 _setupUbiquitous_accessories() {
 	
 	_setupUbiquitous_accessories-gnuoctave "$@"
@@ -6707,7 +6905,14 @@ _setupUbiquitous_accessories_bashrc() {
 	
 	_setupUbiquitous_accessories_bashrc-cloud_bin "$@"
 	
+	_setupUbiquitous_accessories_here-nixenv-bashrc "$@"
+	
+	#echo true
+	
+	# WARNING: Python must remain last. Failure to hook python is a failure that must show as an error exit status from the users profile (a red "1" on the first line of first visual prompt command prompt).
 	_setupUbiquitous_accessories_here-python_bashrc "$@"
+	
+	#echo true
 }
 
 
@@ -6738,6 +6943,13 @@ fi
 # Ensures admin user shell startup, including Ubiquitous Bash, is relatively quick under heavy system load.
 # Near-realtime priority may be acceptable, due to reliability of relevant Ubiquitous Bash functions.
 # WARNING: Do NOT prioritize highly enough to interfere with embedded hard realtime processes.
+
+# Not known or expected to cause significant issues. Not known to affect 'ubiquitous_bash' bash scripts, may affect the separate python 'lean.py' script.
+if [[ "\$USER" == "" ]]
+then
+	[[ "\$UID" == "0" ]] && export USER="root"
+	[[ "\$USER" == "" ]] && export USER=\$(id -u -n 2>/dev/null)
+fi
 
 CZXWXcRMTo8EmM8i4d
 
@@ -6786,6 +6998,11 @@ CZXWXcRMTo8EmM8i4d
 
 	# WARNING: What is otherwise considered bad practice may be accepted to reduce substantial MSW/Cygwin inconvenience .
 	_if_cygwin && cat << CZXWXcRMTo8EmM8i4d
+
+if [[ "\$HOME" == "/home/root" ]] && [[ ! -e /home/"\$USER" ]]
+then
+	ln -s --no-target-directory "/home/root" /home/"\$USER" > /dev/null 2>&1
+fi
 
 if [[ -e '/cygdrive' ]] && uname -a | grep -i cygwin > /dev/null 2>&1
 then
@@ -7004,6 +7221,16 @@ _setupUbiquitous() {
 	ln -sf "$ubcoreUBfile" "$ubHome"/bin/ubiquitous_bash.sh
 	ln -sf "$ubcoreUBfile" "$ubHome"/bin/_winehere
 	ln -sf "$ubcoreUBfile" "$ubHome"/bin/_winecfghere
+	
+	echo '#!/bin/bash
+"$HOME"/bin/ubiquitous_bash.sh _vncf "$@"' > "$ubHome"/bin/vncf
+	chmod u+x "$ubHome"/bin/vncf
+	
+	echo '#!/bin/bash
+"$HOME"/bin/ubiquitous_bash.sh _sshf "$@"' > "$ubHome"/bin/sshf
+	chmod u+x "$ubHome"/bin/vncf
+	
+	
 	
 	_setupUbiquitous_here > "$ubcoreFile"
 	_setupUbiquitous_accessories_bashrc >> "$ubcoreFile"
@@ -7385,7 +7612,8 @@ CZXWXcRMTo8EmM8i4d
 	
 	
 	_messagePlain_nominal '_setup_renice: hook: cron'
-	echo '@reboot '"$scriptAbsoluteLocation"' _unix_renice_execDaemon' | crontab -
+	#echo '@reboot '"$scriptAbsoluteLocation"' _unix_renice_execDaemon' | crontab -
+	( crontab -l ; echo '@reboot '"$scriptAbsoluteLocation"' _unix_renice_execDaemon > /var/log/_unix_renice_execDaemon.log' ) | crontab -
 	
 	#echo '*/7 * * * * '"$scriptAbsoluteLocation"' _unix_renice'
 	#echo '*/1 * * * * '"$scriptAbsoluteLocation"' _unix_renice_app'
@@ -7596,6 +7824,10 @@ _unix_renice_idle() {
 	# WARNING: Probably unnecessary and counterproductive. May risk halting important compile jobs.
 	#_priority_enumerate_pattern "^cc1$" >> "$processListFile"
 	#_priority_enumerate_pattern "^cc1plus$" >> "$processListFile"
+	
+	#_priority_enumerate_pattern "^tar$" >> "$processListFile"
+	#_priority_enumerate_pattern "^xz$" >> "$processListFile"
+	#_priority_enumerate_pattern "^kcompactd0$" >> "$processListFile"
 	
 	
 	local currentPID
@@ -11821,6 +12053,29 @@ _variableLocalTest_sequence() {
 	[[ $(_currentFunctionDefinitionTest) != "true" ]] && _messageFAIL && _stop 1
 	unset _currentFunctionDefinitionTest
 	
+	
+	local doubleLocalDefinitionA
+	doubleLocalDefinitionA=1
+	local doubleLocalDefinitionA
+	doubleLocalDefinitionA=2
+	[[ "$doubleLocalDefinitionA" != "2" ]] && _messageFAIL && _stop 1
+	local doubleLocalDefinitionA=3
+	[[ "$doubleLocalDefinitionA" != "3" ]] && _messageFAIL && _stop 1
+	local doubleLocalDefinitionA
+	doubleLocalDefinitionA=4
+	[[ "$doubleLocalDefinitionA" != "4" ]] && _messageFAIL && _stop 1
+	export doubleLocalDefinitionA=5
+	[[ "$doubleLocalDefinitionA" != "5" ]] && _messageFAIL && _stop 1
+	local doubleLocalDefinitionA=6
+	[[ "$doubleLocalDefinitionA" != "6" ]] && _messageFAIL && _stop 1
+	doubleLocalDefinitionA=7
+	[[ "$doubleLocalDefinitionA" != "7" ]] && _messageFAIL && _stop 1
+	local doubleLocalDefinitionA=8
+	[[ "$doubleLocalDefinitionA" != "8" ]] && _messageFAIL && _stop 1
+	unset doubleLocalDefinitionA
+	[[ "$doubleLocalDefinitionA" != "" ]] && _messageFAIL && _stop 1
+	
+	
 	_stop
 }
 
@@ -12029,6 +12284,312 @@ _test_parallelFifo_sequence() {
 	_stop
 }
 
+_test_pipe_true() {
+	true | tee /dev/null 2>&1
+}
+
+# Apparently, shell script functions and conditions default to pipefail or pipestatus, although "$scriptAbsoluteLocation" is able to use the exit status instead.
+_test_pipe_false() {
+	false | tee /dev/null 2>&1
+}
+_test_pipe_false_condition() {
+	#false | tee /dev/null 2>&1 && return 0
+	false | echo stuff | grep stuff > /dev/null 2>&1 && return 0
+	return 1
+}
+_test_pipe_false_condition_special() {
+	false | tee /dev/null
+	[[ "$?" == "0" ]] && return 0
+	return 1
+}
+
+# Expect return true (ie. 0).
+_test_pipefail_forcePlus_true_sequence() {
+	set +o pipefail
+	true | tee /dev/null 2>&1
+}
+_test_pipefail_forcePlus_true() {
+	"$scriptAbsoluteLocation" _test_pipefail_forcePlus_true_sequence "$@"
+}
+
+# Expect return true (ie. 0).
+_test_pipefail_forcePlus_false_sequence() {
+	set +o pipefail
+	false | tee /dev/null 2>&1
+}
+_test_pipefail_forcePlus_false() {
+	"$scriptAbsoluteLocation" _test_pipefail_forcePlus_false_sequence "$@"
+}
+
+# Expect return true (ie. 0).
+_test_pipefail_forceMinus_true_sequence() {
+	set -o pipefail
+	true | tee /dev/null 2>&1
+}
+_test_pipefail_forceMinus_true() {
+	"$scriptAbsoluteLocation" _test_pipefail_forceMinus_true_sequence "$@"
+}
+
+# Expect return false (ie. 1).
+_test_pipefail_forceMinus_false_sequence() {
+	set -o pipefail
+	false | tee /dev/null 2>&1
+}
+_test_pipefail_forceMinus_false() {
+	"$scriptAbsoluteLocation" _test_pipefail_forceMinus_false_sequence "$@"
+}
+
+# https://stackoverflow.com/questions/6871859/piping-command-output-to-tee-but-also-save-exit-code-of-command
+_test_pipestatus_true() {
+	true | tee /dev/null 2>&1
+	return ${PIPESTATUS[0]}
+}
+
+_test_pipestatus_false() {
+	false | tee /dev/null 2>&1
+	return ${PIPESTATUS[0]}
+}
+
+# ATTENTION: NOTICE: Regard this as a relatively definitive specification of known bash pipe 'exit status', 'pipestatus', 'pipefail', defaults and inheritance.
+# WARNING: If 'bash' software interpreter uses same code paths (eg. for shell functions and subshells) do not assume this will always remain the case. Test and consider specifically and explicitly.
+_test_pipefail_sequence_sequence() {
+	if ! _test_pipefail_forcePlus_true || ! _test_pipefail_forcePlus_false || ! _test_pipefail_forceMinus_true_sequence || _test_pipefail_forceMinus_false_sequence
+	then
+		echo 'fail: pipefail'
+		_stop 1
+		return 1
+	fi
+	
+	# NOTICE: Will FAIL if 'set -o pipefail' applies to script commands !
+	if ! _test_pipestatus_true || _test_pipestatus_false || ! "$scriptAbsoluteLocation" _test_pipestatus_true || "$scriptAbsoluteLocation" _test_pipestatus_false
+	then
+		echo 'fail: pipestatus'
+		_stop 1
+		return 1
+	fi
+	
+	
+	
+	# ATTENTION: Apparently, "$scriptAbsoluteLocation" is able to correctly retrieve the expected (ie. 0, true) exit status of both '_test_pipe_true' and '_test_pipe_false', although calling these functions directly results in the unexpected use of pipestatus, pipefail, or similar, etc.
+	# CAUTION: While such defaults may seem slightly undesirable for shell scripts, there may be some benefit to command prompt use (especailly when functions are called from an interactive shell through such as ubiquitous_bash.sh _true , etc), UNIX pipe input programs (eg. cat /file) rarely if ever fail when a grep match would occur, and best practice of using a condition (ie. [[ -e /file ]]) before such pipes already avoids severe issues in shell script usage.
+	# CAUTION: Ensure all pipe exit status, pipe status, and pipe fail, default behavior remains *strictly* as-is.
+	
+	
+	
+	# ATTENTION: ! _test_pipe_false ... would return true if consistent with behavior when called by "$scriptAbsoluteLocation"
+	_test_pipe_false
+	[[ "$?" == "0" ]] && echo 'fail: _test_pipe_false' && _stop 1 && return 1
+	if _test_pipe_false
+	then
+		echo 'fail: _test_pipe_false'
+		_stop 1
+		return 1
+	fi
+	
+	# ATTENTION: ! _test_pipe_false ... does return true if called by "$scriptAbsoluteLocation"
+	! "$scriptAbsoluteLocation" _test_pipe_false
+	[[ "$?" == "0" ]] && echo 'fail: ! "$scriptAbsoluteLocation" _test_pipe_false' && _stop 1 && return 1
+	if ! "$scriptAbsoluteLocation" _test_pipe_false
+	then
+		echo 'fail: if: ! "$scriptAbsoluteLocation" _test_pipe_false'
+		_stop 1
+		return 1
+	fi
+	
+	_test_pipe_false_condition
+	[[ "$?" == "0" ]] && echo 'fail: _test_pipe_false_condition' && _stop 1 && return 1
+	if _test_pipe_false_condition
+	then
+		echo 'fail: if: _test_pipe_false_condition'
+		_stop 1
+		return 1
+	fi
+	
+	! "$scriptAbsoluteLocation" _test_pipe_false_condition
+	[[ "$?" == "0" ]] && echo 'fail: ! "$scriptAbsoluteLocation" _test_pipe_false_condition' && _stop 1 && return 1
+	if _test_pipe_false_condition
+	then
+		echo 'fail: if: ! "$scriptAbsoluteLocation" _test_pipe_false_condition'
+		_stop 1
+		return 1
+	fi
+	
+	
+	_test_pipe_false_condition_special
+	[[ "$?" == "0" ]] && echo 'fail: _test_pipe_false_condition_special' && _stop 1 && return 1
+	if _test_pipe_false_condition_special
+	then
+		echo 'fail: if: _test_pipe_false_condition_special'
+		_stop 1
+		return 1
+	fi
+	
+	! "$scriptAbsoluteLocation" _test_pipe_false_condition_special
+	[[ "$?" == "0" ]] && echo 'fail: ! "$scriptAbsoluteLocation" _test_pipe_false_condition_special' && _stop 1 && return 1
+	if ! "$scriptAbsoluteLocation" _test_pipe_false_condition_special
+	then
+		echo 'fail: if: ! "$scriptAbsoluteLocation" _test_pipe_false_condition_special'
+		_stop 1
+		return 1
+	fi
+	
+	"$scriptAbsoluteLocation" _test_pipe_false_condition_special
+	[[ "$?" != "0" ]] && echo 'fail: "$scriptAbsoluteLocation" _test_pipe_false_condition_special' && _stop 1 && return 1
+	if "$scriptAbsoluteLocation" _test_pipe_false_condition_special
+	then
+		true
+	else
+		echo 'fail: if: "$scriptAbsoluteLocation" _test_pipe_false_condition_special'
+		_stop 1
+		return 1
+	fi
+	
+	
+	#! _test_pipe_true || ! _test_pipe_false || ! "$scriptAbsoluteLocation" _test_pipe_true || ! "$scriptAbsoluteLocation" _test_pipe_false
+	#! _test_pipe_false
+	if ! _test_pipe_true || ! "$scriptAbsoluteLocation" _test_pipe_true || ! "$scriptAbsoluteLocation" _test_pipe_false
+	then
+		echo 'fail: if: pipe: value'
+		_stop 1
+		return 1
+	fi
+	
+	set +o pipefail
+	# NOTICE: Will FAIL if 'set -o pipefail' applies to script commands !
+	if ! _test_pipestatus_true || _test_pipestatus_false || ! "$scriptAbsoluteLocation" _test_pipestatus_true || "$scriptAbsoluteLocation" _test_pipestatus_false
+	then
+		echo 'fail: pipestatus'
+		_stop 1
+		return 1
+	fi
+	if ( true | tee /dev/null 2>&1 )
+	then
+		true
+	else
+		echo 'fail: if: pipe: pipefail: plus: subshell: true'
+		_stop 1
+		return 1
+	fi
+	if ( false | tee /dev/null 2>&1 )
+	then
+		true
+	else
+		echo 'fail: if: pipe: pipefail: plus: subshell: false'
+		_stop 1
+		return 1
+	fi
+	if ! "$scriptAbsoluteLocation" _test_pipe_true || ! "$scriptAbsoluteLocation" _test_pipe_false
+	then
+		echo 'fail: if: pipe: pipefail: plus'
+		_stop 1
+		return 1
+	fi
+	
+	set -o pipefail
+	# NOTICE: Will FAIL if 'set -o pipefail' applies to script commands !
+	if ! _test_pipestatus_true || _test_pipestatus_false || ! "$scriptAbsoluteLocation" _test_pipestatus_true || "$scriptAbsoluteLocation" _test_pipestatus_false
+	then
+		echo 'fail: pipestatus'
+		_stop 1
+		return 1
+	fi
+	if ( true | tee /dev/null 2>&1 )
+	then
+		true
+	else
+		echo 'fail: if: pipe: pipefail: minus: subshell: true'
+		_stop 1
+		return 1
+	fi
+	# ATTENTION: Seems this actually is sensitive to 'set -o pipefail' .
+	if ( false | tee /dev/null 2>&1 )
+	then
+		echo 'fail: if: pipe: pipefail: minus: subshell: false'
+		_stop 1
+		return 1
+	else
+		true
+	fi
+	if ! "$scriptAbsoluteLocation" _test_pipe_true || ! "$scriptAbsoluteLocation" _test_pipe_false
+	then
+		echo 'fail: if: pipe: pipefail: minus'
+		_stop 1
+		return 1
+	fi
+	return 0
+}
+_test_pipefail_sequence() {
+	! "$scriptAbsoluteLocation" _test_pipefail_sequence_sequence "$@" && return 1
+	
+	set +o pipefail
+	! "$scriptAbsoluteLocation" _test_pipefail_sequence_sequence "$@" && return 1
+	
+	set -o pipefail
+	! "$scriptAbsoluteLocation" _test_pipefail_sequence_sequence "$@" && return 1
+	
+	return 0
+}
+_test_pipefail() {
+	if ! "$scriptAbsoluteLocation" _test_pipefail_sequence "$@"
+	then
+		_messageFAIL
+		_stop 1
+		return 1
+	fi
+	"$scriptAbsoluteLocation" _test_pipefail_sequence "$@"
+	if [[ "$?" != "0" ]]
+	then
+		_messageFAIL
+		_stop 1
+		return 1
+	fi
+}
+
+# WARNING: Not necessarily tested by default, due to lack of use except where faults are tolerable, and slim possibility of useful embedded systems not able to pass.
+_test_grep() {
+	# If not known distribution/OS, do NOT test. Some embedded systems not able to pass may be nevertheless useful.
+	! ( [[ -e /etc/issue ]] && cat /etc/issue | grep 'Debian\|Raspbian\|Ubuntu' > /dev/null 2>&1 ) && ! _if_cygwin && return 0
+	
+	
+	
+	! echo \$123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo \.123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	
+	
+	! echo 'qwerty.*123' | grep -xF 'qwerty.*123' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo 'qwerty.*123' | grep -F 'qwerty.*123' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo 'qwerty123' | grep -x 'q.*3' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	echo 'qwerty123' | grep -xF 'qwerty.*123' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 'qwerty.*123' | grep -xF 'qwerty123' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	echo 'qwerty123' | grep -xF 'qwerty' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 'qwerty123' | grep -xF '123' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 'qwerty123' | grep -xF 'werty12' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	
+	! echo 'qwerty123' | grep -x 'qwerty.*123' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 'qwerty.*123' | grep -x 'qwerty123' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	echo 'qwerty123' | grep -x 'qwerty' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 'qwerty123' | grep -x '123' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 'qwerty123' | grep -x 'werty12' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	
+	echo 'qwerty123' | grep -F 'qwerty.*123' > /dev/null 2>&1 && _messageFAIL && return 1
+	echo 'qwerty.*123' | grep -F 'qwerty123' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	! echo 'qwerty123' | grep -F 'qwerty' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo 'qwerty123' | grep -F '123' > /dev/null 2>&1 && _messageFAIL && return 1
+	! echo 'qwerty123' | grep -F 'werty12' > /dev/null 2>&1 && _messageFAIL && return 1
+	
+	
+	
+	return 0
+}
+
 _test_sanity() {
 	if (exit 0)
 	then
@@ -12102,6 +12663,12 @@ _test_sanity() {
 	
 	# Do NOT allow 'rm' to be a shell function alias to 'rm -i' or similar.
 	[[ $(type -p rm) == "" ]] && _messageFAIL && return 1
+	
+	
+	! _test_pipefail && _messageFAIL && return 1
+	
+	
+	
 	
 	#! [[ -2147483648 -lt 2147483647 ]] && _messageFAIL && return 1
 	#! [[ -2000000000 -lt 2000000000 ]] && _messageFAIL && return 1
@@ -12225,10 +12792,7 @@ _test_sanity() {
 	
 	
 	
-	# WARNING: Not tested by default, due to lack of use except where faults are tolerable, and slim possibility of useful embedded systems not able to pass.
-	#! echo \$123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
-	#! echo \.123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
-	#echo 123 | grep -E '^\$[0-9]|^\.[0-9]' > /dev/null 2>&1 && _messageFAIL && return 1
+	_test_grep
 	
 	
 	local currentJobsList
@@ -12243,6 +12807,26 @@ _test_sanity() {
 	wait
 	currentJobsList=$(jobs -p -r)
 	[[ "$currentJobsList" != "" ]] && return 1
+	
+	
+	echo -e -n "b" > "$safeTmp"/a
+	[[ $(echo -e -n "c" | cat "$safeTmp"/a -) != "bc" ]] && _messageFAIL && _stop 1
+	#[[ $(echo -e -n "c" | cat "$safeTmp"/a /dev/stdin) != "bc" ]] && _messageFAIL && _stop 1
+	[[ $(echo -e -n "c" | cat "$safeTmp"/a /proc/self/fd/0) != "bc" ]] && _messageFAIL && _stop 1
+	[[ $(echo -e -n "c" | cat - "$safeTmp"/a) != "cb" ]] && _messageFAIL && _stop 1
+	#[[ $(echo -e -n "c" | cat /dev/stdin "$safeTmp"/a) != "cb" ]] && _messageFAIL && _stop 1
+	[[ $(echo -e -n "c" | cat /proc/self/fd/0 "$safeTmp"/a) != "cb" ]] && _messageFAIL && _stop 1
+	rm -f "$safeTmp"/a
+	
+	
+	echo -e -n "b" > "$safeTmp"/a
+	[[ $(echo -e -n "c" | _messagePlain_probe_cmd cat "$safeTmp"/a - | tail -c 2) != "bc" ]] && _messageFAIL && _stop 1
+	#[[ $(echo -e -n "c" | _messagePlain_probe_cmd cat "$safeTmp"/a /dev/stdin | tail -c 2) != "bc" ]] && _messageFAIL && _stop 1
+	[[ $(echo -e -n "c" | _messagePlain_probe_cmd cat "$safeTmp"/a /proc/self/fd/0 | tail -c 2) != "bc" ]] && _messageFAIL && _stop 1
+	[[ $(echo -e -n "c" | _messagePlain_probe_cmd cat - "$safeTmp"/a | tail -c 2) != "cb" ]] && _messageFAIL && _stop 1
+	#[[ $(echo -e -n "c" | _messagePlain_probe_cmd cat /dev/stdin "$safeTmp"/a | tail -c 2) != "cb" ]] && _messageFAIL && _stop 1
+	[[ $(echo -e -n "c" | _messagePlain_probe_cmd cat /proc/self/fd/0 "$safeTmp"/a | tail -c 2) != "cb" ]] && _messageFAIL && _stop 1
+	rm -f "$safeTmp"/a
 	
 	
 	
@@ -12317,12 +12901,12 @@ _test-shell-cygwin() {
 		echo 'fail: blank: currentScriptTime'
 		_messageFAIL
 	fi
-	if [[ "$currentScriptTime" -gt '9500' ]]
+	if ( [[ "$currentScriptTime" -gt '9500' ]] && [[ "$CI" == "" ]] ) || [[ "$currentScriptTime" -gt '20000' ]]
 	then
 		echo 'fail: slow: currentScriptTime: '"$currentScriptTime"
 		_messageFAIL
 	fi
-	if [[ "$currentScriptTime" -gt '3500' ]]
+	if [[ "$currentScriptTime" -gt '4500' ]]
 	then
 		echo 'warn: slow: currentScriptTime: '"$currentScriptTime"
 		_messagePlain_request 'request: obtain a CPU with better single-thread performance, disable HyperThreading, disable EfficiencyCores, and/or reduce MSW OS installed functionality'
@@ -12359,9 +12943,10 @@ _test-shell-cygwin() {
 	fi
 	
 	
-	# Before stating 'PASS' for Cygwin/MSW, use case specific (eg. flight sim with usual desktop applications installed) test cases may be necessary. Self-hosted 'runners' may be able to implement these test cases, with the resulting fragility reduced somewhat by another computer pulling frequent backups and artifacts.
+	# Although use case specific (eg. flight sim with usual desktop applications installed) test cases may be necessary for MSW, to avoid ambiguity in expectations that every test includes an explicit PASS statement, a call to '_messagePASS' is still given.
+	# Self-hosted 'runners' may be able to implement these test cases, with the resulting fragility reduced somewhat by another computer pulling frequent backups and artifacts.
 	# Unusually, MSW may have use case specific issues due to a track record for configuration changes to the MSW OS causing prohibitive performance issues (eg. Cygwin being delayed more than tens of seconds possibly due to a program adding some kind of user account, some programs known to drastically increase frame dropping in intense applications, etc).
-	#_messagePASS
+	_messagePASS
 	
 	
 	return 0
@@ -12569,6 +13154,11 @@ _test() {
 	_getDep perl
 	
 	
+	# WARNING: Avoid if possible.
+	# Not needed by 'ubiquitous_bash' itself up to at least commit 51ba42ed50b24a0e6eca749e8db7bee5c52cce47 .
+	_wantGetDep expect
+	
+	
 	_tryExec "_test_python"
 	_tryExec "_test_haskell"
 	
@@ -12633,6 +13223,8 @@ _test() {
 	
 	_tryExec "_testVirtBootdisc"
 	
+	_tryExec "_test_live"
+	
 	_tryExec "_testExtra"
 	
 	_tryExec "_testGit"
@@ -12678,6 +13270,8 @@ _test() {
 	_tryExec "_test_cloud"
 	
 	_tryExec "_test_rclone"
+	_tryExec "_test_croc"
+	
 	_tryExec "_test_terraform"
 	
 	
@@ -12697,6 +13291,9 @@ _test() {
 	_tryExec "_test_metaengine"
 	
 	_tryExec "_test_channel"
+	
+	_tryExec "_test_nix-env"
+	
 	
 	! [[ -e /dev/urandom ]] && echo /dev/urandom missing && _stop 1
 	[[ $(_timeout 3 cat /dev/urandom 2> /dev/null | _timeout 3 base64 2> /dev/null | _timeout 3 tr -dc 'a-zA-Z0-9' 2> /dev/null | _timeout 3 head -c 18 2> /dev/null) == "" ]] && echo /dev/urandom fail && _stop 1
@@ -12931,6 +13528,15 @@ _package_ubcp_copy_copy() {
 	return 0
 }
 
+# ATTENTION: Override with 'installation_prog.sh' or similar.
+_package_ubcp_copy_prog() {
+	false
+	
+	cd "$outerPWD"
+	return 1
+	_stop 1
+}
+
 _package_ubcp_copy() {
 	mkdir -p "$safeTmp"/package/_local
 	
@@ -12969,6 +13575,12 @@ _package_ubcp_copy() {
 	then
 		_package_ubcp_copy_copy "$scriptLib"/ubiquitous_bash/ubcp "$safeTmp"/package/_local/
 		rm -f "$safeTmp"/package/_local/ubcp/package_ubcp-cygwinOnly.tar.gz
+		return 0
+	fi
+	
+	# ATTENTION: Override with 'installation_prog.sh' or similar.
+	if _package_ubcp_copy_prog
+	then
 		return 0
 	fi
 	
@@ -13905,7 +14517,7 @@ _scribble_pdf() {
 	#--zoom 1.0 --enable-javascript --javascript-delay 750 --enable-local-file-access --disable-plugins --disable-smart-shrinking
 	#wkhtmltopdf --page-size A4 "$currentOutputFile".html "$currentOutputFile".a4.pdf
 	#wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile".letter.pdf
-	wkhtmltopdf --enable-local-file-access --javascript-delay 5000 --page-size Letter "$currentOutputFile".html "$currentOutputFile"
+	wkhtmltopdf --enable-local-file-access --javascript-delay 9500 --page-size Letter "$currentOutputFile".html "$currentOutputFile"
 	rm -f "$currentOutputFile".html
 	[[ -e "$currentOutputFile" ]] && return 0
 	
@@ -14048,7 +14660,7 @@ _scribble_asciidoc() {
 	# https://stackoverflow.com/questions/8323287/how-can-i-use-sed-to-delete-2-lines-after-match-matches
 	sed -i -e '/^Last updated/,+1d' "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html
 	
-	wkhtmltopdf --enable-local-file-access --javascript-delay 5000 --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
+	wkhtmltopdf --enable-local-file-access --javascript-delay 9500 --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
 	
 	export current_scriptedIllustrator_markup=
 	unset current_scriptedIllustrator_markup
@@ -17749,8 +18361,10 @@ import re
 #\033[0;35;47mpython-%d\033[0m
 #return "\033[92mIn [%d]:\033[0m " % (self.line)
 #return ">>> "
-#return "\033[1;94m|\033[91m#:\033[1;93m%s\033[1;92m@%s\033[1;94m)-%s(\033[1;95m\033[0;35;47mpython-%s\033[0m\033[1;94m)\033[1;96m|\n\033[1;94m|\033[1;97m[%s]\n\033[1;94m|\033[1;96m%d\033[1;94m) \033[1;96m>\033[0m " % (os.environ['USER'], socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
-#return "\033[1;94m|\033[91m#:\033[1;93m%s\033[1;92m@%s\033[1;94m)-%s(\033[1;95m\033[0;35;47mpython-%s\033[0m\033[1;94m)\033[1;96m|\n\033[1;94m|\033[1;97m[%s]\n\033[1;94m|%d\033[1;94m) \033[1;96m>\033[0m " % (os.environ['USER'], socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
+#return "\033[1;94m|\033[91m#:\033[1;93m%s\033[1;92m@%s\033[1;94m)-%s(\033[1;95m\033[0;35;47mpython-%s\033[0m\033[1;94m)\033[1;96m|\n\033[1;94m|\033[1;97m[%s]\n\033[1;94m|\033[1;96m%d\033[1;94m) \033[1;96m>\033[0m " % (os.getenv('USER','root'), socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
+#return "\033[1;94m|\033[91m#:\033[1;93m%s\033[1;92m@%s\033[1;94m)-%s(\033[1;95m\033[0;35;47mpython-%s\033[0m\033[1;94m)\033[1;96m|\n\033[1;94m|\033[1;97m[%s]\n\033[1;94m|%d\033[1;94m) \033[1;96m>\033[0m " % (os.getenv('USER','root'), socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
+#os.environ['USER']
+#os.getenv('USER','root')
 class ubPythonPS1(object):
 	def __init__(self):
 		self.line = 0
@@ -17758,9 +18372,9 @@ class ubPythonPS1(object):
 	def __str__(self):
 		self.line += 1
 		if self.line == 1:
-			return "\x01\033[1;94m\x02|\x01\033[91m\x02#:\x01\033[1;93m\x02%s\x01\033[1;92m\x02@%s\x01\033[1;94m\x02)-%s(\x01\033[1;95m\x02\x01\033[0;35;47m\x02python-%s\x01\033[0m\x02\x01\033[1;94m\x02)\x01\033[1;96m\x02|\n\x01\033[1;94m\x02|\x01\033[1;97m\x02[%s]\n\x01\033[1;94m\x02|\x01\033[1;96m\x02%d\x01\033[1;94m\x02) \x01\033[1;96m\x02>\x01\033[0m\x02 " % (os.environ['USER'], socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
+			return "\x01\033[1;94m\x02|\x01\033[91m\x02#:\x01\033[1;93m\x02%s\x01\033[1;92m\x02@%s\x01\033[1;94m\x02)-%s(\x01\033[1;95m\x02\x01\033[0;35;47m\x02python-%s\x01\033[0m\x02\x01\033[1;94m\x02)\x01\033[1;96m\x02|\n\x01\033[1;94m\x02|\x01\033[1;97m\x02[%s]\n\x01\033[1;94m\x02|\x01\033[1;96m\x02%d\x01\033[1;94m\x02) \x01\033[1;96m\x02>\x01\033[0m\x02 " % (os.getenv('USER','root'), socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
 		else:
-			return "\x01\033[1;94m\x02|\x01\033[91m\x02#:\x01\033[1;93m\x02%s\x01\033[1;92m\x02@%s\x01\033[1;94m\x02)-%s(\x01\033[1;95m\x02\x01\033[0;35;47m\x02python-%s\x01\033[0m\x02\x01\033[1;94m\x02)\x01\033[1;96m\x02|\n\x01\033[1;94m\x02|\x01\033[1;97m\x02[%s]\n\x01\033[1;94m\x02|%d\x01\033[1;94m\x02) \x01\033[1;96m\x02>\x01\033[0m\x02 " % (os.environ['USER'], socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
+			return "\x01\033[1;94m\x02|\x01\033[91m\x02#:\x01\033[1;93m\x02%s\x01\033[1;92m\x02@%s\x01\033[1;94m\x02)-%s(\x01\033[1;95m\x02\x01\033[0;35;47m\x02python-%s\x01\033[0m\x02\x01\033[1;94m\x02)\x01\033[1;96m\x02|\n\x01\033[1;94m\x02|\x01\033[1;97m\x02[%s]\n\x01\033[1;94m\x02|%d\x01\033[1;94m\x02) \x01\033[1;96m\x02>\x01\033[0m\x02 " % (os.getenv('USER','root'), socket.gethostname(), os.environ.get('prompt_cloudNetName', ''), hex(sys.hexversion), re.sub('^%s' % os.environ['HOME'], '~', os.path.expanduser(os.getcwd()) ), self.line)
 
 sys.ps1 = ubPythonPS1()
 sys.ps2 = "\x01\033[0;96m\x02|...\x01\033[0m\x02 "
@@ -18089,6 +18703,10 @@ _deps_getMinimal() {
 	export enUb_getMinimal="true"
 }
 
+_deps_getVeracrypt() {
+	export enUb_getMost_special_veracrypt="true"
+}
+
 _deps_build() {
 	export enUb_build="true"
 }
@@ -18182,6 +18800,13 @@ _deps_chroot() {
 	_deps_virt
 	_deps_virt_thick
 	export enUb_ChRoot="true"
+}
+
+_deps_bios() {
+	_deps_notLean
+	_deps_virt
+	_deps_virt_thick
+	export enUb_bios="true"
 }
 
 _deps_qemu() {
@@ -18465,6 +19090,9 @@ _generate_compile_bash-compressed_procedure() {
 	#sed -i 'N;s/\n//'
 	
 	echo "#!/usr/bin/env bash" > "$scriptAbsoluteFolder"/"$1"_compressed.sh
+	echo '[[ "$PATH" != *"/usr/local/bin"* ]] && [[ -e "/usr/local/bin" ]] && export PATH=/usr/local/bin:"$PATH"
+[[ "$PATH" != *"/usr/bin"* ]] && [[ -e "/usr/bin" ]] && export PATH=/usr/bin:"$PATH"
+[[ "$PATH" != *"/bin:"* ]] && [[ -e "/bin" ]] && export PATH=/bin:"$PATH"' >> "$scriptAbsoluteFolder"/"$1"_compressed.sh
 	
 	_compressed_criticalDep() {
 		! _getAbsolute_criticalDep && exit 1
@@ -18840,6 +19468,7 @@ _compile_bash_deps() {
 		
 		_deps_distro
 		_deps_getMinimal
+		_deps_getVeracrypt
 		_deps_linux
 		
 		_deps_python
@@ -18878,6 +19507,8 @@ _compile_bash_deps() {
 		
 		_deps_command
 		_deps_synergy
+		
+		_deps_getVeracrypt
 		
 		# WARNING: Linux *kernel* admin assistance *only*. NOT any other UNIX like features.
 		# WARNING: Beware Linux shortcut specific dependency programs must not be required, or will break other operating systems!
@@ -18976,6 +19607,7 @@ _compile_bash_deps() {
 		#_deps_virt_thick
 		
 		#_deps_chroot
+		#_deps_bios
 		_deps_qemu
 		_deps_vbox
 		#_deps_docker
@@ -19007,6 +19639,7 @@ _compile_bash_deps() {
 		
 		_deps_distro
 		_deps_getMinimal
+		_deps_getVeracrypt
 		
 		#_deps_blockchain
 		
@@ -19063,6 +19696,7 @@ _compile_bash_deps() {
 		_deps_virt_thick
 		
 		_deps_chroot
+		_deps_bios
 		_deps_qemu
 		_deps_vbox
 		#_deps_docker
@@ -19094,6 +19728,7 @@ _compile_bash_deps() {
 		
 		_deps_distro
 		_deps_getMinimal
+		_deps_getVeracrypt
 		
 		#_deps_blockchain
 		
@@ -19150,6 +19785,7 @@ _compile_bash_deps() {
 		_deps_virt_thick
 		
 		_deps_chroot
+		_deps_bios
 		_deps_qemu
 		_deps_vbox
 		_deps_docker
@@ -19181,6 +19817,7 @@ _compile_bash_deps() {
 		
 		_deps_distro
 		_deps_getMinimal
+		_deps_getVeracrypt
 		
 		_deps_blockchain
 		
@@ -19343,6 +19980,16 @@ _compile_bash_utilities() {
 	
 	[[ "$enUb_getMinimal" == "true" ]] && includeScriptList+=( "os/distro"/getMinimal.sh )
 	
+	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] ) && includeScriptList+=( "os/distro"/getMost_special.sh )
+	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] ) && includeScriptList+=( "os/distro"/getMinimal_special.sh )
+	
+	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] || [[ "$enUb_getMost_special_veracrypt" == "true" ]] ) && includeScriptList+=( "os/distro"/getMost_special_veracrypt.sh )
+	
+	
+	
+	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] || [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] || [[ "$enUb_distro" == "true" ]] ) && includeScriptList+=( "os"/nixos.sh )
+	
+	
 	
 	[[ "$enUb_notLean" == "true" ]] && includeScriptList+=( "os/unix/systemd"/here_systemd.sh )
 	[[ "$enUb_notLean" == "true" ]] && includeScriptList+=( "os/unix/systemd"/hook_systemd.sh )
@@ -19410,6 +20057,9 @@ _compile_bash_utilities_virtualization() {
 	[[ "$enUb_ChRoot" == "true" ]] && includeScriptList+=( "virtualization/chroot"/mountchrootuser.sh )
 	[[ "$enUb_ChRoot" == "true" ]] && includeScriptList+=( "virtualization/chroot"/userchroot.sh )
 	[[ "$enUb_ChRoot" == "true" ]] && includeScriptList+=( "virtualization/chroot"/dropchroot.sh )
+	
+	[[ "$enUb_bios" == "true" ]] && includeScriptList+=( "virtualization/bios"/createvm.sh )
+	[[ "$enUb_bios" == "true" ]] && includeScriptList+=( "virtualization/bios"/live.sh )
 	
 	[[ "$enUb_QEMU" == "true" ]] && includeScriptList+=( "virtualization/qemu"/qemu-raspi-raspi.sh )
 	[[ "$enUb_QEMU" == "true" ]] && includeScriptList+=( "virtualization/qemu"/qemu-x64-raspi.sh )
@@ -19507,6 +20157,7 @@ _compile_bash_shortcuts() {
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/storage"/blackblaze/blackblaze.sh )
 	
 	
+	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/croc/croc.sh )
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/apacheLibcloud/apacheLibcloud.sh )
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/nubo/nubo.sh )
 	( [[ "$enUb_cloud_heavy" == "true" ]] || [[ "$enUb_cloud" == "true" ]] ) && includeScriptList+=( "shortcuts/cloud/bridge"/rclone/rclone.sh )
