@@ -91,7 +91,7 @@ _scribble_pdf() {
 	#--zoom 1.0 --enable-javascript --javascript-delay 750 --enable-local-file-access --disable-plugins --disable-smart-shrinking
 	#wkhtmltopdf --page-size A4 "$currentOutputFile".html "$currentOutputFile".a4.pdf
 	#wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile".letter.pdf
-	wkhtmltopdf --page-size Letter "$currentOutputFile".html "$currentOutputFile"
+	wkhtmltopdf --enable-local-file-access --javascript-delay 9500 --page-size Letter "$currentOutputFile".html "$currentOutputFile"
 	rm -f "$currentOutputFile".html
 	[[ -e "$currentOutputFile" ]] && return 0
 	
@@ -234,7 +234,7 @@ _scribble_asciidoc() {
 	# https://stackoverflow.com/questions/8323287/how-can-i-use-sed-to-delete-2-lines-after-match-matches
 	sed -i -e '/^Last updated/,+1d' "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html
 	
-	wkhtmltopdf --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
+	wkhtmltopdf --enable-local-file-access --javascript-delay 9500 --page-size Letter "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".html "$scriptAbsoluteFolder"/"$currentScriptBasename"."$current_scriptedIllustrator_markup".pdf
 	
 	export current_scriptedIllustrator_markup=
 	unset current_scriptedIllustrator_markup
