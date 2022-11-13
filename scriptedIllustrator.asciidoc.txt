@@ -210,7 +210,7 @@ _e currentBitsPerSecond=9600 ; currentBonesPerPlayer=4 ; currentIncrementFramesP
 
 ----
 
-# 5.5555556
+# 5.555555556
 
 
 ////

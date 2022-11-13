@@ -80,7 +80,19 @@ _test_built_default() {
 }
 
 _test_default() {
+	local currentFunctionExitStatus
+	
 	_test_prog "$@"
 	
 	_test_built_default "$@"
+	currentFunctionExitStatus="$?"
+	
+	
+	if [[ $(qalc -v | cut -f1 -d\. | tr -dc '0-9') -le "3" ]]
+	then
+		echo 'warn: bad: unacceptable qalc version!'
+		_messageFAIL
+	fi
+	
+	return "$currentFunctionExitStatus"
 }

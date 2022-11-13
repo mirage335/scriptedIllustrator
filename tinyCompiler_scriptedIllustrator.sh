@@ -36,7 +36,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='2591634041'
-export ub_setScriptChecksum_contents='2705468006'
+export ub_setScriptChecksum_contents='2964017748'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -654,9 +654,10 @@ fi
 
 # ATTENTION: Workaround - Cygwin Portable - append MSW PATH if reasonable.
 # NOTICE: Also see '_test-shell-cygwin' .
+# MSWEXTPATH lengths up to 33, 38, are known reasonable values.
 if [[ "$MSWEXTPATH" != "" ]] && ( [[ "$PATH" == *"/cygdrive"* ]] || [[ "$PATH" == "/cygdrive"* ]] ) && [[ "$convertedMSWEXTPATH" == "" ]] && _if_cygwin
 then
-	if [[ $(echo "$MSWEXTPATH" | grep -o ';\|:' | wc -l | tr -dc '0-9') -le 32 ]] && [[ $(echo "$PATH" | grep -o ':' | wc -l | tr -dc '0-9') -le 32 ]]
+	if [[ $(echo "$MSWEXTPATH" | grep -o ';\|:' | wc -l | tr -dc '0-9') -le 44 ]] && [[ $(echo "$PATH" | grep -o ':' | wc -l | tr -dc '0-9') -le 44 ]]
 	then
 		export convertedMSWEXTPATH=$(cygpath -p "$MSWEXTPATH")
 		export PATH=/usr/bin:"$convertedMSWEXTPATH":"$PATH"
@@ -5273,6 +5274,12 @@ _test_devqalculate() {
 	_wantGetDep gnuplot
 	
 	! _typeDep qalculate-gtk && echo 'warn: missing: qalculate-gtk'
+	
+	
+	if [[ $(qalc -v | cut -f1 -d\. | tr -dc '0-9') -le "3" ]]
+	then
+		echo 'warn: bad: unacceptable qalc version!'
+	fi
 	
 	return 0
 }
@@ -12951,12 +12958,26 @@ _test-shell-cygwin() {
 		echo 'fail: count: PATH: '"$currentPathCount"
 		_messageFAIL
 	fi
-	if [[ "$currentPathCount" -gt 32 ]]
+	if [[ "$currentPathCount" -gt 44 ]]
 	then
 		echo 'warn: count: PATH: '"$currentPathCount"
 		echo 'warn: MSWEXTPATH may be ignored'
 		_messagePlain_request 'request: reduce the length of PATH variable'
 	fi
+	
+	if [[ "$currentPathCount" -gt 32 ]]
+	then
+		echo 'warn: count: PATH: '"$currentPathCount"
+		echo 'warn: MSWEXTPATH exceeds preferred 32'
+		_messagePlain_request 'request: reduce the length of PATH variable'
+	fi
+	if [[ "$currentPathCount" -gt 34 ]]
+	then
+		echo 'warn: count: PATH: '"$currentPathCount"
+		echo 'warn: MSWEXTPATH exceeds preferred 34'
+		_messagePlain_request 'request: reduce the length of PATH variable'
+	fi
+	
 	
 	
 	local currentPathCount
@@ -12966,12 +12987,27 @@ _test-shell-cygwin() {
 		echo 'fail: count: MSWEXTPATH: '"$currentPathCount"
 		_messageFAIL
 	fi
-	if [[ "$currentPathCount" -gt 32 ]]
+	if [[ "$currentPathCount" -gt 44 ]]
 	then
 		echo 'warn: count: MSWEXTPATH: '"$currentPathCount"
 		echo 'warn: MSWEXTPATH may be ignored by default'
 		_messagePlain_request 'request: reduce the length of PATH variable'
 	fi
+	
+	
+	if [[ "$currentPathCount" -gt 32 ]]
+	then
+		echo 'warn: count: MSWEXTPATH: '"$currentPathCount"
+		echo 'warn: MSWEXTPATH exceeds preferred 32'
+		_messagePlain_request 'request: reduce the length of PATH variable'
+	fi
+	if [[ "$currentPathCount" -gt 34 ]]
+	then
+		echo 'warn: count: MSWEXTPATH: '"$currentPathCount"
+		echo 'warn: MSWEXTPATH exceeds preferred 34'
+		_messagePlain_request 'request: reduce the length of PATH variable'
+	fi
+	
 	
 	
 	# Although use case specific (eg. flight sim with usual desktop applications installed) test cases may be necessary for MSW, to avoid ambiguity in expectations that every test includes an explicit PASS statement, a call to '_messagePASS' is still given.
@@ -13795,6 +13831,15 @@ _test_prog() {
 	
 	! _wantGetDep gs && echo 'missing: gs'
 	
+	
+	
+	if [[ $(qalc -v | cut -f1 -d\. | tr -dc '0-9') -le "3" ]]
+	then
+		echo 'warn: bad: unacceptable qalc version!'
+		_messageFAIL
+	fi
+	
+	
 	return 0
 }
 
@@ -14438,9 +14483,21 @@ _test_built_default() {
 }
 
 _test_default() {
+	local currentFunctionExitStatus
+	
 	_test_prog "$@"
 	
 	_test_built_default "$@"
+	currentFunctionExitStatus="$?"
+	
+	
+	if [[ $(qalc -v | cut -f1 -d\. | tr -dc '0-9') -le "3" ]]
+	then
+		echo 'warn: bad: unacceptable qalc version!'
+		_messageFAIL
+	fi
+	
+	return "$currentFunctionExitStatus"
 }
 
 #####Program

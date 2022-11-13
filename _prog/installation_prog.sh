@@ -42,6 +42,15 @@ _test_prog() {
 	
 	! _wantGetDep gs && echo 'missing: gs'
 	
+	
+	
+	if [[ $(qalc -v | cut -f1 -d\. | tr -dc '0-9') -le "3" ]]
+	then
+		echo 'warn: bad: unacceptable qalc version!'
+		_messageFAIL
+	fi
+	
+	
 	return 0
 }
 

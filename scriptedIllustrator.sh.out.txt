@@ -20,7 +20,7 @@ __ equations and commands - heading2 __
 [0;34m  'currentBitsPerSecond=9600' [0m
 [0;34m  'currentBonesPerPlayer=4' [0m
 [0;34m  'solve' '"("$currentBitsPerSecond" == (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentIncrementFramesPerSecond" * "$currentIncrementFrameBytesPerBone" * "$currentByte") + (\"currentPlayers\" * "$currentBonesPerPlayer" * "$currentInstantFramesPerSecond" * "$currentInstantFrameBytesPerBone" * "$currentByte"), \"currentPlayers\")"' [0m
-[0;37;100m# 5.5555556[0m
+[0;37;100m# 5.555555556[0m
  
  '_cells_begin'
  '_cells_row_begin'
