@@ -502,6 +502,10 @@ fi
 ! [[ "$1" == '_'* ]] && [[ "$1" == 'DOCUMENT' ]] && exit 0
 if [[ "$1" == '_'* ]]
 then
+	_document_collect
+	_test() {
+		"$scriptAbsoluteLocation" _test_default "$@"
+	}
 	"$@"
 	exit "$?"
 fi

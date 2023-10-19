@@ -98,7 +98,7 @@ fi
 if false; then true; # -->
 <!-- # --><pre style="-webkit-print-color-adjust: exact;background-color:#848484;margin-top: 0px;margin-bottom: 0px;white-space: pre-wrap;">
 <!-- # --><span style="color:#1818b2;background-color:#848484;">  '[[ "$noDate" != "true" ]] && date --iso-8601'</span>
-<!-- # --># 2023-10-15
+<!-- # --># 2023-10-19
 <!-- # --></pre>
 <!--
 fi
@@ -1226,6 +1226,10 @@ fi
 ! [[ "$1" == '_'* ]] && [[ "$1" == 'DOCUMENT' ]] && exit 0
 if [[ "$1" == '_'* ]]
 then
+	_document_collect
+	_test() {
+		"$scriptAbsoluteLocation" _test_default "$@"
+	}
 	"$@"
 	exit "$?"
 fi
