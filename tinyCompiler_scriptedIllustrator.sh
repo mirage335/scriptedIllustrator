@@ -36,7 +36,7 @@ _ub_cksum_special_derivativeScripts_contents() {
 #export ub_setScriptChecksum_disable='true'
 ( [[ -e "$0".nck ]] || [[ "${BASH_SOURCE[0]}" != "${0}" ]] || [[ "$1" == '--profile' ]] || [[ "$1" == '--script' ]] || [[ "$1" == '--call' ]] || [[ "$1" == '--return' ]] || [[ "$1" == '--devenv' ]] || [[ "$1" == '--shell' ]] || [[ "$1" == '--bypass' ]] || [[ "$1" == '--parent' ]] || [[ "$1" == '--embed' ]] || [[ "$1" == '--compressed' ]] || [[ "$0" == "/bin/bash" ]] || [[ "$0" == "-bash" ]] || [[ "$0" == "/usr/bin/bash" ]] || [[ "$0" == "bash" ]] ) && export ub_setScriptChecksum_disable='true'
 export ub_setScriptChecksum_header='2591634041'
-export ub_setScriptChecksum_contents='281217230'
+export ub_setScriptChecksum_contents='1251310564'
 
 # CAUTION: Symlinks may cause problems. Disable this test for such cases if necessary.
 # WARNING: Performance may be crucial here.
@@ -2826,10 +2826,30 @@ _terminateAll() {
 	while read -r currentPID
 	do
 		pkill -P "$currentPID"
+		sudo -n pkill -P "$currentPID"
 		kill "$currentPID"
+		sudo -n kill "$currentPID"
 	done < "$processListFile"
 	
+	if [[ "$ub_kill" == "true" ]]
+	then
+		sleep 9
+		while read -r currentPID
+		do
+			pkill -KILL -P "$currentPID"
+			sudo -n pkill -KILL -P "$currentPID"
+			kill -KILL "$currentPID"
+			sudo -n kill -KILL "$currentPID"
+		done < "$processListFile"
+	fi
+	
 	rm "$processListFile"
+}
+
+_killAll() {
+	export ub_kill="true"
+	_terminateAll
+	export ub_kill=
 }
 
 _condition_lines_zero() {
@@ -2838,6 +2858,19 @@ _condition_lines_zero() {
 	
 	[[ "$currentLineCount" == 0 ]] && return 0
 	return 1
+}
+
+
+_safe_declare_uid() {
+	unset _uid
+	_uid() {
+		local currentLengthUID
+		currentLengthUID="$1"
+		[[ "$currentLengthUID" == "" ]] && currentLengthUID=18
+		cat /dev/random 2> /dev/null | base64 2> /dev/null | tr -dc 'a-zA-Z0-9' 2> /dev/null | tr -d 'acdefhilmnopqrsuvACDEFHILMNOPQRSU14580' | head -c "$currentLengthUID" 2> /dev/null
+		return
+	}
+	export -f _uid
 }
 
 #Generates semi-random alphanumeric characters, default length 18.
@@ -4803,6 +4836,19 @@ _getDep() {
 	_mustGetDep "$@"
 }
 
+
+
+_binToHex() {
+	xxd -p | tr -d '\n'
+}
+
+_hexToBin() {
+	xxd -r -p
+}
+
+
+
+
 _resetFakeHomeEnv_extra() {
 	true
 }
@@ -4936,6 +4982,8 @@ _findFunction() {
 
 
 _octave_terse() {
+	_safe_declare_uid
+	
 	if [[ "$1" != "" ]]
 	then
 		_safeEcho_newline "$@" | octave --quiet --silent --no-window-system --no-gui 2>/dev/null | _octave_filter-messages
@@ -4949,16 +4997,20 @@ _octave_terse() {
 _octave() {
 	if [[ "$1" != "" ]]
 	then
+		_safe_declare_uid
 		_octave_terse "$@"
 		return
 	fi
 	
+	_safe_declare_uid
 	octave --quiet --silent --no-window-system --no-gui "$@"
 	return
 }
 
 # ATTENTION: EXAMPLE: echo 'solve(x == y * 2, y)' | _octave_pipe
 _octave_pipe() {
+	_safe_declare_uid
+	
 	_octave_terse "$@"
 	#octave --quiet --silent --no-window-system --no-gui "$@" 2>/dev/null | _octave_filter-messages
 }
@@ -4968,6 +5020,8 @@ _octave_pipe() {
 _octave_script() {
 	local currentFile="$1"
 	shift
+	
+	_safe_declare_uid
 	
 	cat "$currentFile" | _octave_terse "$@"
 	
@@ -5374,6 +5428,8 @@ _test_devgnuoctave-extra() {
 
 
 _qalculate_terse() {
+	_safe_declare_uid
+	
 	# https://stackoverflow.com/questions/17998978/removing-colors-from-output
 	#sed -r "s/\x1B\[([0-9]{1,3}(;[0-9]{1,2})?)?[mGK]//g"
 	
@@ -5398,20 +5454,26 @@ _qalculate_terse() {
 
 # Interactive.
 _qalculate() {
+	_safe_declare_uid
+	
 	mkdir -p "$HOME"/.config/qalculate
 	
 	if [[ "$1" != "" ]]
 	then
+		_safe_declare_uid
 		_qalculate_terse "$@"
 		return
 	fi
 	
+	_safe_declare_uid
 	qalc "$@"
 	return
 }
 
 # ATTENTION: EXAMPLE: echo 'solve(x == y * 2, y)' | _qalculate_pipe
 _qalculate_pipe() {
+	_safe_declare_uid
+	
 	_qalculate_terse "$@"
 }
 
@@ -5420,6 +5482,8 @@ _qalculate_pipe() {
 _qalculate_script() {
 	local currentFile="$1"
 	shift
+	
+	_safe_declare_uid
 	
 	cat "$currentFile" | _qalculate_pipe "$@"
 }
@@ -6476,10 +6540,14 @@ _prepare_query() {
 	! [[ -e "$ub_queryserver" ]] && cp "$scriptAbsoluteLocation" "$ub_queryserver"
 	
 	_prepare_query_prog "$@"
+	
+	_safe_declare_uid
 }
 
 _queryServer_sequence() {
 	_start
+	
+	_safe_declare_uid
 	
 	local currentExitStatus
 	
@@ -6500,6 +6568,8 @@ _qs() {
 
 _queryClient_sequence() {
 	_start
+	
+	_safe_declare_uid
 	
 	local currentExitStatus
 	
@@ -6785,6 +6855,48 @@ _test_gitBest() {
 
 
 
+# Requires "$GH_TOKEN" .
+_gh_downloadURL() {
+	local current_url
+	local current_repo
+	local current_tagName
+	local current_file
+	
+	
+	# ATTRIBUTION: ChatGPT GPT-4 2023-11-04 .
+	
+	# The provided URL
+	current_url="$1"
+	shift
+	
+	# Use `sed` to extract the parts of the URL
+	current_repo=$(echo "$current_url" | sed -n 's|https://github.com/\([^/]*\)/\([^/]*\)/.*|\1/\2|p')
+	current_tagName=$(echo "$current_url" | sed -n 's|https://github.com/[^/]*/[^/]*/releases/download/\([^/]*\)/.*|\1|p')
+	current_file=$(echo "$current_url" | sed -n 's|https://github.com/[^/]*/[^/]*/releases/download/[^/]*/\(.*\)|\1|p')
+	
+	local current_fileOut
+	current_fileOut="$current_file"
+	if [[ "$1" == "-O" ]]
+	then
+		#_gh_downloadURL "${currentURL_array_reversed[$currentIterationNext1]}" -O "$currentAxelTmpFileRelative".tmp2
+		current_fileOut="$2"
+	fi
+	
+	# Use variables to construct the gh release download command
+	local currentIteration
+	currentIteration=0
+	while ! [[ -e "$current_fileOut" ]] && [[ "$currentIteration" -lt 3 ]]
+	do
+		gh release download "$current_tagName" -R "$current_repo" -p "$current_file" "$@"
+		! [[ -e "$current_fileOut" ]] && sleep 7
+		let currentIteration=currentIteration+1
+	done
+	[[ -e "$current_fileOut" ]]
+	return "$?"
+}
+
+
+
 _wget_githubRelease-URL() {
 	local currentURL
 	if [[ "$2" != "" ]]
@@ -6819,16 +6931,44 @@ _wget_githubRelease-URL() {
 
 _wget_githubRelease() {
 	local currentURL=$(_wget_githubRelease-URL "$@")
-	_messagePlain_probe curl -L -o "$3" "$currentURL" >&2
-	curl -L -o "$3" "$currentURL"
+	if [[ "$GH_TOKEN" == "" ]]
+	then
+		_messagePlain_probe curl -L -o "$3" "$currentURL" >&2
+		curl -L -o "$3" "$currentURL"
+	else
+		if type -p gh > /dev/null 2>&1 && [[ "$GH_TOKEN" != "" ]] && [[ "$FORCE_WGET" != "true" ]]
+		then
+			_messagePlain_probe _gh_downloadURL "$currentURL" -O "$3" >&2
+			_gh_downloadURL "$currentURL" -O "$3"
+		else
+			# Broken. Must use 'gh' instead.
+			_messagePlain_probe curl -H "Authorization: Bearer "'$GH_TOKEN' -L -o "$3" "$currentURL" >&2
+			curl -H "Authorization: Bearer $GH_TOKEN" -L -o "$3" "$currentURL"
+		fi
+	fi
 	[[ ! -e "$3" ]] && _messagePlain_bad 'missing: '"$1"' '"$2"' '"$3" && return 1
 	return 0
 }
 
 _wget_githubRelease-stdout() {
 	local currentURL=$(_wget_githubRelease-URL "$@")
-	_messagePlain_probe curl -L -o - "$currentURL" >&2
-	curl -L -o - "$currentURL"
+	if type -p gh > /dev/null 2>&1 && [[ "$GH_TOKEN" != "" ]] && [[ "$FORCE_WGET" != "true" ]]
+	then
+		_messagePlain_probe _gh_downloadURL "$currentURL" -O - >&2
+		_gh_downloadURL "$currentURL" -O -
+		return
+	else
+		if [[ "$GH_TOKEN" == "" ]]
+		then
+			_messagePlain_probe curl -L -o - "$currentURL" >&2
+			curl -L -o - "$currentURL"
+		else
+			# Broken. Must use 'gh' instead.
+			_messagePlain_probe curl -H "Authorization: Bearer "'$GH_TOKEN' -L -o - "$currentURL" >&2
+			curl -H "Authorization: Bearer $GH_TOKEN" -L -o - "$currentURL"
+		fi
+		return
+	fi
 }
 
 
@@ -6920,7 +7060,9 @@ _wget_githubRelease_join-stdout() {
 		currentIteration=0
 		local currentIterationNext1
 		let currentIterationNext1=currentIteration+1
-		while [[ "${currentURL_array_reversed[$currentIteration]}" != "" ]] || [[ "${currentURL_array_reversed[$currentIterationNext1]}" != "" ]]
+		rm -f "$currentAxelTmpFile"
+		rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+		while [[ "${currentURL_array_reversed[$currentIteration]}" != "" ]] || [[ "${currentURL_array_reversed[$currentIterationNext1]}" != "" ]] || [[ -e "$currentAxelTmpFile".tmp2 ]]
 		do
 			#rm -f "$currentAxelTmpFile"
 			rm -f "$currentAxelTmpFile".aria2
@@ -6930,78 +7072,133 @@ _wget_githubRelease_join-stdout() {
 			rm -f "$currentAxelTmpFile".tmp1
 			rm -f "$currentAxelTmpFile".tmp1.st
 			rm -f "$currentAxelTmpFile".tmp1.aria2
-			rm -f "$currentAxelTmpFile".tmp2
-			rm -f "$currentAxelTmpFile".tmp2.st
-			rm -f "$currentAxelTmpFile".tmp2.aria2
+			#rm -f "$currentAxelTmpFile".tmp2
+			#rm -f "$currentAxelTmpFile".tmp2.st
+			#rm -f "$currentAxelTmpFile".tmp2.aria2
+			#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
 			
-			rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+			#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
 
 			# https://github.com/aria2/aria2/issues/1108
 
-			# Download preferring from IPv6 address .
-			if [[ "$current_usable_ipv6" == "true" ]]
+			if [[ "${currentURL_array_reversed[$currentIteration]}" != "" ]]
 			then
-				if [[ "$GH_TOKEN" == "" ]]
+				# Download preferring from IPv6 address .
+				if [[ "$current_usable_ipv6" == "true" ]]
 				then
-					#--file-allocation=falloc
-					_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false "${currentURL_array_reversed[$currentIteration]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_1="$!"
+					if [[ "$GH_TOKEN" == "" ]]
+					then
+						#--file-allocation=falloc
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false "${currentURL_array_reversed[$currentIteration]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_1="$!"
+					else
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIteration]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_1="$!"
+					fi
 				else
-					_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIteration]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=false --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_1="$!"
-				fi
-			else
-				if [[ "$GH_TOKEN" == "" ]]
-				then
-					_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true "${currentURL_array_reversed[$currentIteration]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_1="$!"
-				else
-					_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIteration]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_1="$!"
+					if [[ "$GH_TOKEN" == "" ]]
+					then
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true "${currentURL_array_reversed[$currentIteration]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_1="$!"
+					else
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIteration]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp1 --disable-ipv6=true --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIteration]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_1="$!"
+					fi
 				fi
 			fi
-
-			# ATTENTION: Staggered.
-			#sleep 8 > /dev/null 2>&1
-
-			# Download preferring from IPv4 address.
-			#--disable-ipv6
-			if [[ "$current_usable_ipv4" == "true" ]]
+			
+			
+			# CAUTION: ATTENTION: Very important. Simultaneous reading and writing is *very* important for writing directly to slow media (ie. BD-R) .
+			#  NOTICE: Wirting directly to slow BD-R is essential for burning a Live disc from having booted a Live disc.
+			#   DANGER: Critical for rapid recovery back to recent upstream 'ubdist/OS' ! Do NOT unnecessarily degrade this capability!
+			#  Also theoretically helpful with especially fast network connections.
+			#if [[ "$currentIteration" != "0" ]]
+			if [[ -e "$currentAxelTmpFile".tmp2 ]]
 			then
-				if [[ "$GH_TOKEN" == "" ]]
+				# ATTENTION: Staggered.
+				#sleep 10 > /dev/null 2>&1
+				wait "$currentPID_2" >&2
+				#wait >&2
+
+				sleep 0.2 > /dev/null 2>&1
+				if [[ -e "$currentAxelTmpFile".tmp2 ]]
 				then
-					_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true "${currentURL_array_reversed[$currentIterationNext1]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_2="$!"
-				else
-					_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIterationNext1]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_2="$!"
+					_messagePlain_probe dd if="$currentAxelTmpFile".tmp2 bs=1M status=progress' >> '"$currentAxelTmpFile" >&2
+					
+					# ### dd if="$currentAxelTmpFile".tmp2 bs=5M status=progress >> "$currentAxelTmpFile"
+					dd if="$currentAxelTmpFile".tmp2 bs=1M status=progress
+					#cat "$currentAxelTmpFile".tmp2
+					
+					du -sh "$currentAxelTmpFile".tmp2 >> "$currentAxelTmpFile"
+					
+					#cat "$currentAxelTmpFile".tmp2 >> "$currentAxelTmpFile"
 				fi
 			else
-				if [[ "$GH_TOKEN" == "" ]]
+				if [[ "$currentIteration" == "0" ]]
 				then
-					_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false "${currentURL_array_reversed[$currentIterationNext1]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_2="$!"
+					# ATTENTION: Staggered.
+					#sleep 6 > /dev/null 2>&1
+					true
+				fi
+			fi
+			rm -f "$currentAxelTmpFile".tmp2
+			rm -f "$currentAxelTmpFile".tmp2.st
+			rm -f "$currentAxelTmpFile".tmp2.aria2
+			#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+			
+			
+
+
+			if [[ "${currentURL_array_reversed[$currentIterationNext1]}" != "" ]]
+			then
+				# Download preferring from IPv4 address.
+				#--disable-ipv6
+				if [[ "$current_usable_ipv4" == "true" ]]
+				then
+					if [[ "$GH_TOKEN" == "" ]]
+					then
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true "${currentURL_array_reversed[$currentIterationNext1]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_2="$!"
+					else
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIterationNext1]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=true --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_2="$!"
+					fi
 				else
-					_messagePlainProbe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIterationNext1]}" >&2
-					aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
-					currentPID_2="$!"
+					if [[ "$GH_TOKEN" == "" ]]
+					then
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false "${currentURL_array_reversed[$currentIterationNext1]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_2="$!"
+					else
+						_messagePlain_probe aria2c -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false --header="Authorization: Bearer "'$GH_TOKEN'"" "${currentURL_array_reversed[$currentIterationNext1]}" >&2
+						aria2c --log=- --log-level=info -x "$currentForceAxel" -o "$currentAxelTmpFileRelative".tmp2 --disable-ipv6=false --header="Authorization: Bearer $GH_TOKEN" "${currentURL_array_reversed[$currentIterationNext1]}" | grep --color -i -E "Name resolution|$" >&2 &
+						currentPID_2="$!"
+					fi
 				fi
 			fi
 			
 
 			# ATTENTION: NOT staggered.
-			wait "$currentPID_1" >&2
-			#wait "$currentPID_2" >&2
-			wait >&2
-
 			#wait "$currentPID_1" >&2
+			#wait "$currentPID_2" >&2
+			#wait >&2
+			
+			if [[ "$currentIteration" == "0" ]]
+			then
+				wait "$currentPID_1" >&2
+				sleep 6 > /dev/null 2>&1
+				[[ "$currentPID_2" == "" ]] && sleep 35 > /dev/null 2>&1
+				[[ "$currentPID_2" != "" ]] && wait "$currentPID_2" >&2
+				wait >&2
+			fi
+
+			wait "$currentPID_1" >&2
 			sleep 0.2 > /dev/null 2>&1
 			if [[ -e "$currentAxelTmpFile".tmp1 ]]
 			then
@@ -7009,29 +7206,23 @@ _wget_githubRelease_join-stdout() {
 				
 				if [[ ! -e "$currentAxelTmpFile" ]]
 				then
-					mv -f "$currentAxelTmpFile".tmp1 "$currentAxelTmpFile"
+					# ### mv -f "$currentAxelTmpFile".tmp1 "$currentAxelTmpFile"
+					dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress
+					
+					du -sh "$currentAxelTmpFile".tmp1 >> "$currentAxelTmpFile"
 				else
 					# ATTENTION: Staggered.
 					#dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress >> "$currentAxelTmpFile" &
 				
 					# ATTENTION: NOT staggered.
-					dd if="$currentAxelTmpFile".tmp1 bs=5M status=progress >> "$currentAxelTmpFile"
-				
+					# ### dd if="$currentAxelTmpFile".tmp1 bs=5M status=progress >> "$currentAxelTmpFile"
+					dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress
+					#cat "$currentAxelTmpFile".tmp1
+					
+					du -sh "$currentAxelTmpFile".tmp1 >> "$currentAxelTmpFile"
+					
 					#cat "$currentAxelTmpFile".tmp1 >> "$currentAxelTmpFile"
 				fi
-			fi
-
-			# ATTENTION: Staggered.
-			#sleep 10 > /dev/null 2>&1
-			##wait "$currentPID_2" >&2
-			#wait >&2
-
-			sleep 0.2 > /dev/null 2>&1
-			if [[ -e "$currentAxelTmpFile".tmp2 ]]
-			then
-				_messagePlain_probe dd if="$currentAxelTmpFile".tmp2 bs=1M status=progress' >> '"$currentAxelTmpFile" >&2
-				dd if="$currentAxelTmpFile".tmp2 bs=5M status=progress >> "$currentAxelTmpFile"
-				#cat "$currentAxelTmpFile".tmp2 >> "$currentAxelTmpFile"
 			fi
 
 			let currentIteration=currentIteration+2
@@ -7085,10 +7276,11 @@ _wget_githubRelease_join-stdout() {
 
 		if ! [[ -e "$currentAxelTmpFile" ]]
 		then
-			return 1
+			true
+			# ### return 1
 		fi
 
-		cat "$currentAxelTmpFile"
+		# ### cat "$currentAxelTmpFile"
 
 		rm -f "$currentAxelTmpFile"
 		rm -f "$currentAxelTmpFile".aria2
@@ -7101,6 +7293,12 @@ _wget_githubRelease_join-stdout() {
 		rm -f "$currentAxelTmpFile".tmp2
 		rm -f "$currentAxelTmpFile".tmp2.st
 		rm -f "$currentAxelTmpFile".tmp2.aria2
+		rm -f "$currentAxelTmpFile".tmp3
+		rm -f "$currentAxelTmpFile".tmp3.st
+		rm -f "$currentAxelTmpFile".tmp3.aria2
+		rm -f "$currentAxelTmpFile".tmp4
+		rm -f "$currentAxelTmpFile".tmp4.st
+		rm -f "$currentAxelTmpFile".tmp4.aria2
 			
 		rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
 		
@@ -7110,6 +7308,352 @@ _wget_githubRelease_join-stdout() {
 		then
 			_messagePlain_probe curl -L "${currentURL_array_reversed[@]}" >&2
 			curl -L "${currentURL_array_reversed[@]}"
+		elif type -p gh > /dev/null 2>&1 && [[ "$GH_TOKEN" != "" ]] && [[ "$FORCE_WGET" != "true" ]]
+		then
+			
+			if [[ $(cat /proc/meminfo | grep MemTotal | tr -cd '[[:digit:]]') -gt 16379210 ]] && [[ "$FORCE_LOWTMP" != "true" ]]
+			then
+				
+				
+				
+				
+				# ATTENTION: Follows structure based on functionality for 'aria2c' .
+				
+				#local currentAxelTmpFile
+				#currentAxelTmpFile="$scriptAbsoluteFolder"/.m_axelTmp_$(_uid 14)
+				export currentAxelTmpFileRelative=.m_axelTmp_$(_uid 14)
+				export currentAxelTmpFile="$scriptAbsoluteFolder"/"$currentAxelTmpFileRelative"
+				
+				local currentPID_1
+				local currentPID_2
+				local currentPID_3
+				local currentPID_4
+				local currentIteration
+				currentIteration=0
+				local currentIterationNext1
+				let currentIterationNext1=currentIteration+1
+				local currentIterationNext2
+				let currentIterationNext2=currentIteration+2
+				local currentIterationNext3
+				let currentIterationNext3=currentIteration+3
+				rm -f "$currentAxelTmpFile"
+				rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+				while [[ "${currentURL_array_reversed[$currentIteration]}" != "" ]] || [[ "${currentURL_array_reversed[$currentIterationNext1]}" != "" ]] || [[ -e "$currentAxelTmpFile".tmp2 ]] || [[ "${currentURL_array_reversed[$currentIterationNext2]}" != "" ]] || [[ -e "$currentAxelTmpFile".tmp3 ]] || [[ "${currentURL_array_reversed[$currentIterationNext3]}" != "" ]] || [[ -e "$currentAxelTmpFile".tmp4 ]]
+				do
+					#rm -f "$currentAxelTmpFile"
+					rm -f "$currentAxelTmpFile".aria2 > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp.st > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp.aria2 > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp1 > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp1.st > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp1.aria2 > /dev/null 2>&1
+					#rm -f "$currentAxelTmpFile".tmp2 > /dev/null 2>&1
+					#rm -f "$currentAxelTmpFile".tmp2.st > /dev/null 2>&1
+					#rm -f "$currentAxelTmpFile".tmp2.aria2 > /dev/null 2>&1
+					#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+					
+					#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+
+					# https://github.com/aria2/aria2/issues/1108
+
+					if [[ "${currentURL_array_reversed[$currentIteration]}" != "" ]]
+					then
+						_messagePlain_probe _gh_downloadURL "${currentURL_array_reversed[$currentIteration]}" -O "$currentAxelTmpFileRelative".tmp1 >&2
+						#"$scriptAbsoluteLocation"
+						_gh_downloadURL "${currentURL_array_reversed[$currentIteration]}" -O "$currentAxelTmpFileRelative".tmp1 >&2 &
+						currentPID_1="$!"
+					fi
+					
+					
+					# CAUTION: ATTENTION: Very important. Simultaneous reading and writing is *very* important for writing directly to slow media (ie. BD-R) .
+					#  NOTICE: Wirting directly to slow BD-R is essential for burning a Live disc from having booted a Live disc.
+					#   DANGER: Critical for rapid recovery back to recent upstream 'ubdist/OS' ! Do NOT unnecessarily degrade this capability!
+					#  Also theoretically helpful with especially fast network connections.
+					#if [[ "$currentIteration" != "0" ]]
+					if [[ -e "$currentAxelTmpFile".tmp2 ]]
+					then
+						# ATTENTION: Staggered.
+						#sleep 10 > /dev/null 2>&1
+						wait "$currentPID_2" >&2
+						[[ "$currentPID_2" != "" ]] && _pauseForProcess "$currentPID_2" >&2
+						#wait >&2
+
+						sleep 0.2 > /dev/null 2>&1
+						if [[ -e "$currentAxelTmpFile".tmp2 ]]
+						then
+							_messagePlain_probe dd if="$currentAxelTmpFile".tmp2 bs=1M status=progress' >> '"$currentAxelTmpFile" >&2
+							
+							# ### dd if="$currentAxelTmpFile".tmp2 bs=5M status=progress >> "$currentAxelTmpFile"
+							dd if="$currentAxelTmpFile".tmp2 bs=1M status=progress
+							#cat "$currentAxelTmpFile".tmp2
+							
+							du -sh "$currentAxelTmpFile".tmp2 >> "$currentAxelTmpFile"
+							
+							#cat "$currentAxelTmpFile".tmp2 >> "$currentAxelTmpFile"
+						fi
+					else
+						if [[ "$currentIteration" == "0" ]]
+						then
+							# ATTENTION: Staggered.
+							#sleep 6 > /dev/null 2>&1
+							true
+						fi
+					fi
+					rm -f "$currentAxelTmpFile".tmp2 > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp2.st > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp2.aria2 > /dev/null 2>&1
+					#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+					
+					if [[ "${currentURL_array_reversed[$currentIterationNext1]}" != "" ]]
+					then
+						_messagePlain_probe _gh_downloadURL "${currentURL_array_reversed[$currentIterationNext1]}" -O "$currentAxelTmpFileRelative".tmp2 >&2
+						#"$scriptAbsoluteLocation" 
+						_gh_downloadURL "${currentURL_array_reversed[$currentIterationNext1]}" -O "$currentAxelTmpFileRelative".tmp2 >&2 &
+						currentPID_2="$!"
+					fi
+					
+					
+					
+					if [[ -e "$currentAxelTmpFile".tmp3 ]]
+					then
+						# ATTENTION: Staggered.
+						#sleep 10 > /dev/null 2>&1
+						wait "$currentPID_3" >&2
+						[[ "$currentPID_3" != "" ]] && _pauseForProcess "$currentPID_3" >&2
+						#wait >&2
+
+						sleep 0.2 > /dev/null 2>&1
+						if [[ -e "$currentAxelTmpFile".tmp3 ]]
+						then
+							_messagePlain_probe dd if="$currentAxelTmpFile".tmp3 bs=1M status=progress' >> '"$currentAxelTmpFile" >&2
+							
+							# ### dd if="$currentAxelTmpFile".tmp3 bs=5M status=progress >> "$currentAxelTmpFile"
+							dd if="$currentAxelTmpFile".tmp3 bs=1M status=progress
+							#cat "$currentAxelTmpFile".tmp3
+							
+							du -sh "$currentAxelTmpFile".tmp3 >> "$currentAxelTmpFile"
+							
+							#cat "$currentAxelTmpFile".tmp3 >> "$currentAxelTmpFile"
+						fi
+					else
+						if [[ "$currentIteration" == "0" ]]
+						then
+							# ATTENTION: Staggered.
+							#sleep 6 > /dev/null 2>&1
+							true
+						fi
+					fi
+					rm -f "$currentAxelTmpFile".tmp3 > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp3.st > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp3.aria2 > /dev/null 2>&1
+					#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+					
+					if [[ "${currentURL_array_reversed[$currentIterationNext2]}" != "" ]]
+					then
+						_messagePlain_probe _gh_downloadURL "${currentURL_array_reversed[$currentIterationNext2]}" -O "$currentAxelTmpFileRelative".tmp3 >&2
+						#"$scriptAbsoluteLocation" 
+						_gh_downloadURL "${currentURL_array_reversed[$currentIterationNext2]}" -O "$currentAxelTmpFileRelative".tmp3 >&2 &
+						currentPID_3="$!"
+					fi
+					
+					
+					
+					if [[ -e "$currentAxelTmpFile".tmp4 ]]
+					then
+						# ATTENTION: Staggered.
+						#sleep 10 > /dev/null 2>&1
+						wait "$currentPID_4" >&2
+						[[ "$currentPID_4" != "" ]] && _pauseForProcess "$currentPID_4" >&2
+						#wait >&2
+
+						sleep 0.2 > /dev/null 2>&1
+						if [[ -e "$currentAxelTmpFile".tmp4 ]]
+						then
+							_messagePlain_probe dd if="$currentAxelTmpFile".tmp4 bs=1M status=progress' >> '"$currentAxelTmpFile" >&2
+							
+							# ### dd if="$currentAxelTmpFile".tmp4 bs=5M status=progress >> "$currentAxelTmpFile"
+							dd if="$currentAxelTmpFile".tmp4 bs=1M status=progress
+							#cat "$currentAxelTmpFile".tmp4
+							
+							du -sh "$currentAxelTmpFile".tmp4 >> "$currentAxelTmpFile"
+							
+							#cat "$currentAxelTmpFile".tmp4 >> "$currentAxelTmpFile"
+						fi
+					else
+						if [[ "$currentIteration" == "0" ]]
+						then
+							# ATTENTION: Staggered.
+							#sleep 6 > /dev/null 2>&1
+							true
+						fi
+					fi
+					rm -f "$currentAxelTmpFile".tmp4 > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp4.st > /dev/null 2>&1
+					rm -f "$currentAxelTmpFile".tmp4.aria2 > /dev/null 2>&1
+					#rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+					
+					if [[ "${currentURL_array_reversed[$currentIterationNext3]}" != "" ]]
+					then
+						_messagePlain_probe _gh_downloadURL "${currentURL_array_reversed[$currentIterationNext3]}" -O "$currentAxelTmpFileRelative".tmp4 >&2
+						#"$scriptAbsoluteLocation" 
+						_gh_downloadURL "${currentURL_array_reversed[$currentIterationNext3]}" -O "$currentAxelTmpFileRelative".tmp4 >&2 &
+						currentPID_4="$!"
+					fi
+					
+					
+
+					# ATTENTION: NOT staggered.
+					#wait "$currentPID_1" >&2
+					#[[ "$currentPID_1" != "" ]] && _pauseForProcess "$currentPID_1" >&2
+					#wait "$currentPID_2" >&2
+					#[[ "$currentPID_2" != "" ]] && _pauseForProcess "$currentPID_2" >&2
+					#wait "$currentPID_3" >&2
+					#[[ "$currentPID_3" != "" ]] && _pauseForProcess "$currentPID_3" >&2
+					#wait "$currentPID_4" >&2
+					#[[ "$currentPID_4" != "" ]] && _pauseForProcess "$currentPID_4" >&2
+					#wait >&2
+					
+					if [[ "$currentIteration" == "0" ]]
+					then
+						# CAUTION: Workaround for DUMMY , ONLY . Will NOT, by design, accept files that are both >1part and <4parts .
+						#  This is to confidently reject failures to acquire part4 during the initial multiple connections.
+						#sleep 7
+						sleep 90
+						if ( [[ ! -e "$currentAxelTmpFileRelative".tmp1 ]] || [[ ! -e "$currentAxelTmpFileRelative".tmp2 ]] || [[ ! -e "$currentAxelTmpFileRelative".tmp3 ]] || [[ ! -e "$currentAxelTmpFileRelative".tmp4 ]] ) && ! ( [[ -e "$currentAxelTmpFileRelative".tmp1 ]] && ( [[ ! -e "$currentAxelTmpFileRelative".tmp2 ]] || [[ ! -e "$currentAxelTmpFileRelative".tmp3 ]] || [[ ! -e "$currentAxelTmpFileRelative".tmp4 ]] ) )
+						then
+							_messageFAIL >&2
+							_messageFAIL
+							_stop 1
+							return 1
+						fi
+						wait "$currentPID_1" >&2
+						[[ "$currentPID_1" != "" ]] && _pauseForProcess "$currentPID_1" >&2
+						sleep 6 > /dev/null 2>&1
+						[[ "$currentPID_2" == "" ]] && sleep 35 > /dev/null 2>&1
+						[[ "$currentPID_2" != "" ]] && wait "$currentPID_2" >&2
+						[[ "$currentPID_2" != "" ]] && _pauseForProcess "$currentPID_2" >&2
+						[[ "$currentPID_3" != "" ]] && wait "$currentPID_3" >&2
+						[[ "$currentPID_3" != "" ]] && _pauseForProcess "$currentPID_3" >&2
+						[[ "$currentPID_4" != "" ]] && wait "$currentPID_4" >&2
+						[[ "$currentPID_4" != "" ]] && _pauseForProcess "$currentPID_4" >&2
+						wait >&2
+					fi
+
+					wait "$currentPID_1" >&2
+					[[ "$currentPID_1" != "" ]] && _pauseForProcess "$currentPID_1" >&2
+					sleep 0.2 > /dev/null 2>&1
+					if [[ -e "$currentAxelTmpFile".tmp1 ]]
+					then
+						_messagePlain_probe dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress' >> '"$currentAxelTmpFile" >&2
+						
+						if [[ ! -e "$currentAxelTmpFile" ]]
+						then
+							# ### mv -f "$currentAxelTmpFile".tmp1 "$currentAxelTmpFile"
+							dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress
+							
+							du -sh "$currentAxelTmpFile".tmp1 >> "$currentAxelTmpFile"
+						else
+							# ATTENTION: Staggered.
+							#dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress >> "$currentAxelTmpFile" &
+						
+							# ATTENTION: NOT staggered.
+							# ### dd if="$currentAxelTmpFile".tmp1 bs=5M status=progress >> "$currentAxelTmpFile"
+							dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress
+							#cat "$currentAxelTmpFile".tmp1
+							
+							du -sh "$currentAxelTmpFile".tmp1 >> "$currentAxelTmpFile"
+							
+							#cat "$currentAxelTmpFile".tmp1 >> "$currentAxelTmpFile"
+						fi
+					fi
+
+					let currentIteration=currentIteration+4
+					let currentIterationNext1=currentIteration+1
+					let currentIterationNext2=currentIteration+2
+					let currentIterationNext3=currentIteration+3
+				done
+
+				if ! [[ -e "$currentAxelTmpFile" ]]
+				then
+					true
+					# ### return 1
+				fi
+
+				# ### cat "$currentAxelTmpFile"
+
+				rm -f "$currentAxelTmpFile"
+				rm -f "$currentAxelTmpFile".aria2
+				rm -f "$currentAxelTmpFile".tmp
+				rm -f "$currentAxelTmpFile".tmp.st
+				rm -f "$currentAxelTmpFile".tmp.aria2
+				rm -f "$currentAxelTmpFile".tmp1
+				rm -f "$currentAxelTmpFile".tmp1.st
+				rm -f "$currentAxelTmpFile".tmp1.aria2
+				rm -f "$currentAxelTmpFile".tmp2
+				rm -f "$currentAxelTmpFile".tmp2.st
+				rm -f "$currentAxelTmpFile".tmp2.aria2
+				rm -f "$currentAxelTmpFile".tmp3
+				rm -f "$currentAxelTmpFile".tmp3.st
+				rm -f "$currentAxelTmpFile".tmp3.aria2
+				rm -f "$currentAxelTmpFile".tmp4
+				rm -f "$currentAxelTmpFile".tmp4.st
+				rm -f "$currentAxelTmpFile".tmp4.aria2
+				
+				rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+				
+				
+				
+			else
+				#local currentAxelTmpFile
+				#currentAxelTmpFile="$scriptAbsoluteFolder"/.m_axelTmp_$(_uid 14)
+				export currentAxelTmpFileRelative=.m_axelTmp_$(_uid 14)
+				export currentAxelTmpFile="$scriptAbsoluteFolder"/"$currentAxelTmpFileRelative"
+				
+				local currentPID_1
+				
+				local currentIteration
+				currentIteration=0
+				
+				while [[ "${currentURL_array_reversed[$currentIteration]}" != "" ]]
+				do
+					#_messagePlain_probe _gh_downloadURL "${currentURL_array_reversed[$currentIteration]}" -O - >&2
+					##"$scriptAbsoluteLocation"
+					#_gh_downloadURL "${currentURL_array_reversed[$currentIteration]}" -O - | dd bs=1M status=progress
+					
+					
+					
+					_messagePlain_probe _gh_downloadURL "${currentURL_array_reversed[$currentIteration]}" -O "$currentAxelTmpFile".tmp1 >&2
+					#"$scriptAbsoluteLocation"
+					_gh_downloadURL "${currentURL_array_reversed[$currentIteration]}" -O "$currentAxelTmpFile".tmp1 >&2 &
+					currentPID_1="$!"
+					
+					sleep 6 > /dev/null 2>&1
+					
+					wait "$currentPID_1" >&2
+					[[ "$currentPID_1" != "" ]] && wait "$currentPID_1" >&2
+					[[ "$currentPID_1" != "" ]] && _pauseForProcess "$currentPID_1" >&2
+					wait >&2
+					
+					
+					
+					dd if="$currentAxelTmpFile".tmp1 bs=1M status=progress
+					rm -f "$currentAxelTmpFile".tmp1
+					
+					
+					let currentIteration=currentIteration+1
+				done
+				
+				
+				rm -f "$currentAxelTmpFile"
+				rm -f "$currentAxelTmpFile".aria2
+				rm -f "$currentAxelTmpFile".tmp1
+				rm -f "$currentAxelTmpFile".* > /dev/null 2>&1
+			fi
+			
+			
+			
+			
 		else
 			_messagePlain_probe curl -H '"Authorization: Bearer $GH_TOKEN"' -L "${currentURL_array_reversed[@]}" >&2
 			curl -H "Authorization: Bearer $GH_TOKEN" -L "${currentURL_array_reversed[@]}"
@@ -7552,6 +8096,113 @@ CZXWXcRMTo8EmM8i4d
 
 
 
+_setupUbiquitous_accessories_here-coreoracle_bashrc() {
+	
+	if _if_cygwin
+	then
+		cat << CZXWXcRMTo8EmM8i4d
+
+if [[ -e /cygdrive/c/core/infrastructure/coreoracle ]]
+then
+	export shortcutsPath_coreoracle=/cygdrive/c/"core/infrastructure/coreoracle"
+	. /cygdrive/c/core/infrastructure/coreoracle/_shortcuts-cygwin.sh
+elif [[ -e /cygdrive/c/core/infrastructure/extendedInterface/_lib/coreoracle-msw ]]
+then
+	export shortcutsPath_coreoracle=/cygdrive/c/"core/infrastructure/extendedInterface/_lib/coreoracle-msw"
+	. /cygdrive/c/core/infrastructure/extendedInterface/_lib/coreoracle-msw/_shortcuts-cygwin.sh
+#elif [[ -e /cygdrive/c/core/infrastructure/extendedInterface/_lib/coreoracle ]]
+#then
+	#export shortcutsPath_coreoracle=/cygdrive/c/"core/infrastructure/extendedInterface/_lib/coreoracle"
+	#. /cygdrive/c/core/infrastructure/extendedInterface/_lib/coreoracle/_shortcuts-cygwin.sh
+fi
+
+
+if [[ -e /cygdrive/c/core/infrastructure/quickWriter ]]
+then
+	export shortcutsPath_quickWriter=/cygdrive/c/"core/infrastructure/quickWriter"
+	. /cygdrive/c/core/infrastructure/quickWriter/_shortcuts-cygwin.sh
+elif [[ -e /cygdrive/c/core/infrastructure/extendedInterface/_lib/quickWriter-msw ]]
+then
+	export shortcutsPath_quickWriter=/cygdrive/c/"core/infrastructure/extendedInterface/_lib/quickWriter-msw"
+	. /cygdrive/c/core/infrastructure/extendedInterface/_lib/quickWriter-msw/_shortcuts-cygwin.sh
+elif [[ -e /cygdrive/c/core/infrastructure/extendedInterface/_lib/quickWriter ]]
+then
+	export shortcutsPath_quickWriter=/cygdrive/c/"core/infrastructure/extendedInterface/_lib/quickWriter"
+	. /cygdrive/c/core/infrastructure/extendedInterface/_lib/quickWriter/_shortcuts-cygwin.sh
+fi
+
+CZXWXcRMTo8EmM8i4d
+	else
+		cat << CZXWXcRMTo8EmM8i4d
+
+if type sudo > /dev/null 2>&1 && groups | grep -E 'wheel|sudo' > /dev/null 2>&1 && ! uname -a | grep -i cygwin > /dev/null 2>&1
+then
+	# Greater or equal, '_priority_critical_pid_root' .
+	sudo -n renice -n -15 -p \$\$ > /dev/null 2>&1
+	sudo -n ionice -c 2 -n 2 -p \$\$ > /dev/null 2>&1
+fi
+
+
+
+if [[ -e "$HOME"/core/infrastructure/coreoracle ]]
+then
+	export shortcutsPath_coreoracle="$HOME"/core/infrastructure/coreoracle/
+	. "$HOME"/core/infrastructure/coreoracle/_shortcuts.sh
+fi
+
+
+if [[ -e "$HOME"/core/infrastructure/quickWriter ]]
+then
+	export shortcutsPath_quickWriter="$HOME"/core/infrastructure/quickWriter/
+	. "$HOME"/core/infrastructure/quickWriter/_shortcuts.sh
+fi
+
+
+
+# Returns priority to normal.
+# Greater or equal, '_priority_app_pid_root' .
+#ionice -c 2 -n 3 -p \$\$
+#renice -n -5 -p \$\$ > /dev/null 2>&1
+
+# Returns priority to normal.
+# Greater or equal, '_priority_app_pid' .
+ionice -c 2 -n 4 -p \$\$
+renice -n 0 -p \$\$ > /dev/null 2>&1
+
+
+CZXWXcRMTo8EmM8i4d
+	fi
+}
+
+
+
+
+
+
+
+_setupUbiquitous_accessories_here-user_bashrc() {
+	
+	# Calls   "$HOME"/_bashrc   as a place for user defined functions, environment varialbes, etc, which should NOT follow dist/OS updates (eg. extendedInterface reinstallation) and should be copied after dist/OS reinstallation (ie. placed on an SDCard or similar before '_revert-fromLive /dev/sda' .
+	#  WARNING: Nevertheless, bashrc is very bad practice . Instead, functionality should be pushed upstream (eg. to 'ubiquitous bash', etc) .
+	#   The exception may be very specialized infrastructure (ie. conveniently calling specialized Virtual Machines).
+	
+	cat << CZXWXcRMTo8EmM8i4d
+
+if [[ -e "$HOME"/_bashrc ]]
+then
+	. "$HOME"/_bashrc
+fi
+
+CZXWXcRMTo8EmM8i4d
+
+}
+
+
+
+
+
+
+
 
 
 
@@ -7677,8 +8328,15 @@ _setupUbiquitous_accessories_bashrc() {
 	
 	#echo true
 	
+	
+	_setupUbiquitous_accessories_here-coreoracle_bashrc "$@"
+	
+	
 	# WARNING: Python must remain last. Failure to hook python is a failure that must show as an error exit status from the users profile (a red "1" on the first line of first visual prompt command prompt).
 	_setupUbiquitous_accessories_here-python_bashrc "$@"
+	
+	
+	_setupUbiquitous_accessories_here-user_bashrc "$@"
 	
 	#echo true
 }
@@ -7696,6 +8354,21 @@ _setupUbiquitous_accessories_requests() {
 
 
 
+_setupUbiquitous_safe_bashrc() {
+
+cat << CZXWXcRMTo8EmM8i4d
+#Generates semi-random alphanumeric characters, default length 18.
+#_uid() {
+	#local currentLengthUID
+	#currentLengthUID="\$1"
+	#[[ "\$currentLengthUID" == "" ]] && currentLengthUID=18
+	#cat /dev/random 2> /dev/null | base64 2> /dev/null | tr -dc 'a-zA-Z0-9' 2> /dev/null | tr -d 'acdefhilmnopqrsuvACDEFHILMNOPQRSU14580' | head -c "\$currentLengthUID" 2> /dev/null
+	#return
+#}
+_safe_declare_uid
+CZXWXcRMTo8EmM8i4d
+
+}
 
 _setupUbiquitous_here() {
 	! uname -a | grep -i cygwin > /dev/null 2>&1 && cat << CZXWXcRMTo8EmM8i4d
@@ -8013,6 +8686,7 @@ _setupUbiquitous() {
 	
 	_setupUbiquitous_here > "$ubcoreFile"
 	_setupUbiquitous_accessories_bashrc >> "$ubcoreFile"
+	_setupUbiquitous_safe_bashrc >> "$ubcoreFile"
 	! [[ -e "$ubcoreFile" ]] && _messagePlain_bad 'missing: ubcoreFile= '"$ubcoreFile" && _messageFAIL && return 1
 	
 	
@@ -8944,6 +9618,12 @@ export ub_anchor_autoupgrade
 
 
 
+
+#_set_GH_TOKEN() {
+	#[[ "$GH_TOKEN" != "" ]] && export GH_TOKEN=$(_safeEcho "$GH_TOKEN" | tr -dc 'a-zA-Z0-9_')
+	#[[ "$INPUT_GITHUB_TOKEN" != "" ]] && export INPUT_GITHUB_TOKEN=$(_safeEcho "$INPUT_GITHUB_TOKEN" | tr -dc 'a-zA-Z0-9_')
+#}
+#_set_GH_TOKEN
 
 
 
@@ -14019,6 +14699,7 @@ _test() {
 	
 	_getDep dd
 	_wantGetDep blockdev
+	_wantGetDep lsblk
 	
 	_getDep rm
 	
@@ -19497,6 +20178,8 @@ _init_deps() {
 	export enUb_dev=""
 	export enUb_dev_heavy=""
 	
+	export enUb_generic=""
+	
 	export enUb_cloud_heavy=""
 	
 	export enUb_mount=""
@@ -19545,6 +20228,7 @@ _init_deps() {
 	
 	export enUb_hardware=""
 	export enUb_enUb_x220t=""
+	export enUb_enUb_w540=""
 	export enUb_enUb_peripherial=""
 	
 	export enUb_user=""
@@ -19563,7 +20247,13 @@ _init_deps() {
 	export enUb_calculators=""
 }
 
+_deps_generic() {
+	export enUb_generic="true"
+}
+
 _deps_dev() {
+	_deps_generic
+	
 	export enUb_dev="true"
 }
 
@@ -19853,6 +20543,12 @@ _deps_x220t() {
 	export enUb_x220t="true"
 }
 
+_deps_w540() {
+	_deps_notLean
+	_deps_hardware
+	export enUb_w540="true"
+}
+
 _deps_peripherial() {
 	_deps_notLean
 	_deps_hardware
@@ -19880,13 +20576,19 @@ _deps_linux() {
 }
 
 _deps_python() {
+	_deps_generic
+	
 	export enUb_python="true"
 }
 _deps_haskell() {
+	_deps_generic
+	
 	export enUb_haskell="true"
 }
 
 _deps_calculators() {
+	_deps_generic
+	
 	export enUb_calculators="true"
 }
 
@@ -20431,6 +21133,12 @@ _compile_bash_deps() {
 		_deps_getVeracrypt
 		_deps_linux
 		
+		_deps_hardware
+		_deps_x220t
+		_deps_w540
+		
+		_deps_generic
+		
 		_deps_python
 		_deps_haskell
 		
@@ -20485,6 +21193,8 @@ _compile_bash_deps() {
 	if [[ "$1" == "processor" ]]
 	then
 		_deps_dev
+		
+		_deps_generic
 		
 		_deps_python
 		_deps_haskell
@@ -20581,6 +21291,8 @@ _compile_bash_deps() {
 		_deps_fakehome
 		_deps_abstractfs
 		
+		_deps_generic
+		
 		_deps_python
 		_deps_haskell
 		
@@ -20614,6 +21326,7 @@ _compile_bash_deps() {
 		
 		#_deps_hardware
 		#_deps_x220t
+		#_deps_w540
 		#_deps_peripherial
 		
 		#_deps_user
@@ -20676,6 +21389,8 @@ _compile_bash_deps() {
 		_deps_fakehome
 		_deps_abstractfs
 		
+		_deps_generic
+		
 		_deps_python
 		_deps_haskell
 		
@@ -20709,6 +21424,7 @@ _compile_bash_deps() {
 		
 		#_deps_hardware
 		#_deps_x220t
+		#_deps_w540
 		#_deps_peripherial
 		
 		#_deps_user
@@ -20771,6 +21487,8 @@ _compile_bash_deps() {
 		_deps_fakehome
 		_deps_abstractfs
 		
+		_deps_generic
+		
 		_deps_python
 		_deps_haskell
 		
@@ -20804,6 +21522,7 @@ _compile_bash_deps() {
 		
 		_deps_hardware
 		_deps_x220t
+		_deps_w540
 		_deps_peripherial
 		
 		_deps_user
@@ -20968,6 +21687,8 @@ _compile_bash_utilities() {
 	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] ) && includeScriptList+=( "os/distro"/getMinimal_special.sh )
 	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] ) && includeScriptList+=( "os/distro/unix/openssl"/splice_openssl.sh )
 	
+	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] ) && includeScriptList+=( "os/distro"/getMost_special_zWorkarounds.sh )
+	
 	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_getMinimal" == "true" ]] || [[ "$enUb_getMost_special_veracrypt" == "true" ]] ) && includeScriptList+=( "os/distro"/getMost_special_veracrypt.sh )
 	
 	
@@ -20983,6 +21704,8 @@ _compile_bash_utilities() {
 	
 	[[ "$enUb_dev_heavy" == "true" ]] && includeScriptList+=( "instrumentation"/bashdb/bashdb.sh )
 	( [[ "$enUb_notLean" == "true" ]] || [[ "$enUb_stopwatch" == "true" ]] ) && includeScriptList+=( "instrumentation"/profiling/stopwatch.sh )
+	
+	[[ "$enUb_generic" == "true" ]] && includeScriptList+=( "generic"/generic.sh )
 }
 
 # Specifically intended to support Eclipse as necessary for building existing software .
@@ -21269,6 +21992,8 @@ _compile_bash_user() {
 
 _compile_bash_hardware() {
 	[[ "$enUb_hardware" == "true" ]] && [[ "$enUb_x220t" == "true" ]] && includeScriptList+=( "hardware/x220t"/x220_display.sh )
+	[[ "$enUb_hardware" == "true" ]] && [[ "$enUb_w540" == "true" ]] && includeScriptList+=( "hardware/w540"/w540_display.sh )
+	[[ "$enUb_hardware" == "true" ]] && [[ "$enUb_w540" == "true" ]] && includeScriptList+=( "hardware/w540"/w540_fan.sh )
 	
 	[[ "$enUb_hardware" == "true" ]] && [[ "$enUb_peripherial" == "true" ]] && includeScriptList+=( "hardware/peripherial/h1060p"/h1060p.sh )
 }
@@ -21999,6 +22724,8 @@ _wrap() {
 	[[ "$LANG" != "C" ]] && export LANG=C
 	. "$HOME"/.ubcore/.ubcorerc
 	
+	_safe_declare_uid
+	
 	if uname -a | grep -i 'microsoft' > /dev/null 2>&1 && uname -a | grep -i 'WSL2' > /dev/null 2>&1
 	then
 		local currentArg
@@ -22027,10 +22754,14 @@ _wrap() {
 
 #Wrapper function to launch arbitrary commands within the ubiquitous_bash environment, including its PATH with scriptBin.
 _bin() {
+	_safe_declare_uid
+	
 	"$@"
 }
 #Mostly intended to launch bash prompt for MSW/Cygwin users.
 _bash() {
+	_safe_declare_uid
+	
 	local currentIsCygwin
 	currentIsCygwin='false'
 	[[ -e '/cygdrive' ]] && uname -a | grep -i cygwin > /dev/null 2>&1 && _if_cygwin && currentIsCygwin='true'
@@ -22042,10 +22773,13 @@ _bash() {
 	_visualPrompt
 	[[ "$ub_scope_name" != "" ]] && _scopePrompt
 	
+	_safe_declare_uid
+	
 	
 	[[ "$1" == '-i' ]] && shift
 	
 	
+	_safe_declare_uid
 	
 	if [[ "$currentIsCygwin" == 'true' ]] && grep ubcore "$HOME"/.bashrc > /dev/null 2>&1 && [[ "$scriptAbsoluteLocation" == *"lean.sh" ]]
 	then
@@ -22075,6 +22809,8 @@ _bash() {
 
 #Mostly if not entirely intended for end user convenience.
 _python() {
+	_safe_declare_uid
+	
 	if [[ -e "$safeTmp"/lean.py ]]
 	then
 		"$safeTmp"/lean.py '_python()'
@@ -22095,23 +22831,33 @@ _python() {
 
 #Launch internal functions as commands, and other commands, as root.
 _sudo() {
+	_safe_declare_uid
+	
 	sudo -n "$scriptAbsoluteLocation" _bin "$@"
 }
 
 _true() {
+	_safe_declare_uid
+	
 	#"$scriptAbsoluteLocation" _false && return 1
 	#  ! "$scriptAbsoluteLocation" _bin true && return 1
 	#"$scriptAbsoluteLocation" _bin false && return 1
 	true
 }
 _false() {
+	_safe_declare_uid
+	
 	false
 }
 _echo() {
+	_safe_declare_uid
+	
 	echo "$@"
 }
 
 _diag() {
+	_safe_declare_uid
+	
 	echo "$sessionid"
 }
 
